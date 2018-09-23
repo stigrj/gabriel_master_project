@@ -37,7 +37,7 @@
 
 \newcommand{\etal}{{\emph{et al.}\ }}
 
-\title{Combining the Polarizable Continuum Model with Multresolution
+\title{Combining the Polarizable Continuum Model with Multiresolution
   analysis: a cavity-free approach to solvent effects}
 
 \author{Gabriel Adolfo Gerez}
@@ -50,7 +50,7 @@
 
 One of the research activities carried out at the \ac{TCG} consists in
 the development and application of \ac{DFT} methods in combination of
-\ac{MW}. The deveoped code, called \mrchem{} is able to perform calculation of
+\ac{MW}. The developed code, called \mrchem{} is able to perform calculation of
 moleculatr energy and properties at the \ac{CBS} limit, with
 predefined and guaranteed precision, in virtue of the properties of
 \ac{MW}. In order to extend the applicability of the code, a desirable
@@ -86,11 +86,15 @@ methods.
 
 \subsubsection{Python implementation}
 
+I will implement the methods necessary for this project using Python. I will also assist in development of the 'vampyr' branch of MRCpp which will be merged with the main branch of the group later.
+
 \subsubsection{C++ implementation}
 
 \subsubsection{Variational formulation}
 
 \subsubsection{Density-dependent cavity}
+
+The cavity that is described by the interlocking spheres created by the position of the atoms and their Van der Waals radius. This will be developed such that this cavity can be represented by the electron density instead, thus making the cavity more dynamic to changes and forces acting on the molecule. This will give us a density dependent dielectric function.
 
 \subsubsection{Molecular properties}
 
@@ -123,6 +127,8 @@ draw=blue, dashed, very thick}
 
 
 \subsection{Tools and Methods}
+
+I will make use of stallo in some of my computations. I will also make use of the methods already implemented in the 'Vampyr' branch of 'MRCpp'.
 
 \subsection*{References}
 %\footnotesize
