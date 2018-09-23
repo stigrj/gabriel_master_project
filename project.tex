@@ -1,0 +1,142 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{pgfgantt}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks, 
+            breaklinks, 
+            urlcolor=blue, 
+            linkcolor=blue, 
+            citecolor=blue} % Set link colors
+\usepackage[left=2cm,top=2cm,bottom=2cm,right=2cm]{geometry}
+\setlength{\parskip}{0.75ex}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{amsmath,amssymb,amstext,amsfonts,euscript}
+\usepackage[nohyperlinks,nolist]{acronym}
+\usepackage[firstinits=true,backend=biber,maxbibnames=1,doi=false,isbn=false,url=false,style=numeric-comp,sorting=none]{biblatex}
+%\renewcommand{\bibfont}{\normalfont\footnotesize}
+%\defbibenvironment{bibliography}
+%  {\noindent}
+%  {\unspace}
+%  {\printtext[bold]{\printtext[labelnumberwidth]{%
+%    \printfield{prefixnumber}%
+%    \printfield{labelnumber}}}
+%    \addspace}
+%\renewbibmacro*{finentry}{\finentry\quad}
+%\renewbibmacro{in:}{}
+%\DeclareFieldFormat[article]{pages}{#1}%
+%\DeclareFieldFormat[article]{title}{} % uncomment to remove title in bibliography
+\addbibresource{misc-refs.bib}
+\addbibresource{papers.bib}
+
+
+
+\newcommand{\pcmsol}{\texttt{PCMSolver}}
+\newcommand{\mrchem}{\href{https://mrchem.readthedocs.io/en/latest/}{\texttt{MRChem}}}
+
+\newcommand{\etal}{{\emph{et al.}\ }}
+
+\title{Combining the Polarizable Continuum Model with Multresolution
+  analysis: a cavity-free approach to solvent effects}
+
+\author{Gabriel Adolfo Gerez}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+One of the research activities carried out at the \ac{TCG} consists in
+the development and application of \ac{DFT} methods in combination of
+\ac{MW}. The deveoped code, called \mrchem{} is able to perform calculation of
+moleculatr energy and properties at the \ac{CBS} limit, with
+predefined and guaranteed precision, in virtue of the properties of
+\ac{MW}. In order to extend the applicability of the code, a desirable
+feature is the inclusion of the solvent effect. That would allow to
+extend the applicability of \mrchem{} to molecules surrounded by an
+environment (generally a solvent), which is most often the case in
+practical applications.
+
+\section{Methods}
+
+\subsection{Multiwavelets}
+
+\subsection{Density Functional Theory}
+
+\subsection{Solvent effect}
+
+\subsection{Project goal}
+
+I will provide \mrchem{} with the
+framework to include environmental effect. Currently such a capability
+is present in a separate branch of the code and shall be transferred
+to the master branch to make it available for applications.
+
+\subsection{Plan and milestones}
+
+The master project will be divided into the following activities.
+
+\subsubsection{Literature search and theoretical development}
+
+To carry out the project successfully, I will acquire the relevant
+background in the following topics: \acl{DFT}, \aclp{MW}, and \acl{DC}
+methods.
+
+\subsubsection{Python implementation}
+
+\subsubsection{C++ implementation}
+
+\subsubsection{Variational formulation}
+
+\subsubsection{Density-dependent cavity}
+
+\subsubsection{Molecular properties}
+
+\begin{figure}[!htb]
+\begin{ganttchart}
+[
+x unit = 10mm,
+y unit chart = 5mm,
+y unit title = 6mm,
+hgrid, vgrid,
+milestone/.append style={fill=orange, rounded corners=3pt},
+canvas/.style=%
+{shape=rectangle, fill=yellow!25,
+draw=blue, dashed, very thick}
+]
+{1}{9}
+\gantttitle{2018}{4} 
+\gantttitle{2019}{5} \\
+\gantttitlelist{9,10,11,12,1,2,3,4,5}{1} \\
+\ganttgroup{Literature study}{1}{6} \\
+\ganttgroup{Python Implementation}{1}{2} \\
+\ganttgroup{C++ implementation }{2}{4} \\
+\ganttgroup{Variational Formulation}{4}{7} \\
+\ganttgroup{Molecular properties}{5}{9} \\
+\end{ganttchart}
+  \caption{The timeline of the project illustrating the expected
+    start and completion of each milestone}
+  \label{fig:gantt}
+\end{figure}
+
+
+\subsection{Tools and Methods}
+
+\subsection*{References}
+%\footnotesize
+\printbibliography[heading=none]
+
+
+\input{acronyms.tex}
+
+\end{document}
+
+
+Michal
+Magnus
+Roberto
+Arne
+Peter
+Arnfinn
