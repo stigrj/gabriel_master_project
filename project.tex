@@ -15,6 +15,8 @@
 \usepackage{amsmath,amssymb,amstext,amsfonts,euscript}
 \usepackage[nohyperlinks,nolist]{acronym}
 \usepackage[firstinits=true,backend=biber,maxbibnames=1,doi=false,isbn=false,url=false,style=numeric-comp,sorting=none]{biblatex}
+%\usepackage[disable, colorinlistoftodos, textsize=small]{todonotes}
+\usepackage[colorinlistoftodos, textsize=small]{todonotes}
 %\renewcommand{\bibfont}{\normalfont\footnotesize}
 %\defbibenvironment{bibliography}
 %  {\noindent}
@@ -29,11 +31,13 @@
 %\DeclareFieldFormat[article]{title}{} % uncomment to remove title in bibliography
 \addbibresource{misc-refs.bib}
 \addbibresource{papers.bib}
+\AtEveryBibitem{\clearlist{language}}
 
 
 
 \newcommand{\pcmsol}{\texttt{PCMSolver}}
 \newcommand{\mrchem}{\href{https://mrchem.readthedocs.io/en/latest/}{\texttt{MRChem}}}
+\newcommand{\mrcpp}{\href{https://mrcpp.readthedocs.io/en/latest/}{\texttt{mrcpp}}}
 
 \newcommand{\etal}{{\emph{et al.}\ }}
 
@@ -51,7 +55,7 @@
 One of the research activities carried out at the \ac{TCG} consists in
 the development and application of \ac{DFT} methods in combination of
 \ac{MW}. The developed code, called \mrchem{} is able to perform calculation of
-moleculatr energy and properties at the \ac{CBS} limit, with
+molecular energy and properties at the \ac{CBS} limit, with
 predefined and guaranteed precision, in virtue of the properties of
 \ac{MW}. In order to extend the applicability of the code, a desirable
 feature is the inclusion of the solvent effect. That would allow to
@@ -62,44 +66,86 @@ practical applications.
 \section{Methods}
 
 \subsection{Multiwavelets}
-The schrodinger equation for a system with more than two atoms is too complicated for an exact solution. In order to solve it we use several approximations so that we can reach as accurate a result as possible while mantaining reasonable computation time.
-The \ac{BO} approximation lets us divide the equation into smaller parts. We can focus then on the electronic part of the problem.
+The Schrödinger equation for a system with more than two atoms is too
+complicated for an exact solution. In order to solve it we use several
+approximations so that we can reach as accurate a result as possible
+while mantaining reasonable computation time.  The \ac{BO}
+approximation lets us divide the equation into smaller parts. We can
+focus then on the electronic part of the problem.
 
 \begin{equation}
-H_e \Psi_e E_e \Psi_e
+H_e \Psi_e = E_e \Psi_e
 \end{equation}
 
- The electron wave-function must be determined to solve the equation. Given that it represents all the electrons in the system one can see that it is too complicated to solve exactly. Basis sets help solve this type of problems. They give a relativelly good approximation to the elctronic wavefunction so computation of the whole problem can be done more effectivelly.
+The electron wave-function must be determined to solve the
+equation. Given that it represents all the electrons in the system
+one can see that it is too complicated to solve exactly. Basis sets
+help solve this type of problems. They give a relativelly good
+approximation to the elctronic wavefunction so computation of the
+whole problem can be done more effectivelly.
  
 
-\ac{MW} basis have several properites that are useful when designing numerical solutions to partial differential equations. Some of these are orhtogonality of the wavelet spaces, vanishing moments
-%check more on that
-and locally adaptive representations of functions, where the grid can be refined to focus only on special places where it will refine furhter to reach the desired precision %remember sources please. 
-this gives flexibility to the type of problems that can be solved by use of this method.
+\ac{MW} basis have several properites that are useful when designing
+numerical solutions to partial differential equations. Some of these
+are orhtogonality of the wavelet spaces, vanishing moments
+and locally adaptive representations of functions, where the grid can
+be refined to focus only on special places where it will refine
+furhter to reach the desired precision \cite{Frediani:2013}
+This gives flexibility to the type of problems that can be solved by use of
+this method.
 
 
 I will learn how to implement this method and make adjustments to my computations to refine them.
 
 \subsection{Density Functional Theory}
 
-Hohenberg and kohn %source
-created a proof that stated that the electronic energy ($E_e$ in equation 1) is completelly determined by the electron density $\rho$. Other important aspects of this proof (outlined by E. B. wilson)%sources
-are as follows. The integral of the density determines the number of electrons (for a one elctron system the integral is equal to 1), the cusps and their heights define the position of the nuclei and the amount of nucleus charges respectivelly.
-Thus to solve for the energy of the system one only need to know the electron density and the functional that describes the energy in terms of the density. Since the electron density always depends on the same pamount of variables regardless of the amount of electrons it can make computations less heavy. the only problem is finding the right functional.
+Hohenberg and Kohn 
+demonstrated that the
+electronic energy ($E_e$ in equation 1) is completelly determined by
+the electron density $\rho$ \cite{Jensen:2017}. As outlined by E. B. Wilson, 
+the integral of the
+density determines the number of electrons (for a one elctron system
+the integral is equal to 1), the cusps and their heights define the
+position of the nuclei and the amount of nucleus charges
+respectivelly \cite{Jensen:2017}.  Thus to solve for the energy of the system one only
+need to know the electron density and the functional that describes
+the energy in terms of the density. Since the electron density always
+depends on the same pamount of variables regardless of the amount of
+electrons it can make computations less heavy. the only problem is
+finding the right functional.
 
- 
 
 \subsection{Solvent effect}
 
-The goal with theorethical chemistry is to simulate chemical processes with as good accuracy as possible (relative to experimental values). It is possible to compute a system of a molecule in vacuum to a relative accurate level. This is not sufficient as most processes in chemistry happen in solvents, specially reactions. If one is to simulater such systems the particle in a vacuum model is not enough, the solvent effect has to be taken into account.
+The goal with theorethical chemistry is to simulate chemical processes
+with as good accuracy as possible (relative to experimental
+values). It is possible to compute a system of a molecule in vacuum to
+a relative accurate level. This is not sufficient as most processes in
+chemistry happen in solvents, especially reactions. If one is to
+simulate such systems, the molecule in a vacuum model is not enough,
+the solvent effect has to be taken into account.
 
-One way would be to try and compute the energy of the molecules in question together with a big enough sample of the solvent moelcules surrounding it. This becomes quite heavy and is not feasible anymore, moreover, it is not certain that this would simulate the solvent effect accuratelly.
+One way would be to try and compute the energy of the molecules in
+question together with a big enough sample of the solvent moelcules
+surrounding it. This becomes quite heavy and is not feasible anymore,
+moreover, it is not certain that this would simulate the solvent
+effect accuratelly.
 
-One of the used models it to make a solvent continuum. This mean to make an average of the interactions the solvent has as a whole and model it as a continuum. The next step is to put the molecule to be analyzed in this continuum. There are several ways to do this (MM/QM methods and different surface descriptions). The method i will be using at the start of this project is The interlocking spheres model.
+One of the used models is to make a solvent continuum. This means to
+make an average of the interactions of the solvent has as a whole and model it as a continuum. The next step is to put the molecule to be analyzed in this continuum. There are several ways to do this (MM/QM
+methods and different surface descriptions). The method i will be
+using at the start of this project is The interlocking spheres model.
 
-The interlocking spheres model can be explained as creating spheres around the atoms of the molecule. The radii of the spheres are equal to the van der Waals radius of each atom. these spheres interlock with each other, hence the name of the model, and make a cavity where the continuum of the solvent can't be in. 
-The cavity model I'm using in this project describes the cavity as having a value of 1 inside the cavity and 0 outside the cavity. The function describing the cavity is as follows.
-The signed distance of an arbitrary point $r$ from the surface of the Interlocking-sphere surface with atom positions $r_i$ and \ac{vdw} radii $R_i$ is described by the following function
+The interlocking spheres model can be explained as creating spheres
+around the atoms of the molecule. The radii of the spheres are equal
+to the van der Waals radius of each atom. these spheres interlock with
+each other, hence the name of the model, and make a cavity where the
+continuum of the solvent can't be in.  The cavity model I'm using in
+this project describes the cavity as having a value of 1 inside the
+cavity and 0 outside the cavity. The function describing the cavity is
+as follows.  The signed distance of an arbitrary point $r$ from the
+surface of the Interlocking-sphere surface with atom positions $r_i$
+and \ac{vdW} radii $R_i$ is described by the following function
 \begin{equation}
 s_i(r) = \vert r - r_i\vert - R_i
 \end{equation}
@@ -107,7 +153,11 @@ The sphere surrounding the ith atom is described by the following characteristic
 \begin{equation}
 C_i(r) = 1 - \Theta (s_i(r)) 
 \end{equation}
-Where $\Theta$ is the heavyside function, which returns 1 inside the cavity ($C$ in the function 3) 0 outside and $1/2$ in the surface. $\Theta$ is defined as a heavyside-like function that smoothly switches over a controllable shell width $\sigma$. This makes it easier to control the transition, so that it isn't as abrupt.
+Where $\Theta$ is the heavyside function, which returns 1 inside the
+cavity ($C$ in function 3) 0 outside and $1/2$ in the
+surface. $\Theta$ is defined as a heavyside-like function that
+smoothly switches over a controllable shell width $\sigma$. This makes
+it easier to control the transition, so that it isn't as abrupt.
 \begin{equation}
 \Theta (s/\sigma) = \frac{1}{2} (1 + erf(s/\sigma))
 \end{equation}
@@ -116,10 +166,17 @@ For an amount of atoms $N$ we can then describe the interlocking spheres with th
 C(r) = 1 - \prod_{i=1}^{N} 1 - C_i (r)
 \end{equation}
 
-This would describe the spheres around the atoms with a value of 1 inside and a value of 0 inside. What is needed to compute the solvent effect is the cavity describing the molecule in the solvent continuum with a value of $\epsilon_0$ (permitivity of free space with value 1.0) inside and a value of $\epsilon_\infty$ (dielectric constant of the solvent, ca. 80 for water). Using these constants and the cavity function $C$, the following dielectric function is computed.
+This would describe the spheres around the atoms with a value of 1
+inside and a value of 0 outside. What is needed to compute the solvent
+effect is the cavity describing the molecule in the solvent continuum
+with a value of $\epsilon_0$ (permitivity of free space with value
+1.0) inside and a value of $\epsilon_\infty$ (dielectric constant of
+the solvent, ca. 80 for water). Using these constants and the cavity
+function $C$, the following dielectric function is computed.
 \begin{equation}
 \epsilon (r) = \epsilon_0 C(r) + \epsilon (1 - C(r))
 \end{equation}
+these equations (2 through 6) are the same as in \cite{FossoTande:2013ka}. 
 
 
 \subsection{Project goal}
@@ -136,24 +193,56 @@ The master project will be divided into the following activities.
 \subsubsection{Literature search and theoretical development}
 
 To carry out the project successfully, I will acquire the relevant
-background in the following topics: \acl{DFT}, \aclp{MW}, and \acl{DC}
-methods.
+background in the following topics: \acl{DFT} \cite{Jensen:2017}, \aclp{MW} \cite{Frediani:2013} \cite{FossoTande:2013ka}  \cite{Beylkin1999AdaptiveSO} , and \acl{DC} 
+methods \cite{FossoTande:2013ka} \cite{Lipparini:2010bg}.
+sources referenced here for each of the subjects are only what has been aquired so far.
+%\todo{here you should list the references...}
 
 \subsubsection{Python implementation}
 
 I will implement the methods necessary for this project using Python.
-I am currenctly working on a python code to solve a solvation example for a Hydrogen atom. I will also assist in development of the 'vampyr' branch of MRCPP which will be merged with the main branch of the group later.
+I am currenctly working on a python code to solve a solvation example
+for a Hydrogen atom. I will also assist in development of the 'vampyr'
+branch of \mrcpp{} which will be merged with the main branch of the group
+later.
 
 \subsubsection{C++ implementation}
-I am adding methods to the vampyr.cpp part of the MRCPP code so that it can be used with python. i will also read through the work done on the subect i am working on. The MRCPP package is based around the numerical \aclp{MW} representations of functions and operators.
+I am adding methods to the vampyr.cpp part of the \mrcpp{} code so
+that it can be used with python. I will also read through the work
+done on the subect i am working on. The \mrcpp{} package is based
+around the numerical \aclp{MW} representations of functions and
+operators.
 
 \subsubsection{Variational formulation}
 
+A recent development of \ac{PCM}, has made it possible to include the
+solvent polarization in the standard
+\ac{SCF} procedure, by recasting the electrostatic polarization
+problem as a minimization procedure for a solvation energy
+functional\cite{Lipparini:2010bg}. Such a formulationis is 
+ideal for a
+\ac{MW} implementation, where the solvent response is described by one
+single function, on top of the occupied molecular
+orbitals. The implementation, which
+will require one loop only instead of two nested loops, will be simplified.
+
 \subsubsection{Density-dependent cavity}
 
-The cavity that is described by the interlocking spheres created by the position of the atoms and their Van der Waals radius. This will be developed such that this cavity can be represented by the electron density instead, thus making the cavity more dynamic to changes and forces acting on the molecule. This will give us a density dependent dielectric function.
+The cavity that is described by the interlocking spheres created by
+the position of the atoms and their \ac{vdW} radius. This will be
+developed such that this cavity can be represented by the electron
+density instead, thus making the cavity more dynamic to changes and
+forces acting on the molecule. This will give us a density dependent
+dielectric function.
 
 \subsubsection{Molecular properties}
+
+Once the framework for the solvation effect is in place, we will apply
+it to the calculation of molecular properties. Contrary to standard
+solvation methods based on the solution of a boundary equation, the
+direct solution of the generalizaed Poisson equation used here will allow to
+account for escaped charge effects, which can be important for diffuse
+excited states such as Rydberg excitations.
 
 \begin{figure}[!htb]
 \begin{ganttchart}
@@ -185,21 +274,18 @@ draw=blue, dashed, very thick}
 
 \subsection{Tools and Methods}
 
-I will make use of stallo in some of my computations. I will also make use of the methods already implemented in the 'Vampyr' branch of 'MRCpp'.
+This is a computational project which will mainly consist in the
+development of a code to run calculations combining \ac{DFT},
+\acp{MW} and continuum solvation. The implementation will be carried
+out both in \mrcpp{} and in \mrchem, and the calculations will be
+performed on the \ac{HPC} infrastructure of UiT, in particular on the ``Stallo'' supercomputer.
 
 \subsection*{References}
 %\footnotesize
 \printbibliography[heading=none]
-
 
 \input{acronyms.tex}
 
 \end{document}
 
 
-Michal
-Magnus
-Roberto
-Arne
-Peter
-Arnfinn
