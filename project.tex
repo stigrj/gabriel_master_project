@@ -73,25 +73,24 @@ while mantaining reasonable computation time.  The \ac{BO}
 approximation lets us divide the equation into smaller parts. We can
 focus then on the electronic part of the problem.
 
-\begin{equation}\label{eq:schrodinger}
-H_e \Psi_e E_e \Psi_e
+\begin{equation}
+H_e \Psi_e = E_e \Psi_e
 \end{equation}
 
- The electron wave-function must be determined to solve the
- equation. Given that it represents all the electrons in the system
- one can see that it is too complicated to solve exactly. Basis sets
- help solve this type of problems. They give a relativelly good
- approximation to the elctronic wavefunction so computation of the
- whole problem can be done more effectivelly.
+The electron wave-function must be determined to solve the
+equation. Given that it represents all the electrons in the system
+one can see that it is too complicated to solve exactly. Basis sets
+help solve this type of problems. They give a relativelly good
+approximation to the elctronic wavefunction so computation of the
+whole problem can be done more effectivelly.
  
 
 \ac{MW} basis have several properites that are useful when designing
 numerical solutions to partial differential equations. Some of these
 are orhtogonality of the wavelet spaces, vanishing moments
-%check more on that
 and locally adaptive representations of functions, where the grid can
 be refined to focus only on special places where it will refine
-furhter to reach the desired precision %remember sources please.
+furhter to reach the desired precision \cite{Frediani:2013}
 This gives flexibility to the type of problems that can be solved by use of
 this method.
 
@@ -100,15 +99,14 @@ I will learn how to implement this method and make adjustments to my computation
 
 \subsection{Density Functional Theory}
 
-Hohenberg and Kohn %source
+Hohenberg and Kohn 
 demonstrated that the
 electronic energy ($E_e$ in equation 1) is completelly determined by
-the electron density $\rho$\cite{parr1994density}. As outlined by E. B. Wilson, %sources
-the integral of the
+the electron density $\rho$\cite{Jensen:2017,parr1994density}. The electron density $\rho$ the integral of the
 density determines the number of electrons (for a one elctron system
 the integral is equal to 1), the cusps and their heights define the
 position of the nuclei and the amount of nucleus charges
-respectivelly.  Thus to solve for the energy of the system one only
+respectivelly \cite{Koch:2001dn}.  Thus to solve for the energy of the system one only
 need to know the electron density and the functional that describes
 the energy in terms of the density. Since the electron density always
 depends on the same pamount of variables regardless of the amount of
@@ -123,7 +121,7 @@ with as good accuracy as possible (relative to experimental
 values). It is possible to compute a system of a molecule in vacuum to
 a relative accurate level. This is not sufficient as most processes in
 chemistry happen in solvents, especially reactions. If one is to
-simulater such systems, the molecule in a vacuum model is not enough,
+simulate such systems, the molecule in a vacuum model is not enough,
 the solvent effect has to be taken into account.
 
 One way would be to try and compute the energy of the molecules in
@@ -132,10 +130,8 @@ surrounding it. This becomes quite heavy and is not feasible anymore,
 moreover, it is not certain that this would simulate the solvent
 effect accuratelly.
 
-One of the used models it to make a solvent continuum. This mean to
-make an average of the interactions the solvent has as a whole and
-model it as a continuum. The next step is to put the molecule to be
-analyzed in this continuum. There are several ways to do this (MM/QM
+One of the used models is to make a solvent continuum. This means to
+make an average of the interactions of the solvent has as a whole and model it as a continuum. The next step is to put the molecule to be analyzed in this continuum. There are several ways to do this (MM/QM
 methods and different surface descriptions). The method i will be
 using at the start of this project is The interlocking spheres model.
 
@@ -157,7 +153,7 @@ The sphere surrounding the ith atom is described by the following characteristic
 C_i(r) = 1 - \Theta (s_i(r)) 
 \end{equation}
 Where $\Theta$ is the heavyside function, which returns 1 inside the
-cavity ($C$ in the function 3) 0 outside and $1/2$ in the
+cavity ($C$ in function 3) 0 outside and $1/2$ in the
 surface. $\Theta$ is defined as a heavyside-like function that
 smoothly switches over a controllable shell width $\sigma$. This makes
 it easier to control the transition, so that it isn't as abrupt.
@@ -170,7 +166,7 @@ C(r) = 1 - \prod_{i=1}^{N} 1 - C_i (r)
 \end{equation}
 
 This would describe the spheres around the atoms with a value of 1
-inside and a value of 0 inside. What is needed to compute the solvent
+inside and a value of 0 outside. What is needed to compute the solvent
 effect is the cavity describing the molecule in the solvent continuum
 with a value of $\epsilon_0$ (permitivity of free space with value
 1.0) inside and a value of $\epsilon_\infty$ (dielectric constant of
@@ -179,6 +175,7 @@ function $C$, the following dielectric function is computed.
 \begin{equation}
 \epsilon (r) = \epsilon_0 C(r) + \epsilon (1 - C(r))
 \end{equation}
+these equations (2 through 6) are the same as in \cite{FossoTande:2013ka}. 
 
 
 \subsection{Project goal}
@@ -195,9 +192,10 @@ The master project will be divided into the following activities.
 \subsubsection{Literature search and theoretical development}
 
 To carry out the project successfully, I will acquire the relevant
-background in the following topics: \acl{DFT}, \aclp{MW}, and \acl{DC}
-methods.
-\todo{here you should list the references...}
+background in the following topics: \acl{DFT} \cite{Jensen:2017}, \aclp{MW} \cite{Frediani:2013} \cite{FossoTande:2013ka}  \cite{Beylkin1999AdaptiveSO} , and \acl{DC} 
+methods \cite{FossoTande:2013ka} \cite{Lipparini:2010bg}.
+sources referenced here for each of the subjects are only what has been aquired so far.
+%\todo{here you should list the references...}
 
 \subsubsection{Python implementation}
 
@@ -241,7 +239,7 @@ dielectric function.
 Once the framework for the solvation effect is in place, we will apply
 it to the calculation of molecular properties. Contrary to standard
 solvation methods based on the solution of a boundary equation, the
-direct solution of the generalizaed Poisson equation usd here will allow to
+direct solution of the generalizaed Poisson equation used here will allow to
 account for escaped charge effects, which can be important for diffuse
 excited states such as Rydberg excitations.
 
@@ -284,7 +282,6 @@ performed on the \ac{HPC} infrastructure of UiT, in particular on the ``Stallo''
 \subsection*{References}
 %\footnotesize
 \printbibliography[heading=none]
-
 
 \input{acronyms.tex}
 
