@@ -192,8 +192,9 @@ The master project will be divided into the following activities.
 \subsubsection{Literature search and theoretical development}
 
 To carry out the project successfully, I will acquire the relevant
-background in the following topics: \acl{DFT} \cite{Jensen:2017}, \aclp{MW} \cite{Frediani:2013} \cite{FossoTande:2013ka}  \cite{Beylkin1999AdaptiveSO} , and \acl{DC}
-methods \cite{FossoTande:2013ka} \cite{Lipparini:2010bg}.
+background in the following topics: \acl{DFT} \cite{Jensen:2017}, \aclp{MW}
+\cite{Frediani:2013, FossoTande:2013ka, Beylkin1999AdaptiveSO} ,
+and \acl{DC} methods \cite{FossoTande:2013ka, Lipparini:2010bg}.
 sources referenced here for each of the subjects are only what has been aquired so far.
 %\todo{here you should list the references...}
 
@@ -225,6 +226,9 @@ single function, on top of the occupied molecular
 orbitals. The implementation, which
 will require one loop only instead of two nested loops, will be simplified.
 
+I will include solvent degrees of freedom in the \ac{SCF} by making use of the
+solvation energy functional developed by \cite{Lipparini:2010bg}.
+
 \subsubsection{Density-dependent cavity}
 
 The cavity that is described by the interlocking spheres created by
@@ -234,7 +238,10 @@ density instead, thus making the cavity more dynamic to changes and
 forces acting on the molecule. This will give us a density dependent
 dielectric function.
 
-I've yet to implement this dielectric function. I will work with the method used in \cite{FossoTande:2013ka} in order to create this cavity. My implementation right now has the cavity function and the electron density as two separate independent functions. What i need to do is to make the dielectric function (the function dependen on the cavity function) a functional dependent on $\rho(\bar{r})$ where $\bar{r}$ is a vector of three dimensional coordinates.
+I will work with the method used in \cite{FossoTande:2013ka} in order
+to create this cavity. I will make the dielectric function (the function
+dependent on the cavity function) a functional dependent on $\rho(\bar{r})$
+where $\bar{r}$ is a vector of three dimensional coordinates.
 
 \subsubsection{Molecular properties}
 
@@ -244,6 +251,9 @@ solvation methods based on the solution of a boundary equation, the
 direct solution of the generalizaed Poisson equation used here will allow to
 account for escaped charge effects, which can be important for diffuse
 excited states such as Rydberg excitations.
+
+I will implement solvation effect contributions to the molecular properties
+of the system and add it to the perturbation theory equation.
 
 \begin{figure}[!htb]
 \begin{ganttchart}
