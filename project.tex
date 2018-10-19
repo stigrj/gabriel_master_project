@@ -63,7 +63,7 @@ extend the applicability of \mrchem{} to molecules surrounded by an
 environment (generally a solvent), which is most often the case in
 practical applications.
 
-\section{Methods}
+\section{Background}
 
 \subsection{Multiwavelets}
 The Schrödinger equation for a system with more than two atoms is too
@@ -178,18 +178,16 @@ function $C$, the following dielectric function is computed.
 these equations (2 through 6) are the same as in \cite{FossoTande:2013ka}. 
 
 
-\subsection{Project goal}
+\section{Project description}
 
 I will provide \mrchem{} with the
 framework to include environmental effect. Currently such a capability
 is present in a separate branch of the code and shall be transferred
 to the master branch to make it available for applications.
 
-\subsection{Plan and milestones}
-
 The master project will be divided into the following activities.
 
-\subsubsection{Literature search and theoretical development}
+\subsection{Literature search and theoretical development}
 
 To carry out the project successfully, I will acquire the relevant
 background in the following topics: \acl{DFT} \cite{Jensen:2017}, \aclp{MW} \cite{Frediani:2013} \cite{FossoTande:2013ka}  \cite{Beylkin1999AdaptiveSO} , and \acl{DC} 
@@ -197,7 +195,7 @@ methods \cite{FossoTande:2013ka} \cite{Lipparini:2010bg}.
 sources referenced here for each of the subjects are only what has been aquired so far.
 %\todo{here you should list the references...}
 
-\subsubsection{Python implementation}
+\subsection{Python implementation}
 
 I will implement the methods necessary for this project using Python.
 I am currenctly working on a python code to solve a solvation example
@@ -205,14 +203,14 @@ for a Hydrogen atom. I will also assist in development of the 'vampyr'
 branch of \mrcpp{} which will be merged with the main branch of the group
 later.
 
-\subsubsection{C++ implementation}
+\subsection{C++ implementation}
 I am adding methods to the vampyr.cpp part of the \mrcpp{} code so
 that it can be used with python. I will also read through the work
 done on the subect i am working on. The \mrcpp{} package is based
 around the numerical \aclp{MW} representations of functions and
 operators.
 
-\subsubsection{Variational formulation}
+\subsection{Variational formulation}
 
 A recent development of \ac{PCM}, has made it possible to include the
 solvent polarization in the standard
@@ -225,7 +223,7 @@ single function, on top of the occupied molecular
 orbitals. The implementation, which
 will require one loop only instead of two nested loops, will be simplified.
 
-\subsubsection{Density-dependent cavity}
+\subsection{Density-dependent cavity}
 
 The cavity that is described by the interlocking spheres created by
 the position of the atoms and their \ac{vdW} radius. This will be
@@ -234,7 +232,7 @@ density instead, thus making the cavity more dynamic to changes and
 forces acting on the molecule. This will give us a density dependent
 dielectric function.
 
-\subsubsection{Molecular properties}
+\subsection{Molecular properties}
 
 Once the framework for the solvation effect is in place, we will apply
 it to the calculation of molecular properties. Contrary to standard
@@ -272,7 +270,7 @@ draw=blue, dashed, very thick}
 \end{figure}
 
 
-\subsection{Tools and Methods}
+\section{Tools and Methods}
 
 This is a computational project which will mainly consist in the
 development of a code to run calculations combining \ac{DFT},
@@ -280,17 +278,19 @@ development of a code to run calculations combining \ac{DFT},
 out both in \mrcpp{} and in \mrchem, and the calculations will be
 performed on the \ac{HPC} infrastructure of UiT, in particular on the ``Stallo'' supercomputer.
 
-\subsection{Risk assessment}
+\section{Risk assessment}
 
 The project is divided into six milestones, each providing a different
 grade of risk and difficulty. The first three milestones (Literature
 search, Python implementation, and C++ implementation) have very low
-risk. A similar work has been published in another group and similar
-activity has been carried out before. Completing these milestones
-would alredy be a valuable master project.
+risk. A similar work has been published in another group and another
+prototype implemenatation has previously been implemented in our group.
+However, completing these milestones
+would provide \mrchem{} with solvent effect capabilities and can
+therefore vbe considered a valuable master project.
 The successive workpacakges
 (Variational formulation, Density-dependent cavity and Molecular
-properties) are more challenging but they also carry slightly more
+properties) are more ambitious, but they also carry slightly more
 risk. They are completely independent of each
 other, thus even if one or more of them will not be successful, that
 will not harm the project as a whole. 
