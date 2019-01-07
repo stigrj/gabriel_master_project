@@ -17,14 +17,25 @@ $ e $ to be extracted \cite{Cramer:2004}:
 
 The information that is of most interest in computational chemistry is the total
 energy of the system $ E $. The operator for the energy of the system is called
-the Hamiltonian $H$ which contains terms for the kinetic $T$ and potential
-energy $V$ of the system. Plugging this into \ref{eq:eigenequation} yields the
-\ac{SE}:
+the Hamiltonian $H$. Plugging this into \ref{eq:eigenequation} yields the
+\ac{SE} \cite{Cramer:2004, Jensen:2017}:
 \begin{equation}
   H\Psi = E\Psi\label{eq:SE}
 \end{equation}
 
-
+The one electron system considered now (\ce{H}) contains an electron and a
+nucleus, which are described using three dimensional coordinates $ x, y $ and
+$ z $. The Hamiltonian contains terms for the kinetic $T$ and potential energy
+$V$ contributions of both the nucleus $ N $ and the electron $ e $:
+\begin{equation}
+  \begin{aligned}
+    H   &= T_N + T_e + V \\
+    T_N &= -\frac{1}{2m_N}\nabla^2_N \\
+    T_e &= -\frac{1}{2m_e}\nabla^2_e \\
+    V   &= \frac{Z}{||\vec{r}_N - \vec{r}_e||}
+  \end{aligned}
+\end{equation}
+Where the operator $ \nabla^2$ is the Laplacian
 
 \input{acronyms.tex}
 \biblio
