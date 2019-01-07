@@ -1,0 +1,14 @@
+\documentclass[a4paper]{book}
+\usepackage{subfiles}
+\usepackage{mystyle}
+
+\def\biblio{\bibliographystyle{plain}\bibliography{../References}}
+
+\begin{document}
+\def\biblio{}
+
+\subfile{tex/Introduction.tex}
+
+\bibliographystyle{plain}
+\bibliography{References}
+\end{document}
