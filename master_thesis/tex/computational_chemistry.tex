@@ -1,0 +1,31 @@
+\makeatletter
+\def\input@path{{../}}
+\makeatother
+\documentclass[../master_thesis.tex]{subfiles}
+\begin{document}
+\chapter{Computational Chemistry}
+\section{\ac{SE}}
+
+Consider a one electron system (such as \ce{H} or \ce{He+}). The system can be
+described by a wavefunction $\Psi$. This wavefunction, by definition, has all
+information about the system, which can be extracted by solving the Eigenvalue
+equation with a characteristic operator $\vartheta$ for an observable property
+$ e $ to be extracted \cite{Cramer:2004}:
+\begin{equation}
+  \vartheta\Psi = e\Psi\label{eq:eigenequation}
+\end{equation}
+
+The information that is of most interest in computational chemistry is the total
+energy of the system $ E $. The operator for the energy of the system is called
+the Hamiltonian $H$ which contains terms for the kinetic $T$ and potential
+energy $V$ of the system. Plugging this into \ref{eq:eigenequation} yields the
+\ac{SE}:
+\begin{equation}
+  H\Psi = E\Psi\label{eq:SE}
+\end{equation}
+
+
+
+\input{acronyms.tex}
+\biblio
+\end{document}

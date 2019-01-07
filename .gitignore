@@ -16,3 +16,7 @@ my.compile
 *.bcf
 *.out
 *.xml
+*.synctex.gz
+*.fls
+*.toc
+*.fdb_latexmk
