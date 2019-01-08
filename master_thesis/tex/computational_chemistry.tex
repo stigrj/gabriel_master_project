@@ -4,38 +4,112 @@
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
 \chapter{Computational Chemistry}
-\section{\ac{SE}}
+\section{Theoretical Chemistry}
+\subsection{Time Independent \ac{SE}}
 
-Consider a one electron system (such as \ce{H} or \ce{He+}). The system can be
-described by a wavefunction $\Psi$. This wavefunction, by definition, has all
-information about the system, which can be extracted by solving the Eigenvalue
-equation with a characteristic operator $\vartheta$ for an observable property
-$ e $ to be extracted \cite{Cramer:2004}:
+Consider a generic system (the system one is most occuppied with in theoretical
+chemistry is a molecule or an atom). The system can be described by a
+wavefunction $\Psi$. This wavefunction, by definition, has all information
+about the system, which can be extracted by solving the Eigenvalue equation
+with a characteristic operator $\vartheta$ for an observable property $ e $ to
+ be extracted \cite{Cramer:2004}:
 \begin{equation}
   \vartheta\Psi = e\Psi\label{eq:eigenequation}
 \end{equation}
 
-The information that is of most interest in computational chemistry is the total
-energy of the system $ E $. The operator for the energy of the system is called
-the Hamiltonian $H$. Plugging this into \ref{eq:eigenequation} yields the
-\ac{SE} \cite{Cramer:2004, Jensen:2017}:
+The information that is of most interest in computational chemistry is the
+total energy of the system $ E $. The operator for the energy of the system is
+called the Hamiltonian $H$. Plugging this into \ref{eq:eigenequation} yields
+the time independent \ac{SE} \cite{Cramer:2004, Jensen:2017}:
 \begin{equation}
   H\Psi = E\Psi\label{eq:SE}
 \end{equation}
 
-The one electron system considered now (\ce{H}) contains an electron and a
-nucleus, which are described using three dimensional coordinates $ x, y $ and
-$ z $. The Hamiltonian contains terms for the kinetic $T$ and potential energy
-$V$ contributions of both the nucleus $ N $ and the electron $ e $:
+Consider a one electron system (such as \ce{H} or \ce{He+}) which contains an
+electron and a nucleus, which are described using three dimensional coordinates
+$ x, y $ and $ z $. The Hamiltonian contains terms for the kinetic $T$ and
+potential energy $V$ contributions of both the nucleus $ N $ and the electron
+$ e $. In a one electron system in vaccuum the Hamiltonian would be as follows
+\cite{Jensen:2017, Cramer:2004}.
 \begin{equation}
   \begin{aligned}
     H   &= T_N + T_e + V \\
-    T_N &= -\frac{1}{2m_N}\nabla^2_N \\
-    T_e &= -\frac{1}{2m_e}\nabla^2_e \\
-    V   &= \frac{Z}{||\vec{r}_N - \vec{r}_e||}
+    T_N &= -\frac{\hbar^2}{2m_N}\nabla^2_N \\
+    T_e &= -\frac{\hbar^2}{2m_e}\nabla^2_e \\
+    V   &= -\frac{Z}{||\vec{r}_N - \vec{r}_e||} \label{eq:twopH}
   \end{aligned}
 \end{equation}
-Where the operator $ \nabla^2$ is the Laplacian
+Where the operator $ \nabla^2$ is the Laplacian computing the second partial
+derivative $ \frac{\delta^2}{\delta x^2} + \frac{\delta^2}{\delta y^2} +
+\frac{\delta^2}{\delta z^2} $ for the coordinates of the electron $\vec{r}_e$
+and the nucleus $\vec{r}_N$, $ m $ is the mass of the electron and the nucleus
+depending on the subscript used. The potential is the coulomb interaction
+between the electrons, which is calculated by dividing the atomic number of the
+nucleus $ Z $ with the distance between the electron and the nucleus
+$ ||\vec{r}_N - \vec{r}_e|| $.
+
+We can see that the kinetic energy operators are separable, as they are only
+dependent on their respective particlecoordinates. The potential energy
+operator, on the other hand, is not separable, as it is dependent in the
+coordinates of both the nucleus and the electron.
+
+In order to solve the the \ac{SE} analytically one must first change into a
+center of mass coordinate system :
+\begin{equation}
+  \begin{alignat}{3}
+    X &= \frac{m_Nx_N + m_ex_e}{m_N + m_e} ~&;~ x &= x_N - x_e \\
+    Y &= \frac{m_Ny_N + m_ey_e}{m_N + m_e} ~&;~ y &= y_N - y_e \\
+    Z &= \frac{m_Nz_N + m_ez_e}{m_N + m_e} ~&;~ z &=
+    z_N - z_e \label{eq:cmparam}
+  \end{alignat} %no problem here
+\end{equation}
+Where the $XYZ$-coordinates define a system centered in the center of mass,
+while the $xyz$-coordinates specify the relative position of the two particles
+\cite{Jensen:2017}. Applying this coordinate system to the Hamiltonian in
+Equation \ref{eq:twopH} yields:
+\begin{equation}
+  H = -\frac{1}{2}\nabla^2_{XYZ} -\frac{1}{2\mu}\nabla^2_{xyz} -
+  \frac{Z}{\sqrt{x^2 + y^2 + z^2}}\label{eq:twopHcm}
+\end{equation}
+Where the first term in Equation \ref{eq:twopHcm} describes the motion of the
+whole system with respect to a fixed coordinate system. The second term
+describes the relative motion of a pseudo-particle with reduced mass:
+\begin{equation}
+  \mu = \frac{m_Nm_e}{m_N + m_e} = \frac{m_e}{1 + \frac{m_e}{m_N}}
+\end{equation}
+Given that the nucleus is more massive than the electron (the nucleus is $1800$
+times more massive than the electron in a Hydrogen atom \cite{Jensen:2017})
+$\mu$ can be approximated to the mass of the electron $m_e$. This lets us
+assume that the nucleus is stationary in relation with the electron.
+
+The third term is the potential energy which still is dependent on the distance
+between the two particles. In this center of mass system the distance is just
+determined by the $xyz$-coordinates.
+
+The motion of the particles occurs in three dimensions, therefore it is
+advantageous to use polar coordinates to solve the \ac{SE}. In this coordinate
+system $r$ describes the distance to the center, $\theta$ describing the angle
+of the particle with respect to the $z$-axis and $\varphi$ describes the polar
+angle on the $xy$-plane. Applying this to the Hamiltonian in Equation
+\ref{eq:twopHcm} gives:
+\begin{equation}
+  \begin{align}
+    H &= -\frac{1}{2\mu}\nabla^2_{r\theta\varphi} - \frac{Z}{r}\\
+    \nabla^2_{r\theta\varphi} &=
+    \frac{1}{r^2}\frac{\delta}{\delta r}r^2\frac{\delta}{\delta r}
+    + \frac{1}{r^2 \sin{\theta}}\frac{\delta}{\delta\theta}\sin{\theta}
+      \frac{\delta}{\delta\theta}
+    + \frac{1}{r^2\sin{\theta}^2}\frac{\delta^2}{\delta\varphi^2}
+    \label{eq:SphHcm}
+  \end{align}
+\end{equation}
+Which can be solved using different differential equation methods. The solution
+is parametrized to the three quantum number n, l and m corresponding to the
+spherical coordinates. Solving the \ac{SE} with the Hamiltonian in Equation
+\ref{eq:SphHcm} gives a series of orthonormal solutions to the wavefunction
+called orbitals.
+
+
 
 \input{acronyms.tex}
 \biblio
