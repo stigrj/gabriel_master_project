@@ -9,7 +9,6 @@
 *.rel
 *.sh
 *.spl
-*.sty
 *.bst
 *.cls
 my.compile
