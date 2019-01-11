@@ -3,28 +3,105 @@
 \makeatother
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
-\chapter{Computational Chemistry}
-\section{Theoretical Chemistry}
-\subsection{Time Independent \ac{SE}}
-
+\chapter{Quantum Chemistry}
+\section{Eigenvalue Problems}
 Consider a generic system (the system one is most occuppied with in theoretical
 chemistry is a molecule or an atom). The system can be described by a
 wavefunction $\Psi$. This wavefunction, by definition, has all information
 about the system, which can be extracted by solving the Eigenvalue equation
 with a characteristic operator $\vartheta$ for an observable property $ e $ to
- be extracted \cite{Cramer:2004}:
+be extracted as an eigenvalue of the operator applied on the wavefunction
+\cite{Cramer:2004}:
 \begin{equation}
   \vartheta\Psi = e\Psi\label{eq:eigenequation}
 \end{equation}
 
+The wavefunction is usually normalized, meaning that the integral in Equation
+\ref{eq:normwf} applies. The integral below can be written in bra-ket
+\cite{Jensen:2017} notation, which is shown in Equation \ref{eq:normwf}.
+\begin{equation}
+  \braket{\Psi|\Psi} = \int\limits_{-\infty}^{\infty}
+  \Psi^*(\vec{r})\Psi(\vec{r})\mathrm{\,d}\vec{r} = 1\label{eq:normwf}
+\end{equation} 
+Where $\Psi^*$ is the complex conjugate wavefunction and $\vec{r}$ is a
+coordinate vector in which the wavefunction is evaluated over all space.
+Bra-ket notation is what will be used from now on to write integrals in a more
+compact manner.
+
+The Equation \ref{eq:normwf} calculates the probability of finding the system
+that the wavefunction $\Psi$ describes in all of space. The expectation value
+of an arbitrary operator $\vartheta$ with eigenvalue $e$ is calculated as
+follows \cite{Atkins:2014}.
+\begin{equation}
+  \begin{aligned}
+  \braket{\Psi|\vartheta|\Psi} &= \braket{\Psi|e|\Psi} \\
+   \braket{\Psi|\vartheta|\Psi}&= e\braket{\Psi|\Psi} \\
+   \frac{\braket{\Psi|\vartheta|\Psi}}{\braket{\Psi|\Psi}}&= e\label{eq:eval}
+  \end{aligned}
+\end{equation}
+We can apply Equation \ref{eq:normwf} on the denominator on the l.h.s. of the
+last step on the Equation \ref{eq:eval} is one in a normalized wavefunction.
+
+From Equation \ref{eq:eigenequation} we can see that applying the operator on
+the wavefunction yields the eigenvalue of said operator. Given that the
+eigenvalue $e$ is a constant it can be taken out of the integral. The integral
+then yields the eigenvalue, which is also the expectation value of said
+operator.
+
+In the case that the Wavefunction $\Psi$ is not an eigenfunction of the
+operator, the wavefunction can be constructed by a linear combination of
+orthogonal and normalized (orthonormal\cite{Jensen:2017}) eigenfunctions
+$\Psi_i$ of the operator \cite{Atkins:2014} scaled by scalars $c_i$:
+\begin{equation}
+  \Psi = c_1\Psi_1 + c_2\Psi_2 + ... + c_n\Psi_n
+\end{equation}
+
+The fact that the eigenfunctions are orthogonal means that:
+\begin{equation}
+  \braket{\Psi_i|\Psi_j} = \delta _{ij}
+\end{equation}
+Where $ \delta_{ij} $ is one when $i=j$ and zero otherwise \cite{Cramer:2004}.
+
+Finding the expectation value for each eigen of the operator can then be done
+as a sum of the expectation values $e_i$ of each eigenfunction:
+\begin{equation}
+  \begin{align}
+    \braket{\Psi|\vartheta|\Psi} &=
+    \sum\limits_i^n\braket{c_i\Psi_i|\vartheta|c_i\Psi_i} \\
+    &= \sum\limits_i^n\braket{c_i\Psi_i|e_i|c_i\Psi_i} \\
+    &= \sum\limits_i^nc_i^2e_i\braket{\Psi_i|\Psi_i} \\
+    \braket{\Psi|\vartheta|\Psi} &= \sum\limits_i^nc_i^2e_i
+  \end{align}
+\end{equation}
+With this knowledge we can state that the expectation value of an operator
+applied on any wavefunction can always be calculated as a sum of weighted
+eigenvalues for sums of orthonormal eigenfunctions.
+
+Furthermore, one can see that the probaiblity of the wavefunction is equal to
+$\sum_i^nc_i^2$. We know that in a normalized wavefunction the
+probability is equals to one, so we just need constants that satisfy the
+following equation.
+\begin{equation}
+  \braket{\Psi|\Psi} = 1 = \sum\limits_i^nc_i^2
+\end{equation}
+
+
+\section{The \ac{SE}}
+%show the time dependent SE and derive the time independent SE
 The information that is of most interest in computational chemistry is the
-total energy of the system $ E $. The operator for the energy of the system is
-called the Hamiltonian $H$. Plugging this into \ref{eq:eigenequation} yields
-the time independent \ac{SE} \cite{Cramer:2004, Jensen:2017}:
+total energy of the system $ E $. The operator for which the energy $E$ of the
+system is its Expectation value is called the Hamiltonian $H$. Plugging this
+into \ref{eq:eigenequation} yields the time independent \ac{SE}
+\cite{Cramer:2004, Jensen:2017}:
 \begin{equation}
   H\Psi = E\Psi\label{eq:SE}
 \end{equation}
+From Equation \ref{eq:eval} one can see that the solution of Equation
+\ref{eq:SE} is the expectation value of the Hamiltonian.
 
+
+
+\section{Two particle system}
 Consider a one electron system (such as \ce{H} or \ce{He+}) which contains an
 electron and a nucleus, which are described using three dimensional coordinates
 $ x, y $ and $ z $. The Hamiltonian contains terms for the kinetic $T$ and
@@ -61,7 +138,7 @@ center of mass coordinate system :
     Y &= \frac{m_Ny_N + m_ey_e}{m_N + m_e} ~&;~ y &= y_N - y_e \\
     Z &= \frac{m_Nz_N + m_ez_e}{m_N + m_e} ~&;~ z &=
     z_N - z_e \label{eq:cmparam}
-  \end{alignat} %no problem here
+  \end{alignat}
 \end{equation}
 Where the $XYZ$-coordinates define a system centered in the center of mass,
 while the $xyz$-coordinates specify the relative position of the two particles
@@ -99,15 +176,41 @@ angle on the $xy$-plane. Applying this to the Hamiltonian in Equation
     \frac{1}{r^2}\frac{\delta}{\delta r}r^2\frac{\delta}{\delta r}
     + \frac{1}{r^2 \sin{\theta}}\frac{\delta}{\delta\theta}\sin{\theta}
       \frac{\delta}{\delta\theta}
-    + \frac{1}{r^2\sin{\theta}^2}\frac{\delta^2}{\delta\varphi^2}
+    + \frac{1}{r^2\sin^2{\theta}}\frac{\delta^2}{\delta\varphi^2}
     \label{eq:SphHcm}
   \end{align}
 \end{equation}
 Which can be solved using different differential equation methods. The solution
 is parametrized to the three quantum number n, l and m corresponding to the
-spherical coordinates. Solving the \ac{SE} with the Hamiltonian in Equation
-\ref{eq:SphHcm} gives a series of orthonormal solutions to the wavefunction
-called orbitals.
+spherical coordinates. Solving the resulting differential equation with the
+Hamiltonian in Equation \ref{eq:SphHcm} and the wavefunction gives a series of
+orthonormal solutions to the wavefunction called orbitals \cite{Jensen:2017}.
+%more about the properties of these orbitals
+\section{Many body systems}
+
+For bigger systems, there is no practical way to analytically solve the
+\ac{SE}. For one, for each particle, the amount of dimensions that need to be
+evaluated increases by three, that is, one can expect the wavefunction
+dimension to increase by a factor of $3N$ for each particle $N$
+\cite{Cramer:2004}.
+
+Additionally, the potential energy operator becomes more complicated,
+as it no would not just have the attractive forces between electron-nucleus,
+but also the repulsive forces between all the electrons. Both of these problems
+add more terms per particle and thus would be impossible to be solved in a
+realistic timeframe. %cite
+%don't know what to write here
+
+\subsection{Variational Principle}
+
+\subsection{\ac{BO} approximation}
+
+\subsection{Orbitals}
+
+
+
+
+
 
 
 
