@@ -7,53 +7,53 @@
 \section{Eigenvalue Problems}
 Consider a generic system (the system one is most occuppied with in theoretical
 chemistry is a molecule or an atom). The system can be described by a
-wavefunction $\Psi$. This wavefunction, by definition, has all information
+wave function $\Psi$. This wave function, by definition, has all information
 about the system, which can be extracted by solving the Eigenvalue equation
 with a characteristic operator $\vartheta$ for an observable property $ e $ to
-be extracted as an eigenvalue of the operator applied on the wavefunction
+be extracted as an eigenvalue of the operator applied on the wave function
 \cite{Cramer:2004}:
 \begin{equation}
   \vartheta\Psi = e\Psi\label{eq:eigenequation}
 \end{equation}
 
-The wavefunction is usually normalized, meaning that the integral in Equation
+The wave function is usually normalized, meaning that the integral in Equation
 \ref{eq:normwf} applies. The integral below can be written in bra-ket
 \cite{Jensen:2017} notation, which is shown in Equation \ref{eq:normwf}.
 \begin{equation}
   \braket{\Psi|\Psi} = \int\limits_{-\infty}^{\infty}
   \Psi^*(\vec{r})\Psi(\vec{r})\mathrm{\,d}\vec{r} = 1\label{eq:normwf}
 \end{equation} 
-Where $\Psi^*$ is the complex conjugate wavefunction and $\vec{r}$ is a
-coordinate vector in which the wavefunction is evaluated over all space.
+Where $\Psi^*$ is the complex conjugate wave function and $\vec{r}$ is a
+coordinate vector in which the wave function is evaluated over all space.
 Bra-ket notation is what will be used from now on to write integrals in a more
 compact manner.
 
 The Equation \ref{eq:normwf} calculates the probability of finding the system
-that the wavefunction $\Psi$ describes in all of space. The expectation value
+that the wave function $\Psi$ describes in all of space. The expectation value
 of an arbitrary operator $\vartheta$ with eigenvalue $e$ is calculated as
 follows \cite{Atkins:2014}.
-\begin{equation}
-  \begin{aligned}
-  \braket{\Psi|\vartheta|\Psi} &= \braket{\Psi|e|\Psi} \\
-   \braket{\Psi|\vartheta|\Psi}&= e\braket{\Psi|\Psi} \\
-   \frac{\braket{\Psi|\vartheta|\Psi}}{\braket{\Psi|\Psi}}&= e\label{eq:eval}
-  \end{aligned}
-\end{equation}
+\begin{align}
+  \begin{split}
+    \braket{\Psi|\vartheta|\Psi} &= \braket{\Psi|e|\Psi} \\
+    \braket{\Psi|\vartheta|\Psi}&= e\braket{\Psi|\Psi} \\
+    \frac{\braket{\Psi|\vartheta|\Psi}}{\braket{\Psi|\Psi}}&= e\label{eq:eval}
+  \end{split}
+\end{align}
 We can apply Equation \ref{eq:normwf} on the denominator on the l.h.s. of the
-last step on the Equation \ref{eq:eval} is one in a normalized wavefunction.
+last step on the Equation \ref{eq:eval} is one in a normalized wave function.
 
 From Equation \ref{eq:eigenequation} we can see that applying the operator on
-the wavefunction yields the eigenvalue of said operator. Given that the
+the wave function yields the eigenvalue of said operator. Given that the
 eigenvalue $e$ is a constant it can be taken out of the integral. The integral
 then yields the eigenvalue, which is also the expectation value of said
 operator.
 
-In the case that the Wavefunction $\Psi$ is not an eigenfunction of the
-operator, the wavefunction can be constructed by a linear combination of
+In the case that the wave function $\Psi$ is not an eigenfunction of the
+operator, the wave function can be constructed by a linear combination of
 orthogonal and normalized (orthonormal\cite{Jensen:2017}) eigenfunctions
 $\Psi_i$ of the operator \cite{Atkins:2014} scaled by scalars $c_i$:
 \begin{equation}
-  \Psi = c_1\Psi_1 + c_2\Psi_2 + ... + c_n\Psi_n
+  \Psi = c_1\Psi_1 + c_2\Psi_2 + ... + c_n\Psi_n \label{eq:lincomb}
 \end{equation}
 
 The fact that the eigenfunctions are orthogonal means that:
@@ -61,28 +61,28 @@ The fact that the eigenfunctions are orthogonal means that:
   \braket{\Psi_i|\Psi_j} = \delta _{ij}
 \end{equation}
 Where $ \delta_{ij} $ is one when $i=j$ and zero otherwise \cite{Cramer:2004}.
-
+%more above
 Finding the expectation value for each eigen of the operator can then be done
 as a sum of the expectation values $e_i$ of each eigenfunction:
-\begin{equation}
-  \begin{align}
+\begin{align}
+  \begin{split}
     \braket{\Psi|\vartheta|\Psi} &=
     \sum\limits_i^n\braket{c_i\Psi_i|\vartheta|c_i\Psi_i} \\
     &= \sum\limits_i^n\braket{c_i\Psi_i|e_i|c_i\Psi_i} \\
     &= \sum\limits_i^nc_i^2e_i\braket{\Psi_i|\Psi_i} \\
-    \braket{\Psi|\vartheta|\Psi} &= \sum\limits_i^nc_i^2e_i
-  \end{align}
-\end{equation}
+    \braket{\Psi|\vartheta|\Psi} &= \sum\limits_i^nc_i^2e_i\label{eq:arbeval}
+  \end{split}
+\end{align}
 With this knowledge we can state that the expectation value of an operator
-applied on any wavefunction can always be calculated as a sum of weighted
+applied on any wave function can always be calculated as a sum of weighted
 eigenvalues for sums of orthonormal eigenfunctions.
 
-Furthermore, one can see that the probaiblity of the wavefunction is equal to
-$\sum_i^nc_i^2$. We know that in a normalized wavefunction the
+Furthermore, one can see that the probaiblity of the wave function is equal to
+$\sum_i^nc_i^2$. We know that in a normalized wave function the
 probability is equals to one, so we just need constants that satisfy the
 following equation.
 \begin{equation}
-  \braket{\Psi|\Psi} = 1 = \sum\limits_i^nc_i^2
+  \braket{\Psi|\Psi} = 1 = \sum\limits_i^nc_i^2\label{eq:arbprob}
 \end{equation}
 
 
@@ -102,50 +102,50 @@ From Equation \ref{eq:eval} one can see that the solution of Equation
 
 
 \section{Two particle system}
+\subsection{The Hamiltonian}
 Consider a one electron system (such as \ce{H} or \ce{He+}) which contains an
 electron and a nucleus, which are described using three dimensional coordinates
 $ x, y $ and $ z $. The Hamiltonian contains terms for the kinetic $T$ and
 potential energy $V$ contributions of both the nucleus $ N $ and the electron
 $ e $. In a one electron system in vaccuum the Hamiltonian would be as follows
 \cite{Jensen:2017, Cramer:2004}.
-\begin{equation}
-  \begin{aligned}
+\begin{align}
+  \begin{split}
     H   &= T_N + T_e + V \\
     T_N &= -\frac{\hbar^2}{2m_N}\nabla^2_N \\
     T_e &= -\frac{\hbar^2}{2m_e}\nabla^2_e \\
     V   &= -\frac{Z}{||\vec{r}_N - \vec{r}_e||} \label{eq:twopH}
-  \end{aligned}
-\end{equation}
+  \end{split}
+\end{align}
 Where the operator $ \nabla^2$ is the Laplacian computing the second partial
-derivative $ \frac{\delta^2}{\delta x^2} + \frac{\delta^2}{\delta y^2} +
-\frac{\delta^2}{\delta z^2} $ for the coordinates of the electron $\vec{r}_e$
+derivative $ \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} +
+\frac{\partial^2}{\partial z^2} $ for the coordinates of the electron $\vec{r}_e$
 and the nucleus $\vec{r}_N$, $ m $ is the mass of the electron and the nucleus
 depending on the subscript used. The potential is the coulomb interaction
-between the electrons, which is calculated by dividing the atomic number of the
-nucleus $ Z $ with the distance between the electron and the nucleus
+between the electrons, which is calculated by dividing the nuclear charge of the
+atom $ Z $ with the distance between the electron and the nucleus
 $ ||\vec{r}_N - \vec{r}_e|| $.
 
 We can see that the kinetic energy operators are separable, as they are only
-dependent on their respective particlecoordinates. The potential energy
+dependent on their respective particle coordinates. The potential energy
 operator, on the other hand, is not separable, as it is dependent in the
 coordinates of both the nucleus and the electron.
 
 In order to solve the the \ac{SE} analytically one must first change into a
 center of mass coordinate system :
 \begin{equation}
-  \begin{alignat}{3}
-    X &= \frac{m_Nx_N + m_ex_e}{m_N + m_e} ~&;~ x &= x_N - x_e \\
-    Y &= \frac{m_Ny_N + m_ey_e}{m_N + m_e} ~&;~ y &= y_N - y_e \\
-    Z &= \frac{m_Nz_N + m_ez_e}{m_N + m_e} ~&;~ z &=
-    z_N - z_e \label{eq:cmparam}
-  \end{alignat}
+  \begin{aligned} \label{eq:cmparam}
+    \mathbf{X} &= \frac{m_Nx_N + m_ex_e}{m_N + m_e} ~&&;~ x &&&= x_N - x_e \\
+    \mathbf{Y} &= \frac{m_Ny_N + m_ey_e}{m_N + m_e} ~&&;~ y &&&= y_N - y_e \\
+    \mathbf{Z} &= \frac{m_Nz_N + m_ez_e}{m_N + m_e} ~&&;~ z &&&= z_N - z_e
+  \end{aligned}
 \end{equation}
-Where the $XYZ$-coordinates define a system centered in the center of mass,
+Where the $\mathbf{XYZ}$-coordinates define a system centered in the center of mass,
 while the $xyz$-coordinates specify the relative position of the two particles
 \cite{Jensen:2017}. Applying this coordinate system to the Hamiltonian in
 Equation \ref{eq:twopH} yields:
 \begin{equation}
-  H = -\frac{1}{2}\nabla^2_{XYZ} -\frac{1}{2\mu}\nabla^2_{xyz} -
+  H = -\frac{1}{2}\nabla^2_{\mathbf{XYZ}} -\frac{1}{2\mu}\nabla^2_{xyz} -
   \frac{Z}{\sqrt{x^2 + y^2 + z^2}}\label{eq:twopHcm}
 \end{equation}
 Where the first term in Equation \ref{eq:twopHcm} describes the motion of the
@@ -163,49 +163,191 @@ The third term is the potential energy which still is dependent on the distance
 between the two particles. In this center of mass system the distance is just
 determined by the $xyz$-coordinates.
 
-The motion of the particles occurs in three dimensions, therefore it is
-advantageous to use polar coordinates to solve the \ac{SE}. In this coordinate
-system $r$ describes the distance to the center, $\theta$ describing the angle
-of the particle with respect to the $z$-axis and $\varphi$ describes the polar
-angle on the $xy$-plane. Applying this to the Hamiltonian in Equation
-\ref{eq:twopHcm} gives:
+The electron's motion occurs at fixed distances from the nucleus and can be
+anywhere in a sphere around it. Therefore it is advantageous to use polar
+coordinates to solve the \ac{SE}. In this coordinate system $r$ describes the
+distance to the center, $\theta$ describing the angle of the particle with
+respect to the $z$-axis and $\varphi$ describes the polar angle on the
+$xy$-plane. Applying this to the Hamiltonian in Equation \ref{eq:twopHcm} gives
+\cite{Atkins:2014}:
 \begin{equation}
-  \begin{align}
+  \begin{split}\label{eq:SphHcm}
     H &= -\frac{1}{2\mu}\nabla^2_{r\theta\varphi} - \frac{Z}{r}\\
-    \nabla^2_{r\theta\varphi} &=
-    \frac{1}{r^2}\frac{\delta}{\delta r}r^2\frac{\delta}{\delta r}
-    + \frac{1}{r^2 \sin{\theta}}\frac{\delta}{\delta\theta}\sin{\theta}
-      \frac{\delta}{\delta\theta}
-    + \frac{1}{r^2\sin^2{\theta}}\frac{\delta^2}{\delta\varphi^2}
-    \label{eq:SphHcm}
-  \end{align}
+    \nabla^2_{r\theta\varphi} &=  \frac{1}{r^2}\frac{\partial}{\partial r}
+                                  r^2\frac{\partial}{\partial r}
+                                  + \frac{1}{r^2}\Lambda^2 \\
+    \Lambda^2 &= \frac{1}{\sin{\theta}}\frac{\partial}{
+                 \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}
+                 + \frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\varphi^2}
+  \end{split}
 \end{equation}
+The operator $\Lambda^2$ is the Legendrian operator \cite{Atkins:2014}.
+
+\subsection{The Wave Function}
+As stated above, the motion of the electron happens around different distances
+from the nucleus. This tells us that the wavefunction, as with the Hamiltonian,
+is better described with spherical coordinates. As the Potential energy is
+dependent only on the radius (distance between particles), we can separate the
+wave function into two functions, a radial $R(r)$ and an angular
+$Y(\theta, \varphi)$ wave function.
+\begin{equation}
+  \begin{split}
+    \Psi(r, \theta, \varphi) &= R(r) Y(\theta, \varphi)
+  \end{split}
+\end{equation}
+%this is bad writing whole paragraph aways pls
 Which can be solved using different differential equation methods. The solution
 is parametrized to the three quantum number n, l and m corresponding to the
 spherical coordinates. Solving the resulting differential equation with the
-Hamiltonian in Equation \ref{eq:SphHcm} and the wavefunction gives a series of
-orthonormal solutions to the wavefunction called orbitals \cite{Jensen:2017}.
+Hamiltonian in Equation \ref{eq:SphHcm} and the wave function gives a series of
+orthonormal solutions to the wave function called orbitals \cite{Jensen:2017}.
 %more about the properties of these orbitals
+
+\subsection{The energies}
 \section{Many body systems}
 
 For bigger systems, there is no practical way to analytically solve the
 \ac{SE}. For one, for each particle, the amount of dimensions that need to be
-evaluated increases by three, that is, one can expect the wavefunction
+evaluated increases by three, that is, one can expect the wave function
 dimension to increase by a factor of $3N$ for each particle $N$
 \cite{Cramer:2004}.
 
-Additionally, the potential energy operator becomes more complicated,
-as it no would not just have the attractive forces between electron-nucleus,
-but also the repulsive forces between all the electrons. Both of these problems
-add more terms per particle and thus would be impossible to be solved in a
-realistic timeframe. %cite
+Additionally, the potential energy operator becomes more complicated,as it
+would not just have the attractive forces between electron-nucleus,but also the
+repulsive forces between all the electrons. Both of these problems add more
+terms per particle and thus would be impossible to be solved in a realistic
+timeframe. %cite
 %don't know what to write here
 
 \subsection{Variational Principle}
 
+Consider a complete set of orthonormal eigenfunctions $ \Psi_i$  of the
+Hamiltonian $H$. From Equation \ref{eq:lincomb} we build an arbitrary
+wave function $\Phi$ with a linear combination of the eigenfunctions with
+coefficients $c_i$.
+\begin{equation}
+  \Phi = \sum\limits_ic_i\Psi_i
+\end{equation}
+We also know from Equation \ref{eq:arbprob} that the pribability of $\Phi$ can
+be calculated as shown below;
+\begin{equation}
+  \braket{\Phi|\Phi} = \sum\limits_i^nc_i^2
+\end{equation}
+We also know that the wave function $\Phi$ is normalized, so the sum above
+should equal to one. Additionally, the expectation value of the Hamiltonian can
+be calculated as in Equation \ref{eq:arbeval} to give us this:
+\begin{equation}
+  \braket{\Phi|H|\Phi} = \sum\limits_i^nc_i^2E_i\label{eq:genenerg}
+\end{equation}
+This tells us the the energy of the wave function $\Phi$ can be determined by
+knowing the energies $E_i$ of each eigenfunction $\psi_i$ and the coefficients
+$c_i$ associated with the linear combination that describes $\Phi$
+\cite{Cramer:2004}.
+
+We know that for this to be a quantum mechanical system there must be a lowest
+energy among all energies $E_i$. We choose to call this lowest energy $E_0$.
+Substracting $E_0$ from Equation \ref{eq:genenerg} to find out the difference
+between the calculated energy of the arbitrary wave function $\Phi$ with respect
+to the ground state energy gives us:
+
+\begin{equation}
+   \sum\limits_i^nc_i^2(E_i - E_0) = \braket{\Phi | H | \Phi} -
+   E_0\braket{\Phi | \Phi}
+\end{equation}
+We know that each term $c_i$ must be greater or equal to zero (non-trivial) and
+that the term $(E_i - E_0)$ must be greater or equal to zero as well
+\cite{Cramer:2004}, because each individual $E_i$ may add more energy to the
+ground state. This leads to the following set of inequalities.
+
+\begin{equation}
+  \begin{split} \label{eq:varprin}
+    \braket{\Phi | H | \Phi} - E_0\braket{\Phi | \Phi} & \geq 0 \\
+    \frac{\braket{\Phi | H | \Phi}}{\braket{\Phi | \Phi}} & \geq E_0
+  \end{split}
+\end{equation}
+We know from Equation \ref{eq:eval} that the inequality in the last term in
+\ref{eq:varprin} shows that the energy calculated as an Eigenvalue of $\Phi$ is
+always greater or equal to zero. This lets us construct our trial wave functions
+for the ground state of a system with any basis set. We can assess the quality
+of the guess by their associated energies, attempting to reach as low a value
+as possible \cite{Cramer:2004}.
+
 \subsection{\ac{BO} approximation}
 
-\subsection{Orbitals}
+The Hamiltonian for many electron systems contains terms for the correlated
+motion of the particles \cite{Cramer:2004, Jensen:2017}. This includes the
+repulsion and attraction of all the particles to each other. This means that no
+particle is moving independently of the other particles. Trying to solve a
+\ac{SE} analytically with a Hamiltonian such as this is not possible. In order
+to simplify the problem we use the \ac{BO} approximation \cite{Cramer:2004,
+Jensen:2017}.
+
+In the \ac{BO} approximation one assumes that the motion of the nucleus is
+negligible in comparison to the motion of the electrons \cite{Cramer:2004,
+Jensen:2017}. This is because the elecrons are 1800 times less massive than the
+protons and electrons and the kinetic energy operator is inverselly
+proportional to the mass of the particle. THis way we can imagine the system as
+having stationary nucleus and electrons in motion around the nucleus.
+
+By using this assumption we can separate the problem of a \ac{SE} for the whole
+system (electron and nuclei) into two separate problems, first solving for the
+electron motion, attraction and repulsion energies and second solving for the
+kinetic energy of the molecule\cite{Cramer:2004}. By this line of thought one
+can write the following set of equations in \ref{eq:BO} based on Equation
+\ref{eq:twopH} and the Hamiltonian in \ref{eq:SE} adding the nucleus-nucleus
+and electron-electron repulsion potentials, $ V_{NN} $ and $ V_{ee} $
+respectivelly.
+\begin{equation}
+  \begin{split}\label{eq:BO}
+    H_{tot}\Psi_{tot}(\vec{R}, \vec{r}) &= E_{tot}\Psi_{tot}(\vec{R},
+    \vec{r})\\
+    H_{tot} &= H_e + H_N \\
+    H_e = T_e + V_{Ne} + V_{ee} ~&;~ H_N = T_N + V_{NN} \\
+    \Psi_{tot}(\vec{R}, \vec{r}) &= \Psi_N(\vec{R})\Psi_e(\vec{r}; \vec{R}) \\
+    (H_e + V_{NN})\Psi_e(\vec{r}; \vec{R}) &= E_e(\vec{R})\Psi_e(\vec{r};
+    \vec{R})\\
+    (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) &= E_{tot}\Psi_N(\vec{R})
+  \end{split}
+\end{equation}
+
+In the equations above, both the total Hamiltonian $H_{tot}$ and total
+wave function $\Psi_{tot}$ are divided into electronic and nucleic contributions
+($\Psi_e$ and$\Psi_N$ respectivelly). This separation is not complete, as there
+still is the nucleus-electron attraction which must be included in the
+electronic Hamiltonian $H_e$. Additionally, when solving the electronic problem
+we need to take into account the nucleus-nucleus repulsion potential $V_NN$.
+For these reasons the electronic wave function $\Psi_e$ is dependent on both the
+electron coordinates $\vec{r}$ and nucleus coordinates $\vec{R}$. The
+electronic wave function is dependent on the electronic coordinates as
+variables, but depends on the nuclei coordinates parametrically
+\cite{Jensen:2017}.This means that for each molecule geometry the electronic
+problem is solved as if the nucleus was motionless. This leads to the
+nucleus-nucleus potential to be a constant for each moelcule geometry.
+
+Solving the electronic problem over different geometries gives rise to a
+\ac{PES} on which the molecule exists \cite{Cramer:2004}. This parametric
+dependency on the geometry of the molecule means that the electronic energy is
+as well dependent on it. This way we can attempt to find a minimum (the method
+used for this can vary) for the electronic energy by iterativelly solving the
+electronic problem with different geometries. This is important to measure how
+good our trial wave function is as according to the variational principle.
+
+Once a minimum has been reached on the \ac{PES} one can go on to solve for the
+total energy of the system by doing solving the final equation on \ref{eq:BO}.
+This, as according to the variational principle, can also be interated over in
+order to minimize the energy.
+
+\subsection{Solving the many body problem}
+
+Now that We have simplified the problem into an electonic \ac{SE} using the
+\ac{BO} approximation and we can minimize the energy of a waavfunction built
+by any basis set in order to find a good approximation to the ground state
+energy using the variational principle. The question that remains is, what does
+this function, or basis set look like, and how can we solve the problem with it.
+An example of a basis set approach which can be utilized to create a first guess
+is the \ac{LCAO} approach.
+
+
 
 
 
