@@ -4,7 +4,8 @@
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
 \chapter{Quantum Chemistry}
-\section{Eigenvalue Problems}
+\section{Quantum mechanics}
+\subsection{Eigenvalue Equations}
 Consider a generic system (the system one is most occuppied with in theoretical
 chemistry is a molecule or an atom). The system can be described by a
 wave function $\Psi$. This wave function, by definition, has all information
@@ -124,7 +125,11 @@ and the nucleus $\vec{r}_N$, $ m $ is the mass of the electron and the nucleus
 depending on the subscript used. The potential is the coulomb interaction
 between the electrons, which is calculated by dividing the nuclear charge of the
 atom $ Z $ with the distance between the electron and the nucleus
-$ ||\vec{r}_N - \vec{r}_e|| $.
+$ ||\vec{r}_N - \vec{r}_e|| $. Note that we will be using Atomic units in all
+the equations from here onwards, meaning that, although the equations presented
+contain constants such as $\hbar$ in literature such as in \cite{Atkins:2014},
+these will be presented with their value in atomic units (which is one for
+$\hbar$).
 
 We can see that the kinetic energy operators are separable, as they are only
 dependent on their respective particle coordinates. The potential energy
@@ -172,7 +177,8 @@ $xy$-plane. Applying this to the Hamiltonian in Equation \ref{eq:twopHcm} gives
 \cite{Atkins:2014}:
 \begin{equation}
   \begin{split}\label{eq:SphHcm}
-    H &= -\frac{1}{2\mu}\nabla^2_{r\theta\varphi} - \frac{Z}{r}\\
+    H_{r\theta\varphi} &= -\frac{1}{2\mu}\nabla^2_{r\theta\varphi}
+                          -\frac{Z}{r}\\
     \nabla^2_{r\theta\varphi} &=  \frac{1}{r^2}\frac{\partial}{\partial r}
                                   r^2\frac{\partial}{\partial r}
                                   + \frac{1}{r^2}\Lambda^2 \\
@@ -187,23 +193,35 @@ The operator $\Lambda^2$ is the Legendrian operator \cite{Atkins:2014}.
 As stated above, the motion of the electron happens around different distances
 from the nucleus. This tells us that the wavefunction, as with the Hamiltonian,
 is better described with spherical coordinates. As the Potential energy is
-dependent only on the radius (distance between particles), we can separate the
-wave function into two functions, a radial $R(r)$ and an angular
-$Y(\theta, \varphi)$ wave function.
+dependent only on the radius (distance between particles), we can assume the
+wavefunction is separable \cite{Atkins:2014} into two functions, a radial $R(r)$
+and an angular $Y(\theta, \varphi)$ wave function.
+\begin{equation}
+  \Psi(r, \theta, \varphi) = R(r) Y(\theta, \varphi)\label{eq:radangsep}
+\end{equation}
+
+The angular wavefunction $Y(\theta, \varphi)$ can be further separated into two
+functions $ \Theta(\theta) $ and $\Phi(\varphi)$ \cite{Atkins:2014, Simons:2016},
+each dependent on their respective angular variable. $\Phi$ is the Harmonics for a particle in a ring \cite{Atkins:2014}
+while $ \Theta $ is represented by the associated Legendre functions.
 \begin{equation}
   \begin{split}
-    \Psi(r, \theta, \varphi) &= R(r) Y(\theta, \varphi)
+    Y(\theta, \varphi) &= \Theta(\theta)\Phi(\varphi)\\
+    \Phi(\varphi) &= \\
+    \Theta(\theta) &= \\
+    P_n^l &=
   \end{split}
 \end{equation}
-%this is bad writing whole paragraph aways pls
-Which can be solved using different differential equation methods. The solution
-is parametrized to the three quantum number n, l and m corresponding to the
-spherical coordinates. Solving the resulting differential equation with the
-Hamiltonian in Equation \ref{eq:SphHcm} and the wave function gives a series of
-orthonormal solutions to the wave function called orbitals \cite{Jensen:2017}.
-%more about the properties of these orbitals
 
 \subsection{The energies}
+
+Applying the hamiltonian in Equation \ref{eq:SphHcm} to the wavefunction in
+Equation \ref{eq:radangsep} yields \cite{Atkins:2014}:
+\begin{equation}
+  \begin{split}
+    H_{r\theta\varphi} R(r)Y(\theta, \varphi) &= E R(r)Y(\theta, \varphi)
+  \end{split}
+\end{equation}
 \section{Many body systems}
 
 For bigger systems, there is no practical way to analytically solve the
