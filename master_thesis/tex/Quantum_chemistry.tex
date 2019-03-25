@@ -3,8 +3,107 @@
 \makeatother
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
-\chapter{Quantum Chemistry}
+\chapter{\ac{QM}}
 \section{Quantum mechanics}
+\subsection{Notation}
+When working with \ac{QM} one uses different sets of notations in order to
+simplify equations or in order to give a better intuition on what is possible
+arithmethically. Therefore it is needed to clarify what most of the different
+symbols and representations mean in this subject. Following are most of the
+ notations used through this paper. Further exceptions to the notation will be
+ clarified where needed througout the paper.
+\subsection{The postulates}
+
+\ac{QM} are based on a set rules that define operations and states. We will
+present these rules as six different postulates of \ac{QM} (sometimes divided
+as 5)
+\cite{Atkins:2011, Cohen:1973}.
+\paragraph{First postulate}
+The first postulate states that everything we can know about a physical system
+can be extracted from the wavefunction $\Psi(x, t)$ of that system
+\cite{Atkins:2011}. Additionally at a time $t_0$ the system is defined by
+a state vector (or wavefunction) $\ket{\Psi(t_0)}\in L^2$ that has a defined
+finite scalar product as \cite{Cohen:1973}:
+\begin{equation}
+  \braket{\Psi|\Psi} = \|\ket{\Psi}\|^2 =  \int_{R^3}\Psi^\star\Psi d\vec{r}
+\end{equation}
+% maybe have this
+We will see that $\ket{\Psi}$ can be normalized, and that
+$\braket{\Psi|\Psi} = 1$
+
+\paragraph{Second postulate}
+An generic observable $O$ is represented by a generic operator $\hat{O}$. Two
+such observables are the position and momentum of a particle. These are
+represented by $\hat{q_i}$ and $\hat{p_i}$ respectivelly, where
+$i = \{x, y, z\}$. These operators fulfill the following commutation relations
+\cite{Atkins:2011, Cohen:1973}:
+\begin{align}
+  \begin{split}
+    [q_i, p_j] &= i \hbar \delta_{ij}\\
+    [q_i, q_j] &= 0 \\
+    [p_i, p_j] &= 0
+  \end{split}
+\end{align}
+Where $\delta_{ij}$ is the kronecker delta which equals one when $i = j$ and
+zero when $ i \neq j$ \cite{ Atkins:2014, Atkins:2011, Cohen:1973, Cramer:2004, Jensen:2017}.
+The operators that represent observables are hermitian, meaning that
+\cite{Cohen:1973}:
+\begin{equation}
+  \hat{O} = (\hat{O}^{\star})^T = (\hat{O}^T)^{\star} = \hat{O}^{\dagger}
+\end{equation}
+Which means that they hold the following commutation relation
+\cite{Cohen:1973}:
+\begin{equation}
+  [\hat{O}, \hat{O}^{\dagger}] = 0
+\end{equation}
+
+\paragraph{Third postulate}
+When applying the generic operator to the state vector, $\hat{O}\ket{\Psi_i}$,
+one can only measure the spectrum of eigenvalues $o_i$ of the operator $\hat{O}$. The
+following equation will hold if $\ket{\Psi_i}$ is an eigenfunction of $\hat{O}$
+\cite{Cohen:1973, Atkins:2014}:
+\begin{equation}
+  \hat{O}\ket{\Psi_i} = o_i\ket{\Psi_i}
+\end{equation}
+Additionally the expectation value of the measurement (Operator) is
+\cite{Atkins:2011}:
+\begin{equation}\label{eq:post3}
+  \braket{\hat{O}} = \frac{\braket{\Psi_i|\hat{O}|\Psi_i}}{\braket{\Psi_i|\Psi_i}}
+\end{equation}
+Here we shall assume that the eigenfunction $\Psi_i$ is normalized, which means
+$\braket{Psi_i|Psi_i} = 1$ holds, thus the previous Equation \ref{eq:post3} can
+be simplified to \cite{Atkins:2011}:
+\begin{equation}
+  \braket{\hat{O}} = \braket{\Psi_i|O|\Psi_i}
+\end{equation}
+The fourth postulate will take into account the possibility of the $\ket{\Psi}$
+not being an eigenfunction of $\hat{O}$.
+
+\paragraph{Fourth postulate}
+Suppose that there exists a set of eigenfunctions $\Psi_i$ of $\hat{O}$ with
+eigenvalues $c_i$ which form a complete orthonormal basis. A basis is
+orthonormal when its elements (wavefunctions in this case) are both normalized
+and orthogonal. This is represented by the following equation
+\cite{Jensen:2017, Cramer:2004, Cohen:1973}:
+\begin{equation}
+  \braket{\Psi_i|\Psi_j} = \delta_{ij}
+\end{equation}
+ Any wavefunction $\Psi$ can be
+represented as follows \cite{Cohen:1973}:
+\begin{equation}
+  \Psi = \sum_i c_i\Psi_i
+\end{equation}
+This means that the only values one can measure from such a state are linear
+combinations of the eigenvalues of these functions. Furthermore the expectation
+value of the operator is:
+\begin{align}
+  \begin{split}
+    \braket{\hat{O}} &= \braket{\Psi|\hat{O}|\Psi} \\
+                     &= \braket{\sum_i c_i \Psi_i|\hat{O}|\sum_i c_i \Psi_i} \\
+                     &=
+  \end{split}
+\end{align}
+%state that the operator is linear
 \subsection{Eigenvalue Equations}
 Consider a generic system (the system one is most occuppied with in theoretical
 chemistry is a molecule or an atom). The system can be described by a
