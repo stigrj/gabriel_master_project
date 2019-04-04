@@ -3,22 +3,28 @@
 \makeatother
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
-\chapter{\ac{QM}}
-\section{Quantum mechanics}
+\chapter{Quantum Chemistry}
+\section{\ac{QM}}
 \subsection{Notation}
-When working with \ac{QM} one uses different sets of notations in order to
-simplify equations or in order to give a better intuition on what is possible
-arithmethically. Therefore it is needed to clarify what most of the different
-symbols and representations mean in this subject. Following are most of the
- notations used through this paper. Further exceptions to the notation will be
- clarified where needed througout the paper.
-\subsection{The postulates}
+When working with qunatum chemistry simplify equations or in order to give a
+better intuition on what is possible arithmethically. Therefore it is needed to
+clarify what most of the different symbols and representations mean in this
+subject. Following are most of the notations used through this paper. Further exceptions to the notation will be
+clarified where needed througout the paper.
+%order of operations
+%commutators
+%bra-ket
+%orthonormality
+%   kronecker delta
+Where $\delta_{ij}$ is the Kronecker delta which equals one when $i = j$ and
+zero when $ i \neq j$ \cite{ Atkins:2014, Atkins:2011, Cohen:1973, Cramer:2004, Jensen:2017}.
+\subsection{The Postulates of \ac{QM}}
 
 \ac{QM} are based on a set rules that define operations and states. We will
 present these rules as six different postulates of \ac{QM} (sometimes divided
-as 5)
-\cite{Atkins:2011, Cohen:1973}.
-\paragraph{First postulate}
+as 5) \cite{Atkins:2011, Cohen:1973}.
+
+\subsubsection{First Postulate}
 The first postulate states that everything we can know about a physical system
 can be extracted from the wavefunction $\Psi(x, t)$ of that system
 \cite{Atkins:2011}. Additionally at a time $t_0$ the system is defined by
@@ -27,11 +33,8 @@ finite scalar product as \cite{Cohen:1973}:
 \begin{equation}
   \braket{\Psi|\Psi} = \|\ket{\Psi}\|^2 =  \int_{R^3}\Psi^\star\Psi d\vec{r}
 \end{equation}
-% maybe have this
-We will see that $\ket{\Psi}$ can be normalized, and that
-$\braket{\Psi|\Psi} = 1$
 
-\paragraph{Second postulate}
+\subsubsection{Second Postulate}
 An generic observable $O$ is represented by a generic operator $\hat{O}$. Two
 such observables are the position and momentum of a particle. These are
 represented by $\hat{q_i}$ and $\hat{p_i}$ respectivelly, where
@@ -44,8 +47,7 @@ $i = \{x, y, z\}$. These operators fulfill the following commutation relations
     [p_i, p_j] &= 0
   \end{split}
 \end{align}
-Where $\delta_{ij}$ is the kronecker delta which equals one when $i = j$ and
-zero when $ i \neq j$ \cite{ Atkins:2014, Atkins:2011, Cohen:1973, Cramer:2004, Jensen:2017}.
+
 The operators that represent observables are hermitian, meaning that
 \cite{Cohen:1973}:
 \begin{equation}
@@ -56,148 +58,92 @@ Which means that they hold the following commutation relation
 \begin{equation}
   [\hat{O}, \hat{O}^{\dagger}] = 0
 \end{equation}
+These operators are linear as well:
+\begin{equation}
+    \hat{O}(f + g) = \hat{O}f + \hat{O}g\label{eq:oplinearity}
+\end{equation}
+Where $f$ and $g$ are functions.
 
-\paragraph{Third postulate}
+\subsubsection{Third Postulate}
 When applying the generic operator to the state vector, $\hat{O}\ket{\Psi_i}$,
-one can only measure the spectrum of eigenvalues $o_i$ of the operator $\hat{O}$. The
-following equation will hold if $\ket{\Psi_i}$ is an eigenfunction of $\hat{O}$
+one can only measure of the spectrum of eigenvalues $o_i$ of the operator $\hat{O}$
+only one such value. The following equation will hold if $\ket{\Psi_i}$ is an
+eigenfunction of $\hat{O}$
 \cite{Cohen:1973, Atkins:2014}:
+\begin{equation}
+  \hat{O}\ket{\Psi_i} = o_i\ket{\Psi_i}\label{eq:startevaleq}
+\end{equation}
+Where we multiply on the left on both sides of the equation with $\bra{\Psi_i}$
+giving us
+\begin{equation}
+  \bra{\Psi_i}\hat{O}\ket{\Psi_i} = \bra{\Psi_i}o_i\ket{\Psi_i}
+\end{equation}
+We can take the constant $o_i$ outside the integral, and
+use the fact that the wavefunctions are normalized:
+\begin{align}
+  \begin{split}
+    \bra{\Psi_i}\hat{O}\ket{\Psi_i} &= o_i\braket{\Psi_i|\Psi_i}\\
+    \bra{\Psi_i}\hat{O}\ket{\Psi_i} &= o_i \label{eq:endevaleq}
+  \end{split}
+\end{align}
+The Equation \ref{eq:startevaleq} is an eigenvalue equation and if the operator is
+the Hamiltonian $\hat{H}$ then \ref{eq:startevaleq} becomes the \ac{SE} \cite{Cramer:2004}.
+
+\subsubsection{Fourth Postulate}
+The fourth postulate states the possible probabilities of getting a specific
+eigen-value for a given measurement.
+Let $\ket{\Psi_i}$ be an eigenfunction of $\hat{O}$ such that:
 \begin{equation}
   \hat{O}\ket{\Psi_i} = o_i\ket{\Psi_i}
 \end{equation}
-Additionally the expectation value of the measurement (Operator) is
-\cite{Atkins:2011}:
-\begin{equation}\label{eq:post3}
-  \braket{\hat{O}} = \frac{\braket{\Psi_i|\hat{O}|\Psi_i}}{\braket{\Psi_i|\Psi_i}}
-\end{equation}
-Here we shall assume that the eigenfunction $\Psi_i$ is normalized, which means
-$\braket{Psi_i|Psi_i} = 1$ holds, thus the previous Equation \ref{eq:post3} can
-be simplified to \cite{Atkins:2011}:
+and
 \begin{equation}
-  \braket{\hat{O}} = \braket{\Psi_i|O|\Psi_i}
+  \ket{\Psi} = \sum_i c_i \ket{\Psi_i}
 \end{equation}
-The fourth postulate will take into account the possibility of the $\ket{\Psi}$
-not being an eigenfunction of $\hat{O}$.
-
-\paragraph{Fourth postulate}
-Suppose that there exists a set of eigenfunctions $\Psi_i$ of $\hat{O}$ with
-eigenvalues $c_i$ which form a complete orthonormal basis. A basis is
-orthonormal when its elements (wavefunctions in this case) are both normalized
-and orthogonal. This is represented by the following equation
-\cite{Jensen:2017, Cramer:2004, Cohen:1973}:
-\begin{equation}
-  \braket{\Psi_i|\Psi_j} = \delta_{ij}
-\end{equation}
- Any wavefunction $\Psi$ can be
-represented as follows \cite{Cohen:1973}:
-\begin{equation}
-  \Psi = \sum_i c_i\Psi_i
-\end{equation}
-This means that the only values one can measure from such a state are linear
-combinations of the eigenvalues of these functions. Furthermore the expectation
-value of the operator is:
-\begin{align}
+has no degenerate eigen-values,
+The probability of measuring eigen-value $o_i$ from $\ket{\Psi}$ is given by
+\cite{Cohen:1973}:
+\begin{align} \label{eq:post4}
   \begin{split}
-    \braket{\hat{O}} &= \braket{\Psi|\hat{O}|\Psi} \\
-                     &= \braket{\sum_i c_i \Psi_i|\hat{O}|\sum_i c_i \Psi_i} \\
-                     &=
+    \mathscr{P}(o_i) &= \abs{\braket{\Psi_i|\Psi}}^2\\
+                     &= \sum_{j}c_i^\star c_j\braket{\Psi_i|\Psi_j}\\
+                     &= \sum_{j}c_i^\star c_j\delta_{ij}\\
+                     &= \abs{c_i}^2
   \end{split}
 \end{align}
-%state that the operator is linear
-\subsection{Eigenvalue Equations}
-Consider a generic system (the system one is most occuppied with in theoretical
-chemistry is a molecule or an atom). The system can be described by a
-wave function $\Psi$. This wave function, by definition, has all information
-about the system, which can be extracted by solving the Eigenvalue equation
-with a characteristic operator $\vartheta$ for an observable property $ e $ to
-be extracted as an eigenvalue of the operator applied on the wave function
-\cite{Cramer:2004}:
+
+Following the equation \ref{eq:post4} the probability of measuring the
+eigen-value $o_i$ from $\ket{\Psi_i}$ is just one. The sum of all the probabilities
+for each eigen-value is:
 \begin{equation}
-  \vartheta\Psi = e\Psi\label{eq:eigenequation}
+  \sum_i\mathscr{P}(o_i) = \sum_i \abs{c_i}^2 = 1
+\end{equation}
+Here we have ignored te case for degenerate eigen-values and continuos spctra of
+eigen-values, where the method is analogous to the one used above. The reader is
+invited to look them up themselves in \cite{Cohen:1973, Atkins:2011}.
+
+\subsubsection{Fifth Postulate}
+The fifth postulate states that immediatelly after a measurement where the eigenvalue was $o_i$
+the state of the system $\ket{\Psi}$ collapses into a state where the only value one
+can measure is $o_i$, that is $ \ket{\Psi_i} $ using the conventions stated in postulate 3 and 4.
+This is because before measuring, the probabilities for \textit{any} eigen-value
+is as stated in the fourth postulate. When the value has been measured, though,
+the uncertainty doesn not exists, as the state of the system must be one that gives
+exactly that value. The following Equation \ref{eq:post5} represents the postulate.
+\begin{equation}\label{eq:post5}
+  \ket{\Psi} \stackrel{o_i}{\Rightarrow} \ket{\Psi_i}
 \end{equation}
 
-The wave function is usually normalized, meaning that the integral in Equation
-\ref{eq:normwf} applies. The integral below can be written in bra-ket
-\cite{Jensen:2017} notation, which is shown in Equation \ref{eq:normwf}.
-\begin{equation}
-  \braket{\Psi|\Psi} = \int\limits_{-\infty}^{\infty}
-  \Psi^*(\vec{r})\Psi(\vec{r})\mathrm{\,d}\vec{r} = 1\label{eq:normwf}
-\end{equation} 
-Where $\Psi^*$ is the complex conjugate wave function and $\vec{r}$ is a
-coordinate vector in which the wave function is evaluated over all space.
-Bra-ket notation is what will be used from now on to write integrals in a more
-compact manner.
-
-The Equation \ref{eq:normwf} calculates the probability of finding the system
-that the wave function $\Psi$ describes in all of space. The expectation value
-of an arbitrary operator $\vartheta$ with eigenvalue $e$ is calculated as
-follows \cite{Atkins:2014}.
-\begin{align}
-  \begin{split}
-    \braket{\Psi|\vartheta|\Psi} &= \braket{\Psi|e|\Psi} \\
-    \braket{\Psi|\vartheta|\Psi}&= e\braket{\Psi|\Psi} \\
-    \frac{\braket{\Psi|\vartheta|\Psi}}{\braket{\Psi|\Psi}}&= e\label{eq:eval}
-  \end{split}
-\end{align}
-We can apply Equation \ref{eq:normwf} on the denominator on the l.h.s. of the
-last step on the Equation \ref{eq:eval} is one in a normalized wave function.
-
-From Equation \ref{eq:eigenequation} we can see that applying the operator on
-the wave function yields the eigenvalue of said operator. Given that the
-eigenvalue $e$ is a constant it can be taken out of the integral. The integral
-then yields the eigenvalue, which is also the expectation value of said
-operator.
-
-In the case that the wave function $\Psi$ is not an eigenfunction of the
-operator, the wave function can be constructed by a linear combination of
-orthogonal and normalized (orthonormal\cite{Jensen:2017}) eigenfunctions
-$\Psi_i$ of the operator \cite{Atkins:2014} scaled by scalars $c_i$:
-\begin{equation}
-  \Psi = c_1\Psi_1 + c_2\Psi_2 + ... + c_n\Psi_n \label{eq:lincomb}
+\subsubsection{Sixth Postulate}
+The system when undisturbed changes in a deterministic way \cite{Cohen:1973}.
+This change is governed by the time dependent \ac{SE} \cite{Cohen:1973, Atkins:2011}:
+\begin{equation}\label{eq:tdepSE}
+  i\hbar\frac{\partial}{\partial t} \ket{\Psi} = \tilde{H}\ket{\Psi}
 \end{equation}
+Where $\tilde{H}$ is the Hamiltonian operator which has the total energy of the
+system as its eigen-values.
 
-The fact that the eigenfunctions are orthogonal means that:
-\begin{equation}
-  \braket{\Psi_i|\Psi_j} = \delta _{ij}
-\end{equation}
-Where $ \delta_{ij} $ is one when $i=j$ and zero otherwise \cite{Cramer:2004}.
-%more above
-Finding the expectation value for each eigen of the operator can then be done
-as a sum of the expectation values $e_i$ of each eigenfunction:
-\begin{align}
-  \begin{split}
-    \braket{\Psi|\vartheta|\Psi} &=
-    \sum\limits_i^n\braket{c_i\Psi_i|\vartheta|c_i\Psi_i} \\
-    &= \sum\limits_i^n\braket{c_i\Psi_i|e_i|c_i\Psi_i} \\
-    &= \sum\limits_i^nc_i^2e_i\braket{\Psi_i|\Psi_i} \\
-    \braket{\Psi|\vartheta|\Psi} &= \sum\limits_i^nc_i^2e_i\label{eq:arbeval}
-  \end{split}
-\end{align}
-With this knowledge we can state that the expectation value of an operator
-applied on any wave function can always be calculated as a sum of weighted
-eigenvalues for sums of orthonormal eigenfunctions.
-
-Furthermore, one can see that the probaiblity of the wave function is equal to
-$\sum_i^nc_i^2$. We know that in a normalized wave function the
-probability is equals to one, so we just need constants that satisfy the
-following equation.
-\begin{equation}
-  \braket{\Psi|\Psi} = 1 = \sum\limits_i^nc_i^2\label{eq:arbprob}
-\end{equation}
-
-
-\section{The \ac{SE}}
-%show the time dependent SE and derive the time independent SE
-The information that is of most interest in computational chemistry is the
-total energy of the system $ E $. The operator for which the energy $E$ of the
-system is its Expectation value is called the Hamiltonian $H$. Plugging this
-into \ref{eq:eigenequation} yields the time independent \ac{SE}
-\cite{Cramer:2004, Jensen:2017}:
-\begin{equation}
-  H\Psi = E\Psi\label{eq:SE}
-\end{equation}
-From Equation \ref{eq:eval} one can see that the solution of Equation
-\ref{eq:SE} is the expectation value of the Hamiltonian.
+\subsection{The \ac{SE}}
 
 
 
