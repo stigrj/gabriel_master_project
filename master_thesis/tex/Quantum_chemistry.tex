@@ -11,10 +11,24 @@ better intuition on what is possible arithmethically. Therefore it is needed to
 clarify what most of the different symbols and representations mean in this
 subject. Following are most of the notations used through this paper. Further exceptions to the notation will be
 clarified where needed througout the paper.
-%order of operations
-%commutators
-%bra-ket
-%orthonormality
+\paragraph{operators, scalars, vectors and matrices}
+In this text, we will be using objects called operators. These operators represent
+certain operations done to funcctions. We represent as $\hat{O}$ exchanging the letter
+as needed.
+
+Scalars are constants, or coefficients without variables. They will be refferred with
+lower case letters.
+
+Vectors will be represented with lower case letters as $\vec{a}$, while
+matrices will be represented with upper case as $\bar{A}$.
+\paragraph{order of operations}
+
+\paragraph{commutators}
+
+\paragraph{Dirac notation}
+
+\paragraph{orthonormal vectors}
+
 %   kronecker delta
 Where $\delta_{ij}$ is the Kronecker delta which equals one when $i = j$ and
 zero when $ i \neq j$ \cite{ Atkins:2014, Atkins:2011, Cohen:1973, Cramer:2004, Jensen:2017}.
@@ -98,7 +112,7 @@ Let $\ket{\Psi_i}$ be an eigenfunction of $\hat{O}$ such that:
 \end{equation}
 and
 \begin{equation}
-  \ket{\Psi} = \sum_i c_i \ket{\Psi_i}
+  \ket{\Psi} = \sum_i c_i \ket{\Psi_i} \label{eq:lincomb}
 \end{equation}
 has no degenerate eigen-values,
 The probability of measuring eigen-value $o_i$ from $\ket{\Psi}$ is given by
@@ -283,7 +297,7 @@ timeframe. %cite
 %don't know what to write here
 
 \subsection{Variational Principle}
-
+%need to edit this
 Consider a complete set of orthonormal eigenfunctions $ \Psi_i$  of the
 Hamiltonian $H$. From Equation \ref{eq:lincomb} we build an arbitrary
 wave function $\Phi$ with a linear combination of the eigenfunctions with
@@ -291,14 +305,14 @@ coefficients $c_i$.
 \begin{equation}
   \Phi = \sum\limits_ic_i\Psi_i
 \end{equation}
-We also know from Equation \ref{eq:arbprob} that the pribability of $\Phi$ can
+We also know from Equation \ref{eq:post4} that the pribability of $\Phi$ can
 be calculated as shown below;
 \begin{equation}
   \braket{\Phi|\Phi} = \sum\limits_i^nc_i^2
 \end{equation}
 We also know that the wave function $\Phi$ is normalized, so the sum above
 should equal to one. Additionally, the expectation value of the Hamiltonian can
-be calculated as in Equation \ref{eq:arbeval} to give us this:
+be calculated as in Equation \ref{eq:endevaleq} to give us this:
 \begin{equation}
   \braket{\Phi|H|\Phi} = \sum\limits_i^nc_i^2E_i\label{eq:genenerg}
 \end{equation}
@@ -328,7 +342,7 @@ ground state. This leads to the following set of inequalities.
     \frac{\braket{\Phi | H | \Phi}}{\braket{\Phi | \Phi}} & \geq E_0
   \end{split}
 \end{equation}
-We know from Equation \ref{eq:eval} that the inequality in the last term in
+We know from Equation \ref{eq:startevaleq} that the inequality in the last term in
 \ref{eq:varprin} shows that the energy calculated as an Eigenvalue of $\Phi$ is
 always greater or equal to zero. This lets us construct our trial wave functions
 for the ground state of a system with any basis set. We can assess the quality
@@ -357,7 +371,7 @@ system (electron and nuclei) into two separate problems, first solving for the
 electron motion, attraction and repulsion energies and second solving for the
 kinetic energy of the molecule\cite{Cramer:2004}. By this line of thought one
 can write the following set of equations in \ref{eq:BO} based on Equation
-\ref{eq:twopH} and the Hamiltonian in \ref{eq:SE} adding the nucleus-nucleus
+\ref{eq:twopH} adding the nucleus-nucleus
 and electron-electron repulsion potentials, $ V_{NN} $ and $ V_{ee} $
 respectivelly.
 \begin{equation}
