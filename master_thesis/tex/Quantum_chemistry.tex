@@ -11,9 +11,9 @@ better intuition on what is possible arithmethically. Therefore it is needed to
 clarify what most of the different symbols and representations mean in this
 subject. Following are most of the notations used through this paper. Further exceptions to the notation will be
 clarified where needed througout the paper.
-\paragraph{operators, scalars, vectors and matrices}
+\paragraph{Operators, scalars, vectors and matrices}
 In this text, we will be using objects called operators. These operators represent
-certain operations done to funcctions. We represent as $\hat{O}$ exchanging the letter
+certain operations applied to functions. We represent as $\hat{O}$ exchanging the letter
 as needed.
 
 Scalars are constants, or coefficients without variables. They will be refferred with
@@ -21,17 +21,40 @@ lower case letters.
 
 Vectors will be represented with lower case letters as $\vec{a}$, while
 matrices will be represented with upper case as $\bar{A}$.
-\paragraph{order of operations}
+\paragraph{Order of operations}
+Operators are applied from the left onto functions. Applying the operator
+$\hat{O}$ and then operator $\hat{A}$ onto the function $\Psi(x)$ will be written as follows
+\begin{equation}
+  \hat{A}\hat{O}\Psi(x)
+\end{equation}
 
-\paragraph{commutators}
+\paragraph{commutation}
+Two operators $\hat{O}$ and $\hat{A}$ are said to commute if:
+\begin{align}
+  \hat{O}\hat{A} &= \hat{A}\hat{O} \\
+  \hat{O}\hat{A} - \hat{A}\hat{O} &= 0\label{eq:commutation}
+\end{align}
+This operation is written with square brackets, e.g. the operation in \ref{eq:commutation} is
+written as $[\hat{O},\hat{A}]$.
 
 \paragraph{Dirac notation}
+In this thesis we will be using Dirac notation for the most part. In this notation
+the quantum state described by a wave function $\Psi$ is writen as a state vector
+$\ket{Psi}$ \cite{Atkins:2011} called \textbf{ket}. Its complex conjugate is called
+a \textbf{bra} and is written as $\bra{\Psi}$. We will interchange between this and standard notation
+as needed, in order to give more clarity to the equations used.
+The scalar product between a bra and a ket is defined as:
+\begin{equation}
+  \braket{\Psi|\Psi} = \int_{\mathbb{R}} \Psi^{\star}\Psi dr \label{eq:diracscalpro}
+\end{equation}
+Where integration rules apply.
 
-\paragraph{orthonormal vectors}
-
-%   kronecker delta
+Two functions are orthonormal if:
+\begin{equation}
+    \braket{\Psi_i|\Psi_j} = \delta_{ij}
+\end{equation}
 Where $\delta_{ij}$ is the Kronecker delta which equals one when $i = j$ and
-zero when $ i \neq j$ \cite{ Atkins:2014, Atkins:2011, Cohen:1973, Cramer:2004, Jensen:2017}.
+zero when $ i \neq j$ \cite{Atkins:2011, Cohen:1973}.
 \subsection{The Postulates of \ac{QM}}
 
 \ac{QM} are based on a set rules that define operations and states. We will
@@ -45,7 +68,7 @@ can be extracted from the wavefunction $\Psi(x, t)$ of that system
 a state vector (or wavefunction) $\ket{\Psi(t_0)}\in L^2$ that has a defined
 finite scalar product as \cite{Cohen:1973}:
 \begin{equation}
-  \braket{\Psi|\Psi} = \|\ket{\Psi}\|^2 =  \int_{R^3}\Psi^\star\Psi d\vec{r}
+  \braket{\Psi|\Psi} = \|\ket{\Psi}\|^2 =  \int_{\mathbb{R}^3}\Psi^\star\Psi d\vec{r}
 \end{equation}
 
 \subsubsection{Second Postulate}
@@ -152,29 +175,63 @@ exactly that value. The following Equation \ref{eq:post5} represents the postula
 The system when undisturbed changes in a deterministic way \cite{Cohen:1973}.
 This change is governed by the time dependent \ac{SE} \cite{Cohen:1973, Atkins:2011}:
 \begin{equation}\label{eq:tdepSE}
-  i\hbar\frac{\partial}{\partial t} \ket{\Psi} = \tilde{H}\ket{\Psi}
+  i\hbar\frac{\partial}{\partial t} \ket{\Psi} = \hat{H}\ket{\Psi}
 \end{equation}
 Where $\tilde{H}$ is the Hamiltonian operator which has the total energy of the
 system as its eigen-values.
 
 \subsection{The \ac{SE}}
-
-
+Lets consider the following \ac{SE} for a particle allowed to move in only one dimension
+and where its potential energy varies with position (e.g. the Harmonic oscillator
+model \cite{Cohen:1973, Atkins:2014}).
+\begin{equation}
+  \hat{H}\Psi = \left(-\frac{\hbar^2}{2m}\frac{\partial^2 }{\partial x^2} + \hat{V}(x)\right)\Psi = i\hbar\frac{\partial}{\partial t} \Psi\label{eq:1DSE}
+\end{equation}
+We can substitute $$\Psi(x, t)=\psi(x)\tau(t)$$ into \ref{eq:1DSE}
+by assuming that the wavefunction can be separated into spatial and time dependent
+functions \cite{Atkins:2011}:
+\begin{align}
+  \begin{split}\label{eq:sepvar1DSE}
+    \left(-\frac{\hbar^2}{2m}\frac{\partial^2 }{\partial x^2} + \hat{V}(x)\right)\psi\tau &= i\hbar\frac{\partial}{\partial t} \psi\tau \\
+    -\frac{\hbar^2}{2m}\tau\frac{d^2 \psi}{d x^2} + \hat{V}(x)\psi\tau &= i\hbar\psi\frac{d\tau}{d t}\\
+    -\frac{\hbar^2}{2m}\frac{1}{\psi}\frac{d^2\psi }{d x^2} + \hat{V}(x) &= i\hbar\frac{1}{\tau}\frac{d\tau}{d t}
+  \end{split}
+\end{align}
+In the last step of the Equation \ref{eq:sepvar1DSE} we divided both sides with $\frac{1}{\tau\psi}$.
+This shows us that, since the left-hand side of the equation is only dependent on $x$ and the right-hand
+side is only dependent on $t$, no matter how much we change the each of the coordinates, they must always equal to
+a constant. This constant will be denoted by $E$ as it is the energy of the system. This gives us the following set of equations \cite{Atkins:2011}:
+\begin{subequations}
+  \label{eq:sysSE}
+  \begin{align}
+    -\frac{\hbar^2}{2m}\frac{d^2\psi}{d x^2} + \hat{V}(x)\psi &= E\psi  \label{eq:timeindepWF}\\
+    i\hbar\frac{d\tau}{d t} &= E\tau  \label{eq:timedepWF}
+  \end{align}
+\end{subequations}
+Equation \ref{eq:timedepWF} can be solved by observation as \cite{Atkins:2011, Cohen:1973} :
+\begin{equation}
+  \tau(t) = e^{-iE\frac{t}{\hbar}}
+\end{equation}
+while the remaining Equation \ref{eq:timeindepWF} can be rewriten as
+\begin{equation}
+  \hat{H}\psi = E\psi\label{eq:timeindepSE}
+\end{equation}
+Which is the time-independent \ac{SE} which will be used most on this text.
 
 \section{Two particle system}
 \subsection{The Hamiltonian}
 Consider a one electron system (such as \ce{H} or \ce{He+}) which contains an
 electron and a nucleus, which are described using three dimensional coordinates
-$ x, y $ and $ z $. The Hamiltonian contains terms for the kinetic $T$ and
+$ x,\ y $ and $ z $. The Hamiltonian contains terms for the kinetic $T$ and
 potential energy $V$ contributions of both the nucleus $ N $ and the electron
-$ e $. In a one electron system in vaccuum the Hamiltonian would be as follows
-\cite{Jensen:2017, Cramer:2004}.
+$ e $. In a one electron system in vaccuum the Hamiltonian for the time independent
+\ac{SE} would be as follows \cite{Jensen:2017, Cramer:2004}.
 \begin{align}
   \begin{split}
-    H   &= T_N + T_e + V \\
-    T_N &= -\frac{\hbar^2}{2m_N}\nabla^2_N \\
-    T_e &= -\frac{\hbar^2}{2m_e}\nabla^2_e \\
-    V   &= -\frac{Z}{||\vec{r}_N - \vec{r}_e||} \label{eq:twopH}
+    \hat{H}   &= \hat{T_N} + \hat{T_e} + \hat{V} \\
+    \hat{T}_N &= -\frac{\hbar^2}{2m_N}\nabla^2_N \\
+    \hat{T}_e &= -\frac{\hbar^2}{2m_e}\nabla^2_e \\
+    \hat{V}   &= -\frac{Z}{||\vec{r}_N - \vec{r}_e||} \label{eq:twopH}
   \end{split}
 \end{align}
 Where the operator $ \nabla^2$ is the Laplacian computing the second partial
@@ -199,9 +256,9 @@ In order to solve the the \ac{SE} analytically one must first change into a
 center of mass coordinate system :
 \begin{equation}
   \begin{aligned} \label{eq:cmparam}
-    \mathbf{X} &= \frac{m_Nx_N + m_ex_e}{m_N + m_e} ~&&;~ x &&&= x_N - x_e \\
-    \mathbf{Y} &= \frac{m_Ny_N + m_ey_e}{m_N + m_e} ~&&;~ y &&&= y_N - y_e \\
-    \mathbf{Z} &= \frac{m_Nz_N + m_ez_e}{m_N + m_e} ~&&;~ z &&&= z_N - z_e
+    \mathbf{X} &= \frac{m_Nx_N + m_ex_e}{m_N + m_e} \ &&;\  &&&x= x_N - x_e \\
+    \mathbf{Y} &= \frac{m_Ny_N + m_ey_e}{m_N + m_e} \ &&;\  &&&y= y_N - y_e \\
+    \mathbf{Z} &= \frac{m_Nz_N + m_ez_e}{m_N + m_e} \ &&;\  &&&z= z_N - z_e
   \end{aligned}
 \end{equation}
 Where the $\mathbf{XYZ}$-coordinates define a system centered in the center of mass,
@@ -209,7 +266,7 @@ while the $xyz$-coordinates specify the relative position of the two particles
 \cite{Jensen:2017}. Applying this coordinate system to the Hamiltonian in
 Equation \ref{eq:twopH} yields:
 \begin{equation}
-  H = -\frac{1}{2}\nabla^2_{\mathbf{XYZ}} -\frac{1}{2\mu}\nabla^2_{xyz} -
+  \hat{H} = -\frac{1}{2}\nabla^2_{\mathbf{XYZ}} -\frac{1}{2\mu}\nabla^2_{xyz} -
   \frac{Z}{\sqrt{x^2 + y^2 + z^2}}\label{eq:twopHcm}
 \end{equation}
 Where the first term in Equation \ref{eq:twopHcm} describes the motion of the
@@ -218,7 +275,8 @@ describes the relative motion of a pseudo-particle with reduced mass:
 \begin{equation}
   \mu = \frac{m_Nm_e}{m_N + m_e} = \frac{m_e}{1 + \frac{m_e}{m_N}}
 \end{equation}
-Given that the nucleus is more massive than the electron (the nucleus is $1800$
+Given that the nucleus is more %better phrasing
+ massive than the electron (the nucleus is $1800$
 times more massive than the electron in a Hydrogen atom \cite{Jensen:2017})
 $\mu$ can be approximated to the mass of the electron $m_e$. This lets us
 assume that the nucleus is stationary in relation with the electron.
@@ -231,56 +289,143 @@ The electron's motion occurs at fixed distances from the nucleus and can be
 anywhere in a sphere around it. Therefore it is advantageous to use polar
 coordinates to solve the \ac{SE}. In this coordinate system $r$ describes the
 distance to the center, $\theta$ describing the angle of the particle with
-respect to the $z$-axis and $\varphi$ describes the polar angle on the
+respect to the $z$-axis and $\phi$ describes the polar angle on the
 $xy$-plane. Applying this to the Hamiltonian in Equation \ref{eq:twopHcm} gives
 \cite{Atkins:2014}:
 \begin{equation}
   \begin{split}\label{eq:SphHcm}
-    H_{r\theta\varphi} &= -\frac{1}{2\mu}\nabla^2_{r\theta\varphi}
+    \hat{H}_{r\theta\phi} &= -\frac{1}{2\mu}\nabla^2_{r\theta\phi}
                           -\frac{Z}{r}\\
-    \nabla^2_{r\theta\varphi} &=  \frac{1}{r^2}\frac{\partial}{\partial r}
+    \nabla^2_{r\theta\phi} &=  \frac{1}{r^2}\frac{\partial}{\partial r}
                                   r^2\frac{\partial}{\partial r}
                                   + \frac{1}{r^2}\Lambda^2 \\
     \Lambda^2 &= \frac{1}{\sin{\theta}}\frac{\partial}{
                  \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}
-                 + \frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\varphi^2}
+                 + \frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\phi^2}
   \end{split}
 \end{equation}
 The operator $\Lambda^2$ is the Legendrian operator \cite{Atkins:2014}.
 
 \subsection{The Wave Function}
-As stated above, the motion of the electron happens around different distances
-from the nucleus. This tells us that the wavefunction, as with the Hamiltonian,
-is better described with spherical coordinates. As the Potential energy is
-dependent only on the radius (distance between particles), we can assume the
-wavefunction is separable \cite{Atkins:2014} into two functions, a radial $R(r)$
-and an angular $Y(\theta, \varphi)$ wave function.
-\begin{equation}
-  \Psi(r, \theta, \varphi) = R(r) Y(\theta, \varphi)\label{eq:radangsep}
-\end{equation}
-
-The angular wavefunction $Y(\theta, \varphi)$ can be further separated into two
-functions $ \Theta(\theta) $ and $\Phi(\varphi)$ \cite{Atkins:2014, Simons:2016},
-each dependent on their respective angular variable. $\Phi$ is the Harmonics for a particle in a ring \cite{Atkins:2014}
-while $ \Theta $ is represented by the associated Legendre functions.
-\begin{equation}
+\subsubsection{Separation of variables}
+We Substitute the Equations in \ref{eq:SphHcm} into Equation \ref{eq:timeindepSE}
+in the following Equation \ref{eq:SEsphcm}.
+\begin{align}\label{eq:SEsphcm}
   \begin{split}
-    Y(\theta, \varphi) &= \Theta(\theta)\Phi(\varphi)\\
-    \Phi(\varphi) &= \\
-    \Theta(\theta) &= \\
-    P_n^l &=
+    \hat{H}_{r\theta\phi}\Psi &= E\Psi \\
+    -\frac{1}{2\mu}\frac{1}{r^2}\frac{\partial}{\partial r}
+          r^2\frac{\partial}{\partial r}\Psi+\frac{1}{2\mu}\frac{1}{r^2}\Lambda^2\Psi-
+          \frac{Z}{r}\Psi &= E\Psi
   \end{split}
+\end{align}
+we can easilly see that we can separate the wavefunction into two parts; a Radial
+function $R(r)$ and an angular function $Y(\theta, \ \phi)$:
+$$\Psi(r, \ \theta, \ \phi) = R(r)Y(\theta, \ \phi)$$ which we substitute into
+Equation \ref{eq:SEsphcm}:
+\begin{align}
+  \begin{split}
+    \left(-\frac{1}{r^2}\frac{1}{2\mu}\frac{\partial}{\partial r}r^2\frac{\partial}{\partial r}+\frac{1}{2r^2}\Lambda^2- \frac{Z}{r}\right)RY &= ERY \\
+    -\frac{1}{r^2}Y\frac{1}{2\mu}\frac{\partial}{\partial r}r^2\frac{\partial}{\partial r}R + \frac{1}{2r^2}R\Lambda^2Y - \frac{Z}{r} RY &= ERY \\
+    -\frac{1}{r^2}\frac{1}{R}\frac{1}{2\mu R}\frac{\partial}{\partial r}r^2\frac{\partial}{\partial r}R + \frac{1}{2r^2}\frac{1}{Y}\Lambda^2Y - \frac{Z}{r} &= E
+  \end{split}
+\end{align}
+Here we assumed that $\mu \approx m_e = 1 A.U.$
+This is separable into a radial equation and an angular equation:
+\begin{subequations}
+  \begin{align}
+    -\frac{1}{2r^2}\frac{1}{R}\frac{\partial}{\partial r}
+    r^2\frac{\partial}{\partial r}R &= \varepsilon_r \label{eq:Rpart}\\
+    \frac{1}{2r^2}\frac{1}{Y}\Lambda^2Y &= \varepsilon_{\theta\phi}\label{eq:Ypart}\\
+    E = \varepsilon_{\theta\phi} + \varepsilon_r  - \frac{Z}{r}
+  \end{align}
+\end{subequations}
+We can assume the $\frac{1}{r^2}$ to be a constant on the angular partial differential
+equation as we are solving for an electron orbiting on a sphere around the nucleus.
+This means that the radius behaves like a parameter and we can write
+$$2r^2\varepsilon_{\theta\phi} = \varepsilon_{\theta\phi r}$$.
+We can further separate the variables of Equation \ref{eq:Ypart} by substituting
+$\Lambda^2$ from \ref{eq:SphHcm} and $Y(\theta, \ \phi) = \Theta(\theta)\Phi(\phi)$
+into it:
+\begin{align}
+  \begin{split}
+    \varepsilon_{\theta\phi r} &= \frac{1}{Y}\Lambda^2Y\\
+    \varepsilon_{\theta\phi r} &= \frac{1}{\Theta\Phi}\left(\frac{1}{\sin{\theta}}\frac{\partial}{
+                 \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}
+                 + \frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\phi^2}\right)
+                 \Theta\Phi\\
+    \varepsilon_{\theta\phi r} &= \frac{1}{\Theta\Phi}\left(\Phi\frac{1}{\sin{\theta}}\frac{\partial}{
+                  \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}\Theta
+                  + \Theta\frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\phi^2}\Phi\right)\\
+    \varepsilon_{\theta\phi r} &= \frac{1}{\Theta}\frac{1}{\sin{\theta}}\frac{\partial}{
+                 \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}\Theta
+                 + \frac{1}{\Phi}\frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\phi^2}\Phi\\
+    -\frac{1}{\Phi}\frac{\partial^2}{\partial\phi^2}\Phi &=  \frac{1}{\Theta}\sin{\theta}\frac{\partial}{
+                 \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}\Theta - \varepsilon_{\theta\phi r}\sin^2{\theta}
+  \end{split}
+\end{align}
+
+Once again we have an equation where each side is dependent on a different variable,
+which tells us that both terms must equal a constant, which we will call $m_l^2$, giving us the
+three different sets of differential equations needed to be solved for the
+wavefunction \cite{Atkins:2014, Simons:2016, Atkins:2011}.
+\begin{subequations}
+  \begin{align}
+    -\frac{1}{R}\frac{1}{2r^2}\frac{d}{d r}
+    r^2\frac{d}{d r}R &= \varepsilon_r\label{eq:Radeq}\\
+    -\frac{1}{\Phi}\frac{d^2}{d\phi^2}\Phi &= m_l^2\label{eq:phieq}\\
+    \frac{1}{\Theta}\sin{\theta}\frac{d}{d\theta}\sin{\theta}
+    \frac{d}{d\theta}\Theta -\varepsilon_{\theta\phi r}
+    \sin^2{\theta} &= m_l^2 \label{eq:thetaeq}\\
+    \varepsilon_r + \frac{1}{2r^2}\varepsilon_{\theta\phi r} - \frac{Z}{r} &= E
+  \end{align}
+\end{subequations}
+
+\subsubsection{Solutions to the differential equations}
+
+We will start by solving the Equation \ref{eq:phieq}. Shifting terms around one
+can see that it is a second order linear differential equation
+$$\frac{d^2}{d\phi}\Phi + m_l^2\Phi = 0$$ which has general solution as follows
+\cite{Edwards:2016, Simons:2016, Atkins:2011}:
+\begin{equation}
+  \Phi(\phi) = Ae^{im_l\phi} + Be^{-im_l\phi}\label{eq:ponring}
+\end{equation}
+We limit ourselves to the form of Equation \ref{eq:ponring} where $B = 0$ to simplify
+notation. Two requirements need to be met by this solution in order for it to be
+a valid solution to the \ac{SE}.
+
+The first requirement is that it needs to be single valued, that means it has
+a cyclic boundary condition \cite{Simons:2016, Atkins:2011} where $\Phi(\phi)=\Phi(\phi + 2\pi)$.
+Which means the following must hold:
+\begin{align}
+    Ae^{im_l\phi}\left( 1 - e^{im_l 2\pi}\right) &= 0\\
+    1 - e^{im_l 2\pi} &= 0\\
+    1 &= e^{im_l 2\pi}
+\end{align}
+which hold true only for $m_l = 0, \pm 1, \pm 2, ...$
+
+The second restriction is that it has to be normalized, that is $$\braket{\Phi|\Phi} = 1$$
+Using the definition from Equation \ref{eq:diracscalpro}. We find out that the form
+of the function is
+\begin{equation}
+  \Phi(\phi) = \frac{1}{\sqrt{2\pi}}e^{im_l\phi} \ ; \ m_l = 0, \pm 1, \pm 2, ...
 \end{equation}
 
+The second equation we will solve is \ref{eq:thetaeq}. We rearrange its terms
+and substitute $z = \cos{\theta}$ and $P(z) = \Theta(\theta)$ to get the following
+\begin{align}
+  \frac{1}{sin{\theta}}\frac{d}{d\theta}\sin{\theta}\frac{d}{d\theta}\Theta
+  - \Theta \frac{m_l^2}{sin^2{\theta}} &= \Theta\varepsilon_{\theta\phi r} \\
+\end{align}
 \subsection{The energies}
 
 Applying the hamiltonian in Equation \ref{eq:SphHcm} to the wavefunction in
-Equation \ref{eq:radangsep} yields \cite{Atkins:2014}:
+%Equation \ref{eq:radangsep} yields \cite{Atkins:2014}:
 \begin{equation}
   \begin{split}
-    H_{r\theta\varphi} R(r)Y(\theta, \varphi) &= E R(r)Y(\theta, \varphi)
+    H_{r\theta\phi} R(r)Y(\theta, \phi) &= E R(r)Y(\theta, \phi)
   \end{split}
 \end{equation}
+
 \section{Many body systems}
 
 For bigger systems, there is no practical way to analytically solve the
@@ -293,61 +438,7 @@ Additionally, the potential energy operator becomes more complicated,as it
 would not just have the attractive forces between electron-nucleus,but also the
 repulsive forces between all the electrons. Both of these problems add more
 terms per particle and thus would be impossible to be solved in a realistic
-timeframe. %cite
-%don't know what to write here
-
-\subsection{Variational Principle}
-%need to edit this
-Consider a complete set of orthonormal eigenfunctions $ \Psi_i$  of the
-Hamiltonian $H$. From Equation \ref{eq:lincomb} we build an arbitrary
-wave function $\Phi$ with a linear combination of the eigenfunctions with
-coefficients $c_i$.
-\begin{equation}
-  \Phi = \sum\limits_ic_i\Psi_i
-\end{equation}
-We also know from Equation \ref{eq:post4} that the pribability of $\Phi$ can
-be calculated as shown below;
-\begin{equation}
-  \braket{\Phi|\Phi} = \sum\limits_i^nc_i^2
-\end{equation}
-We also know that the wave function $\Phi$ is normalized, so the sum above
-should equal to one. Additionally, the expectation value of the Hamiltonian can
-be calculated as in Equation \ref{eq:endevaleq} to give us this:
-\begin{equation}
-  \braket{\Phi|H|\Phi} = \sum\limits_i^nc_i^2E_i\label{eq:genenerg}
-\end{equation}
-This tells us the the energy of the wave function $\Phi$ can be determined by
-knowing the energies $E_i$ of each eigenfunction $\psi_i$ and the coefficients
-$c_i$ associated with the linear combination that describes $\Phi$
-\cite{Cramer:2004}.
-
-We know that for this to be a quantum mechanical system there must be a lowest
-energy among all energies $E_i$. We choose to call this lowest energy $E_0$.
-Substracting $E_0$ from Equation \ref{eq:genenerg} to find out the difference
-between the calculated energy of the arbitrary wave function $\Phi$ with respect
-to the ground state energy gives us:
-
-\begin{equation}
-   \sum\limits_i^nc_i^2(E_i - E_0) = \braket{\Phi | H | \Phi} -
-   E_0\braket{\Phi | \Phi}
-\end{equation}
-We know that each term $c_i$ must be greater or equal to zero (non-trivial) and
-that the term $(E_i - E_0)$ must be greater or equal to zero as well
-\cite{Cramer:2004}, because each individual $E_i$ may add more energy to the
-ground state. This leads to the following set of inequalities.
-
-\begin{equation}
-  \begin{split} \label{eq:varprin}
-    \braket{\Phi | H | \Phi} - E_0\braket{\Phi | \Phi} & \geq 0 \\
-    \frac{\braket{\Phi | H | \Phi}}{\braket{\Phi | \Phi}} & \geq E_0
-  \end{split}
-\end{equation}
-We know from Equation \ref{eq:startevaleq} that the inequality in the last term in
-\ref{eq:varprin} shows that the energy calculated as an Eigenvalue of $\Phi$ is
-always greater or equal to zero. This lets us construct our trial wave functions
-for the ground state of a system with any basis set. We can assess the quality
-of the guess by their associated energies, attempting to reach as low a value
-as possible \cite{Cramer:2004}.
+timeframe \cite{Jensen:2017}.
 
 \subsection{\ac{BO} approximation}
 
@@ -414,24 +505,63 @@ total energy of the system by doing solving the final equation on \ref{eq:BO}.
 This, as according to the variational principle, can also be interated over in
 order to minimize the energy.
 
-\subsection{Solving the many body problem}
+\subsection{Variational Principle}
+%need to edit this
+Consider a complete set of orthonormal eigenfunctions $ \Psi_i$  of the
+Hamiltonian $H$. From Equation \ref{eq:lincomb} we build an arbitrary
+wave function $\Phi$ with a linear combination of the eigenfunctions with
+coefficients $c_i$.
+\begin{equation}
+  \Phi = \sum\limits_ic_i\Psi_i
+\end{equation}
+We also know from Equation \ref{eq:post4} that the pribability of $\Phi$ can
+be calculated as shown below;
+\begin{equation}
+  \braket{\Phi|\Phi} = \sum\limits_i^nc_i^2
+\end{equation}
+We also know that the wave function $\Phi$ is normalized, so the sum above
+should equal to one. Additionally, the expectation value of the Hamiltonian can
+be calculated as in Equation \ref{eq:endevaleq} to give us this:
+\begin{equation}
+  \braket{\Phi|H|\Phi} = \sum\limits_i^nc_i^2E_i\label{eq:genenerg}
+\end{equation}
+This tells us the the energy of the wave function $\Phi$ can be determined by
+knowing the energies $E_i$ of each eigenfunction $\psi_i$ and the coefficients
+$c_i$ associated with the linear combination that describes $\Phi$
+\cite{Cramer:2004}.
 
-Now that We have simplified the problem into an electonic \ac{SE} using the
-\ac{BO} approximation and we can minimize the energy of a waavfunction built
-by any basis set in order to find a good approximation to the ground state
-energy using the variational principle. The question that remains is, what does
-this function, or basis set look like, and how can we solve the problem with it.
-An example of a basis set approach which can be utilized to create a first guess
-is the \ac{LCAO} approach.
+We know that for this to be a quantum mechanical system there must be a lowest
+energy among all energies $E_i$. We choose to call this lowest energy $E_0$.
+Substracting $E_0$ from Equation \ref{eq:genenerg} to find out the difference
+between the calculated energy of the arbitrary wave function $\Phi$ with respect
+to the ground state energy gives us:
 
+\begin{equation}
+   \sum\limits_i^nc_i^2(E_i - E_0) = \braket{\Phi | H | \Phi} -
+   E_0\braket{\Phi | \Phi}
+\end{equation}
+We know that each term $c_i$ must be greater or equal to zero (non-trivial) and
+that the term $(E_i - E_0)$ must be greater or equal to zero as well
+\cite{Cramer:2004}, because each individual $E_i$ may add more energy to the
+ground state. This leads to the following set of inequalities.
 
+\begin{equation}
+  \begin{split} \label{eq:varprin}
+    \braket{\Phi | H | \Phi} - E_0\braket{\Phi | \Phi} & \geq 0 \\
+    \frac{\braket{\Phi | H | \Phi}}{\braket{\Phi | \Phi}} & \geq E_0
+  \end{split}
+\end{equation}
+We know from Equation \ref{eq:startevaleq} that the inequality in the last term in
+\ref{eq:varprin} shows that the energy calculated as an Eigenvalue of $\Phi$ is
+always greater or equal to zero. This lets us construct our trial wave functions
+for the ground state of a system with any basis set. We can assess the quality
+of the guess by their associated energies, attempting to reach as low a value
+as possible \cite{Cramer:2004}.
 
-
-
-
-
-
-
+\subsection{\ac{SCF}}
+%describe building basis functions out of potential wells and potentials out
+%basis functions
+%have the simplified diagram
 
 \input{acronyms.tex}
 \biblio
