@@ -2,7 +2,6 @@
 *.dvi
 *.aux
 *.log
-*.pdf
 *.ps
 *.blg
 *.bbl
@@ -19,3 +18,5 @@ my.compile
 *.fls
 *.toc
 *.fdb_latexmk
+*.ipynb
+*.ipynb_checkpoints
