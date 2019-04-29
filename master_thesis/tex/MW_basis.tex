@@ -5,7 +5,7 @@
 \begin{document}
 \chapter{\ac{MW} Basis}
 As stated on the previous chapter, the main goal of computational chemistry is
-to approximate systems in order to calculate their energy through the \ac{SE}. %cite please
+to approximate systems in order to calculate their energy through the \newline \ac{SE}. %cite please
 These systems are completelly described by wave functions \cite{Cohen:1973}.
 This means that to approximate a solution to the system is to approximate its
 wave function.
@@ -30,7 +30,7 @@ A space $V_n$ is spanned by translations of $\varphi_{nk}$.This space forms a
 hierarchical chain of Linear
 subspaces \cite{Beylkin:MRA}:
 \begin{equation}
-  V_0 \subset V_1 \subset ... \subset V_n \subset ... \subset \mathbb{L}^2(\mathbb{R})\label{eq:seqsubspace}
+  V_0 \subset V_1 \subset ... \subset V_j \subset ... \subset L^2(\mathbb{R})\label{eq:seqsubspace}
 \end{equation}
 Where $V_0$ is spanned only by $\varphi_{0,0}(x)=\varphi(x)$ \cite{Sorland}.
 The function $\varphi(x)$ satisfies the two-scale difference relations \cite{Beylkin:MRA, Schneider:2007, Sorland}:
@@ -57,15 +57,15 @@ Lets define the Haar function \cite{Schneider:2007} as
   0 & \text{elsewhere}
 \end{cases}
 \end{equation}
-Lets now define a second set of subspaces $W_n$. These are the difference subspaces
-defined as \cite{Beylkin:MRA, Sorland}
+Lets now define a second set of subspaces $W_n$. These are the orthogonal complements of $V_n$ \cite{Alpert1993}, also called difference subspaces,
+defined as \cite{Beylkin:MRA, Sorland, Alpert1993}.
 \begin{equation}
   W_n \oplus V_n = V_{n + 1} \label{eq:diffsubspace}
 \end{equation}
 The subspaces $W_n$ are then spanned by a set of functions defined by the translations and
 dilations of $\psi(x)$:
 \begin{equation}
-  \psi_{j,k}(x) = 2^{\frac{j}{2}}\psi(2^jx - k),\  j,k \in \mathbb{Z} \label{eq:haarwavelet}
+  \psi_k^j(x) = 2^{\frac{j}{2}}\psi(2^jx - k),\  j,k \in \mathbb{Z} \label{eq:haarwavelet}
 \end{equation}
 Where $\psi(x)$ is called the Haar wavelet \cite{Schneider:2007} and is defined as:
 \begin{equation}
@@ -84,7 +84,7 @@ And $ \varphi$ is related to $\psi$ by the following two-scale difference relati
   \end{split}
 \end{align}
 The functions $\varphi^j_k$ and $\psi^j_k$ are orthonormal
-and dense \cite{Beylkin:MRA, Sorland, SRJensen:2014} in $\mathbb{L}^2(\mathbb{R})$.
+and dense \cite{Beylkin:MRA, Sorland, SRJensen:2014} in $L^2(\mathbb{R})$.
 
 The Definition on Equation \ref{eq:diffsubspace} can be applied recursivelly in order to
 get any space $V_n$ as long as one knows the first subspace $V_0$ and one has a method for constructing the
@@ -162,20 +162,92 @@ above matrix:
     s^{j}_k
   \end{pmatrix}
 \end{equation}
-
+\subsection{Projecting a gaussian function example}
 As an example, lets approximate the function
-$f(x) = \frac{10}{\sqrt{\pi}}e^{-100(x - 0.5)^2}$ in $\mathbb{L}^2(\mathbb{R})$
+$f(x) = \frac{10}{\sqrt{\pi}}e^{-100(x - 0.5)^2}$ in $L^2(\mathbb{R})$
 with Haar basis up to scale $5$ using \ref{eq:projectftohaar}. Gives us the
 following figures.
 %put the plots here
 
-\section{The \ac{MW} Basis}
+\section{\ac{MW} \ac{MRA}}
+%weakness of wavelet that might be fixed with multiwavelet
+\subsection{Defining the basis functions}
+Following the same basics as in the Haar basis from the previous section we can
+define a hierarchical set of multiresolution spaces $V_j^l$ where \cite{Frediani:2013}:
+\begin{align}
+  \begin{split}
+    V_j^l \stackrel{\text{def}}{=} \{&f: \text{all polynomials of degree} \leqslant
+    l\  \\
+    &\text{on}\  (2^{-j}k,2^{-j}(k+1))\ \text{for}\ 0\leqslant k < 2^{n},\\
+    &f\  \text{vanishes elsewhere}\}
+  \end{split}
+\end{align}
+and
+\begin{equation}
+  V_0^l \subset V_1^l \subset ... \subset V^l_j \subset ... \subset L^2(\mathbb{R})
+\end{equation}
 
-\subsection{Constructing The Basis}
-\subsubsection{Polynomials}
-\subsubsection{Scale}
-\subsubsection{World size}
-\subsubsection{Precision threshold}
+We again define subspaces $W_j^l$ as the orthogonal complements of $V^l_j$
+\cite{Alpert1993} defined as:
+\begin{equation}
+  V^l_j \oplus W_j^l = V^l_{j+1}
+\end{equation}
+ with orthogonal basis functions  $h^j_{lk}$ which are translations and dilations of functions $h_l$:
+ \begin{equation}
+   h^j_{ik}(x) = 2^\frac{j}{2}h_i(2^jx-k), \ i=1, ...,l;\ k \in \mathbb{Z}\label{eq:mwbasisfuncs}
+ \end{equation}
+ The functions $h_1, ...,h_l$ are piecewise polynomial, orthogonal to lower order polynomials and
+ vanish outside $[0,1]$ \cite{Alpert1993}
+\begin{align}
+  \int_0^1h_i(x)x^m \text{d}x = 0,\ m = 0, 1, ..., l-1
+\end{align}
+Our aim is to find a set of functions $f_i$ on the interval $[-1,1]$ that can
+be used in the construction of $h_1, ...,h_l$ with the following restrictions
+\cite{Alpert1993, Beylkin:MRA}:
+\begin{enumerate}
+  \item functions $f_i$ on the interval $(0,1)$ are polynomials of degree $l-1.$
+  \item functions $f_i$ extend to the interval $(-1, 0)$ as even or odd functions
+  dependendent to the parity $i + l - 1$.
+  \item functions $f_1,...,f_l$ satisfy : $$\int_{-1}^1f_i(x)f_j(x)\text{d}x \equiv \braket{f_j| f_j} = \delta_{ij}, \ i, i = 1, ..., l.$$
+  \item functions $f_j$ have vanishing moments, $$\int_{-1}^1f_j(x)x^i\text{d}x = 0, \ i = 0, 1, ..., j+l-2.$$
+\end{enumerate}
+The functions $f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ are defined by \cite{Alpert1993}:
+\begin{equation}
+  f^1_j(x) =
+  \begin{cases}
+  x^{j-1} & \text{for} \ x\in (0,1)\\
+  -x^{j-1} & \text{for}\ x\in (-1, 0)\\
+  0 & \text{elsewhere}.
+\end{cases}
+\end{equation}
+
+The $2l$ functions $1, x,..., x^{l-1} $ and $ f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ are linearly
+independent, thus they span the space of polynomial functions of
+degree $< l$ on the intervals $(0, 1)$ and $(-1, 0)$ \cite{Alpert1993, Beylkin:MRA}. We do the
+following process to find the functions $f_i$ \cite{Alpert1993}:
+\begin{enumerate}
+  \item Using the Gram-Schmidt process we orthogonalize $f^{(1)}_j$ with respect to $1, x,..., x^{l-1}$
+  giving us the functions $f_j^{(2)}$ for $j = 1, ..., l$.
+  \item  We try to find at least one $f^{(2)}_j$
+  which is not orthogonal to $x^{l}$ and reorder the functions so that $\braket{f_1^{(2)}| x^{l}} \neq 0$.
+  We now need to find an $a_j$ for the equation $f_j^{(3)} = f_j^{(2)}-a_j\cdot f_0^{(2)}$ such that
+  $\braket{f_j^{(3)}| x^{l}} = 0\  \text{for}\  l = 2, ..., l$. We repeat this process orthogonalizing
+  to $x^{k+1}, ..., x^{2k-2}$, each turn yielding $f_1^{(2)}, f_2^{(3)}, f_3^{(4)}, ..., f_k^{(k+1)}$ such that
+  $\braket{f_j^{(j+1)}|x^i} = 0 \ \text{for}\  i\leqslant j+l-2$.
+  \item  Lastly we perform the Gram-Schmidt orthogonalization process on
+  $f_{l}^{l+1}, \\f_{l-1}^{l}, f_{l-2}^{l-1}, ..., f_{2}^{1}$ in that order to get
+  $ f_l, f_{l-1}, ..., f_1$.
+\end{enumerate}
+
+We now construct the the functions $h_l$ \cite{Alpert1993}:
+\begin{equation}
+  h_i(x)= \sqrt{2}f_i(2x-1), \ i= 1, ..., l
+\end{equation}
+which they themselves build The functions in Equation \ref{eq:mwbasisfuncs}
+
+\subsection{Interpolating basis}
+
+
 \subsection{Operators}
 \subsection{Functions}
 \section{Solving systems}
