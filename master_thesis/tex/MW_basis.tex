@@ -334,7 +334,9 @@ Where $M$ is the scale of the subspace, the $P$ functions are the Legendre polyn
 $x_0, ..., x_{M-1}$ are the roots of $P_M(2x-1)$ \cite{Beylkin:MRA}.
 These scaling functions have the characteristic of $l_i(x_j)=\delta_{ij}$ simplifying
 integrals and thus projections of the basis.
-\subsection{Constructing the basis functions in d dimensions}
+
+Going from one dimension to $d$ dimensions is to use a tensor product method as shown in
+\cite{Frediani:2013}.
 \section{Operators}
 \subsection{\ac{NS} form Representation of Operators}
 Lets us define two projection operators $P^k_n \ \text{and}\ Q^k_n $  and their relation as:
@@ -383,11 +385,12 @@ In practice we truncate this to the fines scale $N+1$ where the following is ass
   \hat{g}^k_{N+1} \simeq g^k_{N+1} \stackrel{\text{def}}{=} (Tf)^k_{N+1}
 \end{equation}
 
-\subsection{Integral operators}
+Assuming that the operator is separable as a tensor product, one can define it in
+$d$ dimensions in much the same way as with the scaling functions with tensor products
+across the dimensions $d$. In \cite{Frediani:2013} the kernel of the tensor operator is
+described as a linear combination of one dimensional kernels, thus simplifying the
+problem from $k^d$ vector elements to just $k$ vector elements.
 
-\subsection{Differential operators}
-
-%\section{Software}
 \input{acronyms.tex}
 \biblio
 \end{document}
