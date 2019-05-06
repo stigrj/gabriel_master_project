@@ -4,15 +4,102 @@
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
 \chapter{Solvent Effect}
-\section{Formulation of the Problem}
+The goals of computational chemistry is to both approximate systems and to be
+able to make predictions with regards to these approximations. In the previous
+chapter I showed one of the ways to get good approximations of systems, now i
+will talk about the set of systems that will be the focus for this thesis,
+solvation models.
+\section{Motivation}
+Solvation models describe one or more molecules (substrate) surrounded by
+a set of other molecules (solvent). Most reactions of interest occur in a
+solvent where the geometry, energy and kinetics of the reactants and products
+are affected by their enviroment\cite{Mennucci:2018}.
+
+Our aim is to be able to simulate this system in an appropiate way, such that
+the models let us predict rates, mechanisms and other specific processes which
+occur in solutions \cite{Tomasi:1994wt}.
+One can describe the solvation model in either an explicit or implicit way. In
+this thesis I will focus on the implicit models, although i will give some
+background in the explicit model.
+
 \section{Explicit solvation models}
+A straightforward approach to the model is to try to, for example, make a
+system of a \ce{Li^+} cation surrounded by water molecules. Here arises two
+questions; how many water molecules should we add, and, in which positions
+should we place them. Certainly one could say that we could just have enough
+water molecules to surround the cation in one layer of them,  and just do a
+geometry optimization \cite{Jensen:2017} on the system in order to get the
+orientation and position of these water molecules.
+
+Lets us put the molecules in a cube-like fashion around the cation, with each
+water molecule in a face of the cube, totaling 6 water molecules. In total we
+would have 7 molecules, 19 nucleus and 62 electrons to optimize over. Using the
+\ac{BO} approximation and \ac{DFT} we could solve the electronic part of the
+problem in only three dimensions, but we would still need to work with
+$19\cdot3d$ dimensions for the geometry of the nuclei. Even if we did do this
+optimization and calculated the different properties of this system, we would
+find out that this approximation is very far from the truth.
+
+If we look at the system we can see that this set of 7 molecules is suspended in
+vaccuum, which is not what we are trying to simulate. the water molecules at
+the edge would not behave as if they were in solution, but as if they were in
+gas phase. We are trying to simulate a \ce{Li^+} cation in a water solution.
+We can add additional layers of water molecules to diminish the error. But
+just adding a single layer of water molecules in a cubelike manner would
+increase the amount of molecules to $31$ with a nuclear wavefunction of
+$31\cdot3d$ dimensions. Adding more layers one after the other would end up
+reducing the error to a neglectable level, as the amount of water molecules on
+the surface will scale quadratic manner compared to the cubic scaling of the
+water molecules inside the volume. This also means that the size of the system
+would be too big to realistically work with in \ac{QM} and we would be forced to
+calculate the effects as statistical averages over phase space
+\cite{Cramer:2004}.
+
+The explicit method is necessary whenthe solvent molecules' geometry and states
+are importnant to the measurement of the properties of the substrate
+\cite{Cramer:2004}.
+One way to simplify the problem is to partition the system into two parts, the
+solvent, modeled using molecular mechanics (MM) and the solute, modeled using
+\ac{QM}, this method is called MM/QM \cite{Mennucci:2018}.
+
+The main point of this model is that the energy contribution from the solvent
+can be described as a sum of bonding and nonbonding contributions
+\cite{Cramer:2004} where the solvent bonds are described as springs
+\cite{Mennucci:2018} and the atoms as weights. The bonding contributions can be
+dividided into bending, stretching and torsion of the bonds. Both the bending
+and the strecthing of the bonds can be described with the Harmonic Oscillator
+(HO) and the torsion with a periodic function \cite{Mennucci:2018}. The
+non-bonding interactions can be described with Coulombs law with the atoms as
+point charges. More information on this can be read on \cite{Cramer:2004,
+Jensen:2017}.
+
+
 \section{Implicit solvation models}
-\subsection{\ac{PCM}}
-\subsubsection{Interlocking spheres}
-\section{\ac{PCM} and MW basis}
+In this family of solvation models we describe the solvent effect as a
+perturbation to the in vacuo energy of the solute. The way we do this is by
+describing the solute as being surrounded by a polarizable continuum
+characteristic to the solvent. We can describe the total Hamiltonian $H_{tot}$
+of such a system as \cite{Tomasi:1994wt}:
+\begin{equation}
+  \hat{H}_{tot} = H_0 + V_{sol}
+\end{equation}
+where $H_0$ is the gas phase Hamiltonian (in vacuo) and $H_{solvation}$ is the
+Hamiltonian describing the perturbation that is the solvent effect. There are
+four main properties affected by solvation effect. These are Electrostatic
+interactions, cavitation, changes in dispersion and changes in bulk solvent
+structure \cite{Cramer:2004}.
+
+\subsection{Properties}
+\paragraph{Reaction Field Energy}
+If a solute $A$ with a dipole moment is introduced to a solvent that has its
+own dipole moment the molecules of the solvent will reorient themselves so that
+they oppose the dipole moment of the $A$. When this happens the average electric
+field of the solute is changed . 
+
+\subsection{Interlocking spheres}
+\subsubsection{Generalized poisson equation}
 \section{Solving the Problem}
-\subsection{Generalized poisson equation}
-\subsection{\ac{SCF} for \ac{PCM}}
+\subsection{\ac{SCF} for The Generalized \\ Poisson equation}
 \input{acronyms.tex}
 \biblio
 \end{document}
