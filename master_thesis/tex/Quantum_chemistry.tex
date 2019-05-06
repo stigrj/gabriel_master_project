@@ -5,56 +5,7 @@
 \begin{document}
 \chapter{Quantum Chemistry}
 \section{\ac{QM}}
-\subsection{Notation}
-When working with qunatum chemistry simplify equations or in order to give a
-better intuition on what is possible arithmethically. Therefore it is needed to
-clarify what most of the different symbols and representations mean in this
-subject. Following are most of the notations used through this paper. Further exceptions to the notation will be
-clarified where needed througout the paper.
-\paragraph{Operators, scalars, vectors and matrices}
-In this text, we will be using objects called operators. These operators represent
-certain operations applied to functions. We represent as $\hat{O}$ exchanging the letter
-as needed.
 
-Scalars are constants, or coefficients without variables. They will be refferred with
-lower case letters.
-
-Vectors will be represented with lower case letters as $\vec{a}$, while
-matrices will be represented with upper case as $\bar{A}$.
-\paragraph{Order of operations}
-Operators are applied from the left onto functions. Applying the operator
-$\hat{O}$ and then operator $\hat{A}$ onto the function $\Psi(x)$ will be written as follows
-\begin{equation}
-  \hat{A}\hat{O}\Psi(x)
-\end{equation}
-
-\paragraph{commutation}
-Two operators $\hat{O}$ and $\hat{A}$ are said to commute if:
-\begin{align}
-  \hat{O}\hat{A} &= \hat{A}\hat{O} \\
-  \hat{O}\hat{A} - \hat{A}\hat{O} &= 0\label{eq:commutation}
-\end{align}
-This operation is written with square brackets, e.g. the operation in \ref{eq:commutation} is
-written as $[\hat{O},\hat{A}]$.
-
-\paragraph{Dirac notation}
-In this thesis we will be using Dirac notation for the most part. In this notation
-the quantum state described by a wave function $\Psi$ is writen as a state vector
-$\ket{Psi}$ \cite{Atkins:2011} called \textbf{ket}. Its complex conjugate is called
-a \textbf{bra} and is written as $\bra{\Psi}$. We will interchange between this and standard notation
-as needed, in order to give more clarity to the equations used.
-The scalar product between a bra and a ket is defined as:
-\begin{equation}
-  \braket{\Psi|\Psi} = \int_{\mathbb{R}} \Psi^{\star}\Psi dr \label{eq:diracscalpro}
-\end{equation}
-Where integration rules apply.
-
-Two functions are orthonormal if:
-\begin{equation}
-    \braket{\Psi_i|\Psi_j} = \delta_{ij}
-\end{equation}
-Where $\delta_{ij}$ is the Kronecker delta which equals one when $i = j$ and
-zero when $ i \neq j$ \cite{Atkins:2011, Cohen:1973}.
 \subsection{The Postulates of \ac{QM}}
 
 \ac{QM} are based on a set rules that define operations and states. We will

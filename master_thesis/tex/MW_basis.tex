@@ -171,7 +171,7 @@ following figures.
 
 \section{\ac{MW} \ac{MRA}}
 %weakness of wavelet that might be fixed with multiwavelet
-\subsection{Defining the basis functions}
+\subsection{Constructing the basis functions in one dimension}
 Following the same basics as in the Haar basis from the previous section we can
 define a hierarchical set of multiresolution spaces $V_j^l$ where \cite{Frediani:2013}:
 \begin{align}
@@ -239,21 +239,155 @@ following process to find the functions $f_i$ \cite{Alpert1993}:
   $ f_l, f_{l-1}, ..., f_1$.
 \end{enumerate}
 
-We now construct the the functions $h_l$ \cite{Alpert1993}:
+We now construct the functions $h_l$ \cite{Alpert1993}:
 \begin{equation}
   h_i(x)= \sqrt{2}f_i(2x-1), \ i= 1, ..., l
 \end{equation}
-which they themselves build The functions in Equation \ref{eq:mwbasisfuncs}
+which they themselves build the functions in Equation \ref{eq:mwbasisfuncs}
+defining a basis for scaling subspace $W_j^l$.
 
-\subsection{Interpolating basis}
+From the definition of these subspaces
+we know that we need to define a basis for the subspace $V^l_0$ which is the
+orthogonal complement of $W_0^l$ in $V^l_1$ \cite{Alpert1993}. The basis functions
+$u_i(x)$ of the subspace $V^l_0$ can be defined using the following two-scale
+difference equations \cite{Beylkin1999AdaptiveSO}, which are analogous to the
+two-scale difference equations in \ref{eq:2scalewavelet}.
+\begin{align}
+  h_i(x) &= \sqrt{2}\sum^{l-1}_{j=0}\left(\bar{H}^{(0)}_{ij}h_j(2x) + \bar{H}^{(1)}_{ij}h_j(2x-1)\right), \ i = 0,...,l-1 \\
+  u_i(x) &= \sqrt{2}\sum^{l-1}_{j=0}\left(\bar{G}^{(0)}_{ij}h_j(2x) + \bar{G}^{(1)}_{ij}h_j(2x-1)\right), \ i = 0,...,l-1
+\end{align}
+Where $ \bar{H} \ \text{and}\ \bar{G} $ are quadrature mirror filter matrices \cite{Beylkin1999AdaptiveSO} which have
+the following properties:
+\begin{align}
+  \bar{H}^{(0)}\bar{H}^{(0)T} + \bar{H}^{(1)}\bar{H}^{(1)T} &= \bar{I} \\
+  \bar{G}^{(0)}\bar{G}^{(0)T} + \bar{G}^{(1)}\bar{G}^{(1)T} &= \bar{I} \\
+  \bar{H}^{(0)}\bar{G}^{(0)T} + \bar{H}^{(1)}\bar{G}^{(1)T} &= \bar{0}
+\end{align}
+Which can be summarized in the orthogonal block matrix $\bar{U}$ \cite{Beylkin1999AdaptiveSO}
+\begin{equation}
+  \bar{U} =
+  \begin{pmatrix}
+    \bar{H}^{(0)} & \bar{H}^{(1)} \\
+    \bar{G}^{(0)} & \bar{G}^{(1)}
+  \end{pmatrix}
+\end{equation}
+Which lets us put the two two-scale difference equations in the following way \cite{Sorland}
+\begin{equation}
+  \begin{pmatrix}
+    \vec{h}(x) \\
+    \vec{u}(x)
+  \end{pmatrix}
+  = \sqrt{2}
+  \begin{pmatrix}
+    \bar{H}^{(0)} & \bar{H}^{(1)} \\
+    \bar{G}^{(0)} & \bar{G}^{(1)}
+  \end{pmatrix}
+  \begin{pmatrix}
+    \vec{h}(2x) \\
+    \vec{h}(2x-1)
+  \end{pmatrix}
+\end{equation}
+and subsequently
+\begin{equation}
+  \begin{pmatrix}
+    \vec{h}(2x) \\
+    \vec{h}(2x-1)
+  \end{pmatrix}
+  = \frac{1}{\sqrt{2}}
+  \begin{pmatrix}
+    \bar{H}^{(0)} & \bar{G}^{(0)} \\
+    \bar{H}^{(1)} & \bar{G}^{(1)}
+  \end{pmatrix}
+  \begin{pmatrix}
+    \vec{h}(x) \\
+    \vec{u}(x)
+  \end{pmatrix}
+\end{equation}
 
+\subsection{Choices of Scaling functions }
+Now that we have stated how to build the scaling and wavelet basis functions
+we need to make a choice of functions $f$ to build said basis.
+Here we will breifly show two examples of polunomial functions used to create the
+basis. These two are the Legendre polynomials and the Lagrange interpolating
+polynomials \cite{Beylkin:MRA, Beylkin1999AdaptiveSO}
+\paragraph{Legendre basis}
+The Legendre scaling function is defined as follows
+\begin{align}
+  \phi_j(x)
+  \begin{cases}
+    \sqrt{2j+1} P_j(2x-1), \ x&\in [0,1)\\
+    0,\ x&\notin (0, 1)
+  \end{cases}
+\end{align}
+Where $P_j$ are the Legendre polynomials of order $j$ defined in $[-1, 1]$ \cite{Beylkin:MRA}
+Following are some examples of the polynomials together with figures of the first few terms
+of the functions. These functions have the advantage of being simple to compute,
+since each incremental polynomial order only adds a single term to the function.
 
-\subsection{Operators}
-\subsection{Functions}
-\section{Solving systems}
-\subsection{Integral equations}
-\subsection{Differential equations}
-\section{Software}
+\paragraph{Lagrange interpolating basis}
+  \begin{align}
+    \varphi &= \frac{1}{\sqrt{w_i}}l_i(x), \ i = 0, ..., M-1\\
+    l_i(x) &= \prod^{M-1}_{k = 0, k\neq i} \frac{x-x_k}{x_i-x_k} \\
+    w_i &= \frac{1}{MP^\prime_M(2x_i-1)P_{M-1}(2x_i-1)}
+  \end{align}
+Where $M$ is the scale of the subspace, the $P$ functions are the Legendre polynomials and
+$x_0, ..., x_{M-1}$ are the roots of $P_M(2x-1)$ \cite{Beylkin:MRA}.
+These scaling functions have the characteristic of $l_i(x_j)=\delta_{ij}$ simplifying
+integrals and thus projections of the basis.
+\subsection{Constructing the basis functions in d dimensions}
+\section{Operators}
+\subsection{\ac{NS} form Representation of Operators}
+Lets us define two projection operators $P^k_n \ \text{and}\ Q^k_n $  and their relation as:
+\begin{align}
+  P^k_n &: \ L^2([0, 1]) \to V^k_n \\
+  Q^k_n &:\  L^2([0, 1]) \to W^k_n \\
+  Q^k_n &= P^k_{n+1} - P^k_n
+\end{align}
+%maybe scrap
+A function $f$ would then be projected into a scale $n$ by $ f^k_n = P^k_n f $.
+Its projection unto a more refined scale would then be $ f_{n+1}^k = f^k_n + df^l_n$
+where $df^k_n = Q^k_nf$ \cite{Frediani:2013}.
+%maybe scrap
+We expand a linear operator $T:\ L^2([0, 1]) \to L^2([0, 1])$ as
+\begin{align}
+  \begin{split}
+    T &= P^k_0TP^k_0 + \sum^\infty_{n=0}\left( P^k_{n+1}TP^k_{n+1} - P^k_nTP^k_n\right)\\
+      &=  P^k_0TP^k_0 + \sum^\infty_{n=0}\left(\left(P^k_{n}+Q^k_{n})T(P^k_{n}+Q^k_{n}\right) - P^k_nTP^k_n\right)\\
+      &= P^k_0TP^k_0 + \sum^\infty_{n=0}\left(P^k_nTQ^k_n + Q^k_nTP^k_n + Q^k_nTQ^k_n\right)
+  \end{split}
+\end{align}
+We represent the operator $T$ as
+\begin{align}
+  A^k_n & \stackrel{\text{def}}{=}Q^k_nTQ^k_n: W_n^k \to W_n^k\\
+  B^k_n & \stackrel{\text{def}}{=}Q^k_nTP^k_n: V_n^k \to W_n^k\\
+  C^k_n & \stackrel{\text{def}}{=}P^k_nTQ^k_n: W_n^k \to V_n^k\\
+  T^k_n & \stackrel{\text{def}}{=}P^k_0TP^k_0: V_n^k \to V_n^k
+\end{align}
+so we can write the \ac{NS} form of the operator $T$ as \cite{Frediani:2013, Beylkin1999AdaptiveSO}
+\begin{equation}
+  T = T^k_0 + \sum^\infty_{n=0}\left( A^k_n + B^k_n + C^k_n\right)
+\end{equation}
+We can then apply $T$ on $f$ and get, by using the definitions above, the following
+result:
+\begin{align}
+  \begin{split}
+    Tf = g &= \hat{g}^k_0 + \sum^\infty_{n=0}\left(\tilde{g}^k_n + d\tilde{g}^k_n\right)\\
+       &= T^k_0f^k_0 +  \sum^\infty_{n=0}\left(\left(A_n^k + C_n^k)df^k_n + B^k_nf^k_n\right)\right)\\
+       \hat{g}^k_n &\stackrel{\text{def}}{=} T^k_nf = T^k_nf^k_n\\
+       \tilde{g}^k_n &\stackrel{\text{def}}{=} C^k_nf = C^k_nf^k_n\\
+       d\tilde{g}^k_n &\stackrel{\text{def}}{=}\left(A^k_n + B^k_n\right)f = A^k_nf^k_n + B^k_nf^k_n
+  \end{split}
+\end{align}
+In practice we truncate this to the fines scale $N+1$ where the following is assumed to be true \cite{Frediani:2013}:
+\begin{equation}
+  \hat{g}^k_{N+1} \simeq g^k_{N+1} \stackrel{\text{def}}{=} (Tf)^k_{N+1}
+\end{equation}
+
+\subsection{Integral operators}
+
+\subsection{Differential operators}
+
+%\section{Software}
 \input{acronyms.tex}
 \biblio
 \end{document}
