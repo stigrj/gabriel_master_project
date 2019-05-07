@@ -9,7 +9,7 @@ able to make predictions with regards to these approximations. In the previous
 chapter I showed one of the ways to get good approximations of systems, now i
 will talk about the set of systems that will be the focus for this thesis,
 solvation models.
-\section{Motivation}
+\section{Outlining the problem}
 Solvation models describe one or more molecules (substrate) surrounded by
 a set of other molecules (solvent). Most reactions of interest occur in a
 solvent where the geometry, energy and kinetics of the reactants and products
@@ -21,8 +21,6 @@ occur in solutions \cite{Tomasi:1994wt}.
 One can describe the solvation model in either an explicit or implicit way. In
 this thesis I will focus on the implicit models, although i will give some
 background in the explicit model.
-
-\section{Explicit solvation models}
 A straightforward approach to the model is to try to, for example, make a
 system of a \ce{Li^+} cation surrounded by water molecules. Here arises two
 questions; how many water molecules should we add, and, in which positions
@@ -55,7 +53,9 @@ would be too big to realistically work with in \ac{QM} and we would be forced to
 calculate the effects as statistical averages over phase space
 \cite{Cramer:2004}.
 
-The explicit method is necessary whenthe solvent molecules' geometry and states
+\section{Explicit solvation models}
+
+The explicit method is necessary when the solvent molecules' geometry and states
 are importnant to the measurement of the properties of the substrate
 \cite{Cramer:2004}.
 One way to simplify the problem is to partition the system into two parts, the
@@ -78,8 +78,9 @@ Jensen:2017}.
 In this family of solvation models we describe the solvent effect as a
 perturbation to the in vacuo energy of the solute. The way we do this is by
 describing the solute as being surrounded by a polarizable continuum
-characteristic to the solvent. We can describe the total Hamiltonian $H_{tot}$
-of such a system as \cite{Tomasi:1994wt}:
+characteristic to the solvent. This model is called the \ac{PCM}. We can
+describe the total Hamiltonian $H_{tot}$ of such a system as
+\cite{Tomasi:1994wt}:
 \begin{equation}
   \hat{H}_{tot} = H_0 + V_{sol}
 \end{equation}
@@ -88,13 +89,22 @@ Hamiltonian describing the perturbation that is the solvent effect. There are
 four main properties affected by solvation effect. These are Electrostatic
 interactions, cavitation, changes in dispersion and changes in bulk solvent
 structure \cite{Cramer:2004}.
+In this thesis we work mostly with the electrostatics interactions of the
+solute-solvent interface. They describe the reaction field.
 
-\subsection{Properties}
-\paragraph{Reaction Field Energy}
+\subsection{Reaction Field}
 If a solute $A$ with a dipole moment is introduced to a solvent that has its
 own dipole moment the molecules of the solvent will reorient themselves so that
 they oppose the dipole moment of the $A$. When this happens the average electric
-field of the solute is changed . 
+field of the solute is changed. This will itself act on $A$ and increase its dipole
+moment and reorient itself in regards to the electric field of the solvent in a
+more energetically favorable way. The solvent will repeat the same process with
+the electric field induced by $A$. The reorienting, since it is a movement
+that act against the electric field of the solvent, will cost energy. This
+process will repeat until the energetic advantage of reorienting is outweighed
+by the energy needed to reorient itself \cite{Cramer:2004}.
+
+
 
 \subsection{Interlocking spheres}
 \subsubsection{Generalized poisson equation}
