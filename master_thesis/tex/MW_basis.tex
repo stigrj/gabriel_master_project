@@ -19,7 +19,7 @@ focusing in the \ac{MW} basis from \ac{MRA} methods.
 
 \section{\ac{MRA}}
 \subsection{Definition}
-Consider that we have a function $\varphi \in L^2(\mathbb{R})$ where its tanslations
+Consider that we have a function $\varphi \in L^2(\Real)$ where its tanslations
 and dilations are described as \cite{Schneider:2007}
 \begin{equation}
   \varphi^j_k(x) = 2^{\frac{j}{2}}\varphi(2^jx - k),\  j,k \in \mathbb{Z}
@@ -30,7 +30,7 @@ A space $V_n$ is spanned by translations of $\varphi_{nk}$.This space forms a
 hierarchical chain of Linear
 subspaces \cite{Beylkin:MRA}:
 \begin{equation}
-  V_0 \subset V_1 \subset ... \subset V_j \subset ... \subset L^2(\mathbb{R})\label{eq:seqsubspace}
+  V_0 \subset V_1 \subset ... \subset V_j \subset ... \subset L^2(\Real)\label{eq:seqsubspace}
 \end{equation}
 Where $V_0$ is spanned only by $\varphi_{0,0}(x)=\varphi(x)$ \cite{Sorland}.
 The function $\varphi(x)$ satisfies the two-scale difference relations \cite{Beylkin:MRA, Schneider:2007, Sorland}:
@@ -42,7 +42,7 @@ The function $\varphi(x)$ satisfies the two-scale difference relations \cite{Bey
 \end{align}
 
 If relation \ref{eq:seqsubspace} and the following refinement equation holds for $\varphi_{j,k}(x)$
-one can call the subspaces $V_n$ or the functions $\varphi_{j,k}(x)$ build a \ac{MRA} of $L_2(\mathbb{R})$.
+one can call the subspaces $V_n$ or the functions $\varphi_{j,k}(x)$ build a \ac{MRA} of $L_2(\Real)$.
 \begin{equation}
 \varphi^j_k(x) = \sum_{k\in\mathbb{Z}} h^{j+1}_k\varphi^{j+1}_k(x)
 \end{equation}
@@ -84,7 +84,7 @@ And $ \varphi$ is related to $\psi$ by the following two-scale difference relati
   \end{split}
 \end{align}
 The functions $\varphi^j_k$ and $\psi^j_k$ are orthonormal
-and dense \cite{Beylkin:MRA, Sorland, SRJensen:2014} in $L^2(\mathbb{R})$.
+and dense \cite{Beylkin:MRA, Sorland, SRJensen:2014} in $L^2(\Real)$.
 
 The Definition on Equation \ref{eq:diffsubspace} can be applied recursivelly in order to
 get any space $V_n$ as long as one knows the first subspace $V_0$ and one has a method for constructing the
@@ -106,14 +106,14 @@ Likewise the difference coefficients $d^j_k(x)$ are computed by the projection \
 Because of the way the Haar function is defined, we can define of the scaling coefficients as
 scaled averages of $f(x)$ at intervals $2^{-j}$ \cite{Sorland, Beylkin:MRA}
 \begin{equation}
-  s^j_k = \int_{\mathbb{R}}\varphi^j_k(x)f(x)\text{d}x = \int^{2^{-j}(k + 1)}_{2^{-j}k} f(x) \text{d}x\label{eq:scalecoeff1}
+  s^j_k = \int_{\Real}\varphi^j_k(x)f(x)\text{d}x = \int^{2^{-j}(k + 1)}_{2^{-j}k} f(x) \text{d}x\label{eq:scalecoeff1}
 \end{equation}
 We can then obtain the difference coefficients by using Equations \ref{eq:scalecoeff1}, \ref{eq:haarwavelet} and \ref{eq:2scalewavelet}:
 \begin{align}
   \begin{split}\label{eq:diffcoeffint}
-    d^{j - 1}_k &= \int_{\mathbb{R}}\psi^{j-1}_k(x)\text{d}x\\
-    d^{j - 1}_k &= 2^{\frac{j - 1}{2}}\int_{\mathbb{R}}\psi(2^{j-1}x - k)f(x)\text{d}x\\
-    d^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left(\int_{\mathbb{R}}\varphi(2^jx - 2k)f(x)\text{d}x  - \int_{\mathbb{R}}\varphi(2^jx - 2k - 1)f(x)\text{d}x\right)\\
+    d^{j - 1}_k &= \int_{\Real}\psi^{j-1}_k(x)\text{d}x\\
+    d^{j - 1}_k &= 2^{\frac{j - 1}{2}}\int_{\Real}\psi(2^{j-1}x - k)f(x)\text{d}x\\
+    d^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left(\int_{\Real}\varphi(2^jx - 2k)f(x)\text{d}x  - \int_{\Real}\varphi(2^jx - 2k - 1)f(x)\text{d}x\right)\\
     d^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left( \int^{2^{-j}(2k+1)}_{2^{-j}2k}f(x)\text{d}x - \int^{2^{-j}(2k+2)}_{2^{-j}(2k + 1)}f(x)\text{d}x \right)\\
     d^{j - 1}_k &= \frac{1}{\sqrt{2}}\left(s^{j}_{2k} - s^{j}_{2k+1} \right)
   \end{split}
@@ -121,9 +121,9 @@ We can then obtain the difference coefficients by using Equations \ref{eq:scalec
 The scaling coefficients can be obtained in the same manner:
 \begin{align}
   \begin{split}\label{eq:scalecoeffint}
-    s^{j - 1}_k &= \int_{\mathbb{R}}\varphi^{j-1}_k(x)\text{d}x\\
-    s^{j - 1}_k &= 2^{\frac{j - 1}{2}}\int_{\mathbb{R}}\varphi(2^{j-1}x - k)f(x)\text{d}x\\
-    s^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left(\int_{\mathbb{R}}\varphi(2^jx - 2k)f(x)\text{d}x  + \int_{\mathbb{R}}\varphi(2^jx - 2k - 1)f(x)\text{d}x\right)\\
+    s^{j - 1}_k &= \int_{\Real}\varphi^{j-1}_k(x)\text{d}x\\
+    s^{j - 1}_k &= 2^{\frac{j - 1}{2}}\int_{\Real}\varphi(2^{j-1}x - k)f(x)\text{d}x\\
+    s^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left(\int_{\Real}\varphi(2^jx - 2k)f(x)\text{d}x  + \int_{\Real}\varphi(2^jx - 2k - 1)f(x)\text{d}x\right)\\
     s^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left( \int^{2^{-j}(2k+1)}_{2^{-j}2k}f(x)\text{d}x + \int^{2^{-j}(2k+2)}_{2^{-j}(2k + 1)}f(x)\text{d}x \right)\\
     s^{j - 1}_k &= \frac{1}{\sqrt{2}}\left(s^{j}_{2k} + s^{j}_{2k+1} \right)
   \end{split}
@@ -164,7 +164,7 @@ above matrix:
 \end{equation}
 \subsection{Projecting a gaussian function example}
 As an example, lets approximate the function
-$f(x) = \frac{10}{\sqrt{\pi}}e^{-100(x - 0.5)^2}$ in $L^2(\mathbb{R})$
+$f(x) = \frac{10}{\sqrt{\pi}}e^{-100(x - 0.5)^2}$ in $L^2(\Real)$
 with Haar basis up to scale $5$ using \ref{eq:projectftohaar}. Gives us the
 following figures.
 %put the plots here
@@ -184,7 +184,7 @@ define a hierarchical set of multiresolution spaces $V_j^l$ where \cite{Frediani
 \end{align}
 and
 \begin{equation}
-  V_0^l \subset V_1^l \subset ... \subset V^l_j \subset ... \subset L^2(\mathbb{R})
+  V_0^l \subset V_1^l \subset ... \subset V^l_j \subset ... \subset L^2(\Real)
 \end{equation}
 
 We again define subspaces $W_j^l$ as the orthogonal complements of $V^l_j$

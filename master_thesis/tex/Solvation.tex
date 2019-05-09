@@ -15,6 +15,47 @@ a set of other molecules (solvent). Most reactions of interest occur in a
 solvent where the geometry, energy and kinetics of the reactants and products
 are affected by their enviroment\cite{Mennucci:2018}.
 
+We can describe the total Hamiltonian $\hat{H}_{sol}$ of a solvent-solute system as
+\cite{Tomasi:1994wt}:
+\begin{equation}\label{eq:Hsolvent}
+  \hat{H}_{sol} = \hat{H}_0 + \hat{V}_{sol}
+\end{equation}
+where $H_0$ is the gas phase Hamiltonian (in vacuo) and $\hat{V}_{sol}$ is the
+potential arising from the interactions between solvent and solute. These
+interactions can be considered as perturbations to the in-vacuo system.
+The \ac{SE} of the system is as follows \cite{Tomasi:1994wt}
+\begin{align}\label{eq:solSE}
+  \hat{H}_{sol}\Psi^{(f)} = E^{(f)}\Psi^{(f)}
+\end{align}
+Where $f$ denotes the degree of the perturbation. In most practical uses,
+including this thesis, one can replace the wave function $\Psi$ with the
+total charge distribution of the solute $\rho_{\mathrm{tot}}$
+\cite{Tomasi:1994wt}
+\begin{align}
+  \begin{split}\mathbb{}
+      \rho_{\mathrm{tot}}(\vec{r} ; \vec{Q}) &=
+      \rho_{\mathrm{nuc}}(\vec{r}, \vec{Q})
+      + \rho_{\mathrm{el}}(\vec{r} ; \vec{Q}) \\
+      \rho_{\mathrm{nuc}}(\vec{r} ; \vec{Q}) &=
+      \sum_{\alpha} Z_{\alpha} \delta\left(\vec{r}
+      - \vec{Q}_{\alpha}\right) \\
+      \rho_{\mathrm{el}}\left(\vec{q}_{1} ; \vec{Q}\right) &=
+      -\int\left|\Psi^{(f)}(\boldsymbol{q}, \vec{Q})\right|^{2}
+      \mathrm{d}\vec{q}_{2} \ldots \mathrm{d}\boldsymbol{q}_{N_{\mathrm{el}}}
+  \end{split}
+\end{align}
+Where $\alpha$ is an index that iterates over all the nuclei of the molecule,
+$Z_{\alpha}$ is the nuclear charge of each nucleus, $\vec{q}_1, ..., \vec{q}_{N_{el}}$
+represents the coordinates of the electrons, $\vec{Q}_{\alpha}$ represents the
+coordinates of the nuclei and $\vec{r}$ is a vector variable in three dimensions.
+
+There are four main properties affected by solvent effect which one might be
+interested in solving. These are Electrostatic interactions, cavitation,
+changes in dispersion and changes in bulk solvent structure \cite{Cramer:2004}.
+In this thesis we work mostly with the electrostatics interactions of the
+solute-solvent interface. They describe the reaction field.
+
+\subsection{One approach}
 Our aim is to be able to simulate this system in an appropiate way, such that
 the models let us predict rates, mechanisms and other specific processes which
 occur in solutions \cite{Tomasi:1994wt}.
@@ -53,6 +94,30 @@ would be too big to realistically work with in \ac{QM} and we would be forced to
 calculate the effects as statistical averages over phase space
 \cite{Cramer:2004}.
 
+
+\subsection{Reaction Field}\label{Reaction_field}
+Lets consider a system where a solute $A$ with a dipole moment $\vec{\mu}_A$ is
+introduced to a solvent $S$ where each solvent molecule $S_i$ has its own dipole
+moment $\vec{\mu}_{S_i}$. On equlibrium the different $S_i$  would be placed
+randomly, giving an average electric field of zero. When $A$ is introduced, its
+$\vec{\mu}_A$ will induce an electric field that will affect all the
+$\vec{\mu}_{S_i}$ of the $S_i$. The $S_i$ will reorient themselves so that their
+$\vec{\mu}_{S_i}$ lie along the electric field induced by $\vec{\mu}_A$. this is
+so that they are in a more energetically favorable position in the electric
+potential of the field induced by $\vec{\mu}_A$, but in doing this, they will
+act against their own electric field and lose conformational freedom, which will
+cost energy. This will, in turn, change the electric field of $S$ so that it no
+longer behaves uniformly.The electric field of $S$ will then affect $A$ so that
+$\vec{\mu_A}$ lies along the new electric field of $S$ for the same reason
+stated above, using free energy in doing so \cite{Cramer:2004}.
+
+The process outlined above will repeat itself until the energy gain from
+reorienting $A$ and $S$ is outweighed by the required energy of such a
+reorientation. The energy at such a point is equal to half the total interaction
+energy between $S$ and $A$ \cite{Cramer:2004}. The new field obtained at the
+equilibrium position of this interaction is called the Reaction field $U_r$ for
+the interaction of $A$ and $S$.
+
 \section{Explicit solvation models}
 
 The explicit method is necessary when the solvent molecules' geometry and states
@@ -73,43 +138,165 @@ non-bonding interactions can be described with Coulombs law with the atoms as
 point charges. More information on this can be read on \cite{Cramer:2004,
 Jensen:2017}.
 
+The Reaction Field is calculated explicitly using Coulomb potentials to describe
+the field?
 
 \section{Implicit solvation models}
-In this family of solvation models we describe the solvent effect as a
-perturbation to the in vacuo energy of the solute. The way we do this is by
-describing the solute as being surrounded by a polarizable continuum
-characteristic to the solvent. This model is called the \ac{PCM}. We can
-describe the total Hamiltonian $H_{tot}$ of such a system as
-\cite{Tomasi:1994wt}:
+Most implicit models describe the solvent $S$ as a Linear isotropic continuum
+characterized by the static dielectric constant $\epsinf$ characteristic
+of the bulk of $S$ \cite{Tomasi:1994wt, FossoTande:2013ka}. In this continuum
+only the electrostatic interactions are significant \cite{Tomasi:1994wt} meaning
+that the interaction potential $\hat{V}_{int}$ in Equation \ref{eq:Hsolvent}
+becomes an electrostatic potential $\hat{V}_{\sigma}$ \cite{Tomasi:1994wt}:
+
 \begin{equation}
-  \hat{H}_{tot} = H_0 + V_{sol}
+  \hat{V}_{\mathrm{int}}=\hat{V}_{\sigma}\left(\mathbf{q}, \mathbf{Q},
+  \rho_{tot}, \epsinf\right)=\sum_{\alpha} Z_{\alpha} U_r
+  \left(\mathbf{Q}_{\alpha}\right)-\sum_{i} U_r\left(\mathbf{q}_{i}\right)
 \end{equation}
-where $H_0$ is the gas phase Hamiltonian (in vacuo) and $H_{solvation}$ is the
-Hamiltonian describing the perturbation that is the solvent effect. There are
-four main properties affected by solvation effect. These are Electrostatic
-interactions, cavitation, changes in dispersion and changes in bulk solvent
-structure \cite{Cramer:2004}.
-In this thesis we work mostly with the electrostatics interactions of the
-solute-solvent interface. They describe the reaction field.
 
-\subsection{Reaction Field}
-If a solute $A$ with a dipole moment is introduced to a solvent that has its
-own dipole moment the molecules of the solvent will reorient themselves so that
-they oppose the dipole moment of the $A$. When this happens the average electric
-field of the solute is changed. This will itself act on $A$ and increase its dipole
-moment and reorient itself in regards to the electric field of the solvent in a
-more energetically favorable way. The solvent will repeat the same process with
-the electric field induced by $A$. The reorienting, since it is a movement
-that act against the electric field of the solvent, will cost energy. This
-process will repeat until the energetic advantage of reorienting is outweighed
-by the energy needed to reorient itself \cite{Cramer:2004}.
+The contribution of the interaction between $S$ and $A$ to the total energy
+$E^{(f)}$ is given by
+\begin{equation}
+  W_{tot} = \int_{\real^3}\Psi^{(f)\star}\hat{V}_{\sigma}\Psi^{(f)}\text{d}q...\text{d}q_{N_{el}}
+  = \braket{\rho_{tot}(\vec{r})|U_r(\vec{r})}
+\end{equation}
+This means that determining the reaction potential as well as knowing the coordinates
+of the different particles will let us solve the Equation \ref{eq:solSE}
+The model we will be working with is called a \ac{PCM}.
+
+\subsection{Cavity}\label{Cavitytitle}
+All continuum models make use of a cavity in which the solute $A$ resides
+\cite{Tomasi:1994wt, Cramer:2004, Tomasi:2005ipa}. The Shape of the cavity
+must be defined so it includes the whole molecule $A$ and its charge distribution.
+Although, since the charge distribution of any molecule persists to infinity there
+will always be an overlap with the charge distributions of the medium in real
+systems. The charge that is not contained withing the cavity is often called
+escaped charge \cite{Tomasi:2005ipa}.
+
+The size of the cavity is critical to the calculated results of the model, if
+the cavity is too big the solvation effects are dampened, if it is too small
+various errors may arise in the computation of the properties to be studied
+\cite{Tomasi:1994wt}. It is accepted that the cavity shape should closelly
+resemble the shape of the molecule itself \cite{Tomasi:2005ipa}. There are two
+main ways of defining the shape and size of the cavity. These are (1) regular
+shapes and (2) molecular shapes.
+
+Regular shapes such as spheres, cylinders and ellipsoids have the advantage of
+faster and simpler computations than molecular shapes. The fact that the cavity
+should resemble the molecule and its charge distributions still stands, and it
+is not realistic to assume that all molecules have regular shapes (apart from
+maybe single atoms and linear molecules) \cite{Tomasi:2005ipa}
+
+Molecular shapes give a better representation of the solute in the solvent due
+to the fact that they more closelly follow the shape of the solute molecule.
+There are three main molecular shapes I wish to mention in this thesis:
+interlocking spheres, surfaces traced by solvent probes and isodensity surfaces.
+
+\subsubsection{Molecular Surface shapes}
+
+\paragraph{The Interlocking spheres model}
+The interlocking spheres model is an extension of the regular shape model. In
+this we create a set of spheres with radii $R_i$ that can be centered in the
+nuclei of the molecule. Other centers can be in functional groups, so that they envelope a whole group,
+or in specially designated spaces around the molecule so that the give an accurate
+representation of the parts of the substrate molecule the solvent has access to
+\cite{Tomasi:1994wt}. The latter is explained more in the next section.
+
+The consensus for $R_i$ is that it has to be close to the \ac{vdW} radius
+$R_{vdw}$ of the atom the sphere is centered in. One of the most used radii for
+this  the $R_{vdw}$ used is the Bondi radii \cite{doi:10.1021/j100785a001,
+Tomasi:2005ipa} multiplied by a coefficient $f$ that is close to 1. The
+following relation holds
+\cite{Tomasi:1994wt}
+\begin{equation}
+  R_i = fR_{vdw}
+\end{equation}
+where $f$ has been found to be, by statistical analysis, $f = 1.2 \pm 0.1$ in order to
+yield the best results. Its value is $1.2$ for water while it can vary with
+other solvents \cite{Tomasi:1994wt}. Although this only stands for neutral
+solutes. Some results imply that the best radius for cations is the covalent
+radius and the best one for anions is the ionic radius \cite{Tomasi:1994wt}.
+\paragraph{Solvent probe tracing surfaces}\label{Spts}
+This family of surfaces are based on the interlocking spheres model in that a
+solvent probe (normally a spherical probe) is rolled around the Interlocking
+sphere surface to trace a new surface. The inwards facing face of the probe traces a surface
+which the solvent cannot access. This surface is called the Solvent Excluded
+Surface (SES) \cite{Tomasi:2005ipa, Mennucci:2018}. This surface is shown with a
+dark line on Figure \ref{fig:cavities}. The surface defined by the tracing of
+the center of the probe is called the Solven Accessible Surface (SAS) which is
+shown in Figure \ref{fig:cavities} with dotted lines. One can think of this as
+smoothing so as to not get polarization in areas around the molecule which should
+not be accessible for the
+
+\begin{figure}[ht]
+  \includegraphics[width=\linewidth]{img/molecularcavity.jpg}
+  \caption{Different types of molecular cavities. The SAS and SES cavities are
+  defined from the Interlocking sphere model. Figure from \cite{Tomasi:2005ipa}}
+  \label{fig:cavities}
+\end{figure}
+
+\paragraph{Isodensity surfaces}
+A third type of surface is one defined by a certain value of the charge density.
+This is usually defined by setting a threshold value of the charge density for
+which the surface will be drawn (usually $0.0004-0.001\ \text{a.u.}$)\cite{Tomasi:2005ipa}.
 
 
+\subsection{Boundary conditions}
+As stated before, in continuum models the solvent is represented by an isotropic
+continuum defined by the dielectric constant $\epsinf$ characteristic to the bulk
+solvent \cite{Tomasi:1994wt}. The interface between the solute and the continuum
+is the cavity. One way to think of the value of the continuum is by defining a
+function epsilon with the cavity as a boundary condition \cite{Tomasi:2005ipa, Tomasi:1994wt}:
+\begin{equation}
+  \varepsilon(\vec{r}) =
+  \begin{cases}
+  \epsinf & \text{for} \ \vec{r}\in C\\
+  1 & \text{for}\ \vec{r} \notin C
+\end{cases}
+\end{equation}
+Where $C$ is the cavity.
+In an ideal cavity, the electrostatic charge is completelly containe within the
+cavity. This means that \cite{Tomasi:1994wt}
+\begin{equation}
+  \rho_{\mathrm{tot}}(\vec{r})=0 \quad \vec{r} \notin C
+\end{equation}
+This lets us set up a poisson equation inside and outside the cavity as follows
+\cite{Sorland, Tomasi:1994wt}:
+\begin{align}
+  \begin{split}
+    \nabla^2U(\vec{r}) &= -4\pi\rho_{tot}(\vec{r})\ \vec{r}\in C\\
+    \nabla^2U(\vec{r}) &= 0 \ \vec{r} \notin C
+  \end{split}
+\end{align}
+Where, for a point $\vec{s}$ and a normal outwards vector $\vec{n}$ on the
+surface of the cavity, the following conditions are true
+\cite{Sorland, Tomasi:1994wt}:
+\begin{align}
+  \begin{split}
+    U_{in}(\vec{s}) = U_{out}(\vec{s})\\
+    \frac{\partial U_{in}}{\partial\vec{n}} = \epsinf\frac{\partial U_{out}}{\partial\vec{n}}
+  \end{split}
+\end{align}
+Where $U(\vec{r})$ is the sum of the potential of the substrate in vacuo
+$U_{vac}$ and the reaction field potential $U_r$\cite{Sorland, FossoTande:2013ka}
+\begin{equation}
+  U(\vec{r}) = U_{vac}(\vec{r}) + U_r(\vec{r})
+\end{equation}
 
-\subsection{Interlocking spheres}
-\subsubsection{Generalized poisson equation}
+\subsection{Approaches to the solution}
+\subsubsection{Apparent Surface Charge (ASC)}
+\subsubsection{Multipole expansion (MPE)}
+\subsubsection{Generalized Born (GB)}
+\subsubsection{Finite Differences (FD)}
+
+\subsection{Surface Modeling}
+\paragraph{Tesselated surface}
+\paragraph{Signed distance surface}
+
 \section{Solving the Problem}
-\subsection{\ac{SCF} for The Generalized \\ Poisson equation}
+\subsection{In gaussian basis sets}
+\subsection{In \ac{MW} basis sets}
 \input{acronyms.tex}
 \biblio
 \end{document}

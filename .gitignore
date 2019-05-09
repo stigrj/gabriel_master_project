@@ -21,3 +21,4 @@ my.compile
 *.ipynb
 *.ipynb_checkpoints
 *.pdf
+*.tex.bak

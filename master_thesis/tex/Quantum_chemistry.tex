@@ -14,9 +14,9 @@ as 5) \cite{Atkins:2011, Cohen:1973}.
 
 \subsubsection{First Postulate}
 The first postulate states that everything we can know about a physical system
-can be extracted from the wavefunction $\Psi(x, t)$ of that system
+can be extracted from the wave function $\Psi(x, t)$ of that system
 \cite{Atkins:2011}. Additionally at a time $t_0$ the system is defined by
-a state vector (or wavefunction) $\ket{\Psi(t_0)}\in L^2$ that has a defined
+a state vector (or wave function) $\ket{\Psi(t_0)}\in L^2$ that has a defined
 finite scalar product as \cite{Cohen:1973}:
 \begin{equation}
   \braket{\Psi|\Psi} = \|\ket{\Psi}\|^2 =  \int_{\mathbb{R}^3}\Psi^\star\Psi d\vec{r}
@@ -25,7 +25,7 @@ finite scalar product as \cite{Cohen:1973}:
 \subsubsection{Second Postulate}
 An generic observable $O$ is represented by a generic operator $\hat{O}$. Two
 such observables are the position and momentum of a particle. These are
-represented by $\hat{q_i}$ and $\hat{p_i}$ respectivelly, where
+represented by $\hat{q_i}$ and $\hat{p_i}$ respectively, where
 $i = \{x, y, z\}$. These operators fulfill the following commutation relations
 \cite{Atkins:2011, Cohen:1973}:
 \begin{align}
@@ -67,7 +67,7 @@ giving us
   \bra{\Psi_i}\hat{O}\ket{\Psi_i} = \bra{\Psi_i}o_i\ket{\Psi_i}
 \end{equation}
 We can take the constant $o_i$ outside the integral, and
-use the fact that the wavefunctions are normalized:
+use the fact that the wave functions are normalized:
 \begin{align}
   \begin{split}
     \bra{\Psi_i}\hat{O}\ket{\Psi_i} &= o_i\braket{\Psi_i|\Psi_i}\\
@@ -106,17 +106,17 @@ for each eigen-value is:
 \begin{equation}
   \sum_i\mathscr{P}(o_i) = \sum_i \abs{c_i}^2 = 1
 \end{equation}
-Here we have ignored te case for degenerate eigen-values and continuos spctra of
+Here we have ignored the case for degenerate eigen-values and continuous spectra of
 eigen-values, where the method is analogous to the one used above. The reader is
 invited to look them up themselves in \cite{Cohen:1973, Atkins:2011}.
 
 \subsubsection{Fifth Postulate}
-The fifth postulate states that immediatelly after a measurement where the eigenvalue was $o_i$
+The fifth postulate states that immediately after a measurement where the eigenvalue was $o_i$
 the state of the system $\ket{\Psi}$ collapses into a state where the only value one
 can measure is $o_i$, that is $ \ket{\Psi_i} $ using the conventions stated in postulate 3 and 4.
 This is because before measuring, the probabilities for \textit{any} eigen-value
 is as stated in the fourth postulate. When the value has been measured, though,
-the uncertainty doesn not exists, as the state of the system must be one that gives
+the uncertainty does not exists, as the state of the system must be one that gives
 exactly that value. The following Equation \ref{eq:post5} represents the postulate.
 \begin{equation}\label{eq:post5}
   \ket{\Psi} \stackrel{o_i}{\Rightarrow} \ket{\Psi_i}
@@ -139,7 +139,7 @@ model \cite{Cohen:1973, Atkins:2014}).
   \hat{H}\Psi = \left(-\frac{\hbar^2}{2m}\frac{\partial^2 }{\partial x^2} + \hat{V}(x)\right)\Psi = i\hbar\frac{\partial}{\partial t} \Psi\label{eq:1DSE}
 \end{equation}
 We can substitute $$\Psi(x, t)=\psi(x)\tau(t)$$ into \ref{eq:1DSE}
-by assuming that the wavefunction can be separated into spatial and time dependent
+by assuming that the wave function can be separated into spatial and time dependent
 functions \cite{Atkins:2011}:
 \begin{align}
   \begin{split}\label{eq:sepvar1DSE}
@@ -163,7 +163,7 @@ Equation \ref{eq:timedepWF} can be solved by observation as \cite{Atkins:2011, C
 \begin{equation}
   \tau(t) = e^{-iE\frac{t}{\hbar}}
 \end{equation}
-while the remaining Equation \ref{eq:timeindepWF} can be rewriten as
+while the remaining Equation \ref{eq:timeindepWF} can be rewritten as
 \begin{equation}
   \hat{H}\psi = E\psi\label{eq:timeindepSE}
 \end{equation}
@@ -175,7 +175,7 @@ Consider a one electron system (such as \ce{H} or \ce{He+}) which contains an
 electron and a nucleus, which are described using three dimensional coordinates
 $ x,\ y $ and $ z $. The Hamiltonian contains terms for the kinetic $T$ and
 potential energy $V$ contributions of both the nucleus $ N $ and the electron
-$ e $. In a one electron system in vaccuum the Hamiltonian for the time independent
+$ e $. In a one electron system in vacuum the Hamiltonian for the time independent
 \ac{SE} would be as follows \cite{Jensen:2017, Cramer:2004}.
 \begin{align}
   \begin{split}
@@ -193,7 +193,7 @@ depending on the subscript used. The potential is the coulomb interaction
 between the electrons, which is calculated by dividing the nuclear charge of the
 atom $ Z $ with the distance between the electron and the nucleus
 $ ||\vec{r}_N - \vec{r}_e|| $. Note that we will be using Atomic units in all
-the equations from here onwards, meaning that, although the equations presented
+the equations from here onward, meaning that, although the equations presented
 contain constants such as $\hbar$ in literature such as in \cite{Atkins:2014},
 these will be presented with their value in atomic units (which is one for
 $\hbar$).
@@ -269,7 +269,7 @@ in the following Equation \ref{eq:SEsphcm}.
           \frac{Z}{r}\Psi &= E\Psi
   \end{split}
 \end{align}
-we can easilly see that we can separate the wavefunction into two parts; a Radial
+we can easily see that we can separate the wave function into two parts; a Radial
 function $R(r)$ and an angular function $Y(\theta, \ \phi)$:
 $$\Psi(r, \ \theta, \ \phi) = R(r)Y(\theta, \ \phi)$$ which we substitute into
 Equation \ref{eq:SEsphcm}:
@@ -318,7 +318,7 @@ into it:
 Once again we have an equation where each side is dependent on a different variable,
 which tells us that both terms must equal a constant, which we will call $m_l^2$, giving us the
 three different sets of differential equations needed to be solved for the
-wavefunction \cite{Atkins:2014, Simons:2016, Atkins:2011}.
+wave function \cite{Atkins:2014, Simons:2016, Atkins:2011}.
 \begin{subequations}
   \begin{align}
     -\frac{1}{R}\frac{1}{2r^2}\frac{d}{d r}
@@ -369,7 +369,7 @@ and substitute $z = \cos{\theta}$ and $P(z) = \Theta(\theta)$ to get the followi
 \end{align}
 \subsection{The energies}
 
-Applying the hamiltonian in Equation \ref{eq:SphHcm} to the wavefunction in
+Applying the Hamiltonian in Equation \ref{eq:SphHcm} to the wave function in
 %Equation \ref{eq:radangsep} yields \cite{Atkins:2014}:
 \begin{equation}
   \begin{split}
@@ -389,7 +389,7 @@ Additionally, the potential energy operator becomes more complicated,as it
 would not just have the attractive forces between electron-nucleus,but also the
 repulsive forces between all the electrons. Both of these problems add more
 terms per particle and thus would be impossible to be solved in a realistic
-timeframe \cite{Jensen:2017}.
+time frame \cite{Jensen:2017}.
 
 \subsection{\ac{BO} approximation}
 
@@ -403,9 +403,9 @@ Jensen:2017}.
 
 In the \ac{BO} approximation one assumes that the motion of the nucleus is
 negligible in comparison to the motion of the electrons \cite{Cramer:2004,
-Jensen:2017}. This is because the elecrons are 1800 times less massive than the
-protons and electrons and the kinetic energy operator is inverselly
-proportional to the mass of the particle. THis way we can imagine the system as
+Jensen:2017}. This is because the electrons are 1800 times less massive than the
+protons and electrons and the kinetic energy operator is inversely
+proportional to the mass of the particle. This way we can imagine the system as
 having stationary nucleus and electrons in motion around the nucleus.
 
 By using this assumption we can separate the problem of a \ac{SE} for the whole
@@ -415,7 +415,7 @@ kinetic energy of the molecule\cite{Cramer:2004}. By this line of thought one
 can write the following set of equations in \ref{eq:BO} based on Equation
 \ref{eq:twopH} adding the nucleus-nucleus
 and electron-electron repulsion potentials, $ V_{NN} $ and $ V_{ee} $
-respectivelly.
+respectively.
 \begin{equation}
   \begin{split}\label{eq:BO}
     H_{tot}\Psi_{tot}(\vec{R}, \vec{r}) &= E_{tot}\Psi_{tot}(\vec{R},
@@ -431,7 +431,7 @@ respectivelly.
 
 In the equations above, both the total Hamiltonian $H_{tot}$ and total
 wave function $\Psi_{tot}$ are divided into electronic and nucleic contributions
-($\Psi_e$ and$\Psi_N$ respectivelly). This separation is not complete, as there
+($\Psi_e$ and$\Psi_N$ respectively). This separation is not complete, as there
 still is the nucleus-electron attraction which must be included in the
 electronic Hamiltonian $H_e$. Additionally, when solving the electronic problem
 we need to take into account the nucleus-nucleus repulsion potential $V_NN$.
@@ -441,7 +441,7 @@ electronic wave function is dependent on the electronic coordinates as
 variables, but depends on the nuclei coordinates parametrically
 \cite{Jensen:2017}.This means that for each molecule geometry the electronic
 problem is solved as if the nucleus was motionless. This leads to the
-nucleus-nucleus potential to be a constant for each moelcule geometry.
+nucleus-nucleus potential to be a constant for each molecule geometry.
 
 Solving the electronic problem over different geometries gives rise to a
 \ac{PES} on which the molecule exists \cite{Cramer:2004}. This parametric
@@ -453,7 +453,7 @@ good our trial wave function is as according to the variational principle.
 
 Once a minimum has been reached on the \ac{PES} one can go on to solve for the
 total energy of the system by doing solving the final equation on \ref{eq:BO}.
-This, as according to the variational principle, can also be interated over in
+This, as according to the variational principle, can also be iterated over in
 order to minimize the energy.
 
 \subsection{Variational Principle}
@@ -465,7 +465,7 @@ coefficients $c_i$.
 \begin{equation}
   \Phi = \sum\limits_ic_i\Psi_i
 \end{equation}
-We also know from Equation \ref{eq:post4} that the pribability of $\Phi$ can
+We also know from Equation \ref{eq:post4} that the probability of $\Phi$ can
 be calculated as shown below;
 \begin{equation}
   \braket{\Phi|\Phi} = \sum\limits_i^nc_i^2
@@ -483,7 +483,7 @@ $c_i$ associated with the linear combination that describes $\Phi$
 
 We know that for this to be a quantum mechanical system there must be a lowest
 energy among all energies $E_i$. We choose to call this lowest energy $E_0$.
-Substracting $E_0$ from Equation \ref{eq:genenerg} to find out the difference
+Subtracting $E_0$ from Equation \ref{eq:genenerg} to find out the difference
 between the calculated energy of the arbitrary wave function $\Phi$ with respect
 to the ground state energy gives us:
 
