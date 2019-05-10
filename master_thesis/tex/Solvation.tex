@@ -27,17 +27,19 @@ The \ac{SE} of the system is as follows \cite{Tomasi:1994wt}
 \begin{align}\label{eq:solSE}
   \hat{H}_{sol}\Psi^{(f)} = E^{(f)}\Psi^{(f)}
 \end{align}
-Where $f$ denotes the degree of the perturbation. In most practical uses,
-including this thesis, one can replace the wave function $\Psi$ with the
+Where $f$ denotes the degree of  rigidity of the interactions (0 being with
+completelly static solvent molecules and rigidity decreasing with increasing
+index). In most practical uses, we are interested in the polarization interaction
+between the solvent and solute, meaning that one can replace the wave function $\Psi$ with the
 total charge distribution of the solute $\rho_{\mathrm{tot}}$
 \cite{Tomasi:1994wt}
 \begin{align}
   \begin{split}\mathbb{}
-      \rho_{\mathrm{tot}}(\vec{r} ; \vec{Q}) &=
-      \rho_{\mathrm{nuc}}(\vec{r}, \vec{Q})
-      + \rho_{\mathrm{el}}(\vec{r} ; \vec{Q}) \\
-      \rho_{\mathrm{nuc}}(\vec{r} ; \vec{Q}) &=
-      \sum_{\alpha} Z_{\alpha} \delta\left(\vec{r}
+      \rho_{\mathrm{tot}}(\rvec ; \vec{Q}) &=
+      \rho_{\mathrm{nuc}}(\rvec, \vec{Q})
+      + \rho_{\mathrm{el}}(\rvec ; \vec{Q}) \\
+      \rho_{\mathrm{nuc}}(\rvec ; \vec{Q}) &=
+      \sum_{\alpha} Z_{\alpha} \delta\left(\rvec
       - \vec{Q}_{\alpha}\right) \\
       \rho_{\mathrm{el}}\left(\vec{q}_{1} ; \vec{Q}\right) &=
       -\int\left|\Psi^{(f)}(\boldsymbol{q}, \vec{Q})\right|^{2}
@@ -47,13 +49,14 @@ total charge distribution of the solute $\rho_{\mathrm{tot}}$
 Where $\alpha$ is an index that iterates over all the nuclei of the molecule,
 $Z_{\alpha}$ is the nuclear charge of each nucleus, $\vec{q}_1, ..., \vec{q}_{N_{el}}$
 represents the coordinates of the electrons, $\vec{Q}_{\alpha}$ represents the
-coordinates of the nuclei and $\vec{r}$ is a vector variable in three dimensions.
+coordinates of the nuclei and $\rvec$ is a vector variable describing a point
+in three dimensions.
 
 There are four main properties affected by solvent effect which one might be
 interested in solving. These are Electrostatic interactions, cavitation,
 changes in dispersion and changes in bulk solvent structure \cite{Cramer:2004}.
 In this thesis we work mostly with the electrostatics interactions of the
-solute-solvent interface. They describe the reaction field.
+solute-solvent interface and the reaction field they create.
 
 \subsection{One approach}
 Our aim is to be able to simulate this system in an appropiate way, such that
@@ -154,16 +157,28 @@ becomes an electrostatic potential $\hat{V}_{\sigma}$ \cite{Tomasi:1994wt}:
   \rho_{tot}, \epsinf\right)=\sum_{\alpha} Z_{\alpha} U_r
   \left(\mathbf{Q}_{\alpha}\right)-\sum_{i} U_r\left(\mathbf{q}_{i}\right)
 \end{equation}
-
+Where $U_r$ is the Reaction field potental.
 The contribution of the interaction between $S$ and $A$ to the total energy
 $E^{(f)}$ is given by
 \begin{equation}
   W_{tot} = \int_{\real^3}\Psi^{(f)\star}\hat{V}_{\sigma}\Psi^{(f)}\text{d}q...\text{d}q_{N_{el}}
-  = \braket{\rho_{tot}(\vec{r})|U_r(\vec{r})}
+  = \braket{\rho_{tot}(\rvec)|U_r(\rvec)}
 \end{equation}
 This means that determining the reaction potential as well as knowing the coordinates
 of the different particles will let us solve the Equation \ref{eq:solSE}
-The model we will be working with is called a \ac{PCM}.
+These continuum models are also part of the \ac{PCM} classification of solvent
+models.
+Since we are looking at the effect the charge ditribution of a solute has on
+the interaction potential, we set up a Poisson equation. We also know that the change in
+the potential must also be related to the dielectric constant that chracterizes
+the continuum $\epsilon$. We try to find the solution to the following
+electrostatic potential equation
+\begin{equation}
+  \nabla\left( \epsilon(\rvec) \nabla U(\rvec)\right) = -4\pi\rho_{tot}
+\end{equation}
+Where $U(\rvec)$ is the electrostatic potential of the interaction between
+the solute and the solvent. If $\epsilon$ is a constant we can move it outside
+of the gradient operation and solve only for the potential.
 
 \subsection{Cavity}\label{Cavitytitle}
 All continuum models make use of a cavity in which the solute $A$ resides
@@ -249,24 +264,29 @@ solvent \cite{Tomasi:1994wt}. The interface between the solute and the continuum
 is the cavity. One way to think of the value of the continuum is by defining a
 function epsilon with the cavity as a boundary condition \cite{Tomasi:2005ipa, Tomasi:1994wt}:
 \begin{equation}
-  \varepsilon(\vec{r}) =
+  \epsilon(\rvec) =
   \begin{cases}
-  \epsinf & \text{for} \ \vec{r}\in C\\
-  1 & \text{for}\ \vec{r} \notin C
+  \epsinf & \text{for} \ \rvec\in C\\
+  1 & \text{for}\ \rvec \notin C
 \end{cases}
 \end{equation}
-Where $C$ is the cavity.
-In an ideal cavity, the electrostatic charge is completelly containe within the
-cavity. This means that \cite{Tomasi:1994wt}
+Where $C$ is the cavity. This definition brings forth a discontinuity on the
+dielectric function. This makes solving the poisson equation more difficult as
+the gradient of the dielectric function is not defined at the surface of the
+cavity. One way to bypass this problem is to partition the volume of the system
+into two parts, one inside the cavity and one outside the cavity \cite{Tomasi:1994wt}.
+Another assumption that is made is to say that we have an ideal cavity
+\cite{Cramer:2004, Tomasi:1994wt}. In an ideal cavity, the electrostatic charge
+is completelly contained within the cavity. This means that \cite{Tomasi:1994wt}
 \begin{equation}
-  \rho_{\mathrm{tot}}(\vec{r})=0 \quad \vec{r} \notin C
+  \rho_{\mathrm{tot}}(\rvec)=0 \quad \rvec \notin C
 \end{equation}
-This lets us set up a poisson equation inside and outside the cavity as follows
+This lets us define the poisson equation inside and outside the cavity as follows
 \cite{Sorland, Tomasi:1994wt}:
 \begin{align}
   \begin{split}
-    \nabla^2U(\vec{r}) &= -4\pi\rho_{tot}(\vec{r})\ \vec{r}\in C\\
-    \nabla^2U(\vec{r}) &= 0 \ \vec{r} \notin C
+    \nabla^2U(\rvec) &= -4\pi\rho_{tot}(\rvec)\ \rvec\in C\\
+    \epsinf\nabla^2U(\rvec) &= 0 \ \rvec \notin C
   \end{split}
 \end{align}
 Where, for a point $\vec{s}$ and a normal outwards vector $\vec{n}$ on the
@@ -278,25 +298,202 @@ surface of the cavity, the following conditions are true
     \frac{\partial U_{in}}{\partial\vec{n}} = \epsinf\frac{\partial U_{out}}{\partial\vec{n}}
   \end{split}
 \end{align}
-Where $U(\vec{r})$ is the sum of the potential of the substrate in vacuo
+Where $U(\rvec)$ is the sum of the potential of the substrate in vacuo
 $U_{vac}$ and the reaction field potential $U_r$\cite{Sorland, FossoTande:2013ka}
-\begin{equation}
-  U(\vec{r}) = U_{vac}(\vec{r}) + U_r(\vec{r})
+\begin{equation}\label{eq:Utot}
+  U(\rvec) = U_{vac}(\rvec) + U_r(\rvec)
 \end{equation}
 
-\subsection{Approaches to the solution}
-\subsubsection{Apparent Surface Charge (ASC)}
+\subsection{Aproaches to a solution}
+\subsubsection{ \ac{ASC}}
+In this family of solutions we look at the classical electrostatics description
+of the problem. we do this by defining an apparent charge distribution
+$\sigma$ confined to the surface of the cavity $\Gamma$ \cite{Tomasi:1994wt, Tomasi:2005ipa}.
+The apparent surface charge distribution at the boundary between two regions $i, j$
+is defined as
+\begin{equation}
+  \sigma_{ij} = -(\vec{P}_j - \vec{P}_i)\cdot\vec{n}_{ij}
+\end{equation}
+where $\vec{n}_{ij}$ is the unit vector pointing from $i$ to $j$ and $\vec{P}$ is
+the polarization vector of a region of constant isotropic permitivity (such as
+the continuum in \ac{PCM}) defined as
+\begin{equation}
+  \vec{P}_i (\rvec) = - \frac{\epsislon_i - 1}{4\pi}\nabla U(\rvec)
+\end{equation}
+where $\epsislon_i$ is the permitivity constant of region $i$ \cite{Tomasi:2005ipa}.
+In a solvation model we only have two regions, one inside and one outside. We
+know that $\epso = 1$ so $\vec{P}_0 = 0$ leaving only the outside region to
+construct $\sigma$. This gives us \cite{Tomasi:2005ipa}
+\begin{equation}
+  \sigma(\vec{s}) =\frac{\epsinf - 1}{4\pi\epsinf} \frac{\partial}{\partial\vec{n}} (U_{vac} + U_{\sigma})_{in}\ ;\ s \in \Gamma
+\end{equation}
+and we find the reaction potential of the apparent surface charge $U_{\sigma}$
+with the following integral
+ \begin{equation}
+   U_{\sigma}(\rvec) = \int_{\Gamma}\frac{\sigma(\vec{s})}{\abs{\rvec - \vec{s}}} \text{d}\vec{s}\ ;\ s \in \Gamma
+ \end{equation}
+Which, if we divide the surface into a set of finite elements (tesserae
+\cite{Tomasi:2005ipa, Sorland}) with set areas $A$ that are small enough to be able
+to assume that $\sigma$ does not change inside each of these tesserae, will let us define the integral
+as a sum over all the tesserae
+\begin{equation}
+   U_{\sigma}(\rvec) \simeq \sum_k\frac{\sigma(\vec{s}_k) A_k}{\abs{\rvec - \vec{s}_k}} \text{d}\vec{s}
+   = \sum_k\frac{\sigma(q_k}{\abs{\rvec - \vec{s}_k}}
+\end{equation}
+Where $q_k$ is the point charge of each tesserae from the product of $sigma{\vec{s}_k}A_k$
+\cite{Tomasi:2005ipa}.
+Many slightly different types of \ac{ASC} have been implemented as of now. Some of these
+are \ac{COSMO}, \ac{IEF} and \ac{SVPE}.
+
+\paragraph{\ac{COSMO}}
+In this version of \ac{ASC} we preceed as normal except that we define $\epsinf = \infty$.
+This way we determine the {ac{ASC}} ($\sigma^{\star}$) by the local value of the electrostatic
+potential instead of computing the normal component of its gradient \cite{Tomasi:2005ipa}.
+We then scale $\sigma^{\star}$ as follows
+\begin{equation}
+  \sigma(\vec{s}) = \frac{\epsinf -1}{\epsinf + k}\sigma^{\star}(\vec{s})
+\end{equation}
+where $k$ is small \cite{Tomasi:2005ipa}.
+
+\paragraph{\ac{IEF}}
+In this method we define the electrostatic potentials in terms of Green integral
+functions. The Green function $G(\vec{x}, \vec{y})$ is the potential produced at
+a point $\vec{x}$ by a unit charge at $\vec{y}$ \cite{Tomasi:2005ipa}. We define
+the electrostatic potentials as follows
+
+\begin{equation}
+\begin{aligned} U(x) &=\int_{R^{3}} G^{s}(x, y) \rho_{\mathrm{M}}(y) \mathrm{d} y \\
+  U_{vac}(x) &=\int_{R^{3}} G(x, y) \rho_{\mathrm{M}}(y) \mathrm{d} y \\
+  U_{r}(x) &=\int_{R^{3}} G^{R}(x, y) \rho_{\mathrm{M}}(y) \mathrm{d} y \end{aligned}
+\end{equation}
+where $G(\vec{x}, \vec{y})=1 /|x-y|$ is the green kernel for the operator
+$-\nabla^2$, $G^s(\vec{x}, \vec{y})$  is the green function of
+$-\nabla(\epsilon{\rvec}\nabla)$ and $G^{r}(x, y)=G^{\mathrm{s}}(\vec{x},
+\vec{y})-G(\vec{x}, \vec{y})$. Then the reaction potential $U_r$ can be represented
+as  \cite{Tomasi:2005ipa}
+
+\begin{equation}
+U_{\mathrm{R}}(x)=\int_{\Gamma} \frac{\sigma(\vec{y})}{|\vec{x}-\vec{y}|}
+\mathrm{d} \vec{y} \forall \vec{x} \in R^{3}
+\end{equation}
+where the surface charge $\sigma$ is given by solving the following equation
+
+\begin{equation}
+\left[2 \pi\left(\frac{\epsilon+1}{\epsilon-1}\right)-D_{\mathrm{i}}\right] S_{\mathrm{i}} \sigma=-\left(2 \pi-D_{\mathrm{i}}\right) V_{vac}
+\end{equation}
+Where $S_{\mathrm{i}}$ and  $D_{\mathrm{i}}$ are two of the four components of the Calderon projector \cite{Tomasi:2005ipa}.
+
+\paragraph{\ac{SVPE}}
+The main focus of this method is that the solute charge distribution has a trailing
+"tail" that reaches outside the surface \cite{Tomasi:2005ipa}. We define the
+Reaction potential as consisting of a \ac{ASC} term $U_{\sigma}$ and a exterior
+term $U_{\beta}$
+\begin{align}
+  \begin{split}
+    U_r(\vec{x}) = U_{\sigma}(\vec{x}) + U_{\beta}(\vec{x})\\
+    U_{\beta}(\vec{x}) = -\frac{\epsinf - 1}{\epsinf}\int_{ext} \frac{\rho_{tot}(\vec{y})}{\abs{\vec{x} - \vec{y}}} \text{d}\vec{y}
+  \end{split}
+\end{align}
+Where $x, y$ are defined as above.
+
 \subsubsection{Multipole expansion (MPE)}
-\subsubsection{Generalized Born (GB)}
-\subsubsection{Finite Differences (FD)}
+In this solution we write the total electrostatic potential $U(\rvec)$ in terms
+of legendre polynomials. This way the potential is reduced to a set of two
+spherical harmonics functions, one outside and one inside the cavity.
+\begin{align}
+  \begin{split}
+    U_{in}(\rvec) &= \sum_{l=0}^{\infty}\frac{1}{r^{l+1}}\sum^l_{m=-l}B_{lm}Y^m_l(\theta, \phi) \\
+    &+ \sum_{l=0}^{\infty}\frac{(l+1)(\epsinf - 1)}{l + (l+1)\epsinf} \frac{r^{l+1}}{a^{2l+1}}\sum^l_{m=-l}B_{lm}Y^m_l(\theta, \phi)\\
+    U_{out}(\rvec) &=\sum_{l=0}^{\infty}\frac{2l+1}{l+(l+1)\epsinf}\frac{1}{r^{l+1}}\sum^l_{m=-l}B_{lm}Y^m_l(\theta, \phi)
+  \end{split}
+\end{align}
+Where $Y^m_l$ is the spherical harmonics with angular momentum $l$ and projection
+alon the z-axis $m$, $a$ is the radius of the cavity and $B_{lm}$ is a set of
+constants which need to be found \cite{Tomasi:1994wt}.
 
-\subsection{Surface Modeling}
-\paragraph{Tesselated surface}
-\paragraph{Signed distance surface}
 
-\section{Solving the Problem}
-\subsection{In gaussian basis sets}
-\subsection{In \ac{MW} basis sets}
+\subsubsection{Solving in \ac{MW}}
+Following Fosso-Tande \cite{FossoTande:2013ka} the cavity is defined as a atom
+based interlocking spheres cavity (ABC-cavity). We start by defining a normal
+signed distance function $s_i$ of a point $\rvec$ away from the surface of the
+sphere $C_i$ with radius $R_i = 1.2\cdot R^{vdw}_i$ and centered on atom $i$ with
+coordinate $\rvec_i$ \cite{FossoTande:2013ka}:
+\begin{equation}
+  s_i(\rvec) = \abs{r -r_i} - R_i
+\end{equation}
+The Cavity for the $i$-th atom is defined as
+\begin{equation}
+  C_i(\rvec) = 1 - \Theta(s_i(\rvec)) =\Theta(-s_i(\rvec))
+\end{equation}
+Where $\Theta$ is a heavyside-like function that enables to smoothly transition
+from the inside of the cavity (value $1$), to the surface of the cavity (value
+$\frac{1}{2}$) and to the outside of the cavity (value $0$)
+\cite{Sorland, FossoTande:2013ka}. We use the error function $\erf(x)$ to define
+$\Theta$ and a parameter $\sigma$ characterizing the width of the transition
+between the inside and outside of the cavity.
+\begin{equation}
+  \Theta\left(s_i\right) = \frac{1}{2}\left(1 + \erf\left(\frac{s_i}
+  {\sigma}\right)\right)
+\end{equation}
+The function for the complete set of interlocking spheres $C$ for a molecule
+with $N$ atoms is given by
+\begin{equation}
+  C(\rvec) = 1 - \prod_{i=1}^N(1 - C_i(\rvec))
+\end{equation}
+This function can then be used further in creating a dielectric function
+$\epsilon$ that switches smoothly from $\epso$ (permitivity of free space
+with value $1$ \cite{FossoTande:2013ka}) to $\epsinf$ either with a linear
+representation
+\begin{equation}
+  \epsilon(\rvec) = \epsinf  + (\epso - \epsinf)C(\rvec)
+\end{equation}
+or with an exponential representation
+\begin{equation}
+  \epsilon(\rvec) =\epso\exp\left( \left(\log\frac{\epsinf}{\epso} \right)
+  (1 - C(\rvec)) \right)
+\end{equation}
+Which gives itself better for computation of its $\log$-derivative
+\cite{FossoTande:2013ka}
+\begin{equation}
+  \nabla\log\epsilon(\rvec) = \frac{\nabla\epsilon(\rvec)}{\epsilon(\rvec)}
+   = \left(\log\frac{\epso}{\epsinf} \right)\nabla C(\rvec)
+\end{equation}
+With either of those dielectric functions, the \ac{GPE} can be constructed
+\cite{Sorland, FossoTande:2013ka}
+\begin{align}\label{eq:gpemw}
+  \nabla\cdot (\epsilon(\rvec)\nabla U(\rvec)) &= -4\pi \rho_{tot}(\rvec) \\
+  \nabla^2U(\rvec) &= -4\pi \frac{\rho_{tot}}{\epsilon(\rvec)} - \frac{\nabla
+  \epsilon(\rvec)\cdot \nabla U(\rvec)}{\epsilon(\rvec)}
+\end{align}
+We define the effective charge distribution $\rho_{eff}$ and the surface charge
+distribution $\gamma_s$ \cite{FossoTande:2013ka}
+\begin{align}
+  \rho_{eff}(\rvec) &= \frac{1}{\epsilon(\rvec)}\rho_{tot}(\rvec) \\
+  \gamma_s(\rvec) &= \frac{1}{4\pi}\frac{\nabla\epsilon(\rvec)}{\epsilon(\rvec)}\cdot\nabla U(\rvec)
+\end{align}
+and substitute them into Equation \ref{eq:gpemw}
+\begin{equation}\label{eq:gpepractical}
+  \nabla^2U(\rvec) = -4\pi\left( \rho_{eff}(\rvec) + \gamma_s(\rvec)\right)
+\end{equation}
+We get the total interation potential $U(\rvec)$ between the substrate and the solvent by
+applying the Poisson operator $\hat{\mathscr{P}}$ as defined in Equation
+\ref{eq:Poissonopmw} to equation \ref{eq:gpepractical}
+\begin{equation}
+  U(\rvec) = \hat{\mathscr{P}}\left( \rho_{eff}(\rvec) + \gamma_s(\rvec)\right)
+\end{equation}
+We can then find the reaction potential following the Equation \ref{eq:Utot} and
+rearranging it so we get the following.
+\begin{equation}
+  U_r(\rvec) = U(\rvec) - U_{vac}(\rvec)
+\end{equation}
+The reaction field energy is given as \cite{FossoTande:2013ka}
+$E_r = \frac{1}{2}\braket{U_r | \rho_{tot}}$
+Since the solution of the total potential has the potential in both sides of the
+equation we will need to iterate with an initial guess. This will be explained
+more thoroughly in Chapter \ref{chap:implementation}.
+
+
+
 \input{acronyms.tex}
 \biblio
 \end{document}
