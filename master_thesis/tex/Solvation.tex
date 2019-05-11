@@ -487,13 +487,56 @@ rearranging it so we get the following.
   U_r(\rvec) = U(\rvec) - U_{vac}(\rvec)
 \end{equation}
 The reaction field energy is given as \cite{FossoTande:2013ka}
-$E_r = \frac{1}{2}\braket{U_r | \rho_{tot}}$
+\begin{align}
+  E_{tot} &= - E_{vac} + \frac{1}{2}E_r \\
+  E_r = \braket{U_r | \rho_{tot}}\\
+  E_{vac} = \braket{U_{vac}| \rho_{tot}}
+\end{align}
 Since the solution of the total potential has the potential in both sides of the
 equation we will need to iterate with an initial guess. This will be explained
 more thoroughly in Chapter \ref{chap:implementation}.
 
+\section{Variational implementation}
+Following Lipparini \cite{Lipparini:2010bg, Lipparini:2013} I'll arrive at a functional where
+minimizing with respect to $U$ of the solvent energy contribution to
+the total energy $G_s$ will give a way to determine $U_r$ variationally.
 
+Starting from the \ac{GPE} defined from \cite{FossoTande:2013ka} we project it
+into a suitable space with test functions $\psi$
 
+\begin{align}
+  \begin{split}\label{eq:projectedgpe}
+    &\nabla (\epsilon\nabla U) = -4\pi\rho\\
+    &-\braket{\psi|\nabla |\epsilon\nabla U} = 4\pi \braket{\psi|\rho}
+  \end{split}
+\end{align}
+Applying the following vector identity
+\begin{equation}
+\nabla (\psi \epsilon\nabla U)=\nabla \psi \epsilon \nabla U +  \psi \nabla \epsilon \nabla U +  \psi \epsilon\nabla^{2} U
+\end{equation}
+we get the integral
+\begin{equation}
+  -\int_{\real^3}\psi \nabla \epsilon \nabla U\text{d}r - \int_{\real^3}  \psi\epsilon \nabla^{2} U\text{d}r = \int_{\real^3} \nabla \psi \epsilon \nabla U\text{d}r - \int_{\real^3} \nabla (\psi \epsilon\nabla U\text{d}r)
+\end{equation}
+The test functions vanish on the surface of the cavity. Applying the Gauss' theorem \cite{Lipparini:2013} we can turn the rightmost integral into
+an integral on the surfce, thus vanishing. This gives us:
+\begin{equation}
+  -\braket{\psi|\nabla|\epsilon\nabla U} = \braket{\nabla \psi |\epsilon | \nabla U}
+\end{equation}
+which we substitute into Equation \ref{eq:projectedgpe}
+\begin{equation}
+  \braket{\nabla \psi |\epsilon | \nabla U} =  4\pi \braket{\psi|\rho}
+\end{equation}
+which lets us write the functional for the energy as \cite{Lipparini:2010bg}
+\begin{equation}
+  G(U) = \frac{1}{8\pi}  \braket{\nabla U |\epsilon | \nabla U} - \braket{U|\rho}
+\end{equation}
+We now find the gradient of the functional in order to minimize with respect to $U$
+\begin{equation}
+  \frac{\partial}{\partial U}G(U) = \frac{\partial}{\partial U}\frac{1}{8\pi}\braket{\nabla U|\epsilon|\nabla U} - \frac{\partial}{\partial U}\braket{U|\rho}
+\end{equation}
+Where if we set $\frac{\partial}{\partial U}G(U) = 0$ we get the \ac{GPE} from \cite{FossoTande:2013ka}
+and thus we can use any type of minimization method to reach the right potential.
 \input{acronyms.tex}
 \biblio
 \end{document}
