@@ -3,43 +3,14 @@
 \makeatother
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
-\chapter{Implementation}
-\section{PCM}
-\subsection{Dielectric function}
-From \cite{FossoTande:2013ka} the cavity was implemented as follows
-
-\begin{algorithm}[H]
-  Cavity = $C$\;
-  $r_i$ = position of the center of the sphere\;
-  $R_i$ = radius of sphere\;
-  $s(r) = |r - r_i| - R_i$\;
-  $\sigma =$ width of slope \;
-  \
- \For{each sphere $C_i$ at point r}{
-  $C_i =\frac{1}{2}(1 - \erf(\frac{s(r)}{\sigma}))$\;
-  $C = C \cdot C_i$\;
- }
-\end{algorithm}
-This would give us 1 on the inside of the Cavity and zero everywhere else. We
-construct the dielectric function as a combination of the permitivity of free
-space $\varepsilon_0 = 1.0$, the dielectric constant of the dielectric continuum
-$\varepsilon_{\infty}$, and the Cavity in either a linear or exponential way \cite{FossoTande:2013ka} (Equations
-\ref{eq:lineareps} and \ref{eq:exponentialeps} respectivelly). The linear
-dielectric function is as follows:
-\begin{equation}
-  \varepsilon(r) = \varepsilon_0C(r) + \varepsilon_{\infty}(1 - C(r))\label{eq:lineareps}
-\end{equation}
-
-The exponential dielectric function is as follows:
-\begin{equation}
-  \varepsilon(r) = \varepsilon_0\exp(\log(\frac{\varepsilon_{\infty}}{\varepsilon_0})(1 - C(r)))\label{eq:exponentialeps}
-\end{equation}
-
-They were simply added to the end of the implementation of C so as to change the output of the cavity.
-
-\subsection{Differences and limitiations in implementations}
-
-\section{Reaction potential}
+\chapter{Implementation}\label{chap:implementation}
+\section{Fosso-Tande \& Harrison's \ac{SCRF}}
+\subsection{Cavity Function}
+\subsection{Reaction Potential}
+\subsection{Dielectric Function}
+\subsection{The iterative method}
+\section{Variational implementation}
+\section{Minor adjustments and advantages}
 
 \section{Software used}
 The problem was first implemented in Vampyr %cite and get the right font

@@ -23,8 +23,8 @@ finite scalar product as \cite{Cohen:1973}:
 \end{equation}
 
 \subsubsection{Second Postulate}
-An generic observable $O$ is represented by a generic operator $\hat{O}$. Two
-such observables are the position and momentum of a particle. These are
+A generic observable $O$ is represented by the application of a generic operator
+$\hat{O}$. Two such observables are the position and momentum of a particle. These are
 represented by $\hat{q_i}$ and $\hat{p_i}$ respectively, where
 $i = \{x, y, z\}$. These operators fulfill the following commutation relations
 \cite{Atkins:2011, Cohen:1973}:
@@ -41,11 +41,7 @@ The operators that represent observables are hermitian, meaning that
 \begin{equation}
   \hat{O} = (\hat{O}^{\star})^T = (\hat{O}^T)^{\star} = \hat{O}^{\dagger}
 \end{equation}
-Which means that they hold the following commutation relation
-\cite{Cohen:1973}:
-\begin{equation}
-  [\hat{O}, \hat{O}^{\dagger}] = 0
-\end{equation}
+
 These operators are linear as well:
 \begin{equation}
     \hat{O}(f + g) = \hat{O}f + \hat{O}g\label{eq:oplinearity}
@@ -53,68 +49,76 @@ These operators are linear as well:
 Where $f$ and $g$ are functions.
 
 \subsubsection{Third Postulate}
-When applying the generic operator to the state vector, $\hat{O}\ket{\Psi_i}$,
-one can only measure of the spectrum of eigenvalues $o_i$ of the operator $\hat{O}$
-only one such value. The following equation will hold if $\ket{\Psi_i}$ is an
-eigenfunction of $\hat{O}$
-\cite{Cohen:1973, Atkins:2014}:
+Whenmeasuring an observable $O$ on a system $\ket{\Psi}$, The only possible
+values of the observable are eigenvalues of the corresponding operator $\hat{O}$
+unto the measured system $\Psi$ at its current state $\ket{\Psi_i}$. The \eivals
+are solutions to the following equation \cite{Cohen:1973}
 \begin{equation}
-  \hat{O}\ket{\Psi_i} = o_i\ket{\Psi_i}\label{eq:startevaleq}
+  \hat{O}\ket{\Psi_i} = o_i \ket{\Psi_i}
 \end{equation}
-Where we multiply on the left on both sides of the equation with $\bra{\Psi_i}$
-giving us
+This holds true even if the state measured is not an eigenstate of $\hat{O}$.
+
+We can represent an system statevector $\ket{\Psi}$ that is not an eigenstate
+of $\hat{O}$ as a linear combination of eigenstates $\ket{i}$ of the operator
 \begin{equation}
-  \bra{\Psi_i}\hat{O}\ket{\Psi_i} = \bra{\Psi_i}o_i\ket{\Psi_i}
+  \ket{\Psi} = \sum_i c_i \ket{i}
 \end{equation}
-We can take the constant $o_i$ outside the integral, and
-use the fact that the wave functions are normalized:
-\begin{align}
-  \begin{split}
-    \bra{\Psi_i}\hat{O}\ket{\Psi_i} &= o_i\braket{\Psi_i|\Psi_i}\\
-    \bra{\Psi_i}\hat{O}\ket{\Psi_i} &= o_i \label{eq:endevaleq}
-  \end{split}
-\end{align}
-The Equation \ref{eq:startevaleq} is an eigenvalue equation and if the operator is
-the Hamiltonian $\hat{H}$ then \ref{eq:startevaleq} becomes the \ac{SE} \cite{Cramer:2004}.
+where the coefficients $c_i$ are computed as the projection of $\ket{\Psi}$ onto
+the eigenstates of the operator.
+\begin{equation}\label{eq:projcoeff}
+  c_i = \braket{i|\Psi}
+\end{equation}
+Let us say that we apply the generic operator on one of its eigenstates that
+is multiplied with the projection coefficient $c_i$ from Equation \ref{eq:projcoeff}.
+This gives us
+\begin{equation}
+  \hat{O}c_i\ket{i} = c_i\hat{O}\ket{i} = c_i o_i\ket{i} = o_i c_i\ket{i}
+\end{equation}
+Which tells  us that $c_i\ket{i}$ is also an eigenstate of $\hat{O}$ with the
+same \eival as $\ket{i}$. Since $c_i\ket{i}$ is one of the components in the
+eigenstate $\ket{\Psi}$ applying the operator on it will always give us exactly
+one of its \eivals, with different probabilities  depending on its projection on the set
+of eigenstates of the operator \cite{Cohen:1973}. The fourth postulate will give
+us the way to calculate this probability.
 
 \subsubsection{Fourth Postulate}
 The fourth postulate states the possible probabilities of getting a specific
-eigen-value for a given measurement.
-Let $\ket{\Psi_i}$ be an eigenfunction of $\hat{O}$ such that:
+\eival for a given measurement.
+Let $\ket{\Psi_i}$ be an \eifunc of $\hat{O}$ such that:
 \begin{equation}
-  \hat{O}\ket{\Psi_i} = o_i\ket{\Psi_i}
+  \hat{O}\ket{\Psi_i} = o_i\ket{i}
 \end{equation}
 and
 \begin{equation}
-  \ket{\Psi} = \sum_i c_i \ket{\Psi_i} \label{eq:lincomb}
+  \ket{\Psi} = \sum_i c_i \ket{i} \label{eq:lincomb}
 \end{equation}
-has no degenerate eigen-values,
-The probability of measuring eigen-value $o_i$ from $\ket{\Psi}$ is given by
+has no degenerate \eival,
+The probability of measuring \eival $o_i$ from $\ket{\Psi}$ is given by
 \cite{Cohen:1973}:
 \begin{align} \label{eq:post4}
   \begin{split}
-    \mathscr{P}(o_i) &= \abs{\braket{\Psi_i|\Psi}}^2\\
-                     &= \sum_{j}c_i^\star c_j\braket{\Psi_i|\Psi_j}\\
+    \mathscr{P}(o_i) &= \abs{\braket{i|\Psi}}^2\\
+                     &= \sum_{j}c_i^\star c_j\braket{i|j}\\
                      &= \sum_{j}c_i^\star c_j\delta_{ij}\\
                      &= \abs{c_i}^2
   \end{split}
 \end{align}
 
 Following the equation \ref{eq:post4} the probability of measuring the
-eigen-value $o_i$ from $\ket{\Psi_i}$ is just one. The sum of all the probabilities
-for each eigen-value is:
+\eival $o_i$ from $\ket{\Psi_i}$ is just one. The sum of all the probabilities
+for each \eival is:
 \begin{equation}
   \sum_i\mathscr{P}(o_i) = \sum_i \abs{c_i}^2 = 1
 \end{equation}
-Here we have ignored the case for degenerate eigen-values and continuous spectra of
-eigen-values, where the method is analogous to the one used above. The reader is
+Here we have ignored the case for degenerate \eival and continuous spectra of
+\eival, where the method is analogous to the one used above. The reader is
 invited to look them up themselves in \cite{Cohen:1973, Atkins:2011}.
 
 \subsubsection{Fifth Postulate}
-The fifth postulate states that immediately after a measurement where the eigenvalue was $o_i$
+The fifth postulate states that immediately after a measurement where the \eival was $o_i$
 the state of the system $\ket{\Psi}$ collapses into a state where the only value one
 can measure is $o_i$, that is $ \ket{\Psi_i} $ using the conventions stated in postulate 3 and 4.
-This is because before measuring, the probabilities for \textit{any} eigen-value
+This is because before measuring, the probabilities for \textit{any} \eival
 is as stated in the fourth postulate. When the value has been measured, though,
 the uncertainty does not exists, as the state of the system must be one that gives
 exactly that value. The following Equation \ref{eq:post5} represents the postulate.
@@ -129,7 +133,7 @@ This change is governed by the time dependent \ac{SE} \cite{Cohen:1973, Atkins:2
   i\hbar\frac{\partial}{\partial t} \ket{\Psi} = \hat{H}\ket{\Psi}
 \end{equation}
 Where $\tilde{H}$ is the Hamiltonian operator which has the total energy of the
-system as its eigen-values.
+system as its \eivals.
 
 \subsection{The \ac{SE}}
 Lets consider the following \ac{SE} for a particle allowed to move in only one dimension
@@ -170,228 +174,102 @@ while the remaining Equation \ref{eq:timeindepWF} can be rewritten as
 Which is the time-independent \ac{SE} which will be used most on this text.
 
 \section{Two particle system}
-\subsection{The Hamiltonian}
-Consider a one electron system (such as \ce{H} or \ce{He+}) which contains an
-electron and a nucleus, which are described using three dimensional coordinates
-$ x,\ y $ and $ z $. The Hamiltonian contains terms for the kinetic $T$ and
-potential energy $V$ contributions of both the nucleus $ N $ and the electron
-$ e $. In a one electron system in vacuum the Hamiltonian for the time independent
-\ac{SE} would be as follows \cite{Jensen:2017, Cramer:2004}.
-\begin{align}
-  \begin{split}
-    \hat{H}   &= \hat{T_N} + \hat{T_e} + \hat{V} \\
-    \hat{T}_N &= -\frac{\hbar^2}{2m_N}\nabla^2_N \\
-    \hat{T}_e &= -\frac{\hbar^2}{2m_e}\nabla^2_e \\
-    \hat{V}   &= -\frac{Z}{||\vec{r}_N - \vec{r}_e||} \label{eq:twopH}
-  \end{split}
-\end{align}
-Where the operator $ \nabla^2$ is the Laplacian computing the second partial
-derivative $ \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2} +
-\frac{\partial^2}{\partial z^2} $ for the coordinates of the electron $\vec{r}_e$
-and the nucleus $\vec{r}_N$, $ m $ is the mass of the electron and the nucleus
-depending on the subscript used. The potential is the coulomb interaction
-between the electrons, which is calculated by dividing the nuclear charge of the
-atom $ Z $ with the distance between the electron and the nucleus
-$ ||\vec{r}_N - \vec{r}_e|| $. Note that we will be using Atomic units in all
-the equations from here onward, meaning that, although the equations presented
-contain constants such as $\hbar$ in literature such as in \cite{Atkins:2014},
-these will be presented with their value in atomic units (which is one for
-$\hbar$).
-
-We can see that the kinetic energy operators are separable, as they are only
-dependent on their respective particle coordinates. The potential energy
-operator, on the other hand, is not separable, as it is dependent in the
-coordinates of both the nucleus and the electron.
-
-In order to solve the the \ac{SE} analytically one must first change into a
-center of mass coordinate system :
+A two particle system (such as the \ce{H} or the \ce{He^+} atoms) has a simple
+hamiltonian of the form
 \begin{equation}
-  \begin{aligned} \label{eq:cmparam}
-    \mathbf{X} &= \frac{m_Nx_N + m_ex_e}{m_N + m_e} \ &&;\  &&&x= x_N - x_e \\
-    \mathbf{Y} &= \frac{m_Ny_N + m_ey_e}{m_N + m_e} \ &&;\  &&&y= y_N - y_e \\
-    \mathbf{Z} &= \frac{m_Nz_N + m_ez_e}{m_N + m_e} \ &&;\  &&&z= z_N - z_e
-  \end{aligned}
+  \hat{H}=\hat{T}_{N}+\hat{T}_{e}+\hat{V}
 \end{equation}
-Where the $\mathbf{XYZ}$-coordinates define a system centered in the center of mass,
-while the $xyz$-coordinates specify the relative position of the two particles
-\cite{Jensen:2017}. Applying this coordinate system to the Hamiltonian in
-Equation \ref{eq:twopH} yields:
-\begin{equation}
-  \hat{H} = -\frac{1}{2}\nabla^2_{\mathbf{XYZ}} -\frac{1}{2\mu}\nabla^2_{xyz} -
-  \frac{Z}{\sqrt{x^2 + y^2 + z^2}}\label{eq:twopHcm}
-\end{equation}
-Where the first term in Equation \ref{eq:twopHcm} describes the motion of the
-whole system with respect to a fixed coordinate system. The second term
-describes the relative motion of a pseudo-particle with reduced mass:
-\begin{equation}
-  \mu = \frac{m_Nm_e}{m_N + m_e} = \frac{m_e}{1 + \frac{m_e}{m_N}}
-\end{equation}
-Given that the nucleus is more %better phrasing
- massive than the electron (the nucleus is $1800$
-times more massive than the electron in a Hydrogen atom \cite{Jensen:2017})
-$\mu$ can be approximated to the mass of the electron $m_e$. This lets us
-assume that the nucleus is stationary in relation with the electron.
-
-The third term is the potential energy which still is dependent on the distance
-between the two particles. In this center of mass system the distance is just
-determined by the $xyz$-coordinates.
-
-The electron's motion occurs at fixed distances from the nucleus and can be
-anywhere in a sphere around it. Therefore it is advantageous to use polar
-coordinates to solve the \ac{SE}. In this coordinate system $r$ describes the
-distance to the center, $\theta$ describing the angle of the particle with
-respect to the $z$-axis and $\phi$ describes the polar angle on the
-$xy$-plane. Applying this to the Hamiltonian in Equation \ref{eq:twopHcm} gives
-\cite{Atkins:2014}:
-\begin{equation}
-  \begin{split}\label{eq:SphHcm}
-    \hat{H}_{r\theta\phi} &= -\frac{1}{2\mu}\nabla^2_{r\theta\phi}
-                          -\frac{Z}{r}\\
-    \nabla^2_{r\theta\phi} &=  \frac{1}{r^2}\frac{\partial}{\partial r}
-                                  r^2\frac{\partial}{\partial r}
-                                  + \frac{1}{r^2}\Lambda^2 \\
-    \Lambda^2 &= \frac{1}{\sin{\theta}}\frac{\partial}{
-                 \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}
-                 + \frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\phi^2}
-  \end{split}
-\end{equation}
-The operator $\Lambda^2$ is the Legendrian operator \cite{Atkins:2014}.
-
-\subsection{The Wave Function}
-\subsubsection{Separation of variables}
-We Substitute the Equations in \ref{eq:SphHcm} into Equation \ref{eq:timeindepSE}
-in the following Equation \ref{eq:SEsphcm}.
-\begin{align}\label{eq:SEsphcm}
-  \begin{split}
-    \hat{H}_{r\theta\phi}\Psi &= E\Psi \\
-    -\frac{1}{2\mu}\frac{1}{r^2}\frac{\partial}{\partial r}
-          r^2\frac{\partial}{\partial r}\Psi+\frac{1}{2\mu}\frac{1}{r^2}\Lambda^2\Psi-
-          \frac{Z}{r}\Psi &= E\Psi
-  \end{split}
-\end{align}
-we can easily see that we can separate the wave function into two parts; a Radial
-function $R(r)$ and an angular function $Y(\theta, \ \phi)$:
-$$\Psi(r, \ \theta, \ \phi) = R(r)Y(\theta, \ \phi)$$ which we substitute into
-Equation \ref{eq:SEsphcm}:
-\begin{align}
-  \begin{split}
-    \left(-\frac{1}{r^2}\frac{1}{2\mu}\frac{\partial}{\partial r}r^2\frac{\partial}{\partial r}+\frac{1}{2r^2}\Lambda^2- \frac{Z}{r}\right)RY &= ERY \\
-    -\frac{1}{r^2}Y\frac{1}{2\mu}\frac{\partial}{\partial r}r^2\frac{\partial}{\partial r}R + \frac{1}{2r^2}R\Lambda^2Y - \frac{Z}{r} RY &= ERY \\
-    -\frac{1}{r^2}\frac{1}{R}\frac{1}{2\mu R}\frac{\partial}{\partial r}r^2\frac{\partial}{\partial r}R + \frac{1}{2r^2}\frac{1}{Y}\Lambda^2Y - \frac{Z}{r} &= E
-  \end{split}
-\end{align}
-Here we assumed that $\mu \approx m_e = 1 A.U.$
-This is separable into a radial equation and an angular equation:
-\begin{subequations}
-  \begin{align}
-    -\frac{1}{2r^2}\frac{1}{R}\frac{\partial}{\partial r}
-    r^2\frac{\partial}{\partial r}R &= \varepsilon_r \label{eq:Rpart}\\
-    \frac{1}{2r^2}\frac{1}{Y}\Lambda^2Y &= \varepsilon_{\theta\phi}\label{eq:Ypart}\\
-    E = \varepsilon_{\theta\phi} + \varepsilon_r  - \frac{Z}{r}
-  \end{align}
-\end{subequations}
-We can assume the $\frac{1}{r^2}$ to be a constant on the angular partial differential
-equation as we are solving for an electron orbiting on a sphere around the nucleus.
-This means that the radius behaves like a parameter and we can write
-$$2r^2\varepsilon_{\theta\phi} = \varepsilon_{\theta\phi r}$$.
-We can further separate the variables of Equation \ref{eq:Ypart} by substituting
-$\Lambda^2$ from \ref{eq:SphHcm} and $Y(\theta, \ \phi) = \Theta(\theta)\Phi(\phi)$
-into it:
-\begin{align}
-  \begin{split}
-    \varepsilon_{\theta\phi r} &= \frac{1}{Y}\Lambda^2Y\\
-    \varepsilon_{\theta\phi r} &= \frac{1}{\Theta\Phi}\left(\frac{1}{\sin{\theta}}\frac{\partial}{
-                 \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}
-                 + \frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\phi^2}\right)
-                 \Theta\Phi\\
-    \varepsilon_{\theta\phi r} &= \frac{1}{\Theta\Phi}\left(\Phi\frac{1}{\sin{\theta}}\frac{\partial}{
-                  \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}\Theta
-                  + \Theta\frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\phi^2}\Phi\right)\\
-    \varepsilon_{\theta\phi r} &= \frac{1}{\Theta}\frac{1}{\sin{\theta}}\frac{\partial}{
-                 \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}\Theta
-                 + \frac{1}{\Phi}\frac{1}{\sin^2{\theta}}\frac{\partial^2}{\partial\phi^2}\Phi\\
-    -\frac{1}{\Phi}\frac{\partial^2}{\partial\phi^2}\Phi &=  \frac{1}{\Theta}\sin{\theta}\frac{\partial}{
-                 \partial\theta}\sin{\theta}\frac{\partial}{\partial\theta}\Theta - \varepsilon_{\theta\phi r}\sin^2{\theta}
-  \end{split}
-\end{align}
-
-Once again we have an equation where each side is dependent on a different variable,
-which tells us that both terms must equal a constant, which we will call $m_l^2$, giving us the
-three different sets of differential equations needed to be solved for the
-wave function \cite{Atkins:2014, Simons:2016, Atkins:2011}.
-\begin{subequations}
-  \begin{align}
-    -\frac{1}{R}\frac{1}{2r^2}\frac{d}{d r}
-    r^2\frac{d}{d r}R &= \varepsilon_r\label{eq:Radeq}\\
-    -\frac{1}{\Phi}\frac{d^2}{d\phi^2}\Phi &= m_l^2\label{eq:phieq}\\
-    \frac{1}{\Theta}\sin{\theta}\frac{d}{d\theta}\sin{\theta}
-    \frac{d}{d\theta}\Theta -\varepsilon_{\theta\phi r}
-    \sin^2{\theta} &= m_l^2 \label{eq:thetaeq}\\
-    \varepsilon_r + \frac{1}{2r^2}\varepsilon_{\theta\phi r} - \frac{Z}{r} &= E
-  \end{align}
-\end{subequations}
-
-\subsubsection{Solutions to the differential equations}
-
-We will start by solving the Equation \ref{eq:phieq}. Shifting terms around one
-can see that it is a second order linear differential equation
-$$\frac{d^2}{d\phi}\Phi + m_l^2\Phi = 0$$ which has general solution as follows
-\cite{Edwards:2016, Simons:2016, Atkins:2011}:
-\begin{equation}
-  \Phi(\phi) = Ae^{im_l\phi} + Be^{-im_l\phi}\label{eq:ponring}
-\end{equation}
-We limit ourselves to the form of Equation \ref{eq:ponring} where $B = 0$ to simplify
-notation. Two requirements need to be met by this solution in order for it to be
-a valid solution to the \ac{SE}.
-
-The first requirement is that it needs to be single valued, that means it has
-a cyclic boundary condition \cite{Simons:2016, Atkins:2011} where $\Phi(\phi)=\Phi(\phi + 2\pi)$.
-Which means the following must hold:
-\begin{align}
-    Ae^{im_l\phi}\left( 1 - e^{im_l 2\pi}\right) &= 0\\
-    1 - e^{im_l 2\pi} &= 0\\
-    1 &= e^{im_l 2\pi}
-\end{align}
-which hold true only for $m_l = 0, \pm 1, \pm 2, ...$
-
-The second restriction is that it has to be normalized, that is $$\braket{\Phi|\Phi} = 1$$
-Using the definition from Equation \ref{eq:diracscalpro}. We find out that the form
-of the function is
-\begin{equation}
-  \Phi(\phi) = \frac{1}{\sqrt{2\pi}}e^{im_l\phi} \ ; \ m_l = 0, \pm 1, \pm 2, ...
-\end{equation}
-
-The second equation we will solve is \ref{eq:thetaeq}. We rearrange its terms
-and substitute $z = \cos{\theta}$ and $P(z) = \Theta(\theta)$ to get the following
-\begin{align}
-  \frac{1}{sin{\theta}}\frac{d}{d\theta}\sin{\theta}\frac{d}{d\theta}\Theta
-  - \Theta \frac{m_l^2}{sin^2{\theta}} &= \Theta\varepsilon_{\theta\phi r} \\
-\end{align}
-\subsection{The energies}
-
-Applying the Hamiltonian in Equation \ref{eq:SphHcm} to the wave function in
-%Equation \ref{eq:radangsep} yields \cite{Atkins:2014}:
-\begin{equation}
-  \begin{split}
-    H_{r\theta\phi} R(r)Y(\theta, \phi) &= E R(r)Y(\theta, \phi)
-  \end{split}
-\end{equation}
+where $\hat{T}_N$ and $\hat{T}_e$ are the kinetic energy operators of the nucleus $N$ and
+of the electron $e$ and $\hat{V}$ is the Coulomb potential for two particles
+\cite{Atkins:2014, Jensen:2017}.
+This system has an analytical solution in which one follows the following set
+of steps.
+\begin{enumerate}
+  \item Set a center of mass coordinate system. Since the nucleus is
+  $1836.152 673 89$ times more massive than the electron \cite{NIST:2019} we can
+  assume that it is the center of mass, therefore we can set it as the center of mass
+  and ignore external motion of the atom (we put the kinetic energy of the
+  nucleus equal to zero) \cite{Jensen:2017, Atkins:2011}.
+  \item Change to spherical coordinates so that the potential operator becomes a
+  simple function of the radius.
+  \item Separate into radial function $R(r)$ and angular function
+  $Y(\theta, \phi)$. The angular function can be separated into two more
+  functions $\Theta(\theta)$ and $\Phi(\phi)$.
+  \item Solve as three sets of differential equations \cite{Simons:2016}.
+\end{enumerate}
+Following the steps above, the 2 particle system is analytically solvable.
 
 \section{Many body systems}
 
 For bigger systems, there is no practical way to analytically solve the
-\ac{SE}. For one, for each particle, the amount of dimensions that need to be
+\ac{SE} \cite{Jensen:2017}. For one, for each particle, the amount of dimensions that need to be
 evaluated increases by three, that is, one can expect the wave function
 dimension to increase by a factor of $3N$ for each particle $N$
 \cite{Cramer:2004}.
 
 Additionally, the potential energy operator becomes more complicated,as it
 would not just have the attractive forces between electron-nucleus,but also the
-repulsive forces between all the electrons. Both of these problems add more
-terms per particle and thus would be impossible to be solved in a realistic
-time frame \cite{Jensen:2017}.
+repulsive forces between all the electrons and between all the nuclei. Both of
+these problems add more terms per particle and thus would be impossible to be
+solved in a realistic time frame \cite{Jensen:2017}.
 
 \subsection{\ac{BO} approximation}
+A many body system consists of $N$ nuclei with mass $m_I$ for each nuclei $I$
+and $n$ electrons with mass $m_i$ for each electron $i$. Each nucleus has a
+charge $Z_Ie$ and each electron has a charge $-e$, where $Z$ is the atomic
+number of the nucleus  and $e$ is the Elementary charge \cite{Atkins:2014}. The $N$ nuclei and $n$
+electrons are located in a three dimensional coordinate system where each nucleus $I$ has
+coordinates $\vec{R}_I = (x_I, y_I, z_I)$ and each electron has coordinates
+$\rvec_i = (x_i, y_i, z_i)$.
+
+We are trying to calculate the total energy and wave functions of the system. For
+that we define a time independent \ac{SE} where the wavefunction is dependent on
+the coordinates of both the electrons and the nuclei, which we will use a single $\vec{R}$
+to the coordinates of all the nuclei and a single $\rvec$ to denote the coordinates
+of all the electrons.
+\begin{equation}\label{eq:totalheliumSE}
+  \hat{H}\Psi(\vec{R}, \rvec) = E \Psi(\vec{R}, \rvec)
+\end{equation}
+
+Here the Hamiltonian, as with the two particle system, has a potential energy $\hat{V}$ and a
+kinetic energy $\hat{T}$ operator. As with the two particle system, we can divide $\hat{T}$ as
+a sum of two contributions, an electron contribution $\hat{T}_e$ and a nuclear contribution
+$\hat{T}_N$. The only difference is that these contributions are sums over all
+the particles  instead of just one each\cite{Cramer:2004}
+\begin{align}
+  \hat{T}_e &= \sum_i^n \frac{\hbar}{2m_i}\nabla^2_i\\
+  \hat{T}_N &= \sum_I^N \frac{\hbar}{2m_I}\nabla^2_I
+\end{align}
+where $\nabla^2_k$ is the Laplacian operator operating on particle $k$
+\begin{equation}
+  \nabla^2_k = \left( \ddiff{x_k} + \ddiff{y_k} + \ddiff{z_k} \right)
+\end{equation}.
+
+The potential operator, which we define as a coulomb potential, is now much more
+complicated. It consists of three contributions: the nucleus-electron attraction
+$\hat{V}_{Ne}$, the nucleus-nucleus $\hat{V}_{NN}$ repulsion and the electron-electron
+repulsion $\hat{V}_{ee}$ \cite{Cramer:2004}.
+\begin{align}
+  \hat{V}_{Ne} &= \sum^N_I\sum^n_{i}-\frac{Z_Ie^2}{\abs{\vec{R}_I - \rvec_i}}\\
+  \hat{V}_{NN} &= \frac{1}{2}\sum^N_{I \neq J}\frac{Z_IZ_Je^2}{\abs{\vec{R}_I - \vec{R}_J}}\\
+  \hat{V}_{ee} &= \frac{1}{2}\sum^n_{i \neq j} \frac{e^2}{\abs{\rvec_i - \rvec_j}}
+\end{align}
+where $I,\ J$ iterate through the nuclei and $i, \ j$ iterate through the electrons.
+We can see now that the
+The Hamiltonian is then dependent on the positions of all the electrons and all
+the nuclei \cite{Jensen:2017}
+\begin{equation}
+  \hat{H}(\vec{R}, \rvec) = \hat{T}_e + \hat{T}_N + \hat{V}_{Ne} +\hat{V}_{NN} + \hat{V}_{ee}
+\end{equation}
+We can see that both repulsions $\hat{V}_{NN}, \hat{V}_{ee}$ have $(N - 1)!$ and $(n - 1)!$ terms
+ respectively, while the other terms have much simpler sums {sums over one index in the case of the
+kinetic energies and $N\cdotn$ terms in the attraction potential $\hat{V}_Ne$}.
+
+In the Hydrogen atom we could fix the nucleus to the center of mass (static nucleus)
+\cite{Jensen:2017}. We can no longer do that in atoms with more than one nuclei, as
+the nuclei themselves are moving with respect to each other \.
+
+
 
 The Hamiltonian for many electron systems contains terms for the correlated
 motion of the particles \cite{Cramer:2004, Jensen:2017}. This includes the
@@ -416,8 +294,7 @@ can write the following set of equations in \ref{eq:BO} based on Equation
 \ref{eq:twopH} adding the nucleus-nucleus
 and electron-electron repulsion potentials, $ V_{NN} $ and $ V_{ee} $
 respectively.
-\begin{equation}
-  \begin{split}\label{eq:BO}
+\begin{align}\label{eq:BO}
     H_{tot}\Psi_{tot}(\vec{R}, \vec{r}) &= E_{tot}\Psi_{tot}(\vec{R},
     \vec{r})\\
     H_{tot} &= H_e + H_N \\
@@ -426,8 +303,7 @@ respectively.
     (H_e + V_{NN})\Psi_e(\vec{r}; \vec{R}) &= E_e(\vec{R})\Psi_e(\vec{r};
     \vec{R})\\
     (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) &= E_{tot}\Psi_N(\vec{R})
-  \end{split}
-\end{equation}
+\end{align}
 
 In the equations above, both the total Hamiltonian $H_{tot}$ and total
 wave function $\Psi_{tot}$ are divided into electronic and nucleic contributions
@@ -458,9 +334,9 @@ order to minimize the energy.
 
 \subsection{Variational Principle}
 %need to edit this
-Consider a complete set of orthonormal eigenfunctions $ \Psi_i$  of the
+Consider a complete set of orthonormal \eifuncs $ \Psi_i$  of the
 Hamiltonian $H$. From Equation \ref{eq:lincomb} we build an arbitrary
-wave function $\Phi$ with a linear combination of the eigenfunctions with
+wave function $\Phi$ with a linear combination of the \eifuncs with
 coefficients $c_i$.
 \begin{equation}
   \Phi = \sum\limits_ic_i\Psi_i
@@ -477,7 +353,7 @@ be calculated as in Equation \ref{eq:endevaleq} to give us this:
   \braket{\Phi|H|\Phi} = \sum\limits_i^nc_i^2E_i\label{eq:genenerg}
 \end{equation}
 This tells us the the energy of the wave function $\Phi$ can be determined by
-knowing the energies $E_i$ of each eigenfunction $\psi_i$ and the coefficients
+knowing the energies $E_i$ of each \eifunc $\psi_i$ and the coefficients
 $c_i$ associated with the linear combination that describes $\Phi$
 \cite{Cramer:2004}.
 
@@ -503,7 +379,7 @@ ground state. This leads to the following set of inequalities.
   \end{split}
 \end{equation}
 We know from Equation \ref{eq:startevaleq} that the inequality in the last term in
-\ref{eq:varprin} shows that the energy calculated as an Eigenvalue of $\Phi$ is
+\ref{eq:varprin} shows that the energy calculated as an \eival of $\Phi$ is
 always greater or equal to zero. This lets us construct our trial wave functions
 for the ground state of a system with any basis set. We can assess the quality
 of the guess by their associated energies, attempting to reach as low a value
