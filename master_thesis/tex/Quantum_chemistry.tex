@@ -228,7 +228,7 @@ the coordinates of both the electrons and the nuclei, which we will use a single
 to the coordinates of all the nuclei and a single $\rvec$ to denote the coordinates
 of all the electrons.
 \begin{equation}\label{eq:totalheliumSE}
-  \hat{H}\Psi(\vec{R}, \rvec) = E \Psi(\vec{R}, \rvec)
+  \hat{H}\Psi(\rvec, \vec{R}) = E \Psi(\rvec, \vec{R})
 \end{equation}
 
 Here the Hamiltonian, as with the two particle system, has a potential energy $\hat{V}$ and a
@@ -259,78 +259,60 @@ We can see now that the
 The Hamiltonian is then dependent on the positions of all the electrons and all
 the nuclei \cite{Jensen:2017}
 \begin{equation}
-  \hat{H}(\vec{R}, \rvec) = \hat{T}_e + \hat{T}_N + \hat{V}_{Ne} +\hat{V}_{NN} + \hat{V}_{ee}
+  \hat{H}(\rvec, \vec{R}) = \hat{T}_e + \hat{T}_N + \hat{V}_{Ne} +\hat{V}_{NN} + \hat{V}_{ee}
 \end{equation}
 We can see that both repulsions $\hat{V}_{NN}, \hat{V}_{ee}$ have $(N - 1)!$ and $(n - 1)!$ terms
  respectively, while the other terms have much simpler sums {sums over one index in the case of the
-kinetic energies and $N\cdotn$ terms in the attraction potential $\hat{V}_Ne$}.
+kinetic energies and $N\cdot n$ terms in the attraction potential $\hat{V}_Ne$}.
 
 In the Hydrogen atom we could fix the nucleus to the center of mass (static nucleus)
 \cite{Jensen:2017}. We can no longer do that in atoms with more than one nuclei, as
-the nuclei themselves are moving with respect to each other \.
+the nuclei are moving with respect to each other \cite{Cramer:2004}. Thus we cannot
+remove the nuclear kinetic energy term as one can with the Hydrogen atom.
 
+In the \ac{BO}  we assume that since the nuclei of the molecule are more massive
+than the electrons (a single proton is $1836.152 673 89$ times more massive
+than a proton \cite{NIST:2019}) that the electrons can instantaneously respond to
+any change in the configuration of the nuclei \cite{Atkins:2011}. That means that we can solve an
+electrical problem for any given nuclear geometry as if the nuclei were static
+\cite{Cramer:2004, Jensen:2017, Atkins:2014m}
 
+Following this  assumption we separate the wave function into an electrical
+$\Psi_e$ and a nuclear wave function $\Psi_N$
+\begin{equation}
+  \Psi(\rvec, \vec{R}) = \Psi_N(R)\Psi_e(\rvec; \vec{R})
+\end{equation}.
+Notice that the nuclear wave function is only dependent on the nuclear coordinates,
+while the electrical has both the electron and nuclear coordinates as input. From
+our assumption above we say that we solve an electronic \ac{SE} for each geometry
+of the molecule, thus the nuclear coordinates  are parametric variables of
+the electronic wavefunction (symbolized by the semicolon divider $;$) which remain
+constant for each solution of the \ac{SE}.
 
-The Hamiltonian for many electron systems contains terms for the correlated
-motion of the particles \cite{Cramer:2004, Jensen:2017}. This includes the
-repulsion and attraction of all the particles to each other. This means that no
-particle is moving independently of the other particles. Trying to solve a
-\ac{SE} analytically with a Hamiltonian such as this is not possible. In order
-to simplify the problem we use the \ac{BO} approximation \cite{Cramer:2004,
-Jensen:2017}.
+The electronic \ac{SE} is as follows
+\begin{equation}
+    \hat{H}_e(\rvec; \vec{R})\Psi_e(\rvec;\vec{R}) = E_e(\vec{R})\Psi_e(\rvec;\vec{R})
+\end{equation}
+Where the Electronic energy $E_e$ becomes a function of $\vec{R}$ which is solved as
+a constant for each nuclear geometry. In the electronic Hamiltonian
+\begin{equation}
+    \hat{H}_e(\rvec; \vec{R}) = \hat{T}_e + \hat{V}_{Ne} + \hat{V}_{ee} + \hat{V}_{NN}
+\end{equation}
+we assume that the kinetic energy of the nuclei is zero, but we still need to
+compute the nuclear repulsion, but as we are solving for any given geometry we can
+safely assume that it is a constant \cite{Cramer:2004}.
 
-In the \ac{BO} approximation one assumes that the motion of the nucleus is
-negligible in comparison to the motion of the electrons \cite{Cramer:2004,
-Jensen:2017}. This is because the electrons are 1800 times less massive than the
-protons and electrons and the kinetic energy operator is inversely
-proportional to the mass of the particle. This way we can imagine the system as
-having stationary nucleus and electrons in motion around the nucleus.
+Solving the electronic \ac{SE} for all possible nuclear geometries will give us
+a \ac{PES} defined by the electronic energy for all the different geometries.
+With this we can go on to solve the total \ac{SE} \cite{Jensen:2017}
+\begin{equation}
+  (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) = E_{tot}\Psi_N(\vec{R})
+\end{equation}
 
-By using this assumption we can separate the problem of a \ac{SE} for the whole
-system (electron and nuclei) into two separate problems, first solving for the
-electron motion, attraction and repulsion energies and second solving for the
-kinetic energy of the molecule\cite{Cramer:2004}. By this line of thought one
-can write the following set of equations in \ref{eq:BO} based on Equation
-\ref{eq:twopH} adding the nucleus-nucleus
-and electron-electron repulsion potentials, $ V_{NN} $ and $ V_{ee} $
-respectively.
-\begin{align}\label{eq:BO}
-    H_{tot}\Psi_{tot}(\vec{R}, \vec{r}) &= E_{tot}\Psi_{tot}(\vec{R},
-    \vec{r})\\
-    H_{tot} &= H_e + H_N \\
-    H_e = T_e + V_{Ne} + V_{ee} ~&;~ H_N = T_N + V_{NN} \\
-    \Psi_{tot}(\vec{R}, \vec{r}) &= \Psi_N(\vec{R})\Psi_e(\vec{r}; \vec{R}) \\
-    (H_e + V_{NN})\Psi_e(\vec{r}; \vec{R}) &= E_e(\vec{R})\Psi_e(\vec{r};
-    \vec{R})\\
-    (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) &= E_{tot}\Psi_N(\vec{R})
-\end{align}
+The computation of the \ac{PES} can be computationally expensive. Because of this
+most practical solutions of the total \ac{SE} are computed through acceleration
+methods\cite{Jensen:2017}.
 
-In the equations above, both the total Hamiltonian $H_{tot}$ and total
-wave function $\Psi_{tot}$ are divided into electronic and nucleic contributions
-($\Psi_e$ and$\Psi_N$ respectively). This separation is not complete, as there
-still is the nucleus-electron attraction which must be included in the
-electronic Hamiltonian $H_e$. Additionally, when solving the electronic problem
-we need to take into account the nucleus-nucleus repulsion potential $V_NN$.
-For these reasons the electronic wave function $\Psi_e$ is dependent on both the
-electron coordinates $\vec{r}$ and nucleus coordinates $\vec{R}$. The
-electronic wave function is dependent on the electronic coordinates as
-variables, but depends on the nuclei coordinates parametrically
-\cite{Jensen:2017}.This means that for each molecule geometry the electronic
-problem is solved as if the nucleus was motionless. This leads to the
-nucleus-nucleus potential to be a constant for each molecule geometry.
-
-Solving the electronic problem over different geometries gives rise to a
-\ac{PES} on which the molecule exists \cite{Cramer:2004}. This parametric
-dependency on the geometry of the molecule means that the electronic energy is
-as well dependent on it. This way we can attempt to find a minimum (the method
-used for this can vary) for the electronic energy by iterativelly solving the
-electronic problem with different geometries. This is important to measure how
-good our trial wave function is as according to the variational principle.
-
-Once a minimum has been reached on the \ac{PES} one can go on to solve for the
-total energy of the system by doing solving the final equation on \ref{eq:BO}.
-This, as according to the variational principle, can also be iterated over in
-order to minimize the energy.
 
 \subsection{Variational Principle}
 %need to edit this
