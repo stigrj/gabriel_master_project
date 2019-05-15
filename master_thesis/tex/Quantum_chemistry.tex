@@ -128,15 +128,15 @@ exactly that value. The following Equation \ref{eq:post5} represents the postula
 
 \subsubsection{Sixth Postulate}
 The system when undisturbed changes in a deterministic way \cite{Cohen:1973}.
-This change is governed by the time dependent \ac{SE} \cite{Cohen:1973, Atkins:2011}:
+This change is governed by the time dependent \SE \cite{Cohen:1973, Atkins:2011}:
 \begin{equation}\label{eq:tdepSE}
   i\hbar\frac{\partial}{\partial t} \ket{\Psi} = \hat{H}\ket{\Psi}
 \end{equation}
 Where $\tilde{H}$ is the Hamiltonian operator which has the total energy of the
 system as its \eivals.
 
-\subsection{The \ac{SE}}
-Lets consider the following \ac{SE} for a particle allowed to move in only one dimension
+\subsection{The \SE}
+Lets consider the following \SE for a particle allowed to move in only one dimension
 and where its potential energy varies with position (e.g. the Harmonic oscillator
 model \cite{Cohen:1973, Atkins:2014}).
 \begin{equation}
@@ -171,7 +171,7 @@ while the remaining Equation \ref{eq:timeindepWF} can be rewritten as
 \begin{equation}
   \hat{H}\psi = E\psi\label{eq:timeindepSE}
 \end{equation}
-Which is the time-independent \ac{SE}.
+Which is the time-independent \SE.
 
 The energy of the system can be calculated as follows, assuming that the wave
 function $\Psi$ \cite{Cramer:2004}:
@@ -209,7 +209,7 @@ Following the steps above, the 2 particle system is analytically solvable.
 \section{Many body systems}
 
 For bigger systems, there is no practical way to analytically solve the
-\ac{SE} \cite{Jensen:2017}. For one, for each particle, the amount of dimensions that need to be
+\SE \cite{Jensen:2017}. For one, for each particle, the amount of dimensions that need to be
 evaluated increases by three, that is, one can expect the wave function
 dimension to increase by a factor of $3N$ for each particle $N$
 \cite{Cramer:2004}.
@@ -230,7 +230,7 @@ coordinates $\vec{R}_I = (x_I, y_I, z_I)$ and each electron has coordinates
 $\rvec_i = (x_i, y_i, z_i)$.
 
 We are trying to calculate the total energy and wave functions of the system. For
-that we define a time independent \ac{SE} where the wavefunction is dependent on
+that we define a time independent \SE where the wavefunction is dependent on
 the coordinates of both the electrons and the nuclei, which we will use a single $\vec{R}$
 to the coordinates of all the nuclei and a single $\rvec$ to denote the coordinates
 of all the electrons.
@@ -291,12 +291,12 @@ $\Psi_e$ and a nuclear wave function $\Psi_N$
 \end{equation}.
 Notice that the nuclear wave function is only dependent on the nuclear coordinates,
 while the electrical has both the electron and nuclear coordinates as input. From
-our assumption above we say that we solve an electronic \ac{SE} for each geometry
+our assumption above we say that we solve an electronic \SE for each geometry
 of the molecule, thus the nuclear coordinates  are parametric variables of
 the electronic wavefunction (symbolized by the semicolon divider $;$) which remain
-constant for each solution of the \ac{SE}.
+constant for each solution of the \SE.
 
-The electronic \ac{SE} is as follows
+The electronic \SE is as follows
 \begin{equation}
     (\hat{H}_e(\rvec; \vec{R}) + \hat{V}_{NN})\Psi_e(\rvec;\vec{R}) = E_e(\vec{R})\Psi_e(\rvec;\vec{R})
 \end{equation}
@@ -310,15 +310,15 @@ Hamiltonian $\hat{H}_e$ is as follows
     \hat{H}_e(\rvec; \vec{R}) = \hat{T}_e + \hat{V}_{Ne} + \hat{V}_{ee}
 \end{equation}
 
-Solving the electronic \ac{SE} for all possible nuclear geometries will give us
+Solving the electronic \SE for all possible nuclear geometries will give us
 a \ac{PES} defined by the electronic energy for all the different geometries.
-With this we can go on to solve the total \ac{SE} \cite{Jensen:2017}
+With this we can go on to solve the total \SE \cite{Jensen:2017}
 \begin{equation}
   (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) = E_{tot}\Psi_N(\vec{R})
 \end{equation}
 
 The computation of the \ac{PES} can be computationally expensive. Because of this
-most practical solutions of the total \ac{SE} are computed through acceleration
+most practical solutions of the total \SE are computed through acceleration
 methods\cite{Jensen:2017}.
 
 
@@ -376,15 +376,15 @@ of the guess by their associated energies, attempting to reach as low a value
 as possible \cite{Cramer:2004}.
 
 \subsection{\ac{SCF}}
-In the previous sections we showed two main points about solving the \ac{SE} for
+In the previous sections we showed two main points about solving the \SE for
 many body systems. The first one, with the \ac{BO} approximation, is that we,
 instead of solving for the energy of the whole system at the same time, can solve an electrical
-\ac{SE} for each geometry of the molecule. The second point is that we can construct
+\SE for each geometry of the molecule. The second point is that we can construct
 the wave function with a basis set representation of our choice, for which its
 accuracy is evaluated by how low the calculated energy is.
 Our goal now is to construct a wave function with any basis set and show that we
 can apply the variational principle on this representation in order to improve
-the approximation. A method used for this is called the \ac{HF} \ac{SCF} method.
+the approximation.
 
 \subsubsection{Secular equation}
 
@@ -448,7 +448,7 @@ and
 Here we drop the $e$ subscript as we will only work with the electron problem
 from now on. We will also start using atomic units, meaning that the elementary charge $e$ and
 the reduced Planck's constant $\hbar$ used until now are both equal to one.
-Each one electron Hamiltonian $h_i$ has a corresponding one electron \ac{SE} with
+Each one electron Hamiltonian $h_i$ has a corresponding one electron \SE with
 one electron energy $\varepsilon_i$ and one electron wave function $\psi_i$
 \begin{equation}
   \hat{h}_i\psi_i = \varepsilon_i\psi_i
@@ -458,7 +458,7 @@ wave functions
 \begin{equation}
   \Psi_{HP} = \psi_1\psi_2\ldots\psi_n
 \end{equation}
-and then the total \ac{SE}  will have the form \cite{Cramer:2004}
+and then the total \SE  will have the form \cite{Cramer:2004}
 \begin{align}
   \begin{split}
     \hat{H}\Psi_{HP} &= \sum^n_{i} \hat{h}_i\psi_1\psi_2\ldots\psi_n\\
@@ -467,12 +467,27 @@ and then the total \ac{SE}  will have the form \cite{Cramer:2004}
   \end{split}
 \end{align}
 
+In order to have a better approximation of the wavefunction we need to reintroduce
+the repulsion potential in the one electron hamiltonian in some way. This is achieved with
+the Hartree Hamiltonian\cite{Cramer:2004}
+\begin{equation}\label{eq:hartreeham}
+  \hat{h}_i = -\frac{1}{2}\nabla^2_i - \sum^N_I\frac{Z_I}{\abs{\rvec_i - \vec{R}_I}} + \sum_{j\neq i}^n\int \frac{\rho_j}{\abs{\rvec_i - \rvec_j}}\text{d}\rvec
+\end{equation}
+Where the last term represent the repulsion potential of one electron against
+all other electrons and $\rho_j$ is the probability distribution for each electron
+$j$. This way we are counting the repulsion between two electrons twice so the
+final energy would be
+\begin{equation}
+  E = \sum_i^n\varepsilon_i - \frac{1}{2}\sum_{i\neq j}^n\int\int\frac{\rho_i\rho_j}{\abs{\rvec_i - \rvec_j}}\text{d}\rvec_1\text{d}\rvec_j
+\end{equation}
+
 \subsubsection{The \ac{HF} method}
-We now will attempt to find appropiate wave functions using the \ac{HF} method.
+We now will attempt to find appropiate wave functions representations using the \ac{HF} method.
 The method originally used \ac{STO} \cite{Cramer:2004}, but here we will
 go through its application with a basis set representation, also called the Roothan approach
-\cite{Cramer:2004, Helgaker:2012}. We set a secular equation as follows
-\begin{equation}
+\cite{Cramer:2004, Helgaker:2012}.
+We set a secular equation as follows
+\begin{equation}\label{eq:fockseceq}
   \begin{vmatrix}
     \bar{F}_{11} - E\bar{S}_{11} & \bar{F}_{12} - E\bar{S}_{12} & \ldots & \bar{F}_{1N} - E\bar{S}_{1N} \\
     \bar{F}_{11} - E\bar{S}_{11} & \bar{F}_{12} - E\bar{S}_{12} & \ldots & \bar{F}_{1N} - E\bar{S}_{1N} \\
@@ -480,20 +495,23 @@ go through its application with a basis set representation, also called the Root
     \bar{F}_{N1} - E\bar{S}_{N1} & \bar{F}_{N2} - E\bar{S}_{N2} & \ldots & \bar{F}_{NN} - E\bar{S}_{NN}
   \end{vmatrix} = 0
 \end{equation}
-Where the matrix elements of $\bar{S}$ are defined as on Equation \ref{eq:seceq}. The
-matrix elements of $\bar{F}$ are computed as follows \cite{Cramer:2004}
-\begin{equation}
+Where the matrix elements of $\bar{S}$ (overlap matrix) are defined as on Equation
+\ref{eq:seceq}. The matrix elements of $\bar{F}$ (the Fock matrix) are computed
+as follows \cite{Cramer:2004}
+\begin{equation}\label{eq:Fockmatrix}
   \bar{F}_{\mu\nu} = \braket{\mu|-\frac{1}{2}\nabla^2|\nu}
   - \sum^N_IZ_I\braket{\mu|\frac{Z_I}{\abs{\rvec_i
   - \vec{R}_I}}|\nu} + \sum_{\lambda\sigma} \bar{P}_{\lambda \sigma}\left( (\mu\nu|\lambda\sigma) - \frac{1}{2}(\mu\lambda|\nu\sigma) \right)
 \end{equation}
 where
-\begin{align}
+\begin{align}\label{eq:doubleint}
   \braket{\mu|\hat{O}| \nu} = \int\phi_{\mu}\hat{O}\phi_{\nu}\text{d}\rvec\\
   (\mu\nu|\lambda\sigma) = \int\int\phi_{\mu1}\phi_{\nu1}\frac{1}{\abs{\rvec_1 - \rvec_2}}\phi_{\lambda2}\phi_{\sigma2} \text{d}\rvec_1\text{d}\rvec_2
 \end{align}
 Here we use the indexes $\mu,\ \nu,\ \lambda, \text{and}\ \sigma$ to index basis
-functions $\phi$ and the numerical subscripts to reference to single electrons.
+functions $\phi$ and the numerical subscripts to reference to the basis functions
+of one electron at a time.
+In the double integrals of Equation \ref{eq:doubleint} we denote basis functions
 $\bar{P}$ is called the density matrix \cite{Cramer:2004}. The elements in the
 density matrix are computed as \cite{Cramer:2004}
 \begin{equation}
@@ -501,6 +519,15 @@ density matrix are computed as \cite{Cramer:2004}
 \end{equation}
 The sum runs over all the occupied orbitals of the system. The coefficients $a$
 are the contribution each basis function $\lambda$ or $\sigma$ has to each orbital $i$.
+
+One might recognize the first two terms in  Equation \ref{eq:Fockmatrix} are
+the electron kinetic energy and the electron nucleus attraction. One can also recognize the
+last term as the repulsion potential defined in Equation \ref{eq:hartreeham}.
+The two double integrals in the last term can also be written as the Coulomb integral $\mathbf{J}_{ij}$
+and the exchange integrals $\mathbf{K}_{ij}$ \cite{Cramer:2004}
+\begin{equation}
+  (\mu\nu|\lambda\sigma) - \frac{1}{2}(\mu\lambda|\nu\sigma) = \mathbf{J}_{ij} - \frac{1}{2}\mathbf{K}_{ij}
+\end{equation}
 
 We see now that in order to solve the secular equation we need to compute the
 density matrix, for which we need to know the orbital coefficients, as in Equation
@@ -525,6 +552,18 @@ This is illustrated on figure \ref{fig:SCF}.
 \end{figure}
 
 \subsection{\ac{DFT}}
+As we saw above approximations and assumptions help us solve the \SE, but they
+are quite expensive still, and will often give us merelly approximations, were
+certain terms in the energy are lost by definition.
+
+An answer to this is to introduce a total electron (probability) density $\rho$ which
+represents the total electron density. In a system with $N$ electrons \cite{Sorland, Cramer:2004, }
+\begin{equation}
+  \rho(\rvec) = N \int\abs{\Psi_e(\rvec, \rvec_1, \rvec_2,..., \rvec_N)} \text{d}\rvec_1\text{d}\rvec_2...\text{d}\rvec_N
+\end{equation}
+
+
+
 \input{acronyms.tex}
 \biblio
 \end{document}
