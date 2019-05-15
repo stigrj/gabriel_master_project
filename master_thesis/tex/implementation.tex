@@ -4,10 +4,44 @@
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
 \chapter{Implementation}\label{chap:implementation}
-\section{Fosso-Tande \& Harrison's \ac{SCRF}}
+\section{Fosso-Tande \& Harrison's \ac{GPE}}
+Fosso-Tande and Harrison described in \cite{FossoTande:2013ka} a \ac{GPE} that
+included a dielectric function which was analytical through the cavity boundary.
+This model was explained with more detail in chapter \ref{Solvent_effect} and
+it will not be explained again, here we will show how it was implemented on
+MRchem.
 \subsection{Cavity Function}
-\subsection{Reaction Potential}
+The first step was to create a cavity function as in \cite{FossoTande:2013ka}.
+This was done by creating a cavity object that stored the coordinates of nuclei
+$\rvec_I$ and their characteristic radii $R_I$. When a point $\rvec$ is evaluated
+in the Cavity function it will return $0$ if it is outside the cavity and $1$ if
+it is inside the Interlocking spheres cavity defined by the nuclei coordinates
+and their radii. Additionally we wanted to be able to change the width of the
+boundary $\sigma$. The structure of the cavity object is as follows
+
+\begin{algorithm}
+  \caption{Cavity object}
+  \begin{algorithmic}
+    \STATE \underline{\textbf{Initialize Cavity:}}
+    \STATE \textbf{Input :} Coordinates, Radii, Width
+    \STATE $\sigma = $ Width
+    \FOR{ All Coordinates$_I$ and Radii$_I$}
+     \STATE$\rvec_I = $ Coordinates$_I$
+     \STATE$R_I = $ Radii
+    \ENDFOR
+    \STATE
+    \STATE \underline{\textbf{Evaluate Cavity:}}
+    \STATE \textbf{Input: } $\rvec$
+    \FOR{All $\rvec_I$}
+      \STATE $s_I = \abs{\rvec - \revc_I} - R_I$
+      \STATE $\Theta_I$
+    \ENDFOR
+  \end{algorithmic}
+\end{algorithm}
+
+
 \subsection{Dielectric Function}
+\subsection{Reaction Potential}
 \subsection{The iterative method}
 \section{Variational implementation}
 \section{Minor adjustments and advantages}
