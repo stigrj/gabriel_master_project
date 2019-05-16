@@ -412,7 +412,7 @@ alon the z-axis $m$, $a$ is the radius of the cavity and $B_{lm}$ is a set of
 constants which need to be found \cite{Tomasi:1994wt}.
 
 
-\subsubsection{Solving in \ac{MW}}
+\subsubsection{Solving in \ac{MW}}\label{solmw}
 Following Fosso-Tande \cite{FossoTande:2013ka} the cavity is defined as a atom
 based interlocking spheres cavity (ABC-cavity). We start by defining a normal
 signed distance function $s_i$ of a point $\rvec$ away from the surface of the
@@ -444,20 +444,26 @@ This function can then be used further in creating a dielectric function
 $\epsilon$ that switches smoothly from $\epso$ (permitivity of free space
 with value $1$ \cite{FossoTande:2013ka}) to $\epsinf$ either with a linear
 representation
-\begin{equation}
+\begin{equation}\label{eq:dielfuncexp}
   \epsilon(\rvec) = \epsinf  + (\epso - \epsinf)C(\rvec)
 \end{equation}
 or with an exponential representation
-\begin{equation}
+\begin{equation}\label{eq:dielfunclin}
   \epsilon(\rvec) =\epso\exp\left( \left(\log\frac{\epsinf}{\epso} \right)
   (1 - C(\rvec)) \right)
 \end{equation}
 Which gives itself better for computation of its $\log$-derivative
 \cite{FossoTande:2013ka}
-\begin{equation}
+\begin{equation}\label{eq:logderepsexp}
   \nabla\log\epsilon(\rvec) = \frac{\nabla\epsilon(\rvec)}{\epsilon(\rvec)}
    = \left(\log\frac{\epso}{\epsinf} \right)\nabla C(\rvec)
 \end{equation}
+The log derivative of the linear dielectric function is expressed as
+\begin{equation}\label{eq:logderepslin}
+  \nabla \log(\epsilon (\rvec)) = \frac{\nabla\epsilon(\rvec)}{\epsilon(\rvec)}
+  = \frac{(\epso - \epsinf)}{\epsilon(\rvec)}\nabla C(\rvec)
+\end{equation}
+
 With either of those dielectric functions, the \ac{GPE} can be constructed
 \cite{Sorland, FossoTande:2013ka}
 \begin{align}\label{eq:gpemw}
@@ -467,7 +473,7 @@ With either of those dielectric functions, the \ac{GPE} can be constructed
 \end{align}
 We define the effective charge distribution $\rho_{eff}$ and the surface charge
 distribution $\gamma_s$ \cite{FossoTande:2013ka}
-\begin{align}
+\begin{align}\label{eq:effrhogamma}
   \rho_{eff}(\rvec) &= \frac{1}{\epsilon(\rvec)}\rho_{tot}(\rvec) \\
   \gamma_s(\rvec) &= \frac{1}{4\pi}\frac{\nabla\epsilon(\rvec)}{\epsilon(\rvec)}\cdot\nabla U(\rvec)
 \end{align}
@@ -537,6 +543,7 @@ We now find the gradient of the functional in order to minimize with respect to 
 \end{equation}
 Where if we set $\frac{\partial}{\partial U}G(U) = 0$ we get the \ac{GPE} from \cite{FossoTande:2013ka}
 and thus we can use any type of minimization method to reach the right potential.
+
 \input{acronyms.tex}
 \biblio
 \end{document}
