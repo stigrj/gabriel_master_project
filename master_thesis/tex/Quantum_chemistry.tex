@@ -93,7 +93,7 @@ and
   \ket{\Psi} = \sum_i c_i \ket{i} \label{eq:lincomb}
 \end{equation}
 has no degenerate \eival,
-The probability of measuring \eival $o_i$ from $\ket{\Psi}$ is given by
+The probability of measuring \eival  $o_i$ from $\ket{\Psi}$ is given by
 \cite{Cohen:1973}:
 \begin{align} \label{eq:post4}
   \begin{split}
@@ -128,15 +128,15 @@ exactly that value. The following Equation \ref{eq:post5} represents the postula
 
 \subsubsection{Sixth Postulate}
 The system when undisturbed changes in a deterministic way \cite{Cohen:1973}.
-This change is governed by the time dependent \ac{SE} \cite{Cohen:1973, Atkins:2011}:
+This change is governed by the time dependent \SE \cite{Cohen:1973, Atkins:2011}:
 \begin{equation}\label{eq:tdepSE}
   i\hbar\frac{\partial}{\partial t} \ket{\Psi} = \hat{H}\ket{\Psi}
 \end{equation}
 Where $\tilde{H}$ is the Hamiltonian operator which has the total energy of the
 system as its \eivals.
 
-\subsection{The \ac{SE}}
-Lets consider the following \ac{SE} for a particle allowed to move in only one dimension
+\subsection{The \SE}
+Lets consider the following \SE for a particle allowed to move in only one dimension
 and where its potential energy varies with position (e.g. the Harmonic oscillator
 model \cite{Cohen:1973, Atkins:2014}).
 \begin{equation}
@@ -171,7 +171,14 @@ while the remaining Equation \ref{eq:timeindepWF} can be rewritten as
 \begin{equation}
   \hat{H}\psi = E\psi\label{eq:timeindepSE}
 \end{equation}
-Which is the time-independent \ac{SE} which will be used most on this text.
+Which is the time-independent \SE.
+
+The energy of the system can be calculated as follows, assuming that the wave
+function $\Psi$ \cite{Cramer:2004}:
+\begin{equation}\label{eq:endevaleq}
+  \frac{\braket{\psi|\hat{H}|\psi}}{\braket{\psi|\psi}} = E
+\end{equation}
+If the wave function is normalized the denominator becomes $1$.
 
 \section{Two particle system}
 A two particle system (such as the \ce{H} or the \ce{He^+} atoms) has a simple
@@ -202,7 +209,7 @@ Following the steps above, the 2 particle system is analytically solvable.
 \section{Many body systems}
 
 For bigger systems, there is no practical way to analytically solve the
-\ac{SE} \cite{Jensen:2017}. For one, for each particle, the amount of dimensions that need to be
+\SE \cite{Jensen:2017}. For one, for each particle, the amount of dimensions that need to be
 evaluated increases by three, that is, one can expect the wave function
 dimension to increase by a factor of $3N$ for each particle $N$
 \cite{Cramer:2004}.
@@ -213,7 +220,7 @@ repulsive forces between all the electrons and between all the nuclei. Both of
 these problems add more terms per particle and thus would be impossible to be
 solved in a realistic time frame \cite{Jensen:2017}.
 
-\subsection{\ac{BO} approximation}
+\subsection{\ac{BO} approximation} \label{BO}
 A many body system consists of $N$ nuclei with mass $m_I$ for each nuclei $I$
 and $n$ electrons with mass $m_i$ for each electron $i$. Each nucleus has a
 charge $Z_Ie$ and each electron has a charge $-e$, where $Z$ is the atomic
@@ -223,12 +230,12 @@ coordinates $\vec{R}_I = (x_I, y_I, z_I)$ and each electron has coordinates
 $\rvec_i = (x_i, y_i, z_i)$.
 
 We are trying to calculate the total energy and wave functions of the system. For
-that we define a time independent \ac{SE} where the wavefunction is dependent on
+that we define a time independent \SE where the wavefunction is dependent on
 the coordinates of both the electrons and the nuclei, which we will use a single $\vec{R}$
 to the coordinates of all the nuclei and a single $\rvec$ to denote the coordinates
 of all the electrons.
 \begin{equation}\label{eq:totalheliumSE}
-  \hat{H}\Psi(\vec{R}, \rvec) = E \Psi(\vec{R}, \rvec)
+  \hat{H}\Psi(\rvec, \vec{R}) = E \Psi(\rvec, \vec{R})
 \end{equation}
 
 Here the Hamiltonian, as with the two particle system, has a potential energy $\hat{V}$ and a
@@ -259,83 +266,67 @@ We can see now that the
 The Hamiltonian is then dependent on the positions of all the electrons and all
 the nuclei \cite{Jensen:2017}
 \begin{equation}
-  \hat{H}(\vec{R}, \rvec) = \hat{T}_e + \hat{T}_N + \hat{V}_{Ne} +\hat{V}_{NN} + \hat{V}_{ee}
+  \hat{H}(\rvec, \vec{R}) = \hat{T}_e + \hat{T}_N + \hat{V}_{Ne} +\hat{V}_{NN} + \hat{V}_{ee}
 \end{equation}
 We can see that both repulsions $\hat{V}_{NN}, \hat{V}_{ee}$ have $(N - 1)!$ and $(n - 1)!$ terms
  respectively, while the other terms have much simpler sums {sums over one index in the case of the
-kinetic energies and $N$ terms in the attraction potential $\hat{V}_Ne$}.
+kinetic energies and $N\cdot n$ terms in the attraction potential $\hat{V}_Ne$}.
 
 In the Hydrogen atom we could fix the nucleus to the center of mass (static nucleus)
 \cite{Jensen:2017}. We can no longer do that in atoms with more than one nuclei, as
-the nuclei themselves are moving with respect to each other.
+the nuclei are moving with respect to each other \cite{Cramer:2004}. Thus we cannot
+remove the nuclear kinetic energy term as one can with the Hydrogen atom.
 
-The Hamiltonian for many electron systems contains terms for the correlated
-motion of the particles \cite{Cramer:2004, Jensen:2017}. This includes the
-repulsion and attraction of all the particles to each other. This means that no
-particle is moving independently of the other particles. Trying to solve a
-\ac{SE} analytically with a Hamiltonian such as this is not possible. In order
-to simplify the problem we use the \ac{BO} approximation \cite{Cramer:2004,
-Jensen:2017}.
+In the \ac{BO}  we assume that since the nuclei of the molecule are more massive
+than the electrons (a single proton is $1836.152 673 89$ times more massive
+than a proton \cite{NIST:2019}) that the electrons can instantaneously respond to
+any change in the configuration of the nuclei \cite{Atkins:2011}. That means that we can solve an
+electrical problem for any given nuclear geometry as if the nuclei were static
+\cite{Cramer:2004, Jensen:2017, Atkins:2014}
 
-In the \ac{BO} approximation one assumes that the motion of the nucleus is
-negligible in comparison to the motion of the electrons \cite{Cramer:2004,
-Jensen:2017}. This is because the electrons are 1800 times less massive than the
-protons and electrons and the kinetic energy operator is inversely
-proportional to the mass of the particle. This way we can imagine the system as
-having stationary nucleus and electrons in motion around the nucleus.
+Following this  assumption we separate the wave function into an electrical
+$\Psi_e$ and a nuclear wave function $\Psi_N$
+\begin{equation}
+  \Psi(\rvec, \vec{R}) = \Psi_N(R)\Psi_e(\rvec; \vec{R})
+\end{equation}.
+Notice that the nuclear wave function is only dependent on the nuclear coordinates,
+while the electrical has both the electron and nuclear coordinates as input. From
+our assumption above we say that we solve an electronic \SE for each geometry
+of the molecule, thus the nuclear coordinates  are parametric variables of
+the electronic wavefunction (symbolized by the semicolon divider $;$) which remain
+constant for each solution of the \SE.
 
-By using this assumption we can separate the problem of a \ac{SE} for the whole
-system (electron and nuclei) into two separate problems, first solving for the
-electron motion, attraction and repulsion energies and second solving for the
-kinetic energy of the molecule\cite{Cramer:2004}. By this line of thought one
-can write the following set of equations in \ref{eq:BO} based on Equation
-\ref{eq:twopH} adding the nucleus-nucleus
-and electron-electron repulsion potentials, $ V_{NN} $ and $ V_{ee} $
-respectively.
-\begin{align}\label{eq:BO}
-    H_{tot}\Psi_{tot}(\vec{R}, \vec{r}) &= E_{tot}\Psi_{tot}(\vec{R},
-    \vec{r})\\
-    H_{tot} &= H_e + H_N \\
-    H_e = T_e + V_{Ne} + V_{ee} ~&;~ H_N = T_N + V_{NN} \\
-    \Psi_{tot}(\vec{R}, \vec{r}) &= \Psi_N(\vec{R})\Psi_e(\vec{r}; \vec{R}) \\
-    (H_e + V_{NN})\Psi_e(\vec{r}; \vec{R}) &= E_e(\vec{R})\Psi_e(\vec{r};
-    \vec{R})\\
-    (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) &= E_{tot}\Psi_N(\vec{R})
-\end{align}
+The electronic \SE is as follows
+\begin{equation}
+    (\hat{H}_e(\rvec; \vec{R}) + \hat{V}_{NN})\Psi_e(\rvec;\vec{R}) = E_e(\vec{R})\Psi_e(\rvec;\vec{R})
+\end{equation}
+Where the Electronic energy $E_e$ becomes a function of $\vec{R}$ which is solved as
+a constant for each nuclear geometry. In the electronic Hamiltonian
+we assume that the kinetic energy of the nuclei is zero, but we still need to
+compute the nuclear repulsion, but as we are solving for any given geometry at a time
+we can safely assume that it is a constant \cite{Cramer:2004}. The electron
+Hamiltonian $\hat{H}_e$ is as follows
+\begin{equation}\label{eq:elhamiltonian}
+    \hat{H}_e(\rvec; \vec{R}) = \hat{T}_e + \hat{V}_{Ne} + \hat{V}_{ee}
+\end{equation}
 
-In the equations above, both the total Hamiltonian $H_{tot}$ and total
-wave function $\Psi_{tot}$ are divided into electronic and nucleic contributions
-($\Psi_e$ and$\Psi_N$ respectively). This separation is not complete, as there
-still is the nucleus-electron attraction which must be included in the
-electronic Hamiltonian $H_e$. Additionally, when solving the electronic problem
-we need to take into account the nucleus-nucleus repulsion potential $V_NN$.
-For these reasons the electronic wave function $\Psi_e$ is dependent on both the
-electron coordinates $\vec{r}$ and nucleus coordinates $\vec{R}$. The
-electronic wave function is dependent on the electronic coordinates as
-variables, but depends on the nuclei coordinates parametrically
-\cite{Jensen:2017}.This means that for each molecule geometry the electronic
-problem is solved as if the nucleus was motionless. This leads to the
-nucleus-nucleus potential to be a constant for each molecule geometry.
+Solving the electronic \SE for all possible nuclear geometries will give us
+a \ac{PES} defined by the electronic energy for all the different geometries.
+With this we can go on to solve the total \SE \cite{Jensen:2017}
+\begin{equation}
+  (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) = E_{tot}\Psi_N(\vec{R})
+\end{equation}
 
-Solving the electronic problem over different geometries gives rise to a
-\ac{PES} on which the molecule exists \cite{Cramer:2004}. This parametric
-dependency on the geometry of the molecule means that the electronic energy is
-as well dependent on it. This way we can attempt to find a minimum (the method
-used for this can vary) for the electronic energy by iterativelly solving the
-electronic problem with different geometries. This is important to measure how
-good our trial wave function is as according to the variational principle.
-
-Once a minimum has been reached on the \ac{PES} one can go on to solve for the
-total energy of the system by doing solving the final equation on \ref{eq:BO}.
-This, as according to the variational principle, can also be iterated over in
-order to minimize the energy.
+The computation of the \ac{PES} can be computationally expensive. Because of this
+most practical solutions of the total \SE are computed through acceleration
+methods\cite{Jensen:2017}.
 
 \subsection{Variational Principle}
 %need to edit this
 Consider a complete set of orthonormal \eifuncs $ \Psi_i$  of the
-Hamiltonian $H$. From Equation \ref{eq:lincomb} we build an arbitrary
-wave function $\Phi$ with a linear combination of the \eifuncs with
-coefficients $c_i$.
+Hamiltonian $H$. From Equation \ref{eq:lincomb} we build a representation of an
+arbitrary wave function $\Phi$ with a linear combination of the \eifuncs with
+projection coefficients $c_i$.
 \begin{equation}
   \Phi = \sum\limits_ic_i\Psi_i
 \end{equation}
@@ -345,7 +336,7 @@ be calculated as shown below;
   \braket{\Phi|\Phi} = \sum\limits_i^nc_i^2
 \end{equation}
 We also know that the wave function $\Phi$ is normalized, so the sum above
-should equal to one. Additionally, the expectation value of the Hamiltonian can
+should equal to one. Additionally, the energy associated with the Hamiltonian can
 be calculated as in Equation \ref{eq:endevaleq} to give us this:
 \begin{equation}
   \braket{\Phi|H|\Phi} = \sum\limits_i^nc_i^2E_i\label{eq:genenerg}
@@ -376,7 +367,7 @@ ground state. This leads to the following set of inequalities.
     \frac{\braket{\Phi | H | \Phi}}{\braket{\Phi | \Phi}} & \geq E_0
   \end{split}
 \end{equation}
-We know from Equation \ref{eq:startevaleq} that the inequality in the last term in
+We know from Equation \ref{eq:endevaleq} that the inequality in the last term in
 \ref{eq:varprin} shows that the energy calculated as an \eival of $\Phi$ is
 always greater or equal to zero. This lets us construct our trial wave functions
 for the ground state of a system with any basis set. We can assess the quality
@@ -384,9 +375,193 @@ of the guess by their associated energies, attempting to reach as low a value
 as possible \cite{Cramer:2004}.
 
 \subsection{\ac{SCF}}
-%describe building basis functions out of potential wells and potentials out
-%basis functions
-%have the simplified diagram
+In the previous sections we showed two main points about solving the \SE for
+many body systems. The first one, with the \ac{BO} approximation, is that we,
+instead of solving for the energy of the whole system at the same time, can solve an electrical
+\SE for each geometry of the molecule. The second point is that we can construct
+the wave function with a basis set representation of our choice, for which its
+accuracy is evaluated by how low the calculated energy is.
+Our goal now is to construct a wave function with any basis set and show that we
+can apply the variational principle on this representation in order to improve
+the approximation.
+
+\subsubsection{Secular equation}
+
+As shown before, we can construct a trial wavefunction $\phi$ as shown in Equation
+\ref{eq:lincomb} with a linear combination of basis functions $\varphi_i$ and
+their projection coefficients $c_i$ obtained as shown in Equation \ref{eq:projcoeff}.
+The coordinate arguments will be ommitted for ease of notation from now on.
+\begin{equation}
+  \Psi \approx \phi = \sum_i c_i \varphi_i
+\end{equation}
+ We Then want to calculate the energy of the trial function by following Equation
+ \ref{eq:endevaleq}\cite{Cramer:2004}:
+ \begin{align}
+   \begin{split}
+     E &= \frac{\braket{\phi|\hat{H}|\phi}}{\braket{\phi|\phi}} \\
+     E &= \frac{\braket{\sum_i c_i \varphi_i|\hat{H}|\sum_j c_j \varphi_j}}{\braket{\sum_i c_i \varphi_i|\sum_j c_j \varphi_j}} \\
+     E &= \frac{\sum_{ij} c_i c_j \braket{\varphi_i|\hat{H}|\varphi_j}}{\sum_{ij}c_i c_j\braket{\varphi_i|\varphi_j}}\\
+     E &= \frac{\sum_{ij} c_i c_j\bar{H}_{ij}}{\sum_{ij} c_i c_j\bar{S}_{ij}}
+   \end{split}
+ \end{align}
+where $\bar{H}\ \text{and} \ \bar{S}$ are the resonance overlap matrix respectively.
+By the variational principle we are trying to find a set of coefficients $c_i$
+for which the energy of the system represented by the basis set is as low as it
+can get, that is $\diff{c_k}E = 0 \ \forall k $, This gives a sum over all $N$
+coefficients \cite{Cramer:2004}
+\begin{equation}\label{eq:linearci}
+  \sum_{i}^N c_i (\bar{H}_{ki} - E\bar{S}_{ki}) = 0
+\end{equation}
+This is only true if the following determinant formed by $\bar{H}_{ki} - E\bar{S}_{ki}$
+is equal to zero \cite{Cramer:2004}:
+\begin{equation}\label{eq:seceq}
+  \begin{vmatrix}
+    \bar{H}_{11} - E\bar{S}_{11} & \bar{H}_{12} - E\bar{S}_{12} & \ldots & \bar{H}_{1N} - E\bar{S}_{1N} \\
+    \bar{H}_{11} - E\bar{S}_{11} & \bar{H}_{12} - E\bar{S}_{12} & \ldots & \bar{H}_{1N} - E\bar{S}_{1N} \\
+    \vdots & \vdots & \ddots & \vdots\\
+    \bar{H}_{N1} - E\bar{S}_{N1} & \bar{H}_{N2} - E\bar{S}_{N2} & \ldots & \bar{H}_{NN} - E\bar{S}_{NN}
+  \end{vmatrix} = 0
+\end{equation}
+%confused here
+This is called the secular equation \cite{Cramer:2004} Solving this determinant
+will give us $N$ roots $E_j$. We can substitute these roots into Equation
+\ref{eq:linearci} which will give a set of coefficients $c_ij$. We then have an
+optimized wave function $\phi_j$ given as a linear combination of the basis functions
+\begin{equation}
+  \phi_j = \sum_{i}^N c_{ij}\varphi_i
+\end{equation}
+
+\subsubsection{The Hartree-product wave function} %% Maybe remove
+In Equation \ref{eq:elhamiltonian} we define an electron Hamiltonian that includes
+the electron kinetic energy, the Nucleus-electron atraction potential and the
+electron repulsion potential. Here we assume that only the electronic kinetic energy and
+the nuclear-electron attraction are significant. This lets us separate the hamiltonian into
+the single electron contributions $\hat{h}_i$
+\begin{equation}
+  \hat{H} = \sum^n_{i} \hat{h}_i
+\end{equation}
+and
+\begin{equation}
+  \hat{h}_i = -\frac{1}{2}\nabla^2_i - \sum^N_I \frac{Z_I}{\abs{\rvec_i - \vec{R}_I}}
+\end{equation}
+Here we drop the $e$ subscript as we will only work with the electron problem
+from now on. We will also start using atomic units, meaning that the elementary charge $e$ and
+the reduced Planck's constant $\hbar$ used until now are both equal to one.
+Each one electron Hamiltonian $h_i$ has a corresponding one electron \SE with
+one electron energy $\varepsilon_i$ and one electron wave function $\psi_i$
+\begin{equation}
+  \hat{h}_i\psi_i = \varepsilon_i\psi_i
+\end{equation}.
+One can construct a total wavefunction $\Psi_{HP}$ as a product of all the one electron
+wave functions
+\begin{equation}
+  \Psi_{HP} = \psi_1\psi_2\ldots\psi_n
+\end{equation}
+and then the total \SE  will have the form \cite{Cramer:2004}
+\begin{align}
+  \begin{split}
+    \hat{H}\Psi_{HP} &= \sum^n_{i} \hat{h}_i\psi_1\psi_2\ldots\psi_n\\
+    \hat{H}\Psi_{HP} &= \sum_i^n\varepsilon_i\psi_1\psi_2\ldots\psi_n\\
+    \hat{H}\Psi_{HP} &= \left(\sum_i^n\varepsilon_i\right)\Psi_{HP}
+  \end{split}
+\end{align}
+
+In order to have a better approximation of the wavefunction we need to reintroduce
+the repulsion potential in the one electron hamiltonian in some way. This is achieved with
+the Hartree Hamiltonian\cite{Cramer:2004}
+\begin{equation}\label{eq:hartreeham}
+  \hat{h}_i = -\frac{1}{2}\nabla^2_i - \sum^N_I\frac{Z_I}{\abs{\rvec_i - \vec{R}_I}} + \sum_{j\neq i}^n\int \frac{\rho_j}{\abs{\rvec_i - \rvec_j}}\text{d}\rvec
+\end{equation}
+Where the last term represent the repulsion potential of one electron against
+all other electrons and $\rho_j$ is the probability distribution for each electron
+$j$. This way we are counting the repulsion between two electrons twice so the
+final energy would be
+\begin{equation}
+  E = \sum_i^n\varepsilon_i - \frac{1}{2}\sum_{i\neq j}^n\int\int\frac{\rho_i\rho_j}{\abs{\rvec_i - \rvec_j}}\text{d}\rvec_1\text{d}\rvec_j
+\end{equation}
+
+\subsubsection{The \ac{HF} method}
+We now will attempt to find appropiate wave functions representations using the \ac{HF} method.
+The method originally used \ac{STO} \cite{Cramer:2004}, but here we will
+go through its application with a basis set representation, also called the Roothan approach
+\cite{Cramer:2004, Helgaker:2012}.
+We set a secular equation as follows
+\begin{equation}\label{eq:fockseceq}
+  \begin{vmatrix}
+    \bar{F}_{11} - E\bar{S}_{11} & \bar{F}_{12} - E\bar{S}_{12} & \ldots & \bar{F}_{1N} - E\bar{S}_{1N} \\
+    \bar{F}_{11} - E\bar{S}_{11} & \bar{F}_{12} - E\bar{S}_{12} & \ldots & \bar{F}_{1N} - E\bar{S}_{1N} \\
+    \vdots & \vdots & \ddots & \vdots\\
+    \bar{F}_{N1} - E\bar{S}_{N1} & \bar{F}_{N2} - E\bar{S}_{N2} & \ldots & \bar{F}_{NN} - E\bar{S}_{NN}
+  \end{vmatrix} = 0
+\end{equation}
+Where the matrix elements of $\bar{S}$ (overlap matrix) are defined as on Equation
+\ref{eq:seceq}. The matrix elements of $\bar{F}$ (the Fock matrix) are computed
+as follows \cite{Cramer:2004}
+\begin{equation}\label{eq:Fockmatrix}
+  \bar{F}_{\mu\nu} = \braket{\mu|-\frac{1}{2}\nabla^2|\nu}
+  - \sum^N_IZ_I\braket{\mu|\frac{Z_I}{\abs{\rvec_i
+  - \vec{R}_I}}|\nu} + \sum_{\lambda\sigma} \bar{P}_{\lambda \sigma}\left( (\mu\nu|\lambda\sigma) - \frac{1}{2}(\mu\lambda|\nu\sigma) \right)
+\end{equation}
+where
+\begin{align}\label{eq:doubleint}
+  \braket{\mu|\hat{O}| \nu} = \int\phi_{\mu}\hat{O}\phi_{\nu}\text{d}\rvec\\
+  (\mu\nu|\lambda\sigma) = \int\int\phi_{\mu1}\phi_{\nu1}\frac{1}{\abs{\rvec_1 - \rvec_2}}\phi_{\lambda2}\phi_{\sigma2} \text{d}\rvec_1\text{d}\rvec_2
+\end{align}
+Here we use the indexes $\mu,\ \nu,\ \lambda, \text{and}\ \sigma$ to index basis
+functions $\phi$ and the numerical subscripts to reference to the basis functions
+of one electron at a time.
+In the double integrals of Equation \ref{eq:doubleint} we denote basis functions
+$\bar{P}$ is called the density matrix \cite{Cramer:2004}. The elements in the
+density matrix are computed as \cite{Cramer:2004}
+\begin{equation}
+  \bar{P}_{\lambda\sigma} = 2 \sum_i^{\text{occupied}}a_{\lambda i}a_{\sigma i}
+\end{equation}
+The sum runs over all the occupied orbitals of the system. The coefficients $a$
+are the contribution each basis function $\lambda$ or $\sigma$ has to each orbital $i$.
+
+One might recognize the first two terms in  Equation \ref{eq:Fockmatrix} are
+the electron kinetic energy and the electron nucleus attraction. One can also recognize the
+last term as the repulsion potential defined in Equation \ref{eq:hartreeham}.
+The two double integrals in the last term can also be written as the Coulomb integral $\mathbf{J}_{ij}$
+and the exchange integrals $\mathbf{K}_{ij}$ \cite{Cramer:2004}
+\begin{equation}
+  (\mu\nu|\lambda\sigma) - \frac{1}{2}(\mu\lambda|\nu\sigma) = \mathbf{J}_{ij} - \frac{1}{2}\mathbf{K}_{ij}
+\end{equation}
+
+We see now that in order to solve the secular equation we need to compute the
+density matrix, for which we need to know the orbital coefficients, as in Equation
+\ref{eq:seceq}, but we  are trying to solve the secular equation so we can find
+these same coefficients to build the new orbital.
+In order to solve this we take into use the \ac{SCF} method. In this method
+we start with an initial guess of the density matrix $\bar{P}^{(0)}$. THis
+is used to construct the \ac{HF} secular equation and solve it. The new coefficients
+that are found are then used to create a new density matrix $\bar{P}^(n)$. Now, if
+the difference between the new and old density matrix $ \bar{P}^(n-1)$ is below
+a user defined threshold we can say that the coefficients obtained are the correct
+coefficients and we can go on to use them to compute the energy of the system for
+a given geometry as in the \ac{BO} aoproximation. If the difference
+is not below the threshold then we use this new potential to construct and solve
+a new \ac{HF} secular equation to obtain another density matrix. This is repeated
+until the difference goes below the threshold \cite{Helgaker:2012, Cramer:2004}.
+This is illustrated on figure \ref{fig:SCF}.
+\begin{figure}[ht]
+  \includegraphics[width=\linewidth]{img/SCF.png}
+  \caption{HF SCF procedure flowchart. Figure from \cite{Cramer:2004}}
+  \label{fig:SCF}
+\end{figure}
+
+\subsection{\ac{DFT}}
+As we saw above approximations and assumptions help us solve the \SE, but they
+are quite expensive still, and will often give us merelly approximations, were
+certain terms in the energy are lost by definition.
+
+An answer to this is to introduce a total electron (probability) density $\rho$ which
+represents the total electron density. In a system with $N$ electrons \cite{Sorland, Cramer:2004, }
+\begin{equation}
+  \rho(\rvec) = N \int\abs{\Psi_e(\rvec, \rvec_1, \rvec_2,..., \rvec_N)} \text{d}\rvec_1\text{d}\rvec_2...\text{d}\rvec_N
+\end{equation}
+
+
 
 \input{acronyms.tex}
 \biblio

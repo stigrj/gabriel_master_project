@@ -16,6 +16,7 @@ sets of functions construct a basis for the space on which the wave functions
 are projected into. These sets are thus called basis sets \cite{Cramer:2004}
 and they are essential to solving many body systems. In this text we will be
 focusing in the \ac{MW} basis from \ac{MRA} methods.
+\section{Basis Sets}
 
 \section{\ac{MRA}}
 \subsection{Definition}
@@ -24,8 +25,15 @@ and dilations are described as \cite{Schneider:2007}
 \begin{equation}
   \varphi^j_k(x) = 2^{\frac{j}{2}}\varphi(2^jx - k),\  j,k \in \mathbb{Z}
 \end{equation}.
+And the function $\varphi(x)$ satisfies the two-scale difference relations \cite{Beylkin:MRA, Schneider:2007, Sorland}:
+\begin{align}
+  \begin{split}
+    \varphi(x) &= \varphi(2x) + \varphi(2x - 1)\\
+    \varphi^j_k(x) &= \varphi^{j+1}_{2k}(2^{j+1}x - 2k) + \varphi^{j+1}_{2k+1}(2^{j+1}x - 2k - 1)
+  \end{split}
+\end{align}
 Where $j$ is the scale of the function and $k$ is the translation of the function
-\cite{Sorland}
+\cite{Sorland}. A normalization constant is included in the definition of $\varphi$.
 A space $V_n$ is spanned by translations of $\varphi_{nk}$.This space forms a
 hierarchical chain of Linear
 subspaces \cite{Beylkin:MRA}:
@@ -33,13 +41,6 @@ subspaces \cite{Beylkin:MRA}:
   V_0 \subset V_1 \subset ... \subset V_j \subset ... \subset L^2(\Real)\label{eq:seqsubspace}
 \end{equation}
 Where $V_0$ is spanned only by $\varphi_{0,0}(x)=\varphi(x)$ \cite{Sorland}.
-The function $\varphi(x)$ satisfies the two-scale difference relations \cite{Beylkin:MRA, Schneider:2007, Sorland}:
-\begin{align}
-  \begin{split}
-    \varphi(x) &= \varphi(2x) + \varphi(2x - 1)\\
-    \varphi^j_k(x) &= \varphi^{j+1}_{2k}(2^{j+1}x - 2k) + \varphi^{j+1}_{2k+1}(2^{j+1}x - 2k - 1)
-  \end{split}
-\end{align}
 
 If relation \ref{eq:seqsubspace} and the following refinement equation holds for $\varphi_{j,k}(x)$
 one can call the subspaces $V_n$ or the functions $\varphi_{j,k}(x)$ build a \ac{MRA} of $L_2(\Real)$.
@@ -47,7 +48,7 @@ one can call the subspaces $V_n$ or the functions $\varphi_{j,k}(x)$ build a \ac
 \varphi^j_k(x) = \sum_{k\in\mathbb{Z}} h^{j+1}_k\varphi^{j+1}_k(x)
 \end{equation}
 Where $h$ is a coefficient characteristic to the transformation between scales.
-\subsection{Wavelet \ac{MRA}}
+\subsection{The Haar Wavelet \ac{MRA}}
 Following from now we will work with the Haar wavelet basis for simplicity \cite{Beylkin:MRA}.
 Lets define the Haar function \cite{Schneider:2007} as
 \begin{equation}
@@ -57,7 +58,7 @@ Lets define the Haar function \cite{Schneider:2007} as
   0 & \text{elsewhere}
 \end{cases}
 \end{equation}
-Lets now define a second set of subspaces $W_n$. These are the orthogonal complements of $V_n$ \cite{Alpert1993}, also called difference subspaces,
+Let us now define a second set of subspaces $W_n$. These are the orthogonal complements of $V_n$ \cite{Alpert1993}, also called difference subspaces,
 defined as \cite{Beylkin:MRA, Sorland, Alpert1993}.
 \begin{equation}
   W_n \oplus V_n = V_{n + 1} \label{eq:diffsubspace}
@@ -97,7 +98,7 @@ Projecting a function $f(x)$ unto this basis would be then a weighted linear com
 of the Haar functions, but taking into account the definition on Equation \ref{eq:recursivespace} one arrives
 at \cite{Sorland}.
 \begin{equation}\label{eq:projectftohaar}
-  f(x)\approx \sum^{2^j -1}_k \sum^{N}_j s^j_k\varphi^j_k = s^0_0\varphi^0_0 + \sum^{2^j -1}_k \sum^{N - 1}_jd^j_k\psi^j_k
+  f(x)\approx \sum^{2^j -1}_k s^j_k\varphi^j_k = s^0_0\varphi^0_0 + \sum^{N - 1}_j\sum^{2^j -1}_k d^j_k\psi^j_k
 \end{equation}
 where $d$ are the difference coefficients and $s$ are the scaled averages of dyadilic intervals of the function $f(x)$
 
@@ -108,24 +109,22 @@ scaled averages of $f(x)$ at intervals $2^{-j}$ \cite{Sorland, Beylkin:MRA}
 \begin{equation}
   s^j_k = \int_{\Real}\varphi^j_k(x)f(x)\text{d}x = \int^{2^{-j}(k + 1)}_{2^{-j}k} f(x) \text{d}x\label{eq:scalecoeff1}
 \end{equation}
+The subsequent scaling coefficients can be obtained as
+\begin{align}
+  \begin{split}\label{eq:scalecoeffint}
+    s^{j}_k &= \int_{\Real}\varphi^{j-1}_k(x)\text{d}x\\
+    s^{j}_k &= 2^{\frac{j}{2}}\int_{\Real}\varphi(2^{j}x - k)f(x)\text{d}x\\
+    s^{j}_k &= 2^{\frac{j}{2}}\int_{2^{-j}(k-1)}^{2^{-j}k}f(x)\text{d}x\\
+  \end{split}
+\end{align}
 We can then obtain the difference coefficients by using Equations \ref{eq:scalecoeff1}, \ref{eq:haarwavelet} and \ref{eq:2scalewavelet}:
 \begin{align}
   \begin{split}\label{eq:diffcoeffint}
-    d^{j - 1}_k &= \int_{\Real}\psi^{j-1}_k(x)\text{d}x\\
+    d^{j - 1}_k &= \int_{\Real}\psi^{j-1}_k(x)f(x)\text{d}x\\
     d^{j - 1}_k &= 2^{\frac{j - 1}{2}}\int_{\Real}\psi(2^{j-1}x - k)f(x)\text{d}x\\
     d^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left(\int_{\Real}\varphi(2^jx - 2k)f(x)\text{d}x  - \int_{\Real}\varphi(2^jx - 2k - 1)f(x)\text{d}x\right)\\
     d^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left( \int^{2^{-j}(2k+1)}_{2^{-j}2k}f(x)\text{d}x - \int^{2^{-j}(2k+2)}_{2^{-j}(2k + 1)}f(x)\text{d}x \right)\\
     d^{j - 1}_k &= \frac{1}{\sqrt{2}}\left(s^{j}_{2k} - s^{j}_{2k+1} \right)
-  \end{split}
-\end{align}
-The scaling coefficients can be obtained in the same manner:
-\begin{align}
-  \begin{split}\label{eq:scalecoeffint}
-    s^{j - 1}_k &= \int_{\Real}\varphi^{j-1}_k(x)\text{d}x\\
-    s^{j - 1}_k &= 2^{\frac{j - 1}{2}}\int_{\Real}\varphi(2^{j-1}x - k)f(x)\text{d}x\\
-    s^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left(\int_{\Real}\varphi(2^jx - 2k)f(x)\text{d}x  + \int_{\Real}\varphi(2^jx - 2k - 1)f(x)\text{d}x\right)\\
-    s^{j - 1}_k &= 2^{\frac{j - 1}{2}}\left( \int^{2^{-j}(2k+1)}_{2^{-j}2k}f(x)\text{d}x + \int^{2^{-j}(2k+2)}_{2^{-j}(2k + 1)}f(x)\text{d}x \right)\\
-    s^{j - 1}_k &= \frac{1}{\sqrt{2}}\left(s^{j}_{2k} + s^{j}_{2k+1} \right)
   \end{split}
 \end{align}
 
@@ -192,17 +191,18 @@ We again define subspaces $W_j^l$ as the orthogonal complements of $V^l_j$
 \begin{equation}
   V^l_j \oplus W_j^l = V^l_{j+1}
 \end{equation}
- with orthogonal basis functions  $h^j_{lk}$ which are translations and dilations of functions $h_l$:
+ with orthogonal basis functions  $\psi^j_{lk}$ which are translations and dilations of functions $\psi_i$:
  \begin{equation}
-   h^j_{ik}(x) = 2^\frac{j}{2}h_i(2^jx-k), \ i=1, ...,l;\ k \in \mathbb{Z}\label{eq:mwbasisfuncs}
+   \psi^j_{ik}(x) = 2^\frac{j}{2}\psi_i(2^jx-k), \ i=1, ...,l;\ k \in \mathbb{Z}\label{eq:mwbasisfuncs}
  \end{equation}
- The functions $h_1, ...,h_l$ are piecewise polynomial, orthogonal to lower order polynomials and
+ The functions $\psi_1, ...,\psi_l$ are piecewise polynomial, orthogonal to lower order polynomials and
  vanish outside $[0,1]$ \cite{Alpert1993}
 \begin{align}
-  \int_0^1h_i(x)x^m \text{d}x = 0,\ m = 0, 1, ..., l-1
+  \int_0^1\psi_i(x)x^m \text{d}x = 0,\ m = 0, 1, ..., l-1
 \end{align}
+
 Our aim is to find a set of functions $f_i$ on the interval $[-1,1]$ that can
-be used in the construction of $h_1, ...,h_l$ with the following restrictions
+be used in the construction of $\psi_1, ...,\psi_l$ with the following restrictions
 \cite{Alpert1993, Beylkin:MRA}:
 \begin{enumerate}
   \item functions $f_i$ on the interval $(0,1)$ are polynomials of degree $l-1.$
