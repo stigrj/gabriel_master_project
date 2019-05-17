@@ -64,7 +64,7 @@ geometry and charge of the nuclei
   \rho_{tot} = \rho_{el} + \rho_{nuc}
 \end{equation}.
 The following algorithm \ref{alg:rhonuc} shows how we calculate the nuclear
-density $\rho_{nuc}$ for the total density by use of gaussian functions centered at
+density $\rho_{nuc}$ for the total density by use of Gaussian functions centered at
 each nucleus.
 \begin{algorithm}
   \caption{Nuclear charge density}\label{alg:rhonuc}
@@ -82,11 +82,11 @@ each nucleus.
   \end{algorithmic}
 \end{algorithm}
 
-Where $\alpha$ represents the width of the gaussian function, $\beta$ is the normalization
+Where $\alpha$ represents the width of the Gaussian function, $\beta$ is the normalization
 constant multiplied with the charge, $\rvec_I$ is the position of the nucleus and
-$\rho_{nuc}^{(I)}$ is the gaussian representing the a point charge at the nucleus.
+$\rho_{nuc}^{(I)}$ is the Gaussian representing the a point charge at the nucleus.
 The algorithm \ref{alg:rhonuc} describes the set of nuclei as a sum of different point charges
-represented as gaussian functions.
+represented as Gaussian functions.
 
 We then go on to create the effective volume charge distribution by the following equation.
 \begin{align}
@@ -121,7 +121,7 @@ $\gamma_s$ as shown in algorithm \ref{alg:gamma}.
 
 Here we use the definition of the log derivative for both $\epslin$ and $\epsexp$
 from equations \ref{eq:logderepsexp} and \ref{eq:logderepslin}. This is the same
-as just writting $$\gamma_s = \frac{1}{4\pi}\frac{\nabla\epsilon\nabla U}{\epsilon}$$,
+as just writing $$\gamma_s = \frac{1}{4\pi}\frac{\nabla\epsilon\nabla U}{\epsilon}$$,
 which is the same equation as in \ref{eq:effrhogamma}.
 
 \subsection{The iterative \ac{SCRF} method}

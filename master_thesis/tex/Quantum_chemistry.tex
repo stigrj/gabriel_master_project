@@ -230,7 +230,7 @@ coordinates $\vec{R}_I = (x_I, y_I, z_I)$ and each electron has coordinates
 $\rvec_i = (x_i, y_i, z_i)$.
 
 We are trying to calculate the total energy and wave functions of the system. For
-that we define a time independent \SE where the wavefunction is dependent on
+that we define a time independent \SE where the wave function is dependent on
 the coordinates of both the electrons and the nuclei, which we will use a single $\vec{R}$
 to the coordinates of all the nuclei and a single $\rvec$ to denote the coordinates
 of all the electrons.
@@ -268,7 +268,7 @@ the nuclei \cite{Jensen:2017}
 \begin{equation}
   \hat{H}(\rvec, \vec{R}) = \hat{T}_e + \hat{T}_N + \hat{V}_{Ne} +\hat{V}_{NN} + \hat{V}_{ee}
 \end{equation}
-We can see that both repulsions $\hat{V}_{NN}, \hat{V}_{ee}$ have $(N - 1)!$ and $(n - 1)!$ terms
+We can see that both repulsion potentials $\hat{V}_{NN}, \hat{V}_{ee}$ have $(N - 1)!$ and $(n - 1)!$ terms
  respectively, while the other terms have much simpler sums {sums over one index in the case of the
 kinetic energies and $N\cdot n$ terms in the attraction potential $\hat{V}_Ne$}.
 
@@ -293,7 +293,7 @@ Notice that the nuclear wave function is only dependent on the nuclear coordinat
 while the electrical has both the electron and nuclear coordinates as input. From
 our assumption above we say that we solve an electronic \SE for each geometry
 of the molecule, thus the nuclear coordinates  are parametric variables of
-the electronic wavefunction (symbolized by the semicolon divider $;$) which remain
+the electronic wave function (symbolized by the semicolon divider $;$) which remain
 constant for each solution of the \SE.
 
 The electronic \SE is as follows
@@ -388,10 +388,10 @@ the approximation.
 
 \subsubsection{Secular equation}
 
-As shown before, we can construct a trial wavefunction $\phi$ as shown in Equation
+As shown before, we can construct a trial wave function $\phi$ as shown in Equation
 \ref{eq:lincomb} with a linear combination of basis functions $\varphi_i$ and
 their projection coefficients $c_i$ obtained as shown in Equation \ref{eq:projcoeff}.
-The coordinate arguments will be ommitted for ease of notation from now on.
+The coordinate arguments will be omitted for ease of notation from now on.
 \begin{equation}
   \Psi \approx \phi = \sum_i c_i \varphi_i
 \end{equation}
@@ -434,9 +434,9 @@ optimized wave function $\phi_j$ given as a linear combination of the basis func
 
 \subsubsection{The Hartree-product wave function} %% Maybe remove
 In Equation \ref{eq:elhamiltonian} we define an electron Hamiltonian that includes
-the electron kinetic energy, the Nucleus-electron atraction potential and the
+the electron kinetic energy, the Nucleus-electron attraction potential and the
 electron repulsion potential. Here we assume that only the electronic kinetic energy and
-the nuclear-electron attraction are significant. This lets us separate the hamiltonian into
+the nuclear-electron attraction are significant. This lets us separate the Hamiltonian into
 the single electron contributions $\hat{h}_i$
 \begin{equation}
   \hat{H} = \sum^n_{i} \hat{h}_i
@@ -453,7 +453,7 @@ one electron energy $\varepsilon_i$ and one electron wave function $\psi_i$
 \begin{equation}
   \hat{h}_i\psi_i = \varepsilon_i\psi_i
 \end{equation}.
-One can construct a total wavefunction $\Psi_{HP}$ as a product of all the one electron
+One can construct a total wave function $\Psi_{HP}$ as a product of all the one electron
 wave functions
 \begin{equation}
   \Psi_{HP} = \psi_1\psi_2\ldots\psi_n
@@ -467,8 +467,8 @@ and then the total \SE  will have the form \cite{Cramer:2004}
   \end{split}
 \end{align}
 
-In order to have a better approximation of the wavefunction we need to reintroduce
-the repulsion potential in the one electron hamiltonian in some way. This is achieved with
+In order to have a better approximation of the wave function we need to reintroduce
+the repulsion potential in the one electron Hamiltonian in some way. This is achieved with
 the Hartree Hamiltonian\cite{Cramer:2004}
 \begin{equation}\label{eq:hartreeham}
   \hat{h}_i = -\frac{1}{2}\nabla^2_i - \sum^N_I\frac{Z_I}{\abs{\rvec_i - \vec{R}_I}} + \sum_{j\neq i}^n\int \frac{\rho_j}{\abs{\rvec_i - \rvec_j}}\text{d}\rvec
@@ -482,7 +482,7 @@ final energy would be
 \end{equation}
 
 \subsubsection{The \ac{HF} method}
-We now will attempt to find appropiate wave functions representations using the \ac{HF} method.
+We now will attempt to find appropriate wave functions representations using the \ac{HF} method.
 The method originally used \ac{STO} \cite{Cramer:2004}, but here we will
 go through its application with a basis set representation, also called the Roothan approach
 \cite{Cramer:2004, Helgaker:2012}.
@@ -534,13 +534,13 @@ density matrix, for which we need to know the orbital coefficients, as in Equati
 \ref{eq:seceq}, but we  are trying to solve the secular equation so we can find
 these same coefficients to build the new orbital.
 In order to solve this we take into use the \ac{SCF} method. In this method
-we start with an initial guess of the density matrix $\bar{P}^{(0)}$. THis
+we start with an initial guess of the density matrix $\bar{P}^{(0)}$. This
 is used to construct the \ac{HF} secular equation and solve it. The new coefficients
 that are found are then used to create a new density matrix $\bar{P}^(n)$. Now, if
 the difference between the new and old density matrix $ \bar{P}^(n-1)$ is below
 a user defined threshold we can say that the coefficients obtained are the correct
 coefficients and we can go on to use them to compute the energy of the system for
-a given geometry as in the \ac{BO} aoproximation. If the difference
+a given geometry as in the \ac{BO} approximation. If the difference
 is not below the threshold then we use this new potential to construct and solve
 a new \ac{HF} secular equation to obtain another density matrix. This is repeated
 until the difference goes below the threshold \cite{Helgaker:2012, Cramer:2004}.
@@ -553,7 +553,7 @@ This is illustrated on figure \ref{fig:SCF}.
 
 \subsection{\ac{DFT}}
 As we saw above approximations and assumptions help us solve the \SE, but they
-are quite expensive still, and will often give us merelly approximations, were
+are quite expensive still, and will often give us merely approximations, were
 certain terms in the energy are lost by definition.
 
 An answer to this is to introduce a total electron (probability) density $\rho$ which
