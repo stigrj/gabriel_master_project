@@ -552,17 +552,90 @@ This is illustrated on figure \ref{fig:SCF}.
 \end{figure}
 
 \subsection{\ac{DFT}}
-As we saw above approximations and assumptions help us solve the \SE, but they
-are quite expensive still, and will often give us merely approximations, were
-certain terms in the energy are lost by definition.
+The method outlined above employed an iterative procedure to calculate the coefficients
+a a linear combination of basis functions describing the wave function of the
+system, which is then used to calculate the energy of the system. We see that we
+still need to calculate the repulsion potential between every electron. This is
+simplified by using a density matrix to weight each of the basis that make up the
+wave function of the other electrons.
 
-An answer to this is to introduce a total electron (probability) density $\rho$ which
-represents the total electron density. In a system with $N$ electrons \cite{Sorland, Cramer:2004}
+Using a slightly different method, we calculate the energy directly as a functional
+of the electron density distribution \cite{Sorland, Cramer:2004} described by
+\begin{equation}\label{eq:densityintegral}
+  \rho(\rvec) = n \int\abs{\Psi_e(\rvec, \rvec_1, \rvec_2,..., \rvec_n)} \text{d}\rvec_1\text{d}\rvec_2...\text{d}\rvec_n
+\end{equation}
+which is an integral over all the possible configurations of the electrons. The
+coefficient $n$ is the total amount of electrons on the system. This method,
+\ac{DFT}, allows to discard computing the wave function in the iterative process and
+simply use the density instead.
+
+The electron density has properties that are characteristic to each system, the
+molecule,  it is constructed from. The first is that its integral over all space
+is equal to the amount of electrons $n$ on the system \cite{Cramer:2004}
 \begin{equation}
-  \rho(\rvec) = N \int\abs{\Psi_e(\rvec, \rvec_1, \rvec_2,..., \rvec_N)} \text{d}\rvec_1\text{d}\rvec_2...\text{d}\rvec_N
+  \int_{\Real^3}\rho \text{d}\rvec = n
+\end{equation}
+The second is that the density has maxima on the positions of the nuclei, and
+these maxima have the following value dependent on the nuclear charge of said
+nuclei \cite{Cramer:2004}.
+\begin{equation}
+ \diff{\rvec}\rho(\rvec)\Bigg|_{\rvec = \Rvec_I} = -2Z_I\rho(\rvec)
 \end{equation}
 
+The energy is determined by a functional $E[\rho]$ made up of functionals representing
+the kinetic energy of the electrons $T[\rho]$, the attraction potential $V_{Ne}[\rho]$,
+and the two electron repulsion $V_{e}[\rho]$ \cite{Sorland, PhysRev.136.B864}
+\begin{align}
+  E[\rho] &= V[\rho] + T[\rho] + V_{e}[\rho]\\\label{eq:energyfunctional}
+  T[\rho] &\equiv\braket{\rho(\rvec)| \frac{1}{2}\nabla^2| \rho(\rvec)} \\
+  V_{e}[\rho] &\equiv \frac{1}{2}\braket{v_{e}(\rvec)| \rho(\rvec)}\\
+  V_{Ne}[\rho] &= \braket{v_{Ne}(\rvec)|\rho(\rvec)}
+\end{align}
+Where the potential functions $v_{Ne}(\rvec)$  and $v_{e}(\rvec)$ are defined as the Coulomb
+attraction between the electrons and the nuclei and the coulomb repulsion of the
+density with itself \cite{Sorland} respectively.
 
+The functional in Equation \ref{eq:energyfunctional} is not an appropiate approximation
+of the energy, as we are assumming in the construction of $T[\rho]$ and $V_{e}[\rho]$
+that the energy is known for the individual parts of the disconnected system \cite{Sorland}.
+This means we are missing the exhchange-correlation contributions of the energy $E_{xc}{\rho}$.
+With that in mind, the proper energy functional is shown as follows
+\begin{equation}\label{eq:adjustedenergyfunc}
+  E[\rho] = V[\rho] + T[\rho] + V_{e}[\rho] + E_{xc}[\rho]
+\end{equation}
+
+By the variational principle discussed previously, we are trying to minimize the energy
+to get the best representation of the system with the given basis. Here we try to
+find minima by differentiating \ref{eq:adjustedenergyfunc} with respect to $\rho$ giving us
+\begin{align}\label{eq:energyderiv}
+   \diff{\rho}E[\rho] = \diff{\rho}\left( V[\rho] + T[\rho] + V_{e}[\rho]\right) + V_{xc}
+\end{align}
+Where $V_{xc}$ is the functional derivative $\diff{\rho}E_{xc}[\rho]$ \cite{Cramer:2004}.
+We can see that $V_{xc}$ seems to be a correction to the gradient to our first definition
+of the the energy \ref{eq:energyfunctional}. The system described by Equation
+\ref{eq:energyfunctional} is a system of non-interacting electrons. In this
+system we can define one-electron operators $\hat{h}_i^{KS}$ as
+\begin{align}
+  \hat{h}_i^{KS} \phi_i &= \epsilon_i \phi_i \\
+  \hat{h}_i^{KS} &= - \frac{1}{2}\nabla^2_i + v_{Ne} + \bra{\rho}v_e + V_{xc}
+\end{align}
+where $\phi$ are basis functions describing the function $\Psi$ from \ref{eq:densityintegral}
+We can thus use $V_{xc}$ to iteratively minimize the energy in a systematic manner so we can
+get the correct density for the system of interacting electrons \cite{Cramer:2004}.
+
+This tells us that, given a set of basis functions $\phi$ describing
+$\rho$ as defined in Equation \ref{eq:densityintegral}, we can compute the following
+Kohn-Sham  matrix elements $\bar{K}_{\mu\nu}$ for a secular equation resembling that of the \ac{HF}
+method. In this secular equation the elements $\bar{F}_{\mu\nu}$ are replaced by $\bar{K}_{\mu\nu}$.
+\begin{equation}
+  \bar{K}_{\mu\nu} = \braket{\phi_\mu|\left[- \frac{1}{2}\nabla^2_i + v_{Ne} + \bra{\rho}v_e + V_{xc}\right]|\phi_\nu}
+\end{equation}
+The rest of the procedure follows the same process as the \ac{SCF} explained on
+the previous section.
+What remains is to define $V_{xc}$ which can be represented in several ways by different methods
+based on the basis functions used to construct the density, the reader is directed to
+read on this in \cite{Cramer:2004} as this thesis will not delve deeper on the
+matter.
 
 \input{acronyms.tex}
 \biblio
