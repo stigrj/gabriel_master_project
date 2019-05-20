@@ -26,14 +26,14 @@ boundary $\sigma$. The structure of the cavity object is as follows
     \STATE \textbf{Input :} Coordinates, Radii, Width
     \STATE $\sigma = $ Width
     \FOR{ All Coordinates$_I$ and Radii$_I$}
-     \STATE$\rvec_I = $ Coordinates$_I$
-     \STATE$R_I = $ Radii
+     \STATE $\rvec_I = $ Coordinates$_I$
+     \STATE $R_I = $ Radii
     \ENDFOR
     \STATE
     \STATE \underline{\textbf{Evaluate Cavity:}}
     \STATE \textbf{Input: } $\rvec$
     \FOR{All $\rvec_I$}
-      \STATE $s_I = \abs{\rvec - \revc_I} - R_I$
+      \STATE $s_I = \abs{\rvec - \rvec_I} - R_I$
       \STATE $\Theta_I$
     \ENDFOR
   \end{algorithmic}
