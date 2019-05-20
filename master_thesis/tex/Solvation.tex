@@ -13,7 +13,7 @@ solvation models.
 Solvation models describe one or more molecules (substrate) surrounded by
 a set of other molecules (solvent). Most reactions of interest occur in a
 solvent where the geometry, energy and kinetics of the reactants and products
-are affected by their enviroment\cite{Mennucci:2018}.
+are affected by their environment\cite{Mennucci:2018}.
 
 We can describe the total Hamiltonian $\hat{H}_{sol}$ of a solvent-solute system as
 \cite{Tomasi:1994wt}:
@@ -22,13 +22,13 @@ We can describe the total Hamiltonian $\hat{H}_{sol}$ of a solvent-solute system
 \end{equation}
 where $H_0$ is the gas phase Hamiltonian (in vacuo) and $\hat{V}_{sol}$ is the
 potential arising from the interactions between solvent and solute. These
-interactions can be considered as perturbations to the in-vacuo system.
+interactions can be considered as perturbations to the in vacuo system.
 The \ac{SE} of the system is as follows \cite{Tomasi:1994wt}
 \begin{align}\label{eq:solSE}
   \hat{H}_{sol}\Psi^{(f)} = E^{(f)}\Psi^{(f)}
 \end{align}
 Where $f$ denotes the degree of  rigidity of the interactions (0 being with
-completelly static solvent molecules and rigidity decreasing with increasing
+completely static solvent molecules and rigidity decreasing with increasing
 index). In most practical uses, we are interested in the polarization interaction
 between the solvent and solute, meaning that one can replace the wave function $\Psi$ with the
 total charge distribution of the solute $\rho_{\mathrm{tot}}$
@@ -59,11 +59,11 @@ In this thesis we work mostly with the electrostatics interactions of the
 solute-solvent interface and the reaction field they create.
 
 \subsection{One approach}
-Our aim is to be able to simulate this system in an appropiate way, such that
+Our aim is to be able to simulate this system in an appropriate way, such that
 the models let us predict rates, mechanisms and other specific processes which
 occur in solutions \cite{Tomasi:1994wt}.
 One can describe the solvation model in either an explicit or implicit way. In
-this thesis I will focus on the implicit models, although i will give some
+this thesis I will focus on the implicit models, although I will give some
 background in the explicit model.
 A straightforward approach to the model is to try to, for example, make a
 system of a \ce{Li^+} cation surrounded by water molecules. Here arises two
@@ -83,12 +83,12 @@ optimization and calculated the different properties of this system, we would
 find out that this approximation is very far from the truth.
 
 If we look at the system we can see that this set of 7 molecules is suspended in
-vaccuum, which is not what we are trying to simulate. the water molecules at
+vacuum, which is not what we are trying to simulate. the water molecules at
 the edge would not behave as if they were in solution, but as if they were in
 gas phase. We are trying to simulate a \ce{Li^+} cation in a water solution.
 We can add additional layers of water molecules to diminish the error. But
-just adding a single layer of water molecules in a cubelike manner would
-increase the amount of molecules to $31$ with a nuclear wavefunction of
+just adding a single layer of water molecules in a cube-like manner would
+increase the amount of molecules to $31$ with a nuclear wave function of
 $31\cdot3d$ dimensions. Adding more layers one after the other would end up
 reducing the error to a neglectable level, as the amount of water molecules on
 the surface will scale quadratic manner compared to the cubic scaling of the
@@ -101,7 +101,7 @@ calculate the effects as statistical averages over phase space
 \subsection{Reaction Field}\label{Reaction_field}
 Lets consider a system where a solute $A$ with a dipole moment $\vec{\mu}_A$ is
 introduced to a solvent $S$ where each solvent molecule $S_i$ has its own dipole
-moment $\vec{\mu}_{S_i}$. On equlibrium the different $S_i$  would be placed
+moment $\vec{\mu}_{S_i}$. On equilibrium the different $S_i$  would be placed
 randomly, giving an average electric field of zero. When $A$ is introduced, its
 $\vec{\mu}_A$ will induce an electric field that will affect all the
 $\vec{\mu}_{S_i}$ of the $S_i$. The $S_i$ will reorient themselves so that their
@@ -124,18 +124,18 @@ the interaction of $A$ and $S$.
 \section{Explicit solvation models}
 
 The explicit method is necessary when the solvent molecules' geometry and states
-are importnant to the measurement of the properties of the substrate
+are important to the measurement of the properties of the substrate
 \cite{Cramer:2004}.
 One way to simplify the problem is to partition the system into two parts, the
 solvent, modeled using molecular mechanics (MM) and the solute, modeled using
 \ac{QM}, this method is called MM/QM \cite{Mennucci:2018}.
 
 The main point of this model is that the energy contribution from the solvent
-can be described as a sum of bonding and nonbonding contributions
+can be described as a sum of bonding and non-bonding contributions
 \cite{Cramer:2004} where the solvent bonds are described as springs
 \cite{Mennucci:2018} and the atoms as weights. The bonding contributions can be
-dividided into bending, stretching and torsion of the bonds. Both the bending
-and the strecthing of the bonds can be described with the Harmonic Oscillator
+divided into bending, stretching and torsion of the bonds. Both the bending
+and the stretching of the bonds can be described with the Harmonic Oscillator
 (HO) and the torsion with a periodic function \cite{Mennucci:2018}. The
 non-bonding interactions can be described with Coulombs law with the atoms as
 point charges. More information on this can be read on \cite{Cramer:2004,
@@ -157,7 +157,7 @@ becomes an electrostatic potential $\hat{V}_{\sigma}$ \cite{Tomasi:1994wt}:
   \rho_{tot}, \epsinf\right)=\sum_{\alpha} Z_{\alpha} U_r
   \left(\mathbf{Q}_{\alpha}\right)-\sum_{i} U_r\left(\mathbf{q}_{i}\right)
 \end{equation}
-Where $U_r$ is the Reaction field potental.
+Where $U_r$ is the Reaction field potential.
 The contribution of the interaction between $S$ and $A$ to the total energy
 $E^{(f)}$ is given by
 \begin{equation}
@@ -168,9 +168,9 @@ This means that determining the reaction potential as well as knowing the coordi
 of the different particles will let us solve the Equation \ref{eq:solSE}
 These continuum models are also part of the \ac{PCM} classification of solvent
 models.
-Since we are looking at the effect the charge ditribution of a solute has on
+Since we are looking at the effect the charge distribution of a solute has on
 the interaction potential, we set up a Poisson equation. We also know that the change in
-the potential must also be related to the dielectric constant that chracterizes
+the potential must also be related to the dielectric constant that characterizes
 the continuum $\epsilon$. We try to find the solution to the following
 electrostatic potential equation
 \begin{equation}
@@ -192,7 +192,7 @@ escaped charge \cite{Tomasi:2005ipa}.
 The size of the cavity is critical to the calculated results of the model, if
 the cavity is too big the solvation effects are dampened, if it is too small
 various errors may arise in the computation of the properties to be studied
-\cite{Tomasi:1994wt}. It is accepted that the cavity shape should closelly
+\cite{Tomasi:1994wt}. It is accepted that the cavity shape should closely
 resemble the shape of the molecule itself \cite{Tomasi:2005ipa}. There are two
 main ways of defining the shape and size of the cavity. These are (1) regular
 shapes and (2) molecular shapes.
@@ -204,7 +204,7 @@ is not realistic to assume that all molecules have regular shapes (apart from
 maybe single atoms and linear molecules) \cite{Tomasi:2005ipa}
 
 Molecular shapes give a better representation of the solute in the solvent due
-to the fact that they more closelly follow the shape of the solute molecule.
+to the fact that they more closely follow the shape of the solute molecule.
 There are three main molecular shapes I wish to mention in this thesis:
 interlocking spheres, surfaces traced by solvent probes and isodensity surfaces.
 
@@ -237,19 +237,9 @@ This family of surfaces are based on the interlocking spheres model in that a
 solvent probe (normally a spherical probe) is rolled around the Interlocking
 sphere surface to trace a new surface. The inwards facing face of the probe traces a surface
 which the solvent cannot access. This surface is called the Solvent Excluded
-Surface (SES) \cite{Tomasi:2005ipa, Mennucci:2018}. This surface is shown with a
-dark line on Figure \ref{fig:cavities}. The surface defined by the tracing of
-the center of the probe is called the Solven Accessible Surface (SAS) which is
-shown in Figure \ref{fig:cavities} with dotted lines. One can think of this as
+Surface (SES) \cite{Tomasi:2005ipa, Mennucci:2018}.  One can think of this as
 smoothing so as to not get polarization in areas around the molecule which should
-not be accessible for the
-
-\begin{figure}[ht]
-  \includegraphics[width=\linewidth]{img/molecularcavity.jpg}
-  \caption{Different types of molecular cavities. The SAS and SES cavities are
-  defined from the Interlocking sphere model. Figure from \cite{Tomasi:2005ipa}}
-  \label{fig:cavities}
-\end{figure}
+not be accessible for the solvent.
 
 \paragraph{Isodensity surfaces}
 A third type of surface is one defined by a certain value of the charge density.
@@ -271,7 +261,7 @@ function epsilon with the cavity as a boundary condition \cite{Tomasi:2005ipa, T
 \end{cases}
 \end{equation}
 Where $C$ is the cavity. This definition brings forth a discontinuity on the
-dielectric function. This makes solving the poisson equation more difficult as
+dielectric function. This makes solving the Poisson equation more difficult as
 the gradient of the dielectric function is not defined at the surface of the
 cavity. One way to bypass this problem is to partition the volume of the system
 into two parts, one inside the cavity and one outside the cavity \cite{Tomasi:1994wt}.
@@ -281,7 +271,7 @@ is completelly contained within the cavity. This means that \cite{Tomasi:1994wt}
 \begin{equation}
   \rho_{\mathrm{tot}}(\rvec)=0 \quad \rvec \notin C
 \end{equation}
-This lets us define the poisson equation inside and outside the cavity as follows
+This lets us define the Poisson equation inside and outside the cavity as follows
 \cite{Sorland, Tomasi:1994wt}:
 \begin{align}
   \begin{split}
@@ -304,7 +294,7 @@ $U_{vac}$ and the reaction field potential $U_r$\cite{Sorland, FossoTande:2013ka
   U(\rvec) = U_{vac}(\rvec) + U_r(\rvec)
 \end{equation}
 
-\subsection{Aproaches to a solution}
+\subsection{Approaches to a solution}
 \subsubsection{ \ac{ASC}}
 In this family of solutions we look at the classical electrostatics description
 of the problem. we do this by defining an apparent charge distribution
@@ -346,7 +336,7 @@ Many slightly different types of \ac{ASC} have been implemented as of now. Some 
 are \ac{COSMO}, \ac{IEF} and \ac{SVPE}.
 
 \paragraph{\ac{COSMO}}
-In this version of \ac{ASC} we preceed as normal except that we define $\epsinf = \infty$.
+In this version of \ac{ASC} we proceed as normal except that we define $\epsinf = \infty$.
 This way we determine the {ac{ASC}} ($\sigma^{\star}$) by the local value of the electrostatic
 potential instead of computing the normal component of its gradient \cite{Tomasi:2005ipa}.
 We then scale $\sigma^{\star}$ as follows
@@ -398,7 +388,7 @@ Where $x, y$ are defined as above.
 
 \subsubsection{Multipole expansion (MPE)}
 In this solution we write the total electrostatic potential $U(\rvec)$ in terms
-of legendre polynomials. This way the potential is reduced to a set of two
+of Legendre polynomials. This way the potential is reduced to a set of two
 spherical harmonics functions, one outside and one inside the cavity.
 \begin{align}
   \begin{split}
@@ -408,11 +398,11 @@ spherical harmonics functions, one outside and one inside the cavity.
   \end{split}
 \end{align}
 Where $Y^m_l$ is the spherical harmonics with angular momentum $l$ and projection
-alon the z-axis $m$, $a$ is the radius of the cavity and $B_{lm}$ is a set of
+along the z-axis $m$, $a$ is the radius of the cavity and $B_{lm}$ is a set of
 constants which need to be found \cite{Tomasi:1994wt}.
 
 
-\subsubsection{Solving in \ac{MW}}
+\subsubsection{Solving in \ac{MW}}\label{solmw}
 Following Fosso-Tande \cite{FossoTande:2013ka} the cavity is defined as a atom
 based interlocking spheres cavity (ABC-cavity). We start by defining a normal
 signed distance function $s_i$ of a point $\rvec$ away from the surface of the
@@ -444,20 +434,26 @@ This function can then be used further in creating a dielectric function
 $\epsilon$ that switches smoothly from $\epso$ (permitivity of free space
 with value $1$ \cite{FossoTande:2013ka}) to $\epsinf$ either with a linear
 representation
-\begin{equation}
+\begin{equation}\label{eq:dielfuncexp}
   \epsilon(\rvec) = \epsinf  + (\epso - \epsinf)C(\rvec)
 \end{equation}
 or with an exponential representation
-\begin{equation}
+\begin{equation}\label{eq:dielfunclin}
   \epsilon(\rvec) =\epso\exp\left( \left(\log\frac{\epsinf}{\epso} \right)
   (1 - C(\rvec)) \right)
 \end{equation}
 Which gives itself better for computation of its $\log$-derivative
 \cite{FossoTande:2013ka}
-\begin{equation}
+\begin{equation}\label{eq:logderepsexp}
   \nabla\log\epsilon(\rvec) = \frac{\nabla\epsilon(\rvec)}{\epsilon(\rvec)}
    = \left(\log\frac{\epso}{\epsinf} \right)\nabla C(\rvec)
 \end{equation}
+The log derivative of the linear dielectric function is expressed as
+\begin{equation}\label{eq:logderepslin}
+  \nabla \log(\epsilon (\rvec)) = \frac{\nabla\epsilon(\rvec)}{\epsilon(\rvec)}
+  = \frac{(\epso - \epsinf)}{\epsilon(\rvec)}\nabla C(\rvec)
+\end{equation}
+
 With either of those dielectric functions, the \ac{GPE} can be constructed
 \cite{Sorland, FossoTande:2013ka}
 \begin{align}\label{eq:gpemw}
@@ -467,7 +463,7 @@ With either of those dielectric functions, the \ac{GPE} can be constructed
 \end{align}
 We define the effective charge distribution $\rho_{eff}$ and the surface charge
 distribution $\gamma_s$ \cite{FossoTande:2013ka}
-\begin{align}
+\begin{align}\label{eq:effrhogamma}
   \rho_{eff}(\rvec) &= \frac{1}{\epsilon(\rvec)}\rho_{tot}(\rvec) \\
   \gamma_s(\rvec) &= \frac{1}{4\pi}\frac{\nabla\epsilon(\rvec)}{\epsilon(\rvec)}\cdot\nabla U(\rvec)
 \end{align}
@@ -475,7 +471,7 @@ and substitute them into Equation \ref{eq:gpemw}
 \begin{equation}\label{eq:gpepractical}
   \nabla^2U(\rvec) = -4\pi\left( \rho_{eff}(\rvec) + \gamma_s(\rvec)\right)
 \end{equation}
-We get the total interation potential $U(\rvec)$ between the substrate and the solvent by
+We get the total iteration potential $U(\rvec)$ between the substrate and the solvent by
 applying the Poisson operator $\hat{\mathscr{P}}$ as defined in Equation
 \ref{eq:Poissonopmw} to equation \ref{eq:gpepractical}
 \begin{equation}
@@ -499,7 +495,7 @@ more thoroughly in Chapter \ref{chap:implementation}.
 \section{Variational implementation}
 Following Lipparini \cite{Lipparini:2010bg, Lipparini:2013} I'll arrive at a functional where
 minimizing with respect to $U$ of the solvent energy contribution to
-the total energy $G_s$ will give a way to determine $U_r$ variationally.
+the total energy $G_s$ will give a way to determine $U_r$ variationaly.
 
 Starting from the \ac{GPE} defined from \cite{FossoTande:2013ka} we project it
 into a suitable space with test functions $\psi$
@@ -519,7 +515,7 @@ we get the integral
   -\int_{\real^3}\psi \nabla \epsilon \nabla U\text{d}r - \int_{\real^3}  \psi\epsilon \nabla^{2} U\text{d}r = \int_{\real^3} \nabla \psi \epsilon \nabla U\text{d}r - \int_{\real^3} \nabla (\psi \epsilon\nabla U\text{d}r)
 \end{equation}
 The test functions vanish on the surface of the cavity. Applying the Gauss' theorem \cite{Lipparini:2013} we can turn the rightmost integral into
-an integral on the surfce, thus vanishing. This gives us:
+an integral on the surface, thus vanishing. This gives us:
 \begin{equation}
   -\braket{\psi|\nabla|\epsilon\nabla U} = \braket{\nabla \psi |\epsilon | \nabla U}
 \end{equation}
@@ -537,6 +533,7 @@ We now find the gradient of the functional in order to minimize with respect to 
 \end{equation}
 Where if we set $\frac{\partial}{\partial U}G(U) = 0$ we get the \ac{GPE} from \cite{FossoTande:2013ka}
 and thus we can use any type of minimization method to reach the right potential.
+
 \input{acronyms.tex}
 \biblio
 \end{document}

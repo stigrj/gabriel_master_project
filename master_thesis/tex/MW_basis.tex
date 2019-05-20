@@ -5,8 +5,8 @@
 \begin{document}
 \chapter{\ac{MW} Basis}
 As stated on the previous chapter, the main goal of computational chemistry is
-to approximate systems in order to calculate their energy through the \newline \ac{SE}. %cite please
-These systems are completelly described by wave functions \cite{Cohen:1973}.
+to approximate systems in order to calculate their energy through the \ac{SE}. %cite please
+These systems are completely described by wave functions \cite{Cohen:1973}.
 This means that to approximate a solution to the system is to approximate its
 wave function.
 
@@ -16,11 +16,10 @@ sets of functions construct a basis for the space on which the wave functions
 are projected into. These sets are thus called basis sets \cite{Cramer:2004}
 and they are essential to solving many body systems. In this text we will be
 focusing in the \ac{MW} basis from \ac{MRA} methods.
-\section{Basis Sets}
 
 \section{\ac{MRA}}
 \subsection{Definition}
-Consider that we have a function $\varphi \in L^2(\Real)$ where its tanslations
+Consider that we have a function $\varphi \in L^2(\Real)$ where its translations
 and dilations are described as \cite{Schneider:2007}
 \begin{equation}
   \varphi^j_k(x) = 2^{\frac{j}{2}}\varphi(2^jx - k),\  j,k \in \mathbb{Z}
@@ -34,16 +33,16 @@ And the function $\varphi(x)$ satisfies the two-scale difference relations \cite
 \end{align}
 Where $j$ is the scale of the function and $k$ is the translation of the function
 \cite{Sorland}. A normalization constant is included in the definition of $\varphi$.
-A space $V_n$ is spanned by translations of $\varphi_{nk}$.This space forms a
+A space $V^n$ is spanned by translations of $\varphi_{nk}$.This space forms a
 hierarchical chain of Linear
 subspaces \cite{Beylkin:MRA}:
 \begin{equation}
-  V_0 \subset V_1 \subset ... \subset V_j \subset ... \subset L^2(\Real)\label{eq:seqsubspace}
+  V^0 \subset V^1 \subset ... \subset V^j \subset ... \subset L^2(\Real)\label{eq:seqsubspace}
 \end{equation}
-Where $V_0$ is spanned only by $\varphi_{0,0}(x)=\varphi(x)$ \cite{Sorland}.
+Where $V^0$ is spanned only by $\varphi_{0,0}(x)=\varphi(x)$ \cite{Sorland}.
 
 If relation \ref{eq:seqsubspace} and the following refinement equation holds for $\varphi_{j,k}(x)$
-one can call the subspaces $V_n$ or the functions $\varphi_{j,k}(x)$ build a \ac{MRA} of $L_2(\Real)$.
+one can call the subspaces $V^n$ or the functions $\varphi_{j,k}(x)$ build a \ac{MRA} of $L_2(\Real)$.
 \begin{equation}
 \varphi^j_k(x) = \sum_{k\in\mathbb{Z}} h^{j+1}_k\varphi^{j+1}_k(x)
 \end{equation}
@@ -58,12 +57,12 @@ Lets define the Haar function \cite{Schneider:2007} as
   0 & \text{elsewhere}
 \end{cases}
 \end{equation}
-Let us now define a second set of subspaces $W_n$. These are the orthogonal complements of $V_n$ \cite{Alpert1993}, also called difference subspaces,
+Let us now define a second set of subspaces $W^n$. These are the orthogonal complements of $V^n$ \cite{Alpert1993}, also called difference subspaces,
 defined as \cite{Beylkin:MRA, Sorland, Alpert1993}.
 \begin{equation}
-  W_n \oplus V_n = V_{n + 1} \label{eq:diffsubspace}
+  W^n \oplus V^n = V^{n + 1} \label{eq:diffsubspace}
 \end{equation}
-The subspaces $W_n$ are then spanned by a set of functions defined by the translations and
+The subspaces $W^n$ are then spanned by a set of functions defined by the translations and
 dilations of $\psi(x)$:
 \begin{equation}
   \psi_k^j(x) = 2^{\frac{j}{2}}\psi(2^jx - k),\  j,k \in \mathbb{Z} \label{eq:haarwavelet}
@@ -87,11 +86,11 @@ And $ \varphi$ is related to $\psi$ by the following two-scale difference relati
 The functions $\varphi^j_k$ and $\psi^j_k$ are orthonormal
 and dense \cite{Beylkin:MRA, Sorland, SRJensen:2014} in $L^2(\Real)$.
 
-The Definition on Equation \ref{eq:diffsubspace} can be applied recursivelly in order to
-get any space $V_n$ as long as one knows the first subspace $V_0$ and one has a method for constructing the
-subspace $W_m$ from $V_0$ and $W_{m-1}$.
+The Definition on Equation \ref{eq:diffsubspace} can be applied recursively in order to
+get any space $V^n$ as long as one knows the first subspace $V^0$ and one has a method for constructing the
+subspace $W^m$ from $V^0$ and $W^{m-1}$.
 \begin{equation}
-    V_0 \oplus W_0 \oplus W_1 \oplus ... \oplus W_{n-1}  = V_n \label{eq:recursivespace}
+    V^0 \oplus W^0 \oplus W^1 \oplus ... \oplus W^{n-1}  = V^n \label{eq:recursivespace}
 \end{equation}
 
 Projecting a function $f(x)$ unto this basis would be then a weighted linear combination
@@ -100,7 +99,7 @@ at \cite{Sorland}.
 \begin{equation}\label{eq:projectftohaar}
   f(x)\approx \sum^{2^j -1}_k s^j_k\varphi^j_k = s^0_0\varphi^0_0 + \sum^{N - 1}_j\sum^{2^j -1}_k d^j_k\psi^j_k
 \end{equation}
-where $d$ are the difference coefficients and $s$ are the scaled averages of dyadilic intervals of the function $f(x)$
+where $d$ are the difference coefficients and $s$ are the scaled averages of dyadic intervals of the function $f(x)$
 
 The scaling coefficients $s^j_k$ are computed by the projection $\braket{\varphi^j_k(x)|f(x)}$.
 Likewise the difference coefficients $d^j_k(x)$ are computed by the projection \newline$\braket{\psi^j_k(x)|f(x)}$.
@@ -172,10 +171,10 @@ following figures.
 %weakness of wavelet that might be fixed with multiwavelet
 \subsection{Constructing the basis functions in one dimension}
 Following the same basics as in the Haar basis from the previous section we can
-define a hierarchical set of multiresolution spaces $V_j^l$ where \cite{Frediani:2013}:
+define a hierarchical set of multi-resolution spaces $V^j_l$ where \cite{Frediani:2013}:
 \begin{align}
   \begin{split}
-    V_j^l \stackrel{\text{def}}{=} \{&f: \text{all polynomials of degree} \leqslant
+    V^j_l \defeq \{&f: \text{all polynomials of degree} \leqslant
     l\  \\
     &\text{on}\  (2^{-j}k,2^{-j}(k+1))\ \text{for}\ 0\leqslant k < 2^{n},\\
     &f\  \text{vanishes elsewhere}\}
@@ -183,35 +182,41 @@ define a hierarchical set of multiresolution spaces $V_j^l$ where \cite{Frediani
 \end{align}
 and
 \begin{equation}
-  V_0^l \subset V_1^l \subset ... \subset V^l_j \subset ... \subset L^2(\Real)
+  V^0_l \subset V^1_l \subset ... \subset V_l^j \subset ... \subset L^2(\Real)
 \end{equation}
 
-We again define subspaces $W_j^l$ as the orthogonal complements of $V^l_j$
+We again define subspaces $W^^l$ as the orthogonal complements of $V^l_j$
 \cite{Alpert1993} defined as:
 \begin{equation}
-  V^l_j \oplus W_j^l = V^l_{j+1}
+  V_l^j \oplus W^j_l = V_l^{j+1}
 \end{equation}
  with orthogonal basis functions  $\psi^j_{lk}$ which are translations and dilations of functions $\psi_i$:
  \begin{equation}
    \psi^j_{ik}(x) = 2^\frac{j}{2}\psi_i(2^jx-k), \ i=1, ...,l;\ k \in \mathbb{Z}\label{eq:mwbasisfuncs}
  \end{equation}
  The functions $\psi_1, ...,\psi_l$ are piecewise polynomial, orthogonal to lower order polynomials and
- vanish outside $[0,1]$ \cite{Alpert1993}
+ vanish outside $[0,1]$ and their subscripts denote the polynomial order \cite{Alpert1993}
 \begin{align}
   \int_0^1\psi_i(x)x^m \text{d}x = 0,\ m = 0, 1, ..., l-1
 \end{align}
-
-Our aim is to find a set of functions $f_i$ on the interval $[-1,1]$ that can
-be used in the construction of $\psi_1, ...,\psi_l$ with the following restrictions
+We now have defined certain characteristics for these scaling functions $\psi_i(x)$,
+what remains is to construct appropriate functions that fit these parameters.
+We introduce a set generic functions $f_i$ that will be used as starting points
+to construct the scaling functions $\psi_1, ...,\psi_l$. The following restrictions must be
+fulfilled in the definition of the trial functions $f_i$ so that they can be
+used to construct $\psi_1, ...,\psi_l$.
 \cite{Alpert1993, Beylkin:MRA}:
 \begin{enumerate}
   \item functions $f_i$ on the interval $(0,1)$ are polynomials of degree $l-1.$
   \item functions $f_i$ extend to the interval $(-1, 0)$ as even or odd functions
-  dependendent to the parity $i + l - 1$.
-  \item functions $f_1,...,f_l$ satisfy : $$\int_{-1}^1f_i(x)f_j(x)\text{d}x \equiv \braket{f_j| f_j} = \delta_{ij}, \ i, i = 1, ..., l.$$
-  \item functions $f_j$ have vanishing moments, $$\int_{-1}^1f_j(x)x^i\text{d}x = 0, \ i = 0, 1, ..., j+l-2.$$
+  dependent to the parity $i + l - 1$.
+  \item functions $f_1,...,f_l$ are orthonormal with respect to each other $\braket{f_i| f_j} = \delta_{ij}, \ i, i = 1, ..., l.$
+  \item functions $f_j$ have vanishing moments, $$\int_{-1}^1f_j(x)x^i\text{d}x = 0, \ i = 0, 1, ..., j+l-2.$$ Which means that they
+  are orthogonal to lower order polynomials, such that they do not have overlap.
 \end{enumerate}
-The functions $f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ are defined by \cite{Alpert1993}:
+The functions $f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ (where the superscript
+$(1)$ refer to the step in the construction)
+must fulfill \cite{Alpert1993}:
 \begin{equation}
   f^1_j(x) =
   \begin{cases}
@@ -222,7 +227,7 @@ The functions $f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ are defined by \cite{Alpert
 \end{equation}
 
 The $2l$ functions $1, x,..., x^{l-1} $ and $ f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ are linearly
-independent, thus they span the space of polynomial functions of
+independent by construction, thus they span the space of polynomial functions of
 degree $< l$ on the intervals $(0, 1)$ and $(-1, 0)$ \cite{Alpert1993, Beylkin:MRA}. We do the
 following process to find the functions $f_i$ \cite{Alpert1993}:
 \begin{enumerate}
@@ -241,20 +246,20 @@ following process to find the functions $f_i$ \cite{Alpert1993}:
 
 We now construct the functions $h_l$ \cite{Alpert1993}:
 \begin{equation}
-  h_i(x)= \sqrt{2}f_i(2x-1), \ i= 1, ..., l
+  \psi_i(x)= \sqrt{2}f_i(2x-1), \ i= 1, ..., l
 \end{equation}
 which they themselves build the functions in Equation \ref{eq:mwbasisfuncs}
-defining a basis for scaling subspace $W_j^l$.
+defining a basis for scaling subspace $W^^l$.
 
 From the definition of these subspaces
-we know that we need to define a basis for the subspace $V^l_0$ which is the
-orthogonal complement of $W_0^l$ in $V^l_1$ \cite{Alpert1993}. The basis functions
-$u_i(x)$ of the subspace $V^l_0$ can be defined using the following two-scale
+we know that we need to define a basis for the subspace $V_l^0$ which is the
+orthogonal complement of $W^0_l$ in $V_l^1$ \cite{Alpert1993}. The basis functions
+$\phi_i(x)$ of the subspace $V_l^0$ can be defined using the following two-scale
 difference equations \cite{Beylkin1999AdaptiveSO}, which are analogous to the
 two-scale difference equations in \ref{eq:2scalewavelet}.
 \begin{align}
-  h_i(x) &= \sqrt{2}\sum^{l-1}_{j=0}\left(\bar{H}^{(0)}_{ij}h_j(2x) + \bar{H}^{(1)}_{ij}h_j(2x-1)\right), \ i = 0,...,l-1 \\
-  u_i(x) &= \sqrt{2}\sum^{l-1}_{j=0}\left(\bar{G}^{(0)}_{ij}h_j(2x) + \bar{G}^{(1)}_{ij}h_j(2x-1)\right), \ i = 0,...,l-1
+  \psi_i(x) &= \sqrt{2}\sum^{l-1}_{j=0}\left(\bar{H}^{(0)}_{ij}\psi_j(2x) + \bar{H}^{(1)}_{ij}\psi_j(2x-1)\right), \ i = 0,...,l-1 \\
+  \phi_i(x) &= \sqrt{2}\sum^{l-1}_{j=0}\left(\bar{G}^{(0)}_{ij}\psi_j(2x) + \bar{G}^{(1)}_{ij}\psi_j(2x-1)\right), \ i = 0,...,l-1
 \end{align}
 Where $ \bar{H} \ \text{and}\ \bar{G} $ are quadrature mirror filter matrices \cite{Beylkin1999AdaptiveSO} which have
 the following properties:
@@ -274,8 +279,8 @@ Which can be summarized in the orthogonal block matrix $\bar{U}$ \cite{Beylkin19
 Which lets us put the two two-scale difference equations in the following way \cite{Sorland}
 \begin{equation}
   \begin{pmatrix}
-    \vec{h}(x) \\
-    \vec{u}(x)
+    \vec{\psi}(x) \\
+    \vec{\phi}(x)
   \end{pmatrix}
   = \sqrt{2}
   \begin{pmatrix}
@@ -283,15 +288,15 @@ Which lets us put the two two-scale difference equations in the following way \c
     \bar{G}^{(0)} & \bar{G}^{(1)}
   \end{pmatrix}
   \begin{pmatrix}
-    \vec{h}(2x) \\
-    \vec{h}(2x-1)
+    \vec{\psi}(2x) \\
+    \vec{\psi}(2x-1)
   \end{pmatrix}
 \end{equation}
 and subsequently
 \begin{equation}
   \begin{pmatrix}
-    \vec{h}(2x) \\
-    \vec{h}(2x-1)
+    \vec{\psi}(2x) \\
+    \vec{\psi}(2x-1)
   \end{pmatrix}
   = \frac{1}{\sqrt{2}}
   \begin{pmatrix}
@@ -299,15 +304,17 @@ and subsequently
     \bar{H}^{(1)} & \bar{G}^{(1)}
   \end{pmatrix}
   \begin{pmatrix}
-    \vec{h}(x) \\
-    \vec{u}(x)
+    \vec{\psi}(x) \\
+    \vec{\phi}(x)
   \end{pmatrix}
 \end{equation}
+Where the function vectors $\vec{\phi}$ and $\vec{\psi}$ represent the set of
+all $l-1$ functions $\phi_i$ and $\psi_i$ of order $i = 1, 2, ..., l$ respectively.
 
 \subsection{Choices of Scaling functions }
 Now that we have stated how to build the scaling and wavelet basis functions
 we need to make a choice of functions $f$ to build said basis.
-Here we will breifly show two examples of polunomial functions used to create the
+Here we will briefly show two examples of polynomial functions used to create the
 basis. These two are the Legendre polynomials and the Lagrange interpolating
 polynomials \cite{Beylkin:MRA, Beylkin1999AdaptiveSO}
 \paragraph{Legendre basis}
@@ -326,9 +333,9 @@ since each incremental polynomial order only adds a single term to the function.
 
 \paragraph{Lagrange interpolating basis}
   \begin{align}
-    \varphi &= \frac{1}{\sqrt{w_i}}l_i(x), \ i = 0, ..., M-1\\
+    \varphi_i &= \frac{1}{\sqrt{w_i}}l_i(x), \ i = 0, ..., M-1\\
     l_i(x) &= \prod^{M-1}_{k = 0, k\neq i} \frac{x-x_k}{x_i-x_k} \\
-    w_i &= \frac{1}{MP^\prime_M(2x_i-1)P_{M-1}(2x_i-1)}
+    w_i &= \frac{1}{M\hat{P}^\prime_M(2x_i-1)P_{M-1}(2x_i-1)}
   \end{align}
 Where $M$ is the scale of the subspace, the $P$ functions are the Legendre polynomials and
 $x_0, ..., x_{M-1}$ are the roots of $P_M(2x-1)$ \cite{Beylkin:MRA}.
@@ -339,57 +346,128 @@ Going from one dimension to $d$ dimensions is to use a tensor product method as 
 \cite{Frediani:2013}.
 \section{Operators}
 \subsection{\ac{NS} form Representation of Operators}
-Lets us define two projection operators $P^k_n \ \text{and}\ Q^k_n $  and their relation as:
+Lets us define two projection operators $\hat{P}^k_n \ \text{and}\ \hat{Q}^k_n $  and their relation as:
 \begin{align}
-  P^k_n &: \ L^2([0, 1]) \to V^k_n \\
-  Q^k_n &:\  L^2([0, 1]) \to W^k_n \\
-  Q^k_n &= P^k_{n+1} - P^k_n
+  \hat{P}^n &: \ L^2([0, 1]) \to V^n \\
+  \hat{Q}^n &:\  L^2([0, 1]) \to W^n \\
+  \hat{P}^{n+1} &= \hat{P}^n + \hat{Q}^n\\
+  \hat{P}^n &= \hat{P}^0 + \hat{Q}^0 + \hat{Q}^1 + ...  \hat{Q}^{n-1}\label{eq:iterprojection}
 \end{align}
-%maybe scrap
-A function $f$ would then be projected into a scale $n$ by $ f^k_n = P^k_n f $.
-Its projection unto a more refined scale would then be $ f_{n+1}^k = f^k_n + df^l_n$
-where $df^k_n = Q^k_nf$ \cite{Frediani:2013}.
-%maybe scrap
-We expand a linear operator $T:\ L^2([0, 1]) \to L^2([0, 1])$ as
-\begin{align}
-  \begin{split}
-    T &= P^k_0TP^k_0 + \sum^\infty_{n=0}\left( P^k_{n+1}TP^k_{n+1} - P^k_nTP^k_n\right)\\
-      &=  P^k_0TP^k_0 + \sum^\infty_{n=0}\left(\left(P^k_{n}+Q^k_{n})T(P^k_{n}+Q^k_{n}\right) - P^k_nTP^k_n\right)\\
-      &= P^k_0TP^k_0 + \sum^\infty_{n=0}\left(P^k_nTQ^k_n + Q^k_nTP^k_n + Q^k_nTQ^k_n\right)
-  \end{split}
-\end{align}
-We represent the operator $T$ as
-\begin{align}
-  A^k_n & \stackrel{\text{def}}{=}Q^k_nTQ^k_n: W_n^k \to W_n^k\\
-  B^k_n & \stackrel{\text{def}}{=}Q^k_nTP^k_n: V_n^k \to W_n^k\\
-  C^k_n & \stackrel{\text{def}}{=}P^k_nTQ^k_n: W_n^k \to V_n^k\\
-  T^k_n & \stackrel{\text{def}}{=}P^k_0TP^k_0: V_n^k \to V_n^k
-\end{align}
-so we can write the \ac{NS} form of the operator $T$ as \cite{Frediani:2013, Beylkin1999AdaptiveSO}
+
+A function $f$ would then be projected into a scale $n$ by applying the
+operators as \cite{Frediani:2013}
 \begin{equation}
-  T = T^k_0 + \sum^\infty_{n=0}\left( A^k_n + B^k_n + C^k_n\right)
+   f^{(n)} = \hat{P}^n f
 \end{equation}
-We can then apply $T$ on $f$ and get, by using the definitions above, the following
-result:
-\begin{align}
+Its projection unto a more refined scale would then be \cite{Frediani:2013}
+\begin{align}\label{eq:refinef}
   \begin{split}
-    Tf = g &= \hat{g}^k_0 + \sum^\infty_{n=0}\left(\tilde{g}^k_n + d\tilde{g}^k_n\right)\\
-       &= T^k_0f^k_0 +  \sum^\infty_{n=0}\left(\left(A_n^k + C_n^k)df^k_n + B^k_nf^k_n\right)\right)\\
-       \hat{g}^k_n &\stackrel{\text{def}}{=} T^k_nf = T^k_nf^k_n\\
-       \tilde{g}^k_n &\stackrel{\text{def}}{=} C^k_nf = C^k_nf^k_n\\
-       d\tilde{g}^k_n &\stackrel{\text{def}}{=}\left(A^k_n + B^k_n\right)f = A^k_nf^k_n + B^k_nf^k_n
+    f^ {(n+1)} = f^{(n)} + df^{(n)}\\
+    df^{(n)} = \hat{Q}^nf
   \end{split}
-\end{align}
-In practice we truncate this to the fines scale $N+1$ where the following is assumed to be true \cite{Frediani:2013}:
+\end{align}.
+Following Equation \ref{eq:iterprojection} we can expand the equation above to
 \begin{equation}
-  \hat{g}^k_{N+1} \simeq g^k_{N+1} \stackrel{\text{def}}{=} (Tf)^k_{N+1}
+  f^{(N)} = f^{(0)} + df^{(0)} + df^{(1)} + ... + df^{(N-1)}
+\end{equation}
+Which, for a given refinement level $N$, is a good approximation of $f$.
+\begin{equation}
+  f \approx f^{(N)}
 \end{equation}
 
-Assuming that the operator is separable as a tensor product, one can define it in
-$d$ dimensions in much the same way as with the scaling functions with tensor products
-across the dimensions $d$. In \cite{Frediani:2013} the kernel of the tensor operator is
-described as a linear combination of one dimensional kernels, thus simplifying the
-problem from $k^d$ vector elements to just $k$ vector elements.
+The representation of a linear operator $\hat{T}$ onto a scale $n$ is
+\begin{equation}
+  \hat{T}^n = \hat{P}^n\hat{T}\hat{P}^n
+\end{equation}
+and unto a more refined scale as
+\begin{align}\label{eq:refiningT}
+  \begin{split}
+    \hat{T}^{n+1} &= \hat{P}^{n+1}\hat{T}\hat{P}^{n+1}\\
+    \hat{T}^{n+1} &= (\hat{P}^n + \hat{Q}^n)\hat{T}(\hat{P}^n + \hat{Q}^n)\\
+    \hat{T}^{n+1} &= \hat{P}^n\hat{T}\hat{P}^n + \hat{P}^n\hat{T}\hat{Q}^n + \hat{Q}^n\hat{T}\hat{P}^n + \hat{Q}^n\hat{T}\hat{Q}^n
+  \end{split}
+\end{align}
+We define a set of 3 operators which will help us describe the more refined operator
+$\hat{T}$.
+\begin{align}
+  \hat{A}^n & \defeq\hat{Q}^n\hat{T}\hat{Q}^n: W^n \to W^n\\
+  \hat{B}^n & \defeq\hat{Q}^n\hat{T}\hat{P}^n: V^n \to W^n\\
+  \hat{C}^n & \defeq\hat{P}^n\hat{T}\hat{Q}^n: W^n \to V^n
+\end{align}
+So we can rewrite the last term in Equation \ref{eq:refiningT} as
+\begin{equation}\label{eq:refineT}
+  \hat{T}^{n+1} =\hat{A}^n + \hat{B}^n + \hat{C}^n + \hat{T}^n
+\end{equation}
+Repeating this iteratively we get:
+\begin{equation}
+  T^N = T^0 + \sum^N_{n=0}\left( \hat{A}^n + \hat{B}^n + \hat{C}^n\right)
+\end{equation}
+Which we can say, given a refinement level $N$ is a good approximation of $T$
+\begin{equation}
+  T \approx T^N
+\end{equation}
+
+Let us now define a function $g = \hat{T}f$ which is the resulting function from applying the
+unprojected operator $\hat{T}$ unto the unprojected $f$. We want to represent this
+operation in the \ac{MW} basis as
+\begin{equation}
+  g^{(n)} = \hat{P}^ng =  \hat{P}^n\left(\hat{T}f\right)
+\end{equation}
+but we do not know how $g$ looks like. We have the projected function $f^{ (n)}$ and the
+representation of the operator $\hat{T}^n$. We do the following set of manipulations to
+define a new projected function $\tilde{g}^{(n)}$ \cite{Frediani:2013}:
+\begin{align}
+  \begin{split}\label{eq:definegtilde}
+    g^{(n)} = \hat{P}^ng &=  \hat{P}^n\left(\hat{T}f\right)\\
+     &= \hat{P}^n\hat{T}\left(\hat{P}^n + 1 - \hat{P}^n\right)f\\
+     &= \hat{P}^n\hat{T}\hat{P}^n\hat{P}^nf + \hat{P}^n\hat{T}\left(1 - \hat{P}^n\right)f\\
+     &=   \hat{T}^nf^{(n)} + \hat{P}^n\hat{T}\left(1 - \hat{P}^n\right)f\\
+    \tilde{g}^{(n)} &= \hat{T}^nf^{(n)}\\
+  \end{split}
+\end{align}
+Where we know $ \hat{T}^n$ and $f^{(n)}$ as defined above and we focus only in
+finding $\tilde{g}^{(n)}$. We substitute equations \ref{eq:refinef} and \ref{eq:refineT}
+into the last term of equation \ref{eq:definegtilde} to get
+\begin{align}
+  \tilde{g}^{(n)} =& \left(\hat{A}^{n-1} + \hat{B}^{n-1} + \hat{C}^{n-1} + \hat{T}^{n-1}\right)\left(f^{(n-1)} + df^{(n-1)}\right)\\
+  \tilde{g}^{(n)} =&  \bar{g}^{(n-1)} + d\bar{g}^{(n-1)}\\
+  \bar{g}^{(n-1)} =&\left(\hat{C}^{n-1} + \hat{T}^{n-1}\right)\left(f^{(n-1)} + df^{(n-1)}\right)\\
+  d\bar{g}^{(n-1)} =& \left(\hat{A}^{n-1} + \hat{B}^{n-1}\right)\left(f^{(n-1)} + df^{(n-1)}\right)
+\end{align}
+And
+\begin{align}
+  \begin{split}
+    \hat{C}^{n-1}f^{(n-1)} \approx 0 \ ;& \ \hat{T}^{n-1}df^{(n-1)}\approx 0\\
+    \bar{g}^{(n-1)} \defeq& \hat{g}^{(n-1)} + \tilde{g}^{(n-1)}\\
+    \hat{g}^{(n-1)} =& \hat{C}^{n-1}df^{(n-1)}\\
+    \tilde{g}^{(n-1)} =& \hat{T}^{n-1}f^{(n-1)}
+  \end{split}
+\end{align}
+We find $\bar{g}^{(0)}$ as
+\begin{equation}
+  \bar{g}^{(0)} =  \tilde{g}^{(0)} + \hat{g}^{(0)} = \hat{T}^{0}f^{(0)} + \hat{C}^{0}df^{(0)}
+\end{equation}
+and iteratively find $\tilde{g}^{(n)}$ as \cite{Frediani:2013}
+\begin{align}
+  \begin{split}
+    \tilde{g}^{(0)} &= \hat{T}^{0}f^{(0)} \\
+    \tilde{g}^{(1)} &= \bar{g}^{(0)} + d\bar{g}^{(0)} \\
+    &= \tilde{g}^{(0)} + \hat{g}^{(0)} + d\bar{g}^{(0)}\\
+    &= \hat{T}^{0}f^{(0)} + \hat{C}^{0}df^{(0)} + \left(\hat{A}^{0} + \hat{B}^{0}\right)\left(f^{(0)} + df^{(0)}\right)\\
+    \tilde{g}^{(2)} &= \bar{g}^{(1)} + d\bar{g}^{(1)}\\
+    &= \tilde{g}^{(1)} + \hat{g}^{(1)} + d\bar{g}^{(1)} \\
+    &= \bar{g}^{(0)} + d\bar{g}^{(0)} + \hat{g}^{(1)} + d\bar{g}^{(1)}\\
+    &= \tilde{g}^{(0)} + \hat{g}^{(0)} + d\bar{g}^{(0)} + \hat{g}^{(1)} + d\bar{g}^{(1)}\\
+    &\vdots\\
+    \tilde{g}^{(N)} &= \hat{T}^{0}f^{(0)} + \sum^N_{n=0}\hat{C}^{n}df^{(n)} + \left(\hat{A}^{n} + \hat{B}^{n}\right)\left(f^{(n)}
+    + df^{(n)}\right)
+  \end{split}
+\end{align}
+And we assume that for a given refinement level $N$ we have a good approximation of
+$g$.
+\begin{equation}
+  \tilde{g}^{(N)} \approx g^{N} = (\hat{T}f)^N
+\end{equation}
 \subsection{Examples of Operators}
 \subsubsection{Derivative operator}
 
@@ -399,6 +477,10 @@ problem from $k^d$ vector elements to just $k$ vector elements.
 \hat{\mathscr{P}}(r)=\int \frac{1}{4 \pi\left\|r-r^{\prime}\right\|} f\left(r^{\prime}\right)
 d r^{\prime}
 \end{equation}
+
+\section{Other Basis Sets}
+\subsection{\ac{STO}}
+\subsection{\ac{GTO}}
 
 \input{acronyms.tex}
 \biblio
