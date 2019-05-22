@@ -150,7 +150,7 @@ subspace $W^m$ from $V^0$ and $W^{m-1}$.
     V^0 \oplus W^0 \oplus W^1 \oplus ... \oplus W^{n-1}  = V^n \label{eq:recursivespace}
 \end{equation}
 
-Projecting a function $f(x)$ unto this basis would be then a weighted linear combination
+Projecting a function $f(x)$ onto this basis would be then a weighted linear combination
 of the Haar functions, but taking into account the definition on Equation \ref{eq:recursivespace} one arrives
 at \cite{Sorland}.
 \begin{equation}\label{eq:projectftohaar}
@@ -160,7 +160,7 @@ where $d$ are the difference coefficients and $s$ are the scaled averages of dya
 
 The scaling coefficients $s^j_k$ are computed by the projection $\braket{\varphi^j_k(x)|f(x)}$.
 Likewise the difference coefficients $d^j_k(x)$ are computed by the projection \newline$\braket{\psi^j_k(x)|f(x)}$.
-Because of the way the Haar function is defined, we can define of the scaling coefficients as
+Because of the way the Haar function is defined, we can define  the scaling coefficients as
 scaled averages of $f(x)$ at intervals $2^{-j}$ \cite{Sorland, Beylkin:MRA}
 \begin{equation}
   s^j_k = \int_{\Real}\varphi^j_k(x)f(x)\text{d}x = \int^{2^{-j}(k + 1)}_{2^{-j}k} f(x) \text{d}x\label{eq:scalecoeff1}
@@ -185,7 +185,7 @@ We can then obtain the difference coefficients by using Equations \ref{eq:scalec
 \end{align}
 
 The result of Equations \ref{eq:diffcoeffint} and \ref{eq:scalecoeffint} show us
-that we can represent the projection of coefficients unto a coarser scale as an
+that we can represent the projection of coefficients onto a coarser scale as an
 orthogonal matrix \cite{Sorland, Beylkin:MRA}:
 \begin{equation}
   \begin{pmatrix}
@@ -256,62 +256,8 @@ We again define subspaces $W^^l$ as the orthogonal complements of $V^l_j$
 \begin{align}
   \int_0^1\psi_i(x)x^m \text{d}x = 0,\ m = 0, 1, ..., l-1
 \end{align}
-We now have defined certain characteristics for these scaling functions $\psi_i(x)$,
-what remains is to construct appropriate functions that fit these parameters.
-We introduce a set generic functions $f_i$ that will be used as starting points
-to construct the scaling functions $\psi_1, ...,\psi_l$. The following restrictions must be
-fulfilled in the definition of the trial functions $f_i$ so that they can be
-used to construct $\psi_1, ...,\psi_l$.
-\cite{Alpert1993, Beylkin:MRA}:
-\begin{enumerate}
-  \item functions $f_i$ on the interval $(0,1)$ are polynomials of degree $l-1.$
-  \item functions $f_i$ extend to the interval $(-1, 0)$ as even or odd functions
-  dependent to the parity $i + l - 1$.
-  \item functions $f_1,...,f_l$ are orthonormal with respect to each other $\braket{f_i| f_j} = \delta_{ij}, \ i, i = 1, ..., l.$
-  \item functions $f_j$ have vanishing moments, $$\int_{-1}^1f_j(x)x^i\text{d}x = 0, \ i = 0, 1, ..., j+l-2.$$ Which means that they
-  are orthogonal to lower order polynomials, such that they do not have overlap.
-\end{enumerate}
-The functions $f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ (where the superscript
-$(1)$ refer to the step in the construction)
-must fulfill \cite{Alpert1993}:
-\begin{equation}
-  f^1_j(x) =
-  \begin{cases}
-  x^{j-1} & \text{for} \ x\in (0,1)\\
-  -x^{j-1} & \text{for}\ x\in (-1, 0)\\
-  0 & \text{elsewhere}.
-\end{cases}
-\end{equation}
 
-The $2l$ functions $1, x,..., x^{l-1} $ and $ f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ are linearly
-independent by construction, thus they span the space of polynomial functions of
-degree $< l$ on the intervals $(0, 1)$ and $(-1, 0)$ \cite{Alpert1993, Beylkin:MRA}. We do the
-following process to find the functions $f_i$ \cite{Alpert1993}:
-\begin{enumerate}
-  \item Using the Gram-Schmidt process we orthogonalize $f^{(1)}_j$ with respect to $1, x,..., x^{l-1}$
-  giving us the functions $f_j^{(2)}$ for $j = 1, ..., l$.
-  \item  We try to find at least one $f^{(2)}_j$
-  which is not orthogonal to $x^{l}$ and reorder the functions so that $\braket{f_1^{(2)}| x^{l}} \neq 0$.
-  We now need to find an $a_j$ for the equation $f_j^{(3)} = f_j^{(2)}-a_j\cdot f_0^{(2)}$ such that
-  $\braket{f_j^{(3)}| x^{l}} = 0\  \text{for}\  l = 2, ..., l$. We repeat this process orthogonalizing
-  to $x^{k+1}, ..., x^{2k-2}$, each turn yielding $f_1^{(2)}, f_2^{(3)}, f_3^{(4)}, ..., f_k^{(k+1)}$ such that
-  $\braket{f_j^{(j+1)}|x^i} = 0 \ \text{for}\  i\leqslant j+l-2$.
-  \item  Lastly we perform the Gram-Schmidt orthogonalization process on
-  $f_{l}^{l+1}, \\f_{l-1}^{l}, f_{l-2}^{l-1}, ..., f_{2}^{1}$ in that order to get
-  $ f_l, f_{l-1}, ..., f_1$.
-\end{enumerate}
-
-We now construct the functions $h_l$ \cite{Alpert1993}:
-\begin{equation}
-  \psi_i(x)= \sqrt{2}f_i(2x-1), \ i= 1, ..., l
-\end{equation}
-which they themselves build the functions in Equation \ref{eq:mwbasisfuncs}
-defining a basis for scaling subspace $W^^l$.
-
-From the definition of these subspaces
-we know that we need to define a basis for the subspace $V_l^0$ which is the
-orthogonal complement of $W^0_l$ in $V_l^1$ \cite{Alpert1993}. The basis functions
-$\phi_i(x)$ of the subspace $V_l^0$ can be defined using the following two-scale
+ The basis functions $\phi_i(x)$ of the subspace $V_l^0$ can be defined using the following two-scale
 difference equations \cite{Beylkin1999AdaptiveSO}, which are analogous to the
 two-scale difference equations in \ref{eq:2scalewavelet}.
 \begin{align}
@@ -418,7 +364,7 @@ operators as \cite{Frediani:2013}
 \begin{equation}
    f^{(n)} = \hat{P}^n f
 \end{equation}
-Its projection unto a more refined scale would then be \cite{Frediani:2013}
+Its projection onto a more refined scale would then be \cite{Frediani:2013}
 \begin{align}\label{eq:refinef}
   \begin{split}
     f^ {(n+1)} = f^{(n)} + df^{(n)}\\
@@ -438,7 +384,7 @@ The representation of a linear operator $\hat{T}$ onto a scale $n$ is
 \begin{equation}\label{eq:PTP}
   \hat{T}^n = \hat{P}^n\hat{T}\hat{P}^n
 \end{equation}
-and unto a more refined scale as
+and onto a more refined scale as
 \begin{align}\label{eq:refiningT}
   \begin{split}
     \hat{T}^{n+1} &= \hat{P}^{n+1}\hat{T}\hat{P}^{n+1}\\
@@ -467,7 +413,7 @@ Which we can say, given a refinement level $N$ is a good approximation of $T$
 \end{equation}
 
 Let us now define a function $g = \hat{T}f$ which is the resulting function from applying the
-unprojected operator $\hat{T}$ unto the unprojected $f$. We want to represent this
+unprojected operator $\hat{T}$ onto the unprojected $f$. We want to represent this
 operation in the \ac{MW} basis as
 \begin{equation}
   g^{(n)} = \hat{P}^ng =  \hat{P}^n\left(\hat{T}f\right)
@@ -533,7 +479,7 @@ the four operators as shown in \cite{Frediani:2013}.
 \subsection{Examples of Operators}
 \subsubsection{Derivative operator}
 We let $\hat{T}$ represent a derivative operator$\diff{x}$ and  $\hat{T}^n_{l}$
-represent its projection unto scale $n$ with order $l$ as defined as in Equation
+represent its projection onto scale $n$ with order $l$ as defined as in Equation
 \ref{eq:PTP}. For a function $f$ for which we want to apply the operator on we
 define the expansions for $\hat{P}^n_l$ and $\hat{T}^n_{l}$ \cite{Beylkin1999AdaptiveSO}
 \begin{equation}

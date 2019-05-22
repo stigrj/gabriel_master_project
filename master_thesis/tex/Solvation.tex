@@ -52,7 +52,7 @@ represents the coordinates of the electrons, $\vec{Q}_{\alpha}$ represents the
 coordinates of the nuclei and $\rvec$ is a vector variable describing a point
 in three dimensions.
 
-There are four main properties affected by solvent effect which one might be
+There are four main interactions affected by solvent effect which one might be
 interested in solving. These are Electrostatic interactions, cavitation,
 changes in dispersion and changes in bulk solvent structure \cite{Cramer:2004}.
 In this thesis we work mostly with the electrostatics interactions of the
@@ -79,7 +79,7 @@ would have 7 molecules, 19 nucleus and 62 electrons to optimize over. Using the
 \ac{BO} approximation and \ac{DFT} we could solve the electronic part of the
 problem in only three dimensions, but we would still need to work with
 $19\cdot3d$ dimensions for the geometry of the nuclei. Even if we did do this
-optimization and calculated the different properties of this system, we would
+optimization and calculated the different interactions of this system, we would
 find out that this approximation is very far from the truth.
 
 If we look at the system we can see that this set of 7 molecules is suspended in
@@ -124,7 +124,7 @@ the interaction of $A$ and $S$.
 \section{Explicit solvation models}
 
 The explicit method is necessary when the solvent molecules' geometry and states
-are important to the measurement of the properties of the substrate
+are important to the measurement of the interactions of the substrate
 \cite{Cramer:2004}.
 One way to simplify the problem is to partition the system into two parts, the
 solvent, modeled using molecular mechanics (MM) and the solute, modeled using
@@ -137,12 +137,9 @@ can be described as a sum of bonding and non-bonding contributions
 divided into bending, stretching and torsion of the bonds. Both the bending
 and the stretching of the bonds can be described with the Harmonic Oscillator
 (HO) and the torsion with a periodic function \cite{Mennucci:2018}. The
-non-bonding interactions can be described with Coulombs law with the atoms as
-point charges. More information on this can be read on \cite{Cramer:2004,
-Jensen:2017}.
-
-The Reaction Field is calculated explicitly using Coulomb potentials to describe
-the field?
+non-bonding interactions can be described with Coulombs law, or other equvalent
+expressions of potentials, with the atoms as point charges. More information on
+this can be read on \cite{Cramer:2004, Jensen:2017}.
 
 \section{Implicit solvation models}
 Most implicit models describe the solvent $S$ as a Linear isotropic continuum
@@ -178,7 +175,10 @@ electrostatic potential equation
 \end{equation}
 Where $U(\rvec)$ is the electrostatic potential of the interaction between
 the solute and the solvent. If $\epsilon$ is a constant we can move it outside
-of the gradient operation and solve only for the potential.
+of the gradient operation and solve the Poisson equation with an effective $\rho$
+\begin{equation}
+  \nabla^2U(\rvec)=\frac{-4\pi}{\epsilon}\rho_{tot}
+\end{equation}
 
 \subsection{Cavity}\label{Cavitytitle}
 All continuum models make use of a cavity in which the solute $A$ resides
@@ -191,7 +191,7 @@ escaped charge \cite{Tomasi:2005ipa}.
 
 The size of the cavity is critical to the calculated results of the model, if
 the cavity is too big the solvation effects are dampened, if it is too small
-various errors may arise in the computation of the properties to be studied
+various errors may arise in the computation of the interactions to be studied
 \cite{Tomasi:1994wt}. It is accepted that the cavity shape should closely
 resemble the shape of the molecule itself \cite{Tomasi:2005ipa}. There are two
 main ways of defining the shape and size of the cavity. These are (1) regular
@@ -239,7 +239,13 @@ sphere surface to trace a new surface. The inwards facing face of the probe trac
 which the solvent cannot access. This surface is called the Solvent Excluded
 Surface (SES) \cite{Tomasi:2005ipa, Mennucci:2018}.  One can think of this as
 smoothing so as to not get polarization in areas around the molecule which should
-not be accessible for the solvent.
+not be accessible for the solvent. Both SAS and SES are shown in the following
+figure \ref{fig:SASSEShomemade}
+\begin{figure}[ht]
+  \includegraphics[width=\linewidth]{img/SASSES.png}
+  \caption{SAS and SES surfaces}
+  \label{fig:SASSEShomemade}
+\end{figure}
 
 \paragraph{Isodensity surfaces}
 A third type of surface is one defined by a certain value of the charge density.
@@ -294,7 +300,7 @@ $U_{vac}$ and the reaction field potential $U_r$\cite{Sorland, FossoTande:2013ka
   U(\rvec) = U_{vac}(\rvec) + U_r(\rvec)
 \end{equation}
 
-\subsection{Approaches to a solution}
+\subsection{Approaches to a solution}\label{approchessolv}
 \subsubsection{ \ac{ASC}}
 In this family of solutions we look at the classical electrostatics description
 of the problem. we do this by defining an apparent charge distribution

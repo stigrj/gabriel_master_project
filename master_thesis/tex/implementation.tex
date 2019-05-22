@@ -9,7 +9,7 @@ Fosso-Tande and Harrison described in \cite{FossoTande:2013ka} a \ac{GPE} that
 included a dielectric function which was analytical through the cavity boundary.
 This model was explained with more detail in chapter \ref{Solvent_effect} and
 it will not be explained again, here we will show how it was implemented on
-MRchem.
+\mrchem.
 \subsection{Cavity Function}
 The first step was to create a cavity function as in \cite{FossoTande:2013ka}.
 This was done by creating a cavity object that stored the coordinates of nuclei
@@ -43,7 +43,7 @@ boundary $\sigma$. The structure of the cavity object is as in Algorithm \ref{al
   \end{algorithmic}
 \end{algorithm}
 This Object was implemented as a derived class of \verb!RepresentableFunction!,
-a C++ class in MRchem.
+a C++ class in \mrchem.
 \subsection{Dielectric Function}
 In Equations \ref{eq:dielfunclin} and \ref{eq:dielfuncexp} we defined both a
 linear $\epslin$ and exponential $\epsexp$ dielectric function. These were implemented as presented
@@ -51,7 +51,14 @@ in those two equations, with no changes to them, except for minor syntax related
 adjustments. Their $\log$ derivatives had to be implemented separately,
 this was done in order to have better convergence \cite{FossoTande:2013ka}. The
 $\log$ derivative of the exponential dielectric function is represented as the
-derivative of the Cavity multiplied by a constant.
+derivative of the Cavity multiplied by a constant. The cavity of Water as implemented
+above can be seen in Figure \ref{fig:watcav} as a slice through the $xz$ plane.
+
+\begin{figure}[ht]
+  \includegraphics[width=\linewidth]{img/Figure_1-1.png}
+  \caption{Interlocking spheres cavity slice for water}
+  \label{fig:watcav}
+\end{figure}
 
 \subsection{Effective volume charge distribution}
 When Running a \ac{SCF} calculation one calculates with electron densities in order
@@ -163,7 +170,29 @@ Algorithm \ref{alg:Reactionfield}.
   \end{algorithmic}
 \end{algorithm}
 The \ac{SCRF} can then be implemented by itself or in-between every normal
-\ac{SCF} cycle.
+\ac{SCF} cycle. The converged Reaction potential for water in a water solvent
+can be seen in Figure \ref{fig:watpots}.
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/Urpot5.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/Urpot2.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/Urpot3.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/Urpot4.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{\linewidth}
+    \includegraphics[width=\linewidth]{img/Urpot1.png}
+  \end{subfigure}
+  \caption{Reaction potential plotted for the xz plane}
+  \label{fig:watpots}
+\end{figure}
 
 \section{Variational implementation}
 The variational implementation is very similar to the iterational one described.
@@ -200,7 +229,7 @@ start the Optimizing of the potential with an already good guess.
 \section{Software used}
 The problem was first implemented in Vampyr %cite and get the right font
 which is a python %
-Then it was implemented in C++ using MRchem %cite and get the right font
+Then it was implemented in C++ using \mrchem %cite and get the right font
 Both implementations are identical, except for slight changes for
 performance improvement, such as a KAIN accelerator, %cite and correct font
 iterating through $U_r$ instead of $U_{tot}$ % more explanation on this in previous or this section
