@@ -16,6 +16,63 @@ sets of functions construct a basis for the space on which the wave functions
 are projected into. These sets are thus called basis sets \cite{Cramer:2004}
 and they are essential to solving many body systems. In this text we will be
 focusing in the \ac{MW} basis from \ac{MRA} methods.
+\section{Different types of  Basis Sets}
+We have mentioned constructing solutions of systems using basis sets represented as
+\ac{LCAO}, sums of basis functions multiplied with projection coefficients.
+In this section we discuss some basis sets used to solve quantum chemical systems.
+\subsection{Atom centered Basis sets}
+Some of the first basis sets to be developed were based on the assumption of
+centering the functions on the atom nucleus. These basis sets are called \ac{STO}
+and \ac{GTO}. The basis functions (orbitals) follow from the separation of variables
+used in solving for one electron atoms:
+\begin{equation}
+  \Psi(\rvec) = R(r)Y_{lm}(\theta, \phi).
+\end{equation}
+Where $R$ is the Radial part of the wave function and $Y$ is the angular part of
+the wave function.
+\subsubsection{\ac{STO}}
+These basis functions are constructed from the observation that the wave function
+should decay exponentially to zero when the distance from the nucleus extends
+to infinity. They are typically of the form \cite{Jensen:2017, ESQCB1P1}
+\begin{equation}
+  \chi^{STO}(\rvec) = P(r)e^{-\zeta r}Y_{lm}(\theta, \phi)
+\end{equation}
+Where $P$ is a polynomial representing the radial decay and $\zeta$ represents the
+how diffuse the function is. These functions are characterized for them having a cusp
+at the nucleus, which follows from the treatment of the nucleus as a point charge.
+This cusp makes computing integrals and derivatives a complex problem.
+
+\subsubsection{\ac{GTO}}
+\ac{GTO} are based on the same reasoning behind \ac{STO}, but instead of letting
+the exponential decay be to the rate of  $r$ we let it be to the rate of $r^2$,
+that is, we work with Gaussian functions \cite{ESQCB1P1}.
+They have the following
+forms, both polar coordinates:
+\begin{equation}
+  \chi^{GTO}(\rvec) = P(r)e^{-\alpha r^2}Y_{lm}(\theta, \phi)
+\end{equation}
+and Cartesian coordinates
+\begin{equation}
+\chi^{GTO}(\rvec) = (x - A_x)^k(y - A_y)^l(z - A_z)^me^{-\alpha(\rvec - \vec{A})^2}
+\end{equation}
+Where the vector $\vec{A}$ and its components represent the center of the atom.
+In this basis we remove the problem the \ac{STO} had of trying to evaluate the
+cusp of the function. The lack of a cusp also allows to treat the nucleus as
+more than a point charge. Another advantage is the fact that the functions are no
+longer constrained to a spherical coordinate system and can be evaluated on carteesian
+coordinates. They are also separable in the cartesian coordinate system as a product of
+one variable gaussians.
+
+On the other hand, the \ac{GTO} decay too fast in comparison to the \ac{STO},
+meaning that we have to make more considerations to the exponents and possibly have more
+functions per atom in order to find better solutions.
+\subsubsection{Contracted \ac{GTO}}
+In order to diminish the problem of the cusp in \ac{STO} one tries to represent the
+\ac{STO} as linear combinations of \ac{GTO}. THis way the decay is properly modeled and the
+cusp is no longer a difficult problem to solve. This has the obvious weakness of needing
+to compute more basis functions for a single orbital, which increases the cost of running
+the calculations \cite{Cramer:2004}. %did i misunderstand?
+\subsection{Plane wave basis Functions}
 
 \section{\ac{MRA}}
 \subsection{Definition}
@@ -93,7 +150,7 @@ subspace $W^m$ from $V^0$ and $W^{m-1}$.
     V^0 \oplus W^0 \oplus W^1 \oplus ... \oplus W^{n-1}  = V^n \label{eq:recursivespace}
 \end{equation}
 
-Projecting a function $f(x)$ unto this basis would be then a weighted linear combination
+Projecting a function $f(x)$ onto this basis would be then a weighted linear combination
 of the Haar functions, but taking into account the definition on Equation \ref{eq:recursivespace} one arrives
 at \cite{Sorland}.
 \begin{equation}\label{eq:projectftohaar}
@@ -103,7 +160,7 @@ where $d$ are the difference coefficients and $s$ are the scaled averages of dya
 
 The scaling coefficients $s^j_k$ are computed by the projection $\braket{\varphi^j_k(x)|f(x)}$.
 Likewise the difference coefficients $d^j_k(x)$ are computed by the projection \newline$\braket{\psi^j_k(x)|f(x)}$.
-Because of the way the Haar function is defined, we can define of the scaling coefficients as
+Because of the way the Haar function is defined, we can define  the scaling coefficients as
 scaled averages of $f(x)$ at intervals $2^{-j}$ \cite{Sorland, Beylkin:MRA}
 \begin{equation}
   s^j_k = \int_{\Real}\varphi^j_k(x)f(x)\text{d}x = \int^{2^{-j}(k + 1)}_{2^{-j}k} f(x) \text{d}x\label{eq:scalecoeff1}
@@ -128,7 +185,7 @@ We can then obtain the difference coefficients by using Equations \ref{eq:scalec
 \end{align}
 
 The result of Equations \ref{eq:diffcoeffint} and \ref{eq:scalecoeffint} show us
-that we can represent the projection of coefficients unto a coarser scale as an
+that we can represent the projection of coefficients onto a coarser scale as an
 orthogonal matrix \cite{Sorland, Beylkin:MRA}:
 \begin{equation}
   \begin{pmatrix}
@@ -199,62 +256,8 @@ We again define subspaces $W^^l$ as the orthogonal complements of $V^l_j$
 \begin{align}
   \int_0^1\psi_i(x)x^m \text{d}x = 0,\ m = 0, 1, ..., l-1
 \end{align}
-We now have defined certain characteristics for these scaling functions $\psi_i(x)$,
-what remains is to construct appropriate functions that fit these parameters.
-We introduce a set generic functions $f_i$ that will be used as starting points
-to construct the scaling functions $\psi_1, ...,\psi_l$. The following restrictions must be
-fulfilled in the definition of the trial functions $f_i$ so that they can be
-used to construct $\psi_1, ...,\psi_l$.
-\cite{Alpert1993, Beylkin:MRA}:
-\begin{enumerate}
-  \item functions $f_i$ on the interval $(0,1)$ are polynomials of degree $l-1.$
-  \item functions $f_i$ extend to the interval $(-1, 0)$ as even or odd functions
-  dependent to the parity $i + l - 1$.
-  \item functions $f_1,...,f_l$ are orthonormal with respect to each other $\braket{f_i| f_j} = \delta_{ij}, \ i, i = 1, ..., l.$
-  \item functions $f_j$ have vanishing moments, $$\int_{-1}^1f_j(x)x^i\text{d}x = 0, \ i = 0, 1, ..., j+l-2.$$ Which means that they
-  are orthogonal to lower order polynomials, such that they do not have overlap.
-\end{enumerate}
-The functions $f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ (where the superscript
-$(1)$ refer to the step in the construction)
-must fulfill \cite{Alpert1993}:
-\begin{equation}
-  f^1_j(x) =
-  \begin{cases}
-  x^{j-1} & \text{for} \ x\in (0,1)\\
-  -x^{j-1} & \text{for}\ x\in (-1, 0)\\
-  0 & \text{elsewhere}.
-\end{cases}
-\end{equation}
 
-The $2l$ functions $1, x,..., x^{l-1} $ and $ f^{(1)}_1, f^{(1)}_2, ..., f^{(1)}_l$ are linearly
-independent by construction, thus they span the space of polynomial functions of
-degree $< l$ on the intervals $(0, 1)$ and $(-1, 0)$ \cite{Alpert1993, Beylkin:MRA}. We do the
-following process to find the functions $f_i$ \cite{Alpert1993}:
-\begin{enumerate}
-  \item Using the Gram-Schmidt process we orthogonalize $f^{(1)}_j$ with respect to $1, x,..., x^{l-1}$
-  giving us the functions $f_j^{(2)}$ for $j = 1, ..., l$.
-  \item  We try to find at least one $f^{(2)}_j$
-  which is not orthogonal to $x^{l}$ and reorder the functions so that $\braket{f_1^{(2)}| x^{l}} \neq 0$.
-  We now need to find an $a_j$ for the equation $f_j^{(3)} = f_j^{(2)}-a_j\cdot f_0^{(2)}$ such that
-  $\braket{f_j^{(3)}| x^{l}} = 0\  \text{for}\  l = 2, ..., l$. We repeat this process orthogonalizing
-  to $x^{k+1}, ..., x^{2k-2}$, each turn yielding $f_1^{(2)}, f_2^{(3)}, f_3^{(4)}, ..., f_k^{(k+1)}$ such that
-  $\braket{f_j^{(j+1)}|x^i} = 0 \ \text{for}\  i\leqslant j+l-2$.
-  \item  Lastly we perform the Gram-Schmidt orthogonalization process on
-  $f_{l}^{l+1}, \\f_{l-1}^{l}, f_{l-2}^{l-1}, ..., f_{2}^{1}$ in that order to get
-  $ f_l, f_{l-1}, ..., f_1$.
-\end{enumerate}
-
-We now construct the functions $h_l$ \cite{Alpert1993}:
-\begin{equation}
-  \psi_i(x)= \sqrt{2}f_i(2x-1), \ i= 1, ..., l
-\end{equation}
-which they themselves build the functions in Equation \ref{eq:mwbasisfuncs}
-defining a basis for scaling subspace $W^^l$.
-
-From the definition of these subspaces
-we know that we need to define a basis for the subspace $V_l^0$ which is the
-orthogonal complement of $W^0_l$ in $V_l^1$ \cite{Alpert1993}. The basis functions
-$\phi_i(x)$ of the subspace $V_l^0$ can be defined using the following two-scale
+ The basis functions $\phi_i(x)$ of the subspace $V_l^0$ can be defined using the following two-scale
 difference equations \cite{Beylkin1999AdaptiveSO}, which are analogous to the
 two-scale difference equations in \ref{eq:2scalewavelet}.
 \begin{align}
@@ -345,7 +348,7 @@ integrals and thus projections of the basis.
 Going from one dimension to $d$ dimensions is to use a tensor product method as shown in
 \cite{Frediani:2013}.
 \section{Operators}
-\subsection{\ac{NS} form Representation of Operators}
+\subsection{\ac{NS} form Representation of Operators}\label{NSformsec}
 Lets us define two projection operators $\hat{P}^k_n \ \text{and}\ \hat{Q}^k_n $  and their relation as:
 \begin{align}
   \hat{P}^n &: \ L^2([0, 1]) \to V^n \\
@@ -353,13 +356,15 @@ Lets us define two projection operators $\hat{P}^k_n \ \text{and}\ \hat{Q}^k_n $
   \hat{P}^{n+1} &= \hat{P}^n + \hat{Q}^n\\
   \hat{P}^n &= \hat{P}^0 + \hat{Q}^0 + \hat{Q}^1 + ...  \hat{Q}^{n-1}\label{eq:iterprojection}
 \end{align}
+Where we, for now, have dropped the polynomial order subscript $l$ for ease of
+notation.
 
 A function $f$ would then be projected into a scale $n$ by applying the
 operators as \cite{Frediani:2013}
 \begin{equation}
    f^{(n)} = \hat{P}^n f
 \end{equation}
-Its projection unto a more refined scale would then be \cite{Frediani:2013}
+Its projection onto a more refined scale would then be \cite{Frediani:2013}
 \begin{align}\label{eq:refinef}
   \begin{split}
     f^ {(n+1)} = f^{(n)} + df^{(n)}\\
@@ -376,10 +381,10 @@ Which, for a given refinement level $N$, is a good approximation of $f$.
 \end{equation}
 
 The representation of a linear operator $\hat{T}$ onto a scale $n$ is
-\begin{equation}
+\begin{equation}\label{eq:PTP}
   \hat{T}^n = \hat{P}^n\hat{T}\hat{P}^n
 \end{equation}
-and unto a more refined scale as
+and onto a more refined scale as
 \begin{align}\label{eq:refiningT}
   \begin{split}
     \hat{T}^{n+1} &= \hat{P}^{n+1}\hat{T}\hat{P}^{n+1}\\
@@ -399,7 +404,7 @@ So we can rewrite the last term in Equation \ref{eq:refiningT} as
   \hat{T}^{n+1} =\hat{A}^n + \hat{B}^n + \hat{C}^n + \hat{T}^n
 \end{equation}
 Repeating this iteratively we get:
-\begin{equation}
+\begin{equation}\label{eq:}
   T^N = T^0 + \sum^N_{n=0}\left( \hat{A}^n + \hat{B}^n + \hat{C}^n\right)
 \end{equation}
 Which we can say, given a refinement level $N$ is a good approximation of $T$
@@ -408,7 +413,7 @@ Which we can say, given a refinement level $N$ is a good approximation of $T$
 \end{equation}
 
 Let us now define a function $g = \hat{T}f$ which is the resulting function from applying the
-unprojected operator $\hat{T}$ unto the unprojected $f$. We want to represent this
+unprojected operator $\hat{T}$ onto the unprojected $f$. We want to represent this
 operation in the \ac{MW} basis as
 \begin{equation}
   g^{(n)} = \hat{P}^ng =  \hat{P}^n\left(\hat{T}f\right)
@@ -468,19 +473,87 @@ $g$.
 \begin{equation}
   \tilde{g}^{(N)} \approx g^{N} = (\hat{T}f)^N
 \end{equation}
+
+In multiple dimensions $d$ we can expand the Non-Standard form into a tensor product of
+the four operators as shown in \cite{Frediani:2013}.
 \subsection{Examples of Operators}
 \subsubsection{Derivative operator}
+We let $\hat{T}$ represent a derivative operator$\diff{x}$ and  $\hat{T}^n_{l}$
+represent its projection onto scale $n$ with order $l$ as defined as in Equation
+\ref{eq:PTP}. For a function $f$ for which we want to apply the operator on we
+define the expansions for $\hat{P}^n_l$ and $\hat{T}^n_{l}$ \cite{Beylkin1999AdaptiveSO}
+\begin{equation}
+  \begin{aligned}
+    \left(\hat{P}^{n}_{l} f\right)(x) &=\sum_{m=0}^{2^{n}-1} \sum_{j=0}^{l-1} s_{j m}^{n} \phi_{j m}^{n}(x) \\
+    \left(\hat{T}^{n}_{l} f\right)(x) &=\sum_{k=0}^{2^{n}-1} \sum_{i=0}^{l-1} \tilde{s}_{i k}^{n} \phi_{i k}^{n}(x)
+  \end{aligned}
+\end{equation}
+Where $\phi$ and $s$ are scaling coefficients and functions as defined above and $\tilde{s}$ is
+\begin{equation}\label{eq:scalingdiff}
+\tilde{s}_{i k}^{n}=\sum_{m=0}^{2^{n}-1} \sum_{j=0}^{l-1}\left[r_{k m}^{n}\right]_{i j} s_{j m}^{n}
+\end{equation}
+where $\left[r_{k m}^{n}\right]$ is a $l\times l$ transition matrix which we are
+trying to solve for.
 
+\begin{align}
+\left[r_{k m}^{n}\right]_{i j}=\int_{2^{-n} k}^{2^{-n}(l+1)} \phi_{i k}^{n}(x) \diff{x} \phi_{j m}^{n}(x) d x=2^{n d}\left[r_{k-m}\right]_{i j}\\
+\left[r_{k}\right]_{i j}=\int_{0}^{1} \phi_{i}(x) \diff{x} \phi_{j}(x+k) d x
+\end{align}
+Since the derivative operator is In-homogeneous we can represent it on scale $n$
+by rescaling by powers of two
+\begin{equation}
+  r_{k m}^{n}=2^{n} r_{k-m}
+\end{equation}
+and given that the operator acts only on the neighboring intervals we can remove a sum from
+Equation \ref{eq:scalingdiff} as follows
+\begin{equation}\label{eq:betterscalingdiff}
+\tilde{s}_{i k}^{n}=2^{n} \sum_{j=0}^{l-1}\left(\left[r_{1}\right]_{i j} s_{j, k-1}^{n}+\left[r_{0}\right]_{i j} s_{j k}^{n}+\left[r_{-1}\right]_{i j} s_{j, k+1}^{n}\right)
+\end{equation}
+We can now introduce a vector multiplication notation for the sum in Equation
+\ref{eq:betterscalingdiff}
+\begin{equation}
+\begin{aligned}
+  S^{n} &=\left( s_{00}^{n}, \ldots, s_{l-1,0}^{n}, s_{01}^{n},
+  \ldots, s_{l-1,1}^{n}, \ldots, s_{0,2^{n}-1}^{n}, \ldots, s_{l-1,2^{n}-1}^{n}
+  \right)^{T} \\
+  \tilde{S}^{n} &=\left(\tilde{s}_{00}^{n}, \ldots, \tilde{s}_{l-1,0}^{n},
+  \tilde{s}_{01}^{n}, \ldots, \tilde{s}_{l-1,1}^{n}, \ldots,
+  \tilde{s}_{0,2^{n}-1}^{n}, \ldots, \tilde{s}_{l-1,2^{n}-1}^{n}\right)^{T}\\
+  \bar{R}^{n} &=2^{n}\left\{r_{k-m}\right\}_{k, m=0, \ldots, 2^{n}-1}
+\end{aligned}
+\end{equation}
+Where Equation \ref{eq:betterscalingdiff} can be rewritten into a matrix equation
+as
+\begin{align}
+\tilde{S}^{n}&=\bar{R}^{n} S^{n}\\
+\bar{R}^{n}&=2^{n}
+\begin{pmatrix}
+  r_0 & r_{-1} &  &  \\
+  r_1 & \ddots & \ddots & \\
+   & \ddots & \ddots & r_{-1} \\
+   & & r_1 & r_0
+\end{pmatrix}
+\end{align}
+where each block $r_i$ is a $l\times l$ and $r_1$ and  $r_{-1}$ describe the interactions
+between neighboring interval \cite{Beylkin1999AdaptiveSO}.
+Computations of this transition matrix $\bar{R}$ are shown in \cite{Beylkin1999AdaptiveSO}
+and there it is assummed that the rest of the operators $\hat{A}^n,\ \hat{B}^n,\ \hat{C}^n$
+are computed by rescaling the representation explained above.
 \subsubsection{Poisson Operator}
-
+In order to solve a system where an electrostatic field $V$ is affected by a
+charge distribution $\rho$ changes throughout space one attempts to solve a Poisson equation
+\begin{equation}
+  \nabla V = -4\pi \rho
+\end{equation}
+In \ac{MW} one makes use of the Poisson operator $\mathscr{P}$ to
+find the electrostatic potential induced by the charge distribution.
 \begin{equation}\label{eq:Poissonopmw}
-\hat{\mathscr{P}}(r)=\int \frac{1}{4 \pi\left\|r-r^{\prime}\right\|} f\left(r^{\prime}\right)
+\hat{\mathscr{P}}(r)=\int \frac{1}{4 \pi\left\|r-r^{\prime}\right\|} \rho\left(r^{\prime}\right)
 d r^{\prime}
 \end{equation}
+which is a simplified version of the Poisson kernel shown in \cite{Frediani:2013}.
+The Poisson operator can be projected as in outlined in section \ref{NSformsec} above
 
-\section{Other Basis Sets}
-\subsection{\ac{STO}}
-\subsection{\ac{GTO}}
 
 \input{acronyms.tex}
 \biblio
