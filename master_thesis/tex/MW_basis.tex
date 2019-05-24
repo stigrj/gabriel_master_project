@@ -3,7 +3,7 @@
 \makeatother
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
-\chapter{\ac{MW} Basis}
+\chapter{Multi-Wavelet Basis}
 As stated on the previous chapter, the main goal of computational chemistry is
 to approximate systems in order to calculate their energy through the \ac{SE}. %cite please
 These systems are completely described by wave functions \cite{Cohen:1973}.
@@ -30,7 +30,7 @@ used in solving for one electron atoms:
 \end{equation}
 Where $R$ is the Radial part of the wave function and $Y$ is the angular part of
 the wave function.
-\subsubsection{\ac{STO}}
+\subsubsection{Slater Type Orbitals}
 These basis functions are constructed from the observation that the wave function
 should decay exponentially to zero when the distance from the nucleus extends
 to infinity. They are typically of the form \cite{Jensen:2017, ESQCB1P1}
@@ -42,7 +42,7 @@ how diffuse the function is. These functions are characterized for them having a
 at the nucleus, which follows from the treatment of the nucleus as a point charge.
 This cusp makes computing integrals and derivatives a complex problem.
 
-\subsubsection{\ac{GTO}}
+\subsubsection{Gaussian Type Orbitals}
 \ac{GTO} are based on the same reasoning behind \ac{STO}, but instead of letting
 the exponential decay be to the rate of  $r$ we let it be to the rate of $r^2$,
 that is, we work with Gaussian functions \cite{ESQCB1P1}.
@@ -66,7 +66,7 @@ one variable gaussians.
 On the other hand, the \ac{GTO} decay too fast in comparison to the \ac{STO},
 meaning that we have to make more considerations to the exponents and possibly have more
 functions per atom in order to find better solutions.
-\subsubsection{Contracted \ac{GTO}}
+\subsubsection{Contracted Gaussian Type Orbitals}
 In order to diminish the problem of the cusp in \ac{STO} one tries to represent the
 \ac{STO} as linear combinations of \ac{GTO}. THis way the decay is properly modeled and the
 cusp is no longer a difficult problem to solve. This has the obvious weakness of needing
@@ -74,7 +74,7 @@ to compute more basis functions for a single orbital, which increases the cost o
 the calculations \cite{Cramer:2004}. %did i misunderstand?
 \subsection{Plane wave basis Functions}
 
-\section{\ac{MRA}}
+\section{Multi-resolution Analysis}
 \subsection{Definition}
 Consider that we have a function $\varphi \in L^2(\Real)$ where its translations
 and dilations are described as \cite{Schneider:2007}
@@ -104,7 +104,7 @@ one can call the subspaces $V^n$ or the functions $\varphi_{j,k}(x)$ build a \ac
 \varphi^j_k(x) = \sum_{k\in\mathbb{Z}} h^{j+1}_k\varphi^{j+1}_k(x)
 \end{equation}
 Where $h$ is a coefficient characteristic to the transformation between scales.
-\subsection{The Haar Wavelet \ac{MRA}}
+\subsection{The Haar Wavelet}
 Following from now we will work with the Haar wavelet basis for simplicity \cite{Beylkin:MRA}.
 Lets define the Haar function \cite{Schneider:2007} as
 \begin{equation}
@@ -224,7 +224,7 @@ with Haar basis up to scale $5$ using \ref{eq:projectftohaar}. Gives us the
 following figures.
 %put the plots here
 
-\section{\ac{MW} \ac{MRA}}
+\section{Multiwavelet \ac{MRA}}
 %weakness of wavelet that might be fixed with multiwavelet
 \subsection{Constructing the basis functions in one dimension}
 Following the same basics as in the Haar basis from the previous section we can
@@ -348,7 +348,7 @@ integrals and thus projections of the basis.
 Going from one dimension to $d$ dimensions is to use a tensor product method as shown in
 \cite{Frediani:2013}.
 \section{Operators}
-\subsection{\ac{NS} form Representation of Operators}\label{NSformsec}
+\subsection{Non-standard form Representation of Operators}\label{NSformsec}
 Lets us define two projection operators $\hat{P}^k_n \ \text{and}\ \hat{Q}^k_n $  and their relation as:
 \begin{align}
   \hat{P}^n &: \ L^2([0, 1]) \to V^n \\

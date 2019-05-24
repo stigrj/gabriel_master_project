@@ -4,7 +4,7 @@
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
 \chapter{Quantum Chemistry}
-\section{\ac{QM}}
+\section{Quantum Mechanics}
 
 \subsection{The Postulates of \ac{QM}}
 
@@ -308,6 +308,10 @@ With this we can go on to solve the total \SE \cite{Jensen:2017}
   (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) = E_{tot}\Psi_N(\vec{R})
 \end{equation}
 
+In the following sections we will be talking mostly about solving the electronic \SE,
+ which means that we will drop the subscript and simply denote the electronic
+wavefunction as $\Psi$ and its Hamiltonian as $hat{H}$.
+
 \subsection{Variational Principle}
 %need to edit this
 Consider a complete set of orthonormal \eifuncs $ \Psi_i$  of the
@@ -360,14 +364,56 @@ of the guess by their associated energies, attempting to reach as low a value
 as possible \cite{Cramer:2004}.
 
 \subsection{Slater Determinants}
+The electron wave function seen in section \ref{BO} needs to include all the
+coordinates that identify an electron. These properties are the spatial coordinates
+$x, y,\  \text{and}\ z$, and the spin coordinate $s$. Another characteristic is that
+it needs to be antisymetric, that is it must change sign whenever the coordinates
+of two electrons, spatial and spin, are interchanged\cite{}.
 
-\subsection{\ac{SCF}}
+The characteristics stated above can be summarized by writing the wave function as
+a Slater determinant as \cite{Cramer:2004, Jensen:1999}
+\begin{equation}
+  \Psi_{SD} = \frac{1}{\sqrt{n!}}
+  \begin{vmatrix}
+    \phi_1(1) & \phi_2(1) & \ldots & \phi_n(1)\\
+    \phi_1(2) & \phi_2(2) & \ldots & \phi_n(2)\\
+    \vdots & \vdots & \ddots & \vdots \\
+    \phi_1(n) & \phi_2(n) & \ldots & \phi_n(n)
+  \end{vmatrix},
+\end{equation}
+where each $\phi_i$ is a one-electron spinorbital, a wave function constructed as
+a product of a spatial function and a spin function\cite{Jensen:1999}, $n$ is the total amount of
+electrons, the coefficient outside the determinant is a normalization constant
+and each of the spin orbitals are orthonormal to each other. In a Slater determinant
+each of the columns represent a spinorbital each and wthe rows the electron coordinates.
+
+In certain situations it might be needed to express a wavefunction as a sum of Slater
+determinants, but here we will work only with a single determinant wave function.
+
+The energy of a single slater determinant is expressed as
+\begin{equation}
+  E = \sumdef[n]{i} \braket{\phi_i|\hat{h}_i|\phi_i} + \frac{1}{2} \sumdef[n]{ij}\left(\braket{\phi_j|\hat{J}_{i}|\phi_j} - \braket{\phi_j|\hat{K}_{i}|\phi_j}\right) + \hat{V}_{N}\text{,}
+\end{equation}
+where
+\begin{align}
+\hat{h}_i &= -\frac{1}{2}\nabla^2_i - \sumdef[N]{I}\frac{Z_I}{\abs{\Rvec_I - \rvec_i}},\\
+\hat{J}_{i}\ket{\phi_j(2)} &= \left\langle\phi_i(1)\left|\frac{1}{\abs{\rvec_1 - \rvec_2}}\right|\phi_i(1)\right\rangle \ket{\phi_j(2)},\\
+\hat{K}_{i}\ket{\phi_j(2)} &= \left\langle\phi_i(1)\left|\frac{1}{\abs{\rvec_1 - \rvec_2}}\right|\phi_j(1)\right\rangle\ket{\phi_i(2)},
+\end{align}
+$\hat{V}_N$ is the nuclear repulsion, the operator $\hat{h}_i$ is a one electron hamiltonian
+containing the eltronic kinetic energy and the nucleus-electron coulomb attraction and
+ $\hat{J}_i\ \text{and}\ \hat{K}_i$ are the coulomb integral operator and the exchange integral operator
+ respectivelly \cite{Jensen:1999, Cramer:2004}.
+
+
+\subsection{Schrödinger Equation}
 In the previous sections we showed two main points about solving the \SE for
 many body systems. The first one, with the \ac{BO} approximation, is that we,
 instead of solving for the energy of the whole system at the same time, can solve an electronic
 \SE for each geometry of the molecule. The second point is that we can construct
 the wave function with a basis set representation of our choice, for which its
 accuracy is evaluated by how low the calculated energy is.
+
 Our goal now is to construct a wave function with any basis set and show that we
 can apply the variational principle on this representation in order to improve
 the approximation.
@@ -467,7 +513,7 @@ final energy would be
   E = \sum_i^n\varepsilon_i - \frac{1}{2}\sum_{i\neq j}^n\int\int\frac{\rho_i\rho_j}{\abs{\rvec_i - \rvec_j}}\text{d}\rvec_1\text{d}\rvec_j
 \end{equation}
 
-\subsubsection{The \ac{HF} method}
+\subsubsection{The Hartree-Fock method}
 We now will attempt to find appropriate wave functions representations using the \ac{HF} method.
 The method originally used \ac{STO} \cite{Cramer:2004}, but here we will
 go through its application with a basis set representation, also called the Roothan approach
@@ -522,8 +568,8 @@ these same coefficients to build the new orbital.
 In order to solve this we take into use the \ac{SCF} method. In this method
 we start with an initial guess of the density matrix $\bar{P}^{(0)}$. This
 is used to construct the \ac{HF} secular equation and solve it. The new coefficients
-that are found are then used to create a new density matrix $\bar{P}^(n)$. Now, if
-the difference between the new and old density matrix $ \bar{P}^(n-1)$ is below
+that are found are then used to create a new density matrix $\bar{P}^{(n)}$. Now, if
+the difference between the new and old density matrix $ \bar{P}^{(n-1)}$ is below
 a user defined threshold we can say that the coefficients obtained are the correct
 coefficients and we can go on to use them to compute the energy of the system for
 a given geometry as in the \ac{BO} approximation. If the difference
@@ -532,7 +578,7 @@ a new \ac{HF} secular equation to obtain another density matrix. This is repeate
 until the difference goes below the threshold \cite{Helgaker:2012, Cramer:2004}.
 
 
-\subsection{\ac{DFT}}
+\subsection{Density Functional Theory}
 The method outlined above employed an iterative procedure to calculate the coefficients
 a a linear combination of basis functions describing the wave function of the
 system, which is then used to calculate the energy of the system. We see that we

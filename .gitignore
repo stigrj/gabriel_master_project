@@ -22,3 +22,5 @@ my.compile
 *.ipynb_checkpoints
 *.pdf
 *.tex.bak
+*.lof
+*.lot
