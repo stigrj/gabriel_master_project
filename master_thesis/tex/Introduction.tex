@@ -4,56 +4,70 @@
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
 \chapter{Introduction}
-\subsection{Notation}
-When working with qunatum chemistry simplify equations or in order to give a
-better intuition on what is possible arithmethically. Therefore it is needed to
-clarify what most of the different symbols and representations mean in this
-subject. Following are most of the notations used through this paper. Further exceptions to the notation will be
-clarified where needed througout the paper.
-\paragraph{Operators, scalars, vectors and matrices}
-In this text, we will be using objects called operators. These operators represent
-certain operations applied to functions. We represent as $\hat{O}$ exchanging the letter
-as needed.
+\section{Background}
 
-Scalars are constants, or coefficients without variables. They will be refferred with
-lower case letters.
+\section{Summary of Results}
 
-Vectors will be represented with lower case letters as $\vec{a}$, while
-matrices will be represented with upper case as $\bar{A}$.
-\paragraph{Order of operations}
-Operators are applied from the left onto functions. Applying the operator
-$\hat{O}$ and then operator $\hat{A}$ onto the function $\Psi(x)$ will be written as follows
+\section{Structure of thesis}
+In chapter \ref{chap:Quantum_chemistry} of this thesis we will present the quantum
+and computational Chemical formalisms and methods used Among these is the
+Born-oppenheimer approximation, Variational principle, Hartree-Fock method and
+Density Functional Theory.
+
+basis for solving quantum systems. Some examples of Wavelet basis are shown and
+Chapter \ref{chap:MW_basis} will mention some basis sets and define multiwavelet
+the implementation of different operators is described.
+
+Chapter \ref{chap:Solvent_effect}
+describes the particular system we work with in this thesis, namely, Solvent
+effect and Reaction Potential. This chapter will also introduce a new variational
+formulation of the Generalized poisson equation used in solving the electrostatic
+Reaction Field problem.
+
+Chapter \ref{chap:implementation} describes how the Reaction Field Potential was implemented
+using \mrchem. It will also describe the way the variational formulatins was implemented.
+
+Chapter \ref{chap:Results} Goes through the systems that were used to test the implementation,
+along with the type of tests that were perfomed. The results will be tabulated and
+some figures will be shown. Finally an analysis and discussion of the results will be
+presented along with points of improvement and future development.
+\section{Notation}
+Notation differs slightly between works in computational and Quantum Chemistry.
+Most of the equations and formulas use the same standard notation, while others
+might differ slightly in accents and other details in their notations. therefore
+in this section i will sumarize the notation used in this thesis.
+
+The following Table \ref{tab:notation} shows most of the notation used for
+common objects in mathematics and quantum mechanics.
+
+\begin{table}[h!]
+
+    \resizebox{\textwidth}{!}{
+  \begin{tabular}{|l|l|c|}
+    \hline
+    Object & Description of notation & Exampls\\  \hline
+    \rule{0pt}{12.5pt}vectors & lower case letter, or symbol, with an arrow above them & $\rvec, \vec{x}, \vec{\Psi}$ \\  \hline
+    \rule{0pt}{12.5pt}vector elements & lower case letter, or symbol, with an arrow above them and index subscripts &  $\rvec_i, \vec{x}_1, \vec{\Psi}_x$ \\ \hline
+    \rule{0pt}{12.5pt}matrices & Upper case letter or symbols with a line above them &  $\bar{A}, \bar{F}, \bar{S}$ \\ \hline
+    \rule{0pt}{12.5pt}matrix elements &   Upper case letter  with a line above them and index subscripts (rows, columns) &  $\bar{A}_{ij}, \bar{F}_{11}, \bar{S}_{\mu\nu}$\\  \hline
+    \rule{0pt}{12.5pt}Operators & Presented as a symbol with a \^~above it & $\hat{O}, \hat{H}, \hat{F}$  \\  \hline
+    \rule{0pt}{12.5pt}functions & presented by a letter with their input variables enclosed in brackets () & $f(x), \Psi(\rvec)$\\  \hline
+    \rule{0pt}{12.5pt}functionals & presented by a letter with their input functions enclosed in square brackets [] & $E[f], F[\Psi]  $\\  \hline
+  \end{tabular}}{\caption{}\label{tab:notation}}
+\end{table}
+
+Additionally we will mostly be working with atomic units. This means that many common
+constants are reduced to unit value. The constants used in this thesis are the
+elementary charge $e$ the reduced Planck constant $\hbar$, the electron mass $m_e$ and
+vacuum premitivity $4\pi\epso$ are all unit value.
+
+Finally, we will be working in Dirac notation. This means that we write a state
+vector of a system described by wave function $\Psi$ as $\ket{\Psi}$ and its
+complex conjugate as $\bra{\Psi}$. The scalar product in Dirac notation is
+defined as
 \begin{equation}
-  \hat{A}\hat{O}\Psi(x)
+  \braket{\Psi|\Phi} = \int_{\Real^3} \Psi^{\star}\Phi \text{d}\rvec
 \end{equation}
-
-\paragraph{commutation}
-Two operators $\hat{O}$ and $\hat{A}$ are said to commute if:
-\begin{align}
-  \hat{O}\hat{A} &= \hat{A}\hat{O} \\
-  \hat{O}\hat{A} - \hat{A}\hat{O} &= 0\label{eq:commutation}
-\end{align}
-This operation is written with square brackets, e.g. the operation in \ref{eq:commutation} is
-written as $[\hat{O},\hat{A}]$.
-
-\paragraph{Dirac notation}
-In this thesis we will be using Dirac notation for the most part. In this notation
-the quantum state described by a wave function $\Psi$ is writen as a state vector
-$\ket{Psi}$ \cite{Atkins:2011} called \textbf{ket}. Its complex conjugate is called
-a \textbf{bra} and is written as $\bra{\Psi}$. We will interchange between this and standard notation
-as needed, in order to give more clarity to the equations used.
-The scalar product between a bra and a ket is defined as:
-\begin{equation}
-  \braket{\Psi|\Psi} = \int_{\mathbb{R}} \Psi^{\star}\Psi dr \label{eq:diracscalpro}
-\end{equation}
-Where integration rules apply.
-
-Two functions are orthonormal if:
-\begin{equation}
-    \braket{\Psi_i|\Psi_j} = \delta_{ij}
-\end{equation}
-Where $\delta_{ij}$ is the Kronecker delta which equals one when $i = j$ and
-zero when $ i \neq j$ \cite{Atkins:2011, Cohen:1973}.
 
 \biblio
 \end{document}

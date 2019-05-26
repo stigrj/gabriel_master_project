@@ -3,7 +3,7 @@
 \makeatother
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
-\chapter{Quantum Chemistry}
+\chapter{Quantum Chemistry}\label{chap:Quantum_chemistry}
 \section{Quantum Mechanics}
 
 \subsection{The Postulates of \ac{QM}}
@@ -363,7 +363,19 @@ for the ground state of a system with any basis set. We can assess the quality
 of the guess by their associated energies, attempting to reach as low a value
 as possible \cite{Cramer:2004}.
 
-\subsection{Slater Determinants}
+\subsection{Self Consistent Field}
+In the previous sections we showed two main points about solving the \SE for
+many body systems. The first one, with the \ac{BO} approximation, is that we,
+instead of solving for the energy of the whole system at the same time, can solve an electronic
+\SE for each geometry of the molecule. The second point is that we can construct
+the wave function with a basis set representation of our choice, for which its
+accuracy is evaluated by how low the calculated energy is.
+
+Our goal now is to find a way to systematically create wavefunctuions and
+minimize them as in the variational principle. This is done with an iterative
+procedure called the \ac{SCF}.
+
+\subsubsection{Slater determinant}
 The electron wave function seen in section \ref{BO} needs to include all the
 coordinates that identify an electron. These properties are the spatial coordinates
 $x, y,\  \text{and}\ z$, and the spin coordinate $s$. Another characteristic is that
@@ -384,199 +396,94 @@ a Slater determinant as \cite{Cramer:2004, Jensen:1999}
 where each $\phi_i$ is a one-electron spinorbital, a wave function constructed as
 a product of a spatial function and a spin function\cite{Jensen:1999}, $n$ is the total amount of
 electrons, the coefficient outside the determinant is a normalization constant
-and each of the spin orbitals are orthonormal to each other. In a Slater determinant
-each of the columns represent a spinorbital each and wthe rows the electron coordinates.
+and each of the spin orbitals are orthonormal to each other.
+
+In a Slater determinant each of the columns represent a spinorbital each and wthe rows the electron coordinates.
+The spatial orbitals can, and are mostly, built using a basis set as decribed in
+Equation \ref{eq:lincomb}. The spin functions are orthonormal \eifuncs of the operator $\hat{S}_z$
+and have only two eigenvalues $\pm \frac{\hbar}{2}$ \cite{Cramer:2004}.
 
 In certain situations it might be needed to express a wavefunction as a sum of Slater
-determinants, but here we will work only with a single determinant wave function.
+determinants, but here we will work only as if our wave function can be constructed by
+a single determinant wave function.
+
+\subsubsection{Energy of a Slater determinant}
 
 The energy of a single slater determinant is expressed as
 \begin{equation}
-  E = \sumdef[n]{i} \braket{\phi_i|\hat{h}_i|\phi_i} + \frac{1}{2} \sumdef[n]{ij}\left(\braket{\phi_j|\hat{J}_{i}|\phi_j} - \braket{\phi_j|\hat{K}_{i}|\phi_j}\right) + \hat{V}_{N}\text{,}
+  E = \sumdef[n]{i} \braket{\phi_i|\hat{h}|\phi_i} + \frac{1}{2} \sumdef[n]{ij}\left(\braket{\phi_j|\hat{J}_{i}|\phi_j}
+  - \braket{\phi_j|\hat{K}_{i}|\phi_j}\right) + \hat{V}_{N}\text{,}\label{eq:SD}
 \end{equation}
 where
 \begin{align}
-\hat{h}_i &= -\frac{1}{2}\nabla^2_i - \sumdef[N]{I}\frac{Z_I}{\abs{\Rvec_I - \rvec_i}},\\
+\hat{h}\ket{\phi_i} &= \left(-\frac{1}{2}\nabla^2_i - \sumdef[N]{I}\frac{Z_I}{\abs{\Rvec_I - \rvec_i}}\right)\ket{\phi_i},\\
 \hat{J}_{i}\ket{\phi_j(2)} &= \left\langle\phi_i(1)\left|\frac{1}{\abs{\rvec_1 - \rvec_2}}\right|\phi_i(1)\right\rangle \ket{\phi_j(2)},\\
 \hat{K}_{i}\ket{\phi_j(2)} &= \left\langle\phi_i(1)\left|\frac{1}{\abs{\rvec_1 - \rvec_2}}\right|\phi_j(1)\right\rangle\ket{\phi_i(2)},
 \end{align}
 $\hat{V}_N$ is the nuclear repulsion, the operator $\hat{h}_i$ is a one electron hamiltonian
 containing the eltronic kinetic energy and the nucleus-electron coulomb attraction and
- $\hat{J}_i\ \text{and}\ \hat{K}_i$ are the coulomb integral operator and the exchange integral operator
- respectivelly \cite{Jensen:1999, Cramer:2004}.
+$\hat{J}_i\ \text{and}\ \hat{K}_i$ are the coulomb integral operator and the exchange integral operator
+respectively \cite{Jensen:1999, Cramer:2004} which apply the two-electron integrals of the same name on a
+oribtal $\phi_j$.
 
+\subsubsection{Variational principle on a Slater determinant}
 
-\subsection{Schrödinger Equation}
-In the previous sections we showed two main points about solving the \SE for
-many body systems. The first one, with the \ac{BO} approximation, is that we,
-instead of solving for the energy of the whole system at the same time, can solve an electronic
-\SE for each geometry of the molecule. The second point is that we can construct
-the wave function with a basis set representation of our choice, for which its
-accuracy is evaluated by how low the calculated energy is.
-
-Our goal now is to construct a wave function with any basis set and show that we
-can apply the variational principle on this representation in order to improve
-the approximation.
-
-\subsubsection{Secular equation}
-
-As shown before, we can construct a trial wave function $\phi$ as shown in Equation
-\ref{eq:lincomb} with a linear combination of basis functions $\varphi_i$ and
-their projection coefficients $c_i$ obtained as shown in Equation \ref{eq:projcoeff}.
-The coordinate arguments will be omitted for ease of notation from now on.
-\begin{equation}
-  \Psi \approx \phi = \sum_i c_i \varphi_i
-\end{equation}
- We Then want to calculate the energy of the trial function by following Equation
- \ref{eq:endevaleq}\cite{Cramer:2004}:
- \begin{align}
-   \begin{split}
-     E &= \frac{\braket{\phi|\hat{H}|\phi}}{\braket{\phi|\phi}} \\
-     E &= \frac{\braket{\sum_i c_i \varphi_i|\hat{H}|\sum_j c_j \varphi_j}}{\braket{\sum_i c_i \varphi_i|\sum_j c_j \varphi_j}} \\
-     E &= \frac{\sum_{ij} c_i c_j \braket{\varphi_i|\hat{H}|\varphi_j}}{\sum_{ij}c_i c_j\braket{\varphi_i|\varphi_j}}\\
-     E &= \frac{\sum_{ij} c_i c_j\bar{H}_{ij}}{\sum_{ij} c_i c_j\bar{S}_{ij}}
-   \end{split}
- \end{align}
-where $\bar{H}\ \text{and} \ \bar{S}$ are the resonance overlap matrix respectively.
-By the variational principle we are trying to find a set of coefficients $c_i$
-for which the energy of the system represented by the basis set is as low as it
-can get, that is $\diff{c_k}E = 0 \ \forall k $, This gives a sum over all $N$
-coefficients \cite{Cramer:2004}
-\begin{equation}\label{eq:linearci}
-  \sum_{i}^N c_i (\bar{H}_{ki} - E\bar{S}_{ki}) = 0
-\end{equation}
-This is only true if the following determinant formed by $\bar{H}_{ki} - E\bar{S}_{ki}$
-is equal to zero \cite{Cramer:2004}:
-\begin{equation}\label{eq:seceq}
-  \begin{vmatrix}
-    \bar{H}_{11} - E\bar{S}_{11} & \bar{H}_{12} - E\bar{S}_{12} & \ldots & \bar{H}_{1N} - E\bar{S}_{1N} \\
-    \bar{H}_{11} - E\bar{S}_{11} & \bar{H}_{12} - E\bar{S}_{12} & \ldots & \bar{H}_{1N} - E\bar{S}_{1N} \\
-    \vdots & \vdots & \ddots & \vdots\\
-    \bar{H}_{N1} - E\bar{S}_{N1} & \bar{H}_{N2} - E\bar{S}_{N2} & \ldots & \bar{H}_{NN} - E\bar{S}_{NN}
-  \end{vmatrix} = 0
-\end{equation}
-%confused here
-This is called the secular equation \cite{Cramer:2004} Solving this determinant
-will give us $N$ roots $E_j$. We can substitute these roots into Equation
-\ref{eq:linearci} which will give a set of coefficients $c_ij$. We then have an
-optimized wave function $\phi_j$ given as a linear combination of the basis functions
-\begin{equation}
-  \phi_j = \sum_{i}^N c_{ij}\varphi_i
-\end{equation}
-
-\subsubsection{The Hartree-product wave function} %% Maybe remove
-In Equation \ref{eq:elhamiltonian} we define an electron Hamiltonian that includes
-the electron kinetic energy, the Nucleus-electron attraction potential and the
-electron repulsion potential. Here we assume that only the electronic kinetic energy and
-the nuclear-electron attraction are significant. This lets us separate the Hamiltonian into
-the single electron contributions $\hat{h}_i$
-\begin{equation}
-  \hat{H} = \sum^n_{i} \hat{h}_i
-\end{equation}
-and
-\begin{equation}
-  \hat{h}_i = -\frac{1}{2}\nabla^2_i - \sum^N_I \frac{Z_I}{\abs{\rvec_i - \vec{R}_I}}
-\end{equation}
-Here we drop the $e$ subscript as we will only work with the electron problem
-from now on. We will also start using atomic units, meaning that the elementary charge $e$ and
-the reduced Planck's constant $\hbar$ used until now are both equal to one.
-Each one electron Hamiltonian $h_i$ has a corresponding one electron \SE with
-one electron energy $\varepsilon_i$ and one electron wave function $\psi_i$
-\begin{equation}
-  \hat{h}_i\psi_i = \varepsilon_i\psi_i
-\end{equation}.
-One can construct a total wave function $\Psi_{HP}$ as a product of all the one electron
-wave functions
-\begin{equation}
-  \Psi_{HP} = \psi_1\psi_2\ldots\psi_n
-\end{equation}
-and then the total \SE  will have the form \cite{Cramer:2004}
+The reason for writting the energy of a Slater Determinant as we did above in \ref{eq:SD}
+is so that we could apply the variational principle on the wave function. We
+construct a Lagrange equation as in \cite{Jensen:1999}:
 \begin{align}
+  L &= E - \sumdef{ij}\lambda_{ij}\left(\braket{\phi_i|\phi_j} - \delta_{ij} \right) \\
+  \delta L &= \delta E - \sumdef[n]{ij} \lambda_{ij}(\braket{\delta\phi_i|\phi_j} + \braket{\phi_i|\delta\phi_j})\label{eq:dlagrange}
+\end{align}
+where
+\begin{align}\label{eq:dESD}
   \begin{split}
-    \hat{H}\Psi_{HP} &= \sum^n_{i} \hat{h}_i\psi_1\psi_2\ldots\psi_n\\
-    \hat{H}\Psi_{HP} &= \sum_i^n\varepsilon_i\psi_1\psi_2\ldots\psi_n\\
-    \hat{H}\Psi_{HP} &= \left(\sum_i^n\varepsilon_i\right)\Psi_{HP}
+    \delta E &= \sumdef[n]{i}\left(\braket{\delta\phi_i|\hat{h}|\phi_i} + \braket{\phi_i|\hat{h}|\delta\phi_i}\right)\\
+    &+ \frac{1}{2}\sumdef[n]{ij}\left(\braket{\delta\phi_i|\hat{J}_j - \hat{K}_j|\phi_i} + \braket{\phi_i|\hat{J}_j - \hat{K}_j|\delta\phi_i}\right)\\
+    &+ \frac{1}{2}\sumdef[n]{ij}\left(\braket{\delta\phi_j|\hat{J}_i - \hat{K}_i|\phi_j} + \braket{\phi_j|\hat{J}_i - \hat{K}_i|\delta\phi_j}\right)
   \end{split}
 \end{align}
-
-In order to have a better approximation of the wave function we need to reintroduce
-the repulsion potential in the one electron Hamiltonian in some way. This is achieved with
-the Hartree Hamiltonian\cite{Cramer:2004}
-\begin{equation}\label{eq:hartreeham}
-  \hat{h}_i = -\frac{1}{2}\nabla^2_i - \sum^N_I\frac{Z_I}{\abs{\rvec_i - \vec{R}_I}} + \sum_{j\neq i}^n\int \frac{\rho_j}{\abs{\rvec_i - \rvec_j}}\text{d}\rvec
-\end{equation}
-Where the last term represent the repulsion potential of one electron against
-all other electrons and $\rho_j$ is the probability distribution for each electron
-$j$. This way we are counting the repulsion between two electrons twice so the
-final energy would be
-\begin{equation}
-  E = \sum_i^n\varepsilon_i - \frac{1}{2}\sum_{i\neq j}^n\int\int\frac{\rho_i\rho_j}{\abs{\rvec_i - \rvec_j}}\text{d}\rvec_1\text{d}\rvec_j
-\end{equation}
-
-\subsubsection{The Hartree-Fock method}
-We now will attempt to find appropriate wave functions representations using the \ac{HF} method.
-The method originally used \ac{STO} \cite{Cramer:2004}, but here we will
-go through its application with a basis set representation, also called the Roothan approach
-\cite{Cramer:2004, Helgaker:2012}.
-We set a secular equation as follows
-\begin{equation}\label{eq:fockseceq}
-  \begin{vmatrix}
-    \bar{F}_{11} - E\bar{S}_{11} & \bar{F}_{12} - E\bar{S}_{12} & \ldots & \bar{F}_{1N} - E\bar{S}_{1N} \\
-    \bar{F}_{11} - E\bar{S}_{11} & \bar{F}_{12} - E\bar{S}_{12} & \ldots & \bar{F}_{1N} - E\bar{S}_{1N} \\
-    \vdots & \vdots & \ddots & \vdots\\
-    \bar{F}_{N1} - E\bar{S}_{N1} & \bar{F}_{N2} - E\bar{S}_{N2} & \ldots & \bar{F}_{NN} - E\bar{S}_{NN}
-  \end{vmatrix} = 0
-\end{equation}
-Where the matrix elements of $\bar{S}$ (overlap matrix) are defined as on Equation
-\ref{eq:seceq}. The matrix elements of $\bar{F}$ (the Fock matrix) are computed
-as follows \cite{Cramer:2004}
-\begin{equation}\label{eq:Fockmatrix}
-  \bar{F}_{\mu\nu} = \braket{\mu|-\frac{1}{2}\nabla^2|\nu}
-  - \sum^N_IZ_I\braket{\mu|\frac{Z_I}{\abs{\rvec_i
-  - \vec{R}_I}}|\nu} + \sum_{\lambda\sigma} \bar{P}_{\lambda \sigma}\left( (\mu\nu|\lambda\sigma) - \frac{1}{2}(\mu\lambda|\nu\sigma) \right)
-\end{equation}
-where
-\begin{align}\label{eq:doubleint}
-  \braket{\mu|\hat{O}| \nu} = \int\phi_{\mu}\hat{O}\phi_{\nu}\text{d}\rvec\\
-  (\mu\nu|\lambda\sigma) = \int\int\phi_{\mu1}\phi_{\nu1}\frac{1}{\abs{\rvec_1 - \rvec_2}}\phi_{\lambda2}\phi_{\sigma2} \text{d}\rvec_1\text{d}\rvec_2
+and  $\lambda$ is the Lagrange multiplier.
+The goal is to find a set of orbitals that give us a minimum of the lagrange
+equation $\delta L = 0$.
+\subsubsection{Hartree-Fock equations}
+We can remove the multiplication by a half outside the sums as the third and fourth
+terms count the same operations, and so do the fourth and sixth terms. We can also
+substitute the Fock operator $\hat{F}$ into equation \ref{eq:dESD} as \cite{Jensen:2017}
+\begin{align}\label{eq:dEfock}
+  \delta E = \sumdef[n]{j}\left(\left\langle\delta\phi_i \left| \hat{F} \right| \phi_i \right\rangle + \left\langle\phi_i \left| \hat{F} \right| \delta\phi_i \right\rangle\right)\\\label{}
+    \hat{F} = \hat{h} + \sumdef[n]{j}\left(\hat{J}_j - \hat{K}_j\right)
 \end{align}
-Here we use the indexes $\mu,\ \nu,\ \lambda, \text{and}\ \sigma$ to index basis
-functions $\phi$ and the numerical subscripts to reference to the basis functions
-of one electron at a time.
-In the double integrals of Equation \ref{eq:doubleint} we denote basis functions
-$\bar{P}$ is called the density matrix \cite{Cramer:2004}. The elements in the
-density matrix are computed as \cite{Cramer:2004}
+
+We substituate \ref{eq:dEfock} into \ref{eq:dESD} and use properties of complex conjugates
+to manipulate the equation as shown in \cite{Jensen:2017} to give us the Hartree-fock
+equations
 \begin{equation}
-  \bar{P}_{\lambda\sigma} = 2 \sum_i^{\text{occupied}}a_{\lambda i}a_{\sigma i}
+\hat{F}\phi_i = \sumdef[n]{j}\lambda_{ij}\phi_j
 \end{equation}
-The sum runs over all the occupied orbitals of the system. The coefficients $a$
-are the contribution each basis function $\lambda$ or $\sigma$ has to each orbital $i$.
-
-One might recognize the first two terms in  Equation \ref{eq:Fockmatrix} are
-the electron kinetic energy and the electron nucleus attraction. One can also recognize the
-last term as the repulsion potential defined in Equation \ref{eq:hartreeham}.
-The two double integrals in the last term can also be written as the Coulomb integral $\mathbf{J}_{ij}$
-and the exchange integrals $\mathbf{K}_{ij}$ \cite{Cramer:2004}
+where we can construct a $n\times n$ matrix out of these sums called the Fock matrix.
+We then diagonalize the Fock matrix and get the following set of \eival equations
 \begin{equation}
-  (\mu\nu|\lambda\sigma) - \frac{1}{2}(\mu\lambda|\nu\sigma) = \mathbf{J}_{ij} - \frac{1}{2}\mathbf{K}_{ij}
+\hat{F}\phi_i = epsilon_i\phi_i
 \end{equation}
+where the $\epsilon_i$ is the energy of each orbital. When diagonalizing the matrix the
+orbitals get changed slightly, creating new orbitals. We denote these new orbitals with a $^\prime$
+superscript.
 
-We see now that in order to solve the secular equation we need to compute the
-density matrix, for which we need to know the orbital coefficients, as in Equation
-\ref{eq:seceq}, but we  are trying to solve the secular equation so we can find
-these same coefficients to build the new orbital.
-In order to solve this we take into use the \ac{SCF} method. In this method
-we start with an initial guess of the density matrix $\bar{P}^{(0)}$. This
-is used to construct the \ac{HF} secular equation and solve it. The new coefficients
-that are found are then used to create a new density matrix $\bar{P}^{(n)}$. Now, if
-the difference between the new and old density matrix $ \bar{P}^{(n-1)}$ is below
-a user defined threshold we can say that the coefficients obtained are the correct
-coefficients and we can go on to use them to compute the energy of the system for
-a given geometry as in the \ac{BO} approximation. If the difference
-is not below the threshold then we use this new potential to construct and solve
-a new \ac{HF} secular equation to obtain another density matrix. This is repeated
-until the difference goes below the threshold \cite{Helgaker:2012, Cramer:2004}.
+In order for an orbital to be known, one must know the rest of the
+orbitals. We solve this by iteratively forming the Fock matrix, diagonalizing it
+and using these new orbitals to construct a new Fock matrix and repeate the
+process until the change in the orbitals reach below a predetermined threshold
+\cite{Helgaker:2012, Cramer:2004}. This iterative method is called \ac{SCF}.
 
+The sum of the orbital energies do not give us the total sum of the system.
+Since, for each electron,  we are accounting for the repulsion and exchange interactions with all the
+other electrons, we end up counting twice, which means we have to substract half of
+these interactions from the total orbital energy. This gives the total energy $E$ as
+\cite{Jensen:2017}
+\begin{equation}
+  E = \sumdef[n]{i}\epsilon_i - \frac{1}{2}\sumdef[n]{ij}\left(\hat{J}_{ij} - \hat{K}_{ij}\right)
+\end{equation}
 
 \subsection{Density Functional Theory}
 The method outlined above employed an iterative procedure to calculate the coefficients

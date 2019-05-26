@@ -3,10 +3,10 @@
 \makeatother
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
-\chapter{Solvent Effect}\label{Solvent_effect}
+\chapter{Solvent Effect}\label{chap:Solvent_effect}
 The goals of computational chemistry is to both approximate systems and to be
 able to make predictions with regards to these approximations. In the previous
-chapter I showed one of the ways to get good approximations of systems, now i
+chapter \ref{chap:} I showed one of the ways to get good approximations of systems, now i
 will talk about the set of systems that will be the focus for this thesis,
 solvation models.
 \section{Outlining the problem}
@@ -58,7 +58,7 @@ changes in dispersion and changes in bulk solvent structure \cite{Cramer:2004}.
 In this thesis we work mostly with the electrostatics interactions of the
 solute-solvent interface and the reaction field they create.
 
-\subsection{One approach}
+\subsection{The primitive Approach}
 Our aim is to be able to simulate this system in an appropriate way, such that
 the models let us predict rates, mechanisms and other specific processes which
 occur in solutions \cite{Tomasi:1994wt}.
@@ -73,12 +73,12 @@ water molecules to surround the cation in one layer of them,  and just do a
 geometry optimization \cite{Jensen:2017} on the system in order to get the
 orientation and position of these water molecules.
 
-Lets us put the molecules in a cube-like fashion around the cation, with each
+Let us put the molecules in a cube-like fashion around the cation, with each
 water molecule in a face of the cube, totaling 6 water molecules. In total we
 would have 7 molecules, 19 nucleus and 62 electrons to optimize over. Using the
 \ac{BO} approximation and \ac{DFT} we could solve the electronic part of the
 problem in only three dimensions, but we would still need to work with
-$19\cdot3d$ dimensions for the geometry of the nuclei. Even if we did do this
+$57 (19\cdot3d)$ dimensions for the geometry of the nuclei. Even if we did do this
 optimization and calculated the different interactions of this system, we would
 find out that this approximation is very far from the truth.
 
@@ -99,18 +99,18 @@ calculate the effects as statistical averages over phase space
 
 
 \subsection{Reaction Field}\label{Reaction_field}
-Lets consider a system where a solute $A$ with a dipole moment $\vec{\mu}_A$ is
+Let us consider a system where a solute $A$ with a dipole moment $\vec{\mu}_A$ is
 introduced to a solvent $S$ where each solvent molecule $S_i$ has its own dipole
 moment $\vec{\mu}_{S_i}$. On equilibrium the different $S_i$  would be placed
 randomly, giving an average electric field of zero. When $A$ is introduced, its
 $\vec{\mu}_A$ will induce an electric field that will affect all the
 $\vec{\mu}_{S_i}$ of the $S_i$. The $S_i$ will reorient themselves so that their
-$\vec{\mu}_{S_i}$ lie along the electric field induced by $\vec{\mu}_A$. this is
+$\vec{\mu}_{S_i}$ lie along the electric field induced by $\vec{\mu}_A$. This is
 so that they are in a more energetically favorable position in the electric
 potential of the field induced by $\vec{\mu}_A$, but in doing this, they will
 act against their own electric field and lose conformational freedom, which will
 cost energy. This will, in turn, change the electric field of $S$ so that it no
-longer behaves uniformly.The electric field of $S$ will then affect $A$ so that
+longer behaves uniformly. The electric field of $S$ will then affect $A$ so that
 $\vec{\mu_A}$ lies along the new electric field of $S$ for the same reason
 stated above, using free energy in doing so \cite{Cramer:2004}.
 
@@ -162,7 +162,7 @@ $E^{(f)}$ is given by
   = \braket{\rho_{tot}(\rvec)|U_r(\rvec)}
 \end{equation}
 This means that determining the reaction potential as well as knowing the coordinates
-of the different particles will let us solve the Equation \ref{eq:solSE}
+of the different particles will solve the Equation \ref{eq:solSE}.
 These continuum models are also part of the \ac{PCM} classification of solvent
 models.
 Since we are looking at the effect the charge distribution of a solute has on
@@ -182,11 +182,11 @@ of the gradient operation and solve the Poisson equation with an effective $\rho
 
 \subsection{Cavity}\label{Cavitytitle}
 All continuum models make use of a cavity in which the solute $A$ resides
-\cite{Tomasi:1994wt, Cramer:2004, Tomasi:2005ipa}. The Shape of the cavity
+\cite{Tomasi:1994wt, Cramer:2004, Tomasi:2005ipa}. The shape of the cavity
 must be defined so it includes the whole molecule $A$ and its charge distribution.
 Although, since the charge distribution of any molecule persists to infinity there
 will always be an overlap with the charge distributions of the medium in real
-systems. The charge that is not contained withing the cavity is often called
+systems. The charge that is not contained within the cavity is often called
 escaped charge \cite{Tomasi:2005ipa}.
 
 The size of the cavity is critical to the calculated results of the model, if
@@ -205,7 +205,7 @@ maybe single atoms and linear molecules) \cite{Tomasi:2005ipa}
 
 Molecular shapes give a better representation of the solute in the solvent due
 to the fact that they more closely follow the shape of the solute molecule.
-There are three main molecular shapes I wish to mention in this thesis:
+There are three main molecular shapes I wish to mention:
 interlocking spheres, surfaces traced by solvent probes and isodensity surfaces.
 
 \subsubsection{Molecular Surface shapes}
