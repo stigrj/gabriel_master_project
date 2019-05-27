@@ -241,10 +241,40 @@ As an example, lets approximate the function
 $f(x) = \frac{10}{\sqrt{\pi}}e^{-100(x - 0.5)^2}$ in $L^2(\Real)$
 with Haar basis up to scale $5$ using \ref{eq:projectftohaar}. Gives us the
 following figures.
-%put the plots here
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/scale1.png}
+    \caption{Haar basis projection to the 1st scale}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/scale2.png}
+    \caption{Haar basis projection to the 2nd scale}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/scale3.png}
+    \caption{Haar basis projection to the 3rd scale}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/scale4.png}
+    \caption{Haar basis projection to the 4th scale}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/scale5.png}
+    \caption{Haar basis projection to the 5th scale}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.49\linewidth}
+    \includegraphics[width=\linewidth]{img/gaussian.png}
+    \caption{Analytical plot of $f(x)$}
+  \end{subfigure}
+  \caption{Projecting Gaussian function $f(x) = \frac{10}{\sqrt{\pi}}e^{-100(x - 0.5)^2}$ with
+  Haar basis up to scale 5}
+  \label{fig:watpots}
+\end{figure}
+
 
 \section{Multiwavelet \ac{MRA}}
-%weakness of wavelet that might be fixed with multiwavelet
 \subsection{Constructing the basis functions in one dimension}
 Following the same basics as in the Haar basis from the previous section we can
 define a hierarchical set of multi-resolution spaces $V^j_l$ where \cite{Frediani:2013}:
@@ -573,6 +603,45 @@ d r^{\prime}
 which is a simplified version of the Poisson kernel shown in \cite{Frediani:2013}.
 The Poisson operator can be projected as in outlined in section \ref{NSformsec} above
 
+\section{Hartree-Fock method in multiwavelet basis}
+When performing the \ac{SCF} mentioned in chapter \ref{chap:Quantum_chemistry} one
+computes the sets of One-orbital \eifuncs  from Equation \ref{eq:diagFockequations}.
+Let us expand that eaquation into its single kinetic and potential energy contributions:
+\begin{equation}\label{eq:expandeddiagFockequations}
+  \left(\hat{T} + \hat{V_n} + \hat{J} - \hat{K} + \hat{V}_{xc}\right)\phi_i = \epsilon_i\phi_i
+\end{equation}
+where $\hat{V}_{xc}$ is the exchange-correlation potential, which is a correction of the Hartree-Fock
+approximation where we assumed that only one Slater determinant was needed for
+constructing the wavefunction. We will not dwell on it much more and
+assume it is known. Here we drop the $\prime$ as we are only working with a diagonalized Fock matrix
+in the following definitions.
+
+The kinetic energy opertaor $\hat{T}$ from Equation \ref{eq:expandeddiagFockequations}
+consists of a double derivative. We saw from the previous section on Operators
+that representing a derivative operator on \ac{MW} basis is not a simple matter.
+In order to solve this we need to represent the derivative operator in a slightly
+different manner.
+
+First let us rearrange Equation \ref{eq:expandeddiagFockequations} and multiply each
+side with operator $\hat{G}_\mu$ which is much easier to project to the \ac{MW}
+basis
+\begin{align}
+  \hat{G}_\mu &=\left(\nabla^2 + \mu^2\right)^{-1} = \frac{e^{-\mu\rvec}}{4\pi\rvec} \\
+  \mu &\defeq \sqrt{-2\epsilon_i}
+\end{align}
+
+\begin{align}
+  \begin{split}
+    \hat{G}_\mu\left(\hat{T} - \epsilon_i\right)\phi_i &= -\hat{G}_\mu\left(\hat{V_n} + \hat{J} - \hat{K} + \hat{V}_{xc}\right)\phi_i\\
+    \left(\nabla^2 + \mu^2\right)^{-1}\left(\frac{1}{2}\nabla^2 - \epsilon_i\right)\phi_i &= -\left(\nabla^2 + \mu^2\right)^{-1}\left(\hat{V_n} + \hat{J} - \hat{K} + \hat{V}_{xc}\right)\phi_i\\
+    \frac{1}{2}\phi_i &= -\hat{G}_\mu\left(\hat{V_n} + \hat{J} - \hat{K} + \hat{V}_{xc}\right)\phi_i\\
+    \phi_i &= -2\hat{G}_\mu\left(\hat{V_n} + \hat{J} - \hat{K} + \hat{V}_{xc}\right)\phi_i
+  \end{split}
+\end{align}
+Using the last equation above one can perform a \ac{SCF} procedure by iteratively applying
+$-2\hat{G}_\mu\left(\hat{V_n} + \hat{J} - \hat{K} + \hat{V}_{xc}\right)$ on an
+unconverged orbital to attain a new orbital. This process is then repeated until
+the change between the orbitals is below a predetermined threshold.
 
 \input{acronyms.tex}
 \biblio
