@@ -4,52 +4,43 @@
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
 \chapter{Results}\label{chap:Results}
-\section{Description of Systems}
-In order to test our implementation of the solvent effect as done in \cite{FossoTande:2013ka}
-we will be comparing results with two sets of data, calculated data from Gaussian
-computational chemistry software and test data from Chipman \cite{Chipman2002}.
-The solute molecules in question are \ce{H_2O}, \ce{NO^+}, \ce{CN^-},
-\ce{CH_3CONH_2} and \ce{Li^+}. The solvent is water with a dielectric constant
-$\epsinf$ of $78.304$.
+\section{Overview of Tests}
+We divided the tests of this implementation into four main types, theoretical
+correctness, parametrization, comparizon and tests of the variational implementation.
 
-The first tests consisted of using only a single cavity for all the molecule and
-increasing its radius from $3.6 a.u.$ to $5.0 a.u.$ by increments of $0.1 a.u.$.
-This was done to all the solute molecules above, except for  \ce{CH_3CONH_2} which
-was too large for these tests. This was done in Mrchem with relative precision of
-$1.0e-5$ and a cavity boundary width of $\sigma = 0.2$. In Gaussian these tests were
-ran using \ac{HF} method with coupled cluster basis sets (keyword cc-pVXZ where X
-can be replaced by D, T, Q and 5) and increasing their completeness. These were
-began as normal coupled cluster, then augmented and finally double augmented.
+In the tests of theoretical correctness we test if our implementation gives the
+results to problems as expected. The tests for this were comparisons to
+the energy of  \ce{Li^+} in an environment with dielectric constant $\epsinf = 2$
+with the value we would get from the Born model. In the Born model the energy of a  %citation please
+one atom ion in a solvent is the same as the energy of a point charge in the same solvent.
+This energy is described as
+\begin{equation}
+  E_{ion} = -\frac{q^{2}}{8 \pi a}\left(\frac{1}{\epsilon_{0}}-\frac{1}{\epsilon}\right)
+\end{equation}
+A second comparizon with the born model was done where we tested for the
+following relation that should hold for a point charge
+\begin{equation}
+  \int \gamma_s = \frac{\epsinf - 1}{\epsinf} q
+\end{equation}
 
-Then we tested atom centered intersecting spheres cavity (Here called \ac{ABC})
-with radii equal to the Bondi radii of the atoms in the molecules \cite{doi:10.1021/j100785a001} scaled by $1.2$
-\cite{Tomasi:1994wt}, which was done for all solutes (\ce{Li^+} was not necessary as it
-is just a single atom). The \ac{ABC} test was performed a second time, increasing the radii by $0.2 a.u.$.
-Both sets were ran in Mrchem and Gaussian, with the same specifications as mentioned above.
+The parametrization tests were done by changing one parameter at a time while
+comparing this same change to Gaussian calculations with different basis sets.
+First we only checked the dependency on the radius and how changing it would
+affect the reaction field energy with respect to Gaussian calculations of the same
+radii. We the compared Gaussian calculations of Radius $R$ against \mrchem
+calculations of Radius $R+0.2$ in an attempt to see an improvement in the
+results.
+A second parametrization test was done with was doen with only \ce{Li^+}
+where we changed the relative precision of the \mrchem calculations to see how
+they would affect the energy with respect to the Gaussian energies. This as well
+was done on different radii.
 
-For the second sets of tests we had to compare our results with \cite{Chipman2002}.
-Since Chipman used isodensity cavities it was not as simple to reproduce their results.
-In order to be able to compare my results with theirs I decided to compare all my
-calculations across all radii and see what trend they had.
+We then took 4 molecules that were tested by \cite{Chipman2002} and compared the
+results from variation of radii against Gaussian results. THis was done for both
+single sphere cavities and for \ac{ABC}.
 
-The reasoning behind using several radii in the tests is because of the amount of
-charge that escapes the cavity. Since the cavity function we are using is analytical
-instead of a boundary condition, we can't assume all the charge distribution
-is contained within it. By varying the radii we can sample what radii in Mrchem
-is best suited to represent radii in calculations in Gaussian or in \cite{Chipman2002}.
+Lastly we tested out variational principle with water and \ce{Li^+}.
 
-Lithium was ran with three different relative precision in Mrchem. This was done
-in order to see how the precision affected the difference between the the References
-(Gaussian and Chipman) and the calculated values.
-
-The best outcome is if the results from Mrchem differ from the reference (Gaussian and Chipman)
-by an additive coonstant, meaning that our results are equivalent to the reference.
-IF the results at first do not have this constant difference, then it is hoped that
-there is an assymptote at which the mrchem results behave almost parallel to
-the reference ones.
-
-Higher precision in the Lithium tests is expected to improve the values obtained
-with respect to the references.
 
 \section{Data}
 \subsection{\ac{ABC} tests}
