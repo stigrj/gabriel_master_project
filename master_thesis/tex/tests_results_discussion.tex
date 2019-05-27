@@ -187,7 +187,7 @@ between them as
 \end{equation}
 The operation above \ref{eq:reldiff} was applied to all the values for all the
 substrate molecules, giving the following figures \ref{fig:watreldiff},
-\ref{fig:nopreldiff} % figures coming soon , and \ref{fig:cyanreldiff}.
+\ref{fig:nopreldiff}, and \ref{fig:cyanreldiff}.
 
 \begin{figure}[h!]
   \centering
@@ -221,11 +221,30 @@ substrate molecules, giving the following figures \ref{fig:watreldiff},
   \label{fig:nopreldiff}
 \end{figure}
 
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{\linewidth}
+    \includegraphics[width=\linewidth]{img/cyanreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{\linewidth}
+    \includegraphics[width=\linewidth]{img/cyanaugreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{\linewidth}
+    \includegraphics[width=\linewidth]{img/cyandaugreldiff.png}
+  \end{subfigure}
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  and with different basis sets in Gaussian}
+  \label{fig:cyanreldiff}
+\end{figure}
+
 
 We have observed that when, in Mrchem,  using a slightly bigger cavity than
 Gaussian would give us a better difference between the Mrchem and Gaussian values.
-In the following figures we compared a calculation in gaussian with a given radius $r$
+In the following figures %\ref{fig:watreldiff02} \ref{fig:nopreldiff02} \ref{fig:cyanreldiff02}
+we compared a calculation in gaussian with a given radius $r$
 against an Mrchem calculation with radius $r + 0.2$Bohr for all the tests
+
+
 
 We ran \ac{ABC} calcualtions in the same manner as above, here are the results for
 each of the substrates in tables %numerate them

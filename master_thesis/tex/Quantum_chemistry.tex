@@ -458,13 +458,13 @@ substitute the Fock operator $\hat{F}$ into equation \ref{eq:dESD} as \cite{Jens
 We substituate \ref{eq:dEfock} into \ref{eq:dESD} and use properties of complex conjugates
 to manipulate the equation as shown in \cite{Jensen:2017} to give us the Hartree-fock
 equations
-\begin{equation}
+\begin{equation}\label{eq:Fockequations}
 \hat{F}\phi_i = \sumdef[n]{j}\lambda_{ij}\phi_j
 \end{equation}
 where we can construct a $n\times n$ matrix out of these sums called the Fock matrix.
 We then diagonalize the Fock matrix and get the following set of \eival equations
-\begin{equation}
-\hat{F}\phi_i = epsilon_i\phi_i
+\begin{equation}\label{eq:diagFockequations}
+\hat{F}\phi_i^{\prime} = \epsilon_i\phi_i^{\prime}
 \end{equation}
 where the $\epsilon_i$ is the energy of each orbital. When diagonalizing the matrix the
 orbitals get changed slightly, creating new orbitals. We denote these new orbitals with a $^\prime$
@@ -484,6 +484,11 @@ these interactions from the total orbital energy. This gives the total energy $E
 \begin{equation}
   E = \sumdef[n]{i}\epsilon_i - \frac{1}{2}\sumdef[n]{ij}\left(\hat{J}_{ij} - \hat{K}_{ij}\right)
 \end{equation}
+
+An important point ot note is that at the start of this section we assummed our
+wavefunction to consist of a single determinant. This is part of the Hartree-Fock
+approximation, where we only care about the lowst energy level of the system, and
+we assume that a single Slater determinant is enough to describe it.
 
 \subsection{Density Functional Theory}
 The method outlined above employed an iterative procedure to calculate the coefficients
