@@ -3,15 +3,15 @@
 \makeatother
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
-\chapter{Multi-Wavelet Basis}
-As stated on the previous chapter, the main goal of computational chemistry is
+\chapter{Multi-Wavelet Basis}\label{chap:MW_basis}
+As stated in the previous chapter, the main goal of computational chemistry is
 to approximate systems in order to calculate their energy through the \ac{SE}. %cite please
 These systems are completely described by wave functions \cite{Cohen:1973}.
 This means that to approximate a solution to the system is to approximate its
 wave function.
 
 In order to construct a solution (wave function) to the \ac{SE} of a given
-system one uses sets of orthogonal functions with differing properties. These
+system one uses sets of functions with differing properties. These
 sets of functions construct a basis for the space on which the wave functions
 are projected into. These sets are thus called basis sets \cite{Cramer:2004}
 and they are essential to solving many body systems. In this text we will be
@@ -53,7 +53,7 @@ forms, both polar coordinates:
 \end{equation}
 and Cartesian coordinates
 \begin{equation}
-\chi^{GTO}(\rvec) = (x - A_x)^k(y - A_y)^l(z - A_z)^me^{-\alpha(\rvec - \vec{A})^2}
+\chi^{GTO}(\rvec) = (x - A_x)^k(y - A_y)^l(z - A_z)^me^{-\alpha\abs{\rvec - \vec{A}}^2}
 \end{equation}
 Where the vector $\vec{A}$ and its components represent the center of the atom.
 In this basis we remove the problem the \ac{STO} had of trying to evaluate the
@@ -68,11 +68,30 @@ meaning that we have to make more considerations to the exponents and possibly h
 functions per atom in order to find better solutions.
 \subsubsection{Contracted Gaussian Type Orbitals}
 In order to diminish the problem of the cusp in \ac{STO} one tries to represent the
-\ac{STO} as linear combinations of \ac{GTO}. THis way the decay is properly modeled and the
+\ac{STO} as linear combinations of \ac{GTO}. This way the decay is properly modeled and the
 cusp is no longer a difficult problem to solve. This has the obvious weakness of needing
 to compute more basis functions for a single orbital, which increases the cost of running
 the calculations \cite{Cramer:2004}. %did i misunderstand?
-\subsection{Plane wave basis Functions}
+
+\subsection{Periodic basis sets}
+Periodic basis sets are a type of basis sets that are not centered on an atom.
+These basis sets are best at describing, as the name implies, system with periodic
+boundary conditions.
+\subsubsection{Plane wave basis Functions}
+In metals, one can think of the the valence electrons as free electrons with
+periodic boundary conditions. The wave functions of these type of systems are
+described by either complex exponentials or cosine and sine functions \cite{Jensen:2017}.
+
+To finish this section on basis sets we can comment on the applicability of these
+basis sets. Atom based basis sets are best at describing the electrons nearest the
+nucleus. \ac{STO} are more accurate in the decay, but the cusp at the nucleus is
+harder to differentiate, therefore, \ac{GTO} basis sets are used to simplify the
+near nucleus differentiation. \ac{GTO} do not decay in the correct manner so one
+might want to use contracted \ac{GTO}.
+
+Periodic basis sets are best at valence electrons, specially in metals where they
+behave almost as free electrons. These types of basis sets are not as good at describing
+the electrons closer to the nuclei.
 
 \section{Multi-resolution Analysis}
 \subsection{Definition}
@@ -105,7 +124,7 @@ one can call the subspaces $V^n$ or the functions $\varphi_{j,k}(x)$ build a \ac
 \end{equation}
 Where $h$ is a coefficient characteristic to the transformation between scales.
 \subsection{The Haar Wavelet}
-Following from now we will work with the Haar wavelet basis for simplicity \cite{Beylkin:MRA}.
+From now we will work with the Haar basis for simplicity \cite{Beylkin:MRA}.
 Lets define the Haar function \cite{Schneider:2007} as
 \begin{equation}
   \varphi^0_0 = \varphi(x) =
