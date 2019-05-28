@@ -6,9 +6,9 @@
 \chapter{Quantum Chemistry}
 \section{Quantum Mechanics}
 
-\subsection{The Postulates of \ac{QM}}
+\subsection{The Postulates of Quantum Mechanics}
 
-\ac{QM} are based on a set rules that define operations and states. We will
+\ac{QM} is based on a set rules that define operations and states. We will
 present these rules as six different postulates of \ac{QM} (sometimes divided
 as 5) \cite{Atkins:2011, Cohen:1973}.
 
@@ -19,7 +19,7 @@ can be extracted from the wave function $\Psi(x, t)$ of that system
 a state vector (or wave function) $\ket{\Psi(t_0)}\in L^2$ that has a defined
 finite scalar product as \cite{Cohen:1973}:
 \begin{equation}
-  \braket{\Psi|\Psi} = \|\ket{\Psi}\|^2 =  \int_{\mathbb{R}^3}\Psi^\star\Psi d\vec{r}
+  \braket{\Psi|\Psi} = \|\Psi\|^2 =  \int_{\mathbb{R}^3}\Psi^\star\Psi d\vec{r}
 \end{equation}
 
 \subsubsection{Second Postulate}
@@ -46,17 +46,17 @@ These operators are linear as well:
 \begin{equation}
     \hat{O}(f + g) = \hat{O}f + \hat{O}g\label{eq:oplinearity}
 \end{equation}
-Where $f$ and $g$ are functions.
+where $f$ and $g$ are functions.
 
 \subsubsection{Third Postulate}
-When measuring an observable $O$ on a system $\ket{\Psi}$, The only possible
+When measuring an observable $O$ on a system $\ket{\Psi}$, the only possible
 values of the observable are eigenvalues of the corresponding operator $\hat{O}$
-unto the measured system $\Psi$ at its current state $\ket{\Psi_i}$. The \eivals
+onto the measured system $\Psi$ at its current state $\ket{\Psi_i}$. The \eivals
 are solutions to the following equation \cite{Cohen:1973}
 \begin{equation}
   \hat{O}\ket{\Psi_i} = o_i \ket{\Psi_i}
 \end{equation}
-This holds true even if the state measured is not an eigenstate of $\hat{O}$.
+which holds true even if the state measured is not an eigenstate of $\hat{O}$.
 
 We can represent a system state vector $\ket{\Psi}$ that is not an eigenstate
 of $\hat{O}$ as a linear combination of eigenstates $\ket{i}$ of the operator
@@ -64,7 +64,7 @@ of $\hat{O}$ as a linear combination of eigenstates $\ket{i}$ of the operator
   \ket{\Psi} = \sum_i c_i \ket{i}
 \end{equation}
 where the coefficients $c_i$ are computed as the projection of $\ket{\Psi}$ onto
-the eigenstates of the operator.
+the eigenstates of the operator
 \begin{equation}\label{eq:projcoeff}
   c_i = \braket{i|\Psi}
 \end{equation}
@@ -82,15 +82,15 @@ of the operator \cite{Cohen:1973}.
 \subsubsection{Fourth Postulate}
 The fourth postulate states the possible probabilities of getting a specific
 \eival for a given measurement.
-Let $\ket{\Psi_i}$ be an \eifunc of $\hat{O}$ such that:
+Let $\ket{i}$ be an \eifunc of $\hat{O}$ such that:
 \begin{equation}
-  \hat{O}\ket{\Psi_i} = o_i\ket{i}
+  \hat{O}\ket{i} = o_i\ket{i}
 \end{equation}
 and
 \begin{equation}
   \ket{\Psi} = \sum_i c_i \ket{i} \label{eq:lincomb}
 \end{equation}
-has no degenerate \eival,
+has no degenerate \eival.
 The probability of measuring \eival  $o_i$ from $\ket{\Psi}$ is given by
 \cite{Cohen:1973}:
 \begin{align} \label{eq:post4}
@@ -101,15 +101,14 @@ The probability of measuring \eival  $o_i$ from $\ket{\Psi}$ is given by
                      &= \abs{c_i}^2
   \end{split}
 \end{align}
-
-Following the equation \ref{eq:post4} the probability of measuring the
+Following equation \ref{eq:post4} the probability of measuring the
 \eival $o_i$ from $\ket{\Psi_i}$ is just one. The sum of all the probabilities
 for each \eival is:
 \begin{equation}
   \sum_i\mathscr{P}(o_i) = \sum_i \abs{c_i}^2 = 1
 \end{equation}
 Here we have ignored the case for degenerate \eival and continuous spectra of
-\eival, where the method is analogous to the one used above. The reader is
+\eivals, where the method is analogous to the one used above. The reader is
 invited to look them up themselves in \cite{Cohen:1973, Atkins:2011}.
 
 \subsubsection{Fifth Postulate}
@@ -119,24 +118,25 @@ can measure is $o_i$, that is $ \ket{\Psi_i} $ using the conventions stated in p
 This is because before measuring, the probabilities for any \eival
 is as stated in the fourth postulate. When the value has been measured, though,
 the uncertainty does not exists, as the state of the system must be one that gives
-exactly that value. The following Equation \ref{eq:post5} represents the postulate.
+exactly that value. The following Equation \ref{eq:post5} represents the
+postulate:
 \begin{equation}\label{eq:post5}
   \ket{\Psi} \stackrel{o_i}{\Rightarrow} \ket{\Psi_i}
 \end{equation}
 
 \subsubsection{Sixth Postulate}
-The system when undisturbed changes in a deterministic way \cite{Cohen:1973}.
+When undisturbed, the system changes in a deterministic way \cite{Cohen:1973}.
 This change is governed by the time dependent \SE \cite{Cohen:1973, Atkins:2011}:
 \begin{equation}\label{eq:tdepSE}
   i\hbar\frac{\partial}{\partial t} \ket{\Psi} = \hat{H}\ket{\Psi}
 \end{equation}
-Where $\tilde{H}$ is the Hamiltonian operator which has the total energy of the
+Where $\hat{H}$ is the Hamiltonian operator which has the total energy of the
 system as its \eivals.
 
-\subsection{The \SE}
-Lets consider the following \SE for a particle allowed to move in only one dimension
+\subsection{The Schr\"{o}dinger equation}
+Let us consider the following \SE for a particle allowed to move in only one dimension
 and where its potential energy varies with position (e.g. the Harmonic oscillator
-model \cite{Cohen:1973, Atkins:2014}).
+model \cite{Cohen:1973, Atkins:2014})
 \begin{equation}
   \hat{H}\Psi = \left(-\frac{\hbar^2}{2m}\frac{\partial^2 }{\partial x^2} + \hat{V}(x)\right)\Psi = i\hbar\frac{\partial}{\partial t} \Psi\label{eq:1DSE}
 \end{equation}
@@ -169,7 +169,7 @@ while the remaining Equation \ref{eq:timeindepWF} can be rewritten as
 \begin{equation}
   \hat{H}\psi = E\psi\label{eq:timeindepSE}
 \end{equation}
-Which is the time-independent \SE.
+which is the time-independent \SE.
 
 The energy of the system can be calculated as follows, assuming that the wave
 function $\Psi$ \cite{Cramer:2004}:
@@ -178,17 +178,17 @@ function $\Psi$ \cite{Cramer:2004}:
 \end{equation}
 If the wave function is normalized the denominator becomes $1$.
 
-\section{Two particle system}
-A two particle system (such as the \ce{H} or the \ce{He^+} atoms) has a simple
-hamiltonian of the form
+\section{Two-particle system}
+A two-particle system (such as the \ce{H} or the \ce{He^+} atoms) has a simple
+Hamiltonian of the form
 \begin{equation}
   \hat{H}=\hat{T}_{N}+\hat{T}_{e}+\hat{V}
 \end{equation}
 where $\hat{T}_N$ and $\hat{T}_e$ are the kinetic energy operators of the nucleus $N$ and
-of the electron $e$ and $\hat{V}$ is the Coulomb potential for two particles
+of the electron $e$ and $\hat{V}$ is the Coulomb potential for two-particles
 \cite{Atkins:2014, Jensen:2017}.
 This system has an analytical solution in which one follows the following set
-of steps.
+of steps:
 \begin{enumerate}
   \item Set a center of mass coordinate system.
   \item Change to spherical coordinates so that the potential operator becomes a
@@ -198,11 +198,11 @@ of steps.
   functions $\Theta(\theta)$ and $\Phi(\phi)$.
   \item Solve as three sets of differential equations \cite{Simons:2016}.
 \end{enumerate}
-Following the steps above, the 2 particle system is analytically solvable when
+Following the steps above, the two-particle system is analytically solvable when
 the potential energy is defined as function of only the distance between the
 nucleus and the electron.
 
-\section{Many body systems}
+\section{Many-body systems}
 
 For bigger systems, there is no practical way to analytically solve the
 \SE \cite{Jensen:2017}. For one, for each particle, the amount of dimensions that need to be
@@ -216,12 +216,12 @@ repulsive forces between all the electrons and between all the nuclei. Both of
 these problems add more terms per particle and thus would be impossible to be
 solved in a realistic time frame \cite{Jensen:2017}.
 
-\subsection{\ac{BO} approximation} \label{BO}
-A many body system consists of $N$ nuclei with mass $m_I$ for each nucleus $I$
+\subsection{Born-Oppenheimer approximation} \label{BO}
+A many-body system consists of $N$ nuclei with mass $m_I$ for each nucleus $I$
 and $n$ electrons with mass $m_i$ for each electron $i$. Each nucleus has a
 charge $Z_Ie$ and each electron has a charge $-e$, where $Z_I$ is the atomic
 number of the nucleus $I$  and $e$ is the Elementary charge \cite{Atkins:2014}. The $N$ nuclei and $n$
-electrons are located in a three dimensional coordinate system where each nucleus $I$ has
+electrons are located in a three-dimensional coordinate system where each nucleus $I$ has
 coordinates $\vec{R}_I = (x_I, y_I, z_I)$ and each electron has coordinates
 $\rvec_i = (x_i, y_i, z_i)$.
 
@@ -234,11 +234,11 @@ of all the electrons.
   \hat{H}\Psi(\rvec, \vec{R}) = E \Psi(\rvec, \vec{R})
 \end{equation}
 
-Here the Hamiltonian, as with the two particle system, has a potential energy $\hat{V}$ and a
-kinetic energy $\hat{T}$ operator. As with the two particle system, we can divide $\hat{T}$ as
+Here the Hamiltonian, as with the two-particle system, has a potential energy $\hat{V}$ and a
+kinetic energy $\hat{T}$ operator. As with the two-particle system, we can divide $\hat{T}$ as
 a sum of two contributions, an electron contribution $\hat{T}_e$ and a nuclear contribution
 $\hat{T}_N$. The only difference is that these contributions are sums over all
-the particles  instead of just one each\cite{Cramer:2004}
+the particles instead of just one each\cite{Cramer:2004}
 \begin{align}
   \hat{T}_e &= \sum_i^n \frac{\hbar}{2m_i}\nabla^2_i\\
   \hat{T}_N &= \sum_I^N \frac{\hbar}{2m_I}\nabla^2_I
@@ -251,7 +251,7 @@ where $\nabla^2_k$ is the Laplacian operator operating on particle $k$
 The potential operator, which we define as a sum of Coulomb potentials, is now much more
 complicated. It consists of three contributions: the nucleus-electron attraction
 $\hat{V}_{Ne}$, the nucleus-nucleus $\hat{V}_{NN}$ repulsion and the electron-electron
-repulsion $\hat{V}_{ee}$ \cite{Cramer:2004}.
+repulsion $\hat{V}_{ee}$ \cite{Cramer:2004}:
 \begin{align}
   \hat{V}_{Ne} &= \sum^N_I\sum^n_{i}-\frac{Z_Ie^2}{\abs{\vec{R}_I - \rvec_i}}\\
   \hat{V}_{NN} &= \frac{1}{2}\sum^N_{I \neq J}\frac{Z_IZ_Je^2}{\abs{\vec{R}_I - \vec{R}_J}}\\
@@ -264,21 +264,21 @@ the nuclei \cite{Jensen:2017}
   \hat{H}(\rvec, \vec{R}) = \hat{T}_e + \hat{T}_N + \hat{V}_{Ne} +\hat{V}_{NN} + \hat{V}_{ee}
 \end{equation}
 We can see that both repulsion potentials $\hat{V}_{NN}, \hat{V}_{ee}$ have $(N - 1)$ and $(n - 1)$ terms
- respectively, while the other terms have much simpler sums {sums over one index in the case of the
-kinetic energies and $N\cdot n$ terms in the attraction potential $\hat{V}_Ne$}.
+respectively, while the other terms have much simpler sums over one index in the case of the
+kinetic energies and $N\cdot n$ terms in the attraction potential $\hat{V}_{Ne}$.
 
-In the \ac{BO}  we assume that since the nuclei of the molecule are more massive
+In the \ac{BO} approximation we assume that since the nuclei of the molecule are more massive
 than the electrons (a single proton is $1836.152 673 89$ times more massive
-than a proton \cite{NIST:2019}) that the electrons can instantaneously respond to
+than an electron \cite{NIST:2019}) that the electrons can instantaneously respond to
 any change in the configuration of the nuclei \cite{Atkins:2011}. That means that we can solve an
 electronic problem for any given nuclear geometry as if the nuclei were static
-\cite{Cramer:2004, Jensen:2017, Atkins:2014}
+\cite{Cramer:2004, Jensen:2017, Atkins:2014}.
 
 Following this  assumption we separate the wave function into an electronic
-$\Psi_e$ and a nuclear wave function $\Psi_N$
+$\Psi_e$ and a nuclear $\Psi_N$ wave function
 \begin{equation}
   \Psi(\rvec, \vec{R}) = \Psi_N(R)\Psi_e(\rvec; \vec{R})
-\end{equation}.
+\end{equation}
 Notice that the nuclear wave function is only dependent on the nuclear coordinates,
 while the electronic has both the electron and nuclear coordinates as input. From
 our assumption above we say that we solve an electronic \SE for each geometry
@@ -288,13 +288,13 @@ constant for each solution of the \SE.
 
 The electronic \SE is as follows
 \begin{equation}
-    (\hat{H}_e(\rvec; \vec{R}) )\Psi_e(\rvec;\vec{R}) = E_e(\vec{R})\Psi_e(\rvec;\vec{R})
+    \hat{H}_e(\rvec; \vec{R}) \Psi_e(\rvec;\vec{R}) = E_e(\vec{R})\Psi_e(\rvec;\vec{R})
 \end{equation}
-Where the Electronic energy $E_e$ becomes a function of $\vec{R}$ which is solved as
+where the electronic energy $E_e$ becomes a function of $\vec{R}$ which is solved as
 a constant for each nuclear geometry. In the electronic Hamiltonian
 we assume that the kinetic energy of the nuclei is zero, but we still need to
 compute the nuclear repulsion, but as we are solving for any given geometry at a time
-we can safely assume that it is a constant \cite{Cramer:2004}. The electron
+we can safely assume that it is a constant \cite{Cramer:2004}. The electronic
 Hamiltonian $\hat{H}_e$ is as follows
 \begin{equation}\label{eq:elhamiltonian}
     \hat{H}_e(\rvec; \vec{R}) = \hat{T}_e + \hat{V}_{Ne} + \hat{V}_{ee}  + \hat{V}_{NN}
@@ -305,33 +305,33 @@ Solving the electronic \SE for all possible nuclear geometries will give us
 a \ac{PES} defined by the electronic energy for all the different geometries.
 With this we can go on to solve the total \SE \cite{Jensen:2017}
 \begin{equation}
-  (T_N + E_e(\vec{R}))\Psi_N(\vec{R}) = E_{tot}\Psi_N(\vec{R})
+  \Big[T_N + E_e(\vec{R})\Big]\Psi_N(\vec{R}) = E_{tot}\Psi_N(\vec{R})
 \end{equation}
 
 In the following sections we will be talking mostly about solving the electronic \SE,
- which means that we will drop the subscript and simply denote the electronic
-wavefunction as $\Psi$ and its Hamiltonian as $hat{H}$.
+which means that we will drop the subscript and simply denote the electronic
+wave function as $\Psi$ and its Hamiltonian as $\hat{H}$.
 
 \subsection{Variational Principle}
 %need to edit this
 Consider a complete set of orthonormal \eifuncs $ \Psi_i$  of the
-Hamiltonian $H$. From Equation \ref{eq:lincomb} we build a representation of an
+Hamiltonian $\hat{H}$. From Equation \ref{eq:lincomb} we build a representation of an
 arbitrary wave function $\Phi$ with a linear combination of the \eifuncs with
-projection coefficients $c_i$.
+projection coefficients $c_i$
 \begin{equation}
   \Phi = \sum\limits_ic_i\Psi_i
 \end{equation}
-For ease of notation we assume that  $\Phi$ is normalized. This means that the
+For ease of notation we assume that $\Phi$ is normalized. This means that the
 following holds
 \begin{equation}
   \braket{\Phi|\Phi} = \sum\limits_i^nc_i^2 = 1
 \end{equation}
- Additionally, the energy associated with the Hamiltonian can
+Additionally, the energy associated with the Hamiltonian can
 be calculated as in Equation \ref{eq:endevaleq} to give us this:
 \begin{equation}
   \braket{\Phi|H|\Phi} = \sum\limits_i^nc_i^2E_i\label{eq:genenerg}
 \end{equation}
-This tells us the the energy of the wave function $\Phi$ can be determined by
+This tells us that the energy of the wave function $\Phi$ can be determined by
 knowing the energies $E_i$ of each \eifunc $\psi_i$ and the coefficients
 $c_i$ associated with the linear combination that describes $\Phi$
 \cite{Cramer:2004}.
@@ -364,9 +364,9 @@ of the guess by their associated energies, attempting to reach as low a value
 as possible \cite{Cramer:2004}.
 
 \subsection{Slater Determinants}
-The electron wave function seen in section \ref{BO} needs to include all the
+The electronic wave function seen in section \ref{BO} needs to include all the
 coordinates that identify an electron. These properties are the spatial coordinates
-$x, y,\  \text{and}\ z$, and the spin coordinate $s$. Another characteristic is that
+$x, y, z$, and the spin coordinate $s$. Another characteristic is that
 it needs to be antisymetric, that is it must change sign whenever the coordinates
 of two electrons, spatial and spin, are interchanged\cite{}.
 
@@ -385,9 +385,9 @@ where each $\phi_i$ is a one-electron spinorbital, a wave function constructed a
 a product of a spatial function and a spin function\cite{Jensen:1999}, $n$ is the total amount of
 electrons, the coefficient outside the determinant is a normalization constant
 and each of the spin orbitals are orthonormal to each other. In a Slater determinant
-each of the columns represent a spinorbital each and wthe rows the electron coordinates.
+each of the columns represent a spinorbital each and the rows the electron coordinates.
 
-In certain situations it might be needed to express a wavefunction as a sum of Slater
+In certain situations it might be needed to express a wave function as a sum of Slater
 determinants, but here we will work only with a single determinant wave function.
 
 The energy of a single slater determinant is expressed as
@@ -400,15 +400,15 @@ where
 \hat{J}_{i}\ket{\phi_j(2)} &= \left\langle\phi_i(1)\left|\frac{1}{\abs{\rvec_1 - \rvec_2}}\right|\phi_i(1)\right\rangle \ket{\phi_j(2)},\\
 \hat{K}_{i}\ket{\phi_j(2)} &= \left\langle\phi_i(1)\left|\frac{1}{\abs{\rvec_1 - \rvec_2}}\right|\phi_j(1)\right\rangle\ket{\phi_i(2)},
 \end{align}
-$\hat{V}_N$ is the nuclear repulsion, the operator $\hat{h}_i$ is a one electron hamiltonian
-containing the eltronic kinetic energy and the nucleus-electron coulomb attraction and
- $\hat{J}_i\ \text{and}\ \hat{K}_i$ are the coulomb integral operator and the exchange integral operator
+$\hat{V}_N$ is the nuclear repulsion, the operator $\hat{h}_i$ is a one electron Hamiltonian
+containing the electronic kinetic energy and the nucleus-electron Coulomb attraction and
+ $\hat{J}_i\ \text{and}\ \hat{K}_i$ are the Coulomb integral operator and the exchange integral operator
  respectivelly \cite{Jensen:1999, Cramer:2004}.
 
 
-\subsection{Schrödinger Equation}
+\subsection{Schr\"{o}dinger Equation}
 In the previous sections we showed two main points about solving the \SE for
-many body systems. The first one, with the \ac{BO} approximation, is that we,
+many-body systems. The first one, with the \ac{BO} approximation, is that we,
 instead of solving for the energy of the whole system at the same time, can solve an electronic
 \SE for each geometry of the molecule. The second point is that we can construct
 the wave function with a basis set representation of our choice, for which its
@@ -427,7 +427,7 @@ The coordinate arguments will be omitted for ease of notation from now on.
 \begin{equation}
   \Psi \approx \phi = \sum_i c_i \varphi_i
 \end{equation}
- We Then want to calculate the energy of the trial function by following Equation
+We then want to calculate the energy of the trial function by following Equation
  \ref{eq:endevaleq}\cite{Cramer:2004}:
  \begin{align}
    \begin{split}
@@ -456,9 +456,9 @@ is equal to zero \cite{Cramer:2004}:
   \end{vmatrix} = 0
 \end{equation}
 %confused here
-This is called the secular equation \cite{Cramer:2004} Solving this determinant
+This is called the secular equation \cite{Cramer:2004}. Solving this determinant
 will give us $N$ roots $E_j$. We can substitute these roots into Equation
-\ref{eq:linearci} which will give a set of coefficients $c_ij$. We then have an
+\ref{eq:linearci} which will give a set of coefficients $c_{ij}$. We then have an
 optimized wave function $\phi_j$ given as a linear combination of the basis functions
 \begin{equation}
   \phi_j = \sum_{i}^N c_{ij}\varphi_i
@@ -466,10 +466,10 @@ optimized wave function $\phi_j$ given as a linear combination of the basis func
 
 \subsubsection{The Hartree-product wave function} %% Maybe remove
 In Equation \ref{eq:elhamiltonian} we define an electron Hamiltonian that includes
-the electron kinetic energy, the Nucleus-electron attraction potential and the
+the electron kinetic energy, the nucleus-electron attraction potential and the
 electron repulsion potential. Here we assume that only the electronic kinetic energy and
 the nuclear-electron attraction are significant. This lets us separate the Hamiltonian into
-the single electron contributions $\hat{h}_i$
+the one-electron contributions $\hat{h}_i$
 \begin{equation}
   \hat{H} = \sum^n_{i} \hat{h}_i
 \end{equation}
@@ -480,12 +480,12 @@ and
 Here we drop the $e$ subscript as we will only work with the electron problem
 from now on. We will also start using atomic units, meaning that the elementary charge $e$ and
 the reduced Planck's constant $\hbar$ used until now are both equal to one.
-Each one electron Hamiltonian $h_i$ has a corresponding one electron \SE with
-one electron energy $\varepsilon_i$ and one electron wave function $\psi_i$
+Each one-electron Hamiltonian $h_i$ has a corresponding one-electron \SE with
+one-electron energy $\varepsilon_i$ and one-electron wave function $\psi_i$
 \begin{equation}
   \hat{h}_i\psi_i = \varepsilon_i\psi_i
-\end{equation}.
-One can construct a total wave function $\Psi_{HP}$ as a product of all the one electron
+\end{equation}
+One can construct a total wave function $\Psi_{HP}$ as a product of all the one-electron
 wave functions
 \begin{equation}
   \Psi_{HP} = \psi_1\psi_2\ldots\psi_n
@@ -514,7 +514,7 @@ final energy would be
 \end{equation}
 
 \subsubsection{The Hartree-Fock method}
-We now will attempt to find appropriate wave functions representations using the \ac{HF} method.
+We now will attempt to find appropriate wave function representations using the \ac{HF} method.
 The method originally used \ac{STO} \cite{Cramer:2004}, but here we will
 go through its application with a basis set representation, also called the Roothan approach
 \cite{Cramer:2004, Helgaker:2012}.
@@ -553,7 +553,7 @@ The sum runs over all the occupied orbitals of the system. The coefficients $a$
 are the contribution each basis function $\lambda$ or $\sigma$ has to each orbital $i$.
 
 One might recognize the first two terms in  Equation \ref{eq:Fockmatrix} are
-the electron kinetic energy and the electron nucleus attraction. One can also recognize the
+the electron kinetic energy and the electron-nucleus attraction. One can also recognize the
 last term as the repulsion potential defined in Equation \ref{eq:hartreeham}.
 The two double integrals in the last term can also be written as the Coulomb integral $\mathbf{J}_{ij}$
 and the exchange integrals $\mathbf{K}_{ij}$ \cite{Cramer:2004}
@@ -580,7 +580,7 @@ until the difference goes below the threshold \cite{Helgaker:2012, Cramer:2004}.
 
 \subsection{Density Functional Theory}
 The method outlined above employed an iterative procedure to calculate the coefficients
-a a linear combination of basis functions describing the wave function of the
+as a linear combination of basis functions describing the wave function of the
 system, which is then used to calculate the energy of the system. We see that we
 still need to calculate the repulsion potential between every electron. This is
 simplified by using a density matrix to weight each of the basis that make up the
@@ -598,7 +598,7 @@ simply use the density instead.
 
 The electron density has properties that are characteristic to each system, the
 molecule,  it is constructed from. The first is that its integral over all space
-is equal to the amount of electrons $n$ on the system \cite{Cramer:2004}
+is equal to the amount of electrons $n$ in the system \cite{Cramer:2004}
 \begin{equation}
   \int_{\Real^3}\rho \text{d}\rvec = n
 \end{equation}
@@ -611,21 +611,21 @@ nuclei \cite{Cramer:2004}.
 
 The energy is determined by a functional $E[\rho]$ made up of functionals representing
 the kinetic energy of the electrons $T[\rho]$, the attraction potential $V_{Ne}[\rho]$,
-and the two electron repulsion $V_{e}[\rho]$ \cite{Sorland, PhysRev.136.B864}
-\begin{align}
-  E[\rho] &= V[\rho] + T[\rho] + V_{e}[\rho]\\\label{eq:energyfunctional}
+and the two-electron repulsion $V_{e}[\rho]$ \cite{Sorland, PhysRev.136.B864}
+\begin{align}\label{eq:energyfunctional}
+  E[\rho] &= V[\rho] + T[\rho] + V_{e}[\rho]\\
   T[\rho] &\equiv\braket{\rho(\rvec)| \frac{1}{2}\nabla^2| \rho(\rvec)} \\
   V_{e}[\rho] &\equiv \frac{1}{2}\braket{v_{e}(\rvec)| \rho(\rvec)}\\
   V_{Ne}[\rho] &= \braket{v_{Ne}(\rvec)|\rho(\rvec)}
 \end{align}
 Where the potential functions $v_{Ne}(\rvec)$  and $v_{e}(\rvec)$ are defined as the Coulomb
-attraction between the electrons and the nuclei and the coulomb repulsion of the
+attraction between the electrons and the nuclei and the Coulomb repulsion of the
 density with itself \cite{Sorland} respectively.
 
 The functional in Equation \ref{eq:energyfunctional} is not an appropiate approximation
 of the energy, as we are assumming in the construction of $T[\rho]$ and $V_{e}[\rho]$
 that the energy is known for the individual parts of the disconnected system \cite{Sorland}.
-This means we are missing the exhchange-correlation contributions of the energy $E_{xc}{\rho}$.
+This means we are missing the exhchange-correlation contributions of the energy $E_{xc}[\rho]$.
 With that in mind, the proper energy functional is shown as follows
 \begin{equation}\label{eq:adjustedenergyfunc}
   E[\rho] = V[\rho] + T[\rho] + V_{e}[\rho] + E_{xc}[\rho]
@@ -646,14 +646,14 @@ system we can define one-electron operators $\hat{h}_i^{KS}$ as
   \hat{h}_i^{KS} \phi_i &= \epsilon_i \phi_i \\
   \hat{h}_i^{KS} &= - \frac{1}{2}\nabla^2_i + v_{Ne} + v_e(\rho) + V_{xc}
 \end{align}
-where $\phi$ are basis functions describing the function $\Psi$ from \ref{eq:densityintegral}
+where $\phi$ are basis functions describing the function $\Psi$ from \ref{eq:densityintegral}.
 We can thus use $V_{xc}$ to iteratively minimize the energy in a systematic manner so we can
 get the correct density for the system of interacting electrons \cite{Cramer:2004}.
 
 This tells us that, given a set of basis functions $\phi$ describing
 $\rho$ as defined in Equation \ref{eq:densityintegral}, we can compute the following
 Kohn-Sham  matrix elements $\bar{K}_{\mu\nu}$ for a secular equation resembling that of the \ac{HF}
-method. In this secular equation the elements $\bar{F}_{\mu\nu}$ are replaced by $\bar{K}_{\mu\nu}$.
+method. In this secular equation the elements $\bar{F}_{\mu\nu}$ are replaced by $\bar{K}_{\mu\nu}$:
 \begin{equation}
   \bar{K}_{\mu\nu} = \braket{\phi_\mu|\left[- \frac{1}{2}\nabla^2_i + v_{Ne} + v_e(\rho) + V_{xc}\right]|\phi_\nu}
 \end{equation}
