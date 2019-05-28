@@ -4,97 +4,101 @@
 \documentclass[../master_thesis.tex]{subfiles}
 \begin{document}
 \chapter{Results}\label{chap:Results}
-\section{Description of Systems}
-In order to test our implementation of the solvent effect as done in \cite{FossoTande:2013ka}
-we will be comparing results with two sets of data, calculated data from Gaussian
-computational chemistry software and test data from Chipman \cite{Chipman2002}.
-The solute molecules in question are \ce{H_2O}, \ce{NO^+}, \ce{CN^-},
-\ce{CH_3CONH_2} and \ce{Li^+}. The solvent is water with a dielectric constant
-$\epsinf$ of $78.304$.
+\section{Overview of Tests}
+We divided the tests of this implementation into four main types, theoretical
+correctness, parametrization, comparison and tests of the variational implementation.
 
-The first tests consisted of using only a single cavity for all the molecule and
-increasing its radius from $3.6 a.u.$ to $5.0 a.u.$ by increments of $0.1 a.u.$.
-This was done to all the solute molecules above, except for  \ce{CH_3CONH_2} which
-was too large for these tests. This was done in Mrchem with relative precision of
-$1.0e-5$ and a cavity boundary width of $\sigma = 0.2$. In Gaussian these tests were
-ran using \ac{HF} method with coupled cluster basis sets (keyword cc-pVXZ where X
-can be replaced by D, T, Q and 5) and increasing their completeness. These were
-began as normal coupled cluster, then augmented and finally double augmented.
+In the tests of theoretical correctness we test if our implementation gives the
+results to problems as expected. The tests for this were comparisons to
+the energy of  \ce{Li^+} in an environment with dielectric constant $\epsinf = 2$
+with the value we would get from the Born model. In the Born model the energy of a  %citation please
+one atom ion in a solvent is the same as the energy of a point charge in the same solvent.
+This energy is described as
+\begin{equation}
+  E_{ion} = -\frac{q^{2}}{8 \pi R_{cav}}\left(\frac{1}{\epso\\}-\frac{1}{\epsinf}\right)
+\end{equation}
+A second comparison with the Born model was done where we tested for the
+following relation that should hold for a point charge
+\begin{equation}
+  \int \gamma_s = \frac{\epsinf - 1}{\epsinf} q
+\end{equation}
 
-Then we tested atom centered intersecting spheres cavity (Here called \ac{ABC})
-with radii equal to the Bondi radii of the atoms in the molecules \cite{doi:10.1021/j100785a001} scaled by $1.2$
-\cite{Tomasi:1994wt}, which was done for all solutes (\ce{Li^+} was not necessary as it
-is just a single atom). The \ac{ABC} test was performed a second time, increasing the radii by $0.2 a.u.$.
-Both sets were ran in Mrchem and Gaussian, with the same specifications as mentioned above.
+The parametrization tests were done by changing one parameter at a time while
+comparing this same change to Gaussian calculations with different basis sets.
+First we only checked the dependency on the radius and how changing it would
+affect the reaction field energy with respect to Gaussian calculations of the same
+radii. We then compared Gaussian calculations of Radius $R$ against \mrchem
+calculations of Radius $R+0.2$ in an attempt to see an improvement in the
+results.
+A second parametrization test was done with only \ce{Li^+}
+where we changed the relative precision of the \mrchem calculations to see how
+they affect the energy with respect to the Gaussian energies. This was also done
+on different radii.
 
-For the second sets of tests we had to compare our results with \cite{Chipman2002}.
-Since Chipman used isodensity cavities it was not as simple to reproduce their results.
-In order to be able to compare my results with theirs I decided to compare all my
-calculations across all radii and see what trend they had.
+We then took 4 molecules that were tested by \cite{Chipman2002} and compared the
+results from variation of radii against Gaussian results. The molecules used
+were \ce{H_2O}, \ce{NO^+}, \ce{CN^-} and \ce{CH_3CONH_2}. These tests are classified into
+single cavity tests and \ac{ABC} tests. Single cavity tests are performed in the
+same manner as the paramtrization tests where only the radius of the cavity was changed per
+calculation. We did not shift the \mrchem calculation's cavity radius.
 
-The reasoning behind using several radii in the tests is because of the amount of
-charge that escapes the cavity. Since the cavity function we are using is analytical
-instead of a boundary condition, we can't assume all the charge distribution
-is contained within it. By varying the radii we can sample what radii in Mrchem
-is best suited to represent radii in calculations in Gaussian or in \cite{Chipman2002}.
+The \ac{ABC} tests consist of making spherical cavities centered on
+each atom with radii equal to their center atom's Van der Waals radius. In this we tested
 
-Lithium was ran with three different relative precision in Mrchem. This was done
-in order to see how the precision affected the difference between the the References
-(Gaussian and Chipman) and the calculated values.
+As stated before in chapters \ref{chap:Solvent_effect} and \ref{chap:implementation}
+a variational formulation of the Reaction field Problem was implemented in this thesis,
+The tables in Appendix \ref{Datatables} show a row which is labeled "Variational",
+though the variational implementation behaved in a irregular way. We will show
+the Reaction energy plots for the variational implementation for both water
+and \ce{Li^+} as those are the ones that had the most data points. We leave the
+reader to evaluate the variational energies for the other molecules.
 
-The best outcome is if the results from Mrchem differ from the reference (Gaussian and Chipman)
-by an additive coonstant, meaning that our results are equivalent to the reference.
-IF the results at first do not have this constant difference, then it is hoped that
-there is an assymptote at which the mrchem results behave almost parallel to
-the reference ones.
-
-Higher precision in the Lithium tests is expected to improve the values obtained
-with respect to the references.
 
 \section{Data}
-\subsection{\ac{ABC} tests}
-The data tables containing all results can be found at the end of the chapter in section \ref{Datatables}, following
+The data tables containing all results can be found in appendix \ref{Datatables}, following
 tables will show a small sample so the reader can make better understand the tables
 in the appendixes.
-
-The following table \ref{tab:rawwaterdata}  presents the data for the energy
-calculations of \ce{H_2O} with the three first cavity radii as an example.
-These are the total \ac{SCF} energy values.
-The same type of tables were used for the rest of the
-systems.
+\subsection{Theoretical correctness Tests}
+\subsection{Parametrization Tests}
+Wer first variated the Radius of the cavity for water and lithium. The following
+table \ref{tab:rawwaterdata}  presents the data for the energy
+calculations of \ce{H_2O} with the three first cavity radii as an example of the layout of the
+tables.
+These are the total  energy of the system including the solvent effect contributions.
+The same type of tables were used for the rest of the systems.
 \begin{table}[htbp]
-\caption{Total Energy Calculations example for Water in Water. Energy in Hartree and radii of the cavity in Bohr}
-\begin{center}
-\begin{tabular}{|l|r|r|r|r|}
-\hline
-Basis & $R =3.6$ & $R=3.7$ & $R=3.8$ & $\ldots$\\  \hline
-Cc-pVDZ & -7.6039e+01 & -7.6038e+01 & -7.6036e+01 & $\ldots$\\ \hline
-Cc-pVTZ & -7.6070e+01 & -7.6069e+01 & -7.6067e+01 & $\ldots$\\ \hline
-Cc-pVQZ & -7.6078e+01 & -7.6076e+01 & -7.6075e+01 & $\ldots$\\ \hline
-Cc-pV5Z & -7.6080e+01 & -7.6079e+01 & -7.6077e+01 & $\ldots$\\ \hline
-Aug-cc-pVDZ & -7.6054e+01 & -7.6053e+01 & -7.6052e+01 & $\ldots$\\ \hline
-Aug-cc-pVTZ & -7.6074e+01 & -7.6072e+01 & -7.6071e+01 & $\ldots$\\ \hline
-Aug-cc-pVQZ & -7.6079e+01 & -7.6077e+01 & -7.6076e+01 & $\ldots$\\ \hline
-Aug-cc-pV5Z & -7.6080e+01 & -7.6079e+01 & -7.6077e+01 & $\ldots$\\ \hline
-daug-cc-pVDZ & -7.6055e+01 & -7.6053e+01 & -7.6052e+01 & $\ldots$\\ \hline
-daug-cc-pVTZ & -7.6074e+01 & -7.6072e+01 & -7.6071e+01 & $\ldots$\\ \hline
-daug-cc-pVQZ & -7.6079e+01 & -7.6077e+01 & -7.6076e+01 & $\ldots$\\ \hline
-daug-cc-pV5Z & -7.6080e+01 & -7.6079e+01 & -7.6077e+01 & $\ldots$\\ \hline
-mrchem & -7.6085E+01 & -7.6083E+01 & -7.6081E+01 & $\ldots$\\ \hline
-\end{tabular}
-\end{center}
-\label{tab:rawwaterdata}
+  \caption{Total Energy Calculations example for Water in Water. Energy in Hartree and radii of the cavity in Bohr}
+  \begin{center}
+    \begin{tabular}{|l|r|r|r|r|}
+      \hline
+      Basis & $R =3.6$ & $R=3.7$ & $R=3.8$ & $\ldots$\\  \hline
+      Cc-pVDZ & -7.6039e+01 & -7.6038e+01 & -7.6036e+01 & $\ldots$\\ \hline
+      Cc-pVTZ & -7.6070e+01 & -7.6069e+01 & -7.6067e+01 & $\ldots$\\ \hline
+      Cc-pVQZ & -7.6078e+01 & -7.6076e+01 & -7.6075e+01 & $\ldots$\\ \hline
+      Cc-pV5Z & -7.6080e+01 & -7.6079e+01 & -7.6077e+01 & $\ldots$\\ \hline
+      Aug-cc-pVDZ & -7.6054e+01 & -7.6053e+01 & -7.6052e+01 & $\ldots$\\ \hline
+      Aug-cc-pVTZ & -7.6074e+01 & -7.6072e+01 & -7.6071e+01 & $\ldots$\\ \hline
+      Aug-cc-pVQZ & -7.6079e+01 & -7.6077e+01 & -7.6076e+01 & $\ldots$\\ \hline
+      Aug-cc-pV5Z & -7.6080e+01 & -7.6079e+01 & -7.6077e+01 & $\ldots$\\ \hline
+      daug-cc-pVDZ & -7.6055e+01 & -7.6053e+01 & -7.6052e+01 & $\ldots$\\ \hline
+      daug-cc-pVTZ & -7.6074e+01 & -7.6072e+01 & -7.6071e+01 & $\ldots$\\ \hline
+      daug-cc-pVQZ & -7.6079e+01 & -7.6077e+01 & -7.6076e+01 & $\ldots$\\ \hline
+      daug-cc-pV5Z & -7.6080e+01 & -7.6079e+01 & -7.6077e+01 & $\ldots$\\ \hline
+      mrchem & -7.6085E+01 & -7.6083E+01 & -7.6081E+01 & $\ldots$\\ \hline
+    \end{tabular}
+  \end{center}
+  \label{tab:rawwaterdata}
 \end{table}
 
-In order to get the Reaction field
-energies $E_r$ one needs the gas state Energy $E_{vac}$ for a given
-basis set and subtract it from the total solvent energy $E_{tot}$ calculated for
-that basis set.
-\begin{equation}
+In order to Calculate the Reaction field energy we took a gas phase calculation
+of a basis set and subtracted it from the total energy calculated with the same
+basis set. In mrchem this was done using the same relative precision. The
+following equation was used to calculate the Reaction field Energy $E_r$
+\begin{equation}\label{eq:deltaer}
   E_r = E_{tot} - E_{vac}
 \end{equation}
-Examples for the first three radii for the results of the above operation can be
-seen in table \ref{tab:Erwatdata}
+Examples of $E_r$ for the first three cavity radii for water obtained from the operation
+in Equation \ref{eq:deltaer} can be seen in table \ref{tab:Erwatdata}
 
 \begin{table}[htbp]
 \caption{Reaction Field Energy Calculations example for Water in Water. Energy in Hartree and radii of the cavity in Bohr}
@@ -120,15 +124,18 @@ mrchem & -1.8036E-02 & -1.5494E-02 & -1.3437E-02 & $\ldots$\\ \hline
 \label{tab:Erwatdata}
 \end{table}
 
-Following are figures \ref{fig:watEnergyplots},
-\ref{fig:nopEnergyplots} and \ref{fig:cyanEnergyplots}
-that show the energies of the mrchem calculations plotted
-against the energies from the Gaussian calculation for water, \ce{NO^+}, and
-\ce{CN^-} respectively. Many of the Mrchem results for \ce{CN^-} and \ce{NO^+}
-around the interval $(4.0, 4.5)$ diverged and finished or never finished
-running due to divergence, due to this these results were removed from the figures so as to facilitate
-the visualization of the trends across the radii. The values which deverged but still
-finished running can be viewed in section \ref{Datatables}.
+We now plot the data from the total energy and reaction energy tables for
+both water and \ce{Li^+}.
+
+The water plots for the Reaction energy of water for
+both the Gaussian and  \mrchem calculations can be seen in Figure \ref{fig:watEnergyplots}.
+The same type of plots for \ce{Li^+} can be seen in Figure \ref{fig:lipEnergyplots}.
+In both of these figure we are comparing the energy from \mrchem to sets of four
+curves formed each of double, triple, quadruple and quintuple zeta Dunning's correlation
+consistent \cite{doi:10.1063/1.456153} basis sets as implemented in Gaussian \cite{G09}.
+In the first plot we have energies calculated with standard correlation consistent ,
+in the second we have augmented, and in the third of each figure we have double augmented.
+
 
 \begin{figure}[h!]
   \centering
@@ -141,20 +148,163 @@ finished running can be viewed in section \ref{Datatables}.
   \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Erdaugwat.png}
   \end{subfigure}
-  \caption{Reaction field energy of Water in a water solution, calculated with mrchem
+  \caption{Reaction field energy of Water in a water solution, calculated with relative precision $e-05$ in mrchem
   and with different basis sets in Gaussian}
   \label{fig:watEnergyplots}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/Erlip.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/Erauglip.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/Erdauglip.png}
+  \end{subfigure}
+  \caption{Reaction field energy of \ce{Li^+} in a water solution, calculated with relative precision $e-05$ in mrchem
+  and with different basis sets in Gaussian}
+  \label{fig:lipEnergyplots}
+\end{figure}
+
+The \mrchem energy values $E_{Mrchem}$ for each radii were compared to the
+corresponding values of each of the different basis set calculations in
+Gaussian  $E_{Gaussian}^{basis}$ by finding the relative difference $d_r$
+between them as
+\begin{equation}\label{eq:reldiff}
+  d_r = \frac{E_{Gaussian}^{basis} - E_{Mrchem}}{E_{Mrchem}}
+\end{equation}
+The operation in Equation \ref{eq:reldiff} was applied to all the values for all the
+substrate molecules, giving the following figures \ref{fig:watreldiff} and \ref{fig:lipreldiff}.
+As before we separated the figures into three plots of four calculations with each
+their basis set. First standad correlation consistent, then augmented and lastly double augmented
+with double, triple, quadruple and quintuple zeta calculation for each of the plots.
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/watreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/wataugreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/watdaugreldiff.png}
+  \end{subfigure}
+  \caption{Relative difference between the Reaction field energy of Water in a water solution calculated with with relative precision $e-05$ in \mrchem
+   and with different basis sets in Gaussian}
+  \label{fig:watreldiff}
+\end{figure}
+
+
+
+We then shifted the cavity radius of the mrchem calculations for both water and
+\ce{Li^+} so they were $0.2$ Bohr bigger and compared them to Gaussian calculations
+with an unshifted Radius. The relative Difference plots for water and \ce{Li^+} can be seen
+in Figures \ref{fig:watreldiff02} and \ref{fig:lipreldiff02} respectivelly.
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipaugreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipdaugreldiff.png}
+  \end{subfigure}
+  \caption{Relative difference between the Reaction field energy of\ce{Li^+} in a water solution calculated with relative precision $e-05$ in \mrchem
+  and with different basis sets in Gaussian}
+  \label{fig:lipreldiff}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/watreldiff02.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/wataugreldiff02.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/watdaugreldiff02.png}
+  \end{subfigure}
+  \caption{Relative difference between the Reaction field energy of Water in a water solution calculated with with relative precision $e-05$ in \mrchem
+  and with different basis sets in Gaussian}
+  \label{fig:watreldiff02}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipreldiff02.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipaugreldiff02.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipdaugreldiff02.png}
+  \end{subfigure}
+  \caption{Relative difference between the Reaction field energy of \ce{Li^+} in a water solution calculated with relative precision $e-05$ in \mrchem
+  and with different basis sets in Gaussian}
+  \label{fig:lipreldiff02}
+\end{figure}
+
+Lastly we computed the reaction field energies of \ce{Li^+} with four different
+relative precisions; $1e-3, 1e-4, 1e-5,\  \text{and}\  1e-6$. We compared these
+to the reaction field energies calculated with the most complete basis set:
+\verb!daug-cc-pV5Z! as described in
+\begin{equation}\label{eq:difgauss}
+    d_r = \frac{E_{Li^+} - E_{Gaussian}}{E_{Gaussian}}
+\end{equation}
+Figure \ref{fig:lipprecreldef} shows the plots of the operation in Equation \ref{eq:difgauss} above.
+First all of the relative differences plotted together, then the second one contains
+only the results for relative precision $1e(-4), 1e(-5),\  \text{and}\  1e(-6)$ since
+the results with relative precission $1e(-3)$ are over five times larger than the other ones.
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipprecallreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipprecallreldiffexcl.png}
+  \end{subfigure}
+  \caption{Relative difference between the Reaction field energy of \ce{Li^+} in a water solution calculated with different relative precisions in \mrchem  and same calculations in Gaussian with daug-cc-pV5Z}
+  \label{fig:lipprecreldef}
+\end{figure}
+
+\subsection{Comparison Tests}
+
+These tests were divided into single cavity and \ac{ABC} tets. The single cavity
+tests are the same type of tests performed on water in the prvoius sections. These
+were tests were applied to \ce{NO^+}  and \ce{CN^-}. We did not apply this test
+on \ce{CH_3CONH_2} as the size of the melcule made the calculations in both Gaussian
+and \mrchem extremely slow.
+
+Following are figures \ref{fig:nopEnergyplots} and \ref{fig:cyanEnergyplots}
+that show the energies of the mrchem calculations plotted
+against the energies from the Gaussian calculation for water, \ce{NO^+}, and
+\ce{CN^-} respectively. Many of the Mrchem results for \ce{CN^-} and \ce{NO^+}
+around the interval $(4.0, 4.5)$ diverged and finished or never finished
+running due to divergence,  these results were therefore removed from the figures so as to facilitate
+the visualization of the trends across the radii. The values which deverged but still
+finished running can be viewed in section \ref{Datatables}.
+
+
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Ernop.png}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Eraugnop.png}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Erdaugnop.png}
   \end{subfigure}
   \caption[Energy plots for \ce{NO^+}]{Reaction field energy of \ce{NO^+} in a water solution, calculated with mrchem
@@ -164,13 +314,13 @@ finished running can be viewed in section \ref{Datatables}.
 \end{figure}
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Ercyan.png}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Eraugcyan.png}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Erdaugcyan.png}
   \end{subfigure}
   \caption{Reaction field energy of \ce{CN^-} in a water solution, calculated with mrchem
@@ -178,42 +328,19 @@ finished running can be viewed in section \ref{Datatables}.
   \label{fig:cyanEnergyplots}
 \end{figure}
 
-The Mrchem energy values $E_{Mrchem}$ for each radii were compared to the
-corresponding values of each of the different basis set calculations in
-Gaussian  $E_{Gaussian}^{basis}$ by finding the relative difference $d_r$
-between them as
-\begin{equation}\label{eq:reldiff}
-  d_r = \frac{E_{Gaussian}^{basis} - E_{Mrchem}}{E_{Mrchem}}
-\end{equation}
-The operation above \ref{eq:reldiff} was applied to all the values for all the
-substrate molecules, giving the following figures \ref{fig:watreldiff},
-\ref{fig:nopreldiff}, and \ref{fig:cyanreldiff}.
+The Figures \ref{fig:nopreldiff} and \ref{fig:cyanreldiff} show the relative
+difference between the Gaussian and \mrchem results as shown in Equation \ref{eq:reldiff}
+
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{\linewidth}
-    \includegraphics[width=\linewidth]{img/watreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
-    \includegraphics[width=\linewidth]{img/wataugreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
-    \includegraphics[width=\linewidth]{img/watdaugreldiff.png}
-  \end{subfigure}
-  \caption{Relative difference between the Reaction field energy of Water in a water solution calculated with mrchem
-  and with different basis sets in Gaussian}
-  \label{fig:watreldiff}
-\end{figure}
-
-\begin{figure}[h!]
-  \centering
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/nopreldiff.png}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/nopaugreldiff.png}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/nopdaugreldiff.png}
   \end{subfigure}
   \caption{Relative difference between the Reaction field energy of \ce{NO^+} in a water solution calculated with MrChem
@@ -223,13 +350,13 @@ substrate molecules, giving the following figures \ref{fig:watreldiff},
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/cyanreldiff.png}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/cyanaugreldiff.png}
   \end{subfigure}
-  \begin{subfigure}[b]{\linewidth}
+  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/cyandaugreldiff.png}
   \end{subfigure}
   \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
@@ -237,403 +364,168 @@ substrate molecules, giving the following figures \ref{fig:watreldiff},
   \label{fig:cyanreldiff}
 \end{figure}
 
+Since the \ac{ABC} tests were just two data points for each basis set and \newline\mrchem
+we will present them in a tabulated manner. Here we did tests for \ce{CH_3CONH_2}, \ce{H_2O}, \ce{CN^-} and \ce{NO^+}
+for both the Bondi Van der Waals radii and the same radii shifted by $0.2$ Bohr as was done preiously.
 
-We have observed that when, in Mrchem,  using a slightly bigger cavity than
-Gaussian would give us a better difference between the Mrchem and Gaussian values.
-In the following figures %\ref{fig:watreldiff02} \ref{fig:nopreldiff02} \ref{fig:cyanreldiff02}
-we compared a calculation in gaussian with a given radius $r$
-against an Mrchem calculation with radius $r + 0.2$Bohr for all the tests
+Tables \ref{tab:watabcreldiff}, \ref{tab:nopabcreldiff}, \ref{tab:cyanabcreldiff}, \ref{tab:acetamidabcreldiff}
+each show the relative difference for the \ac{ABC} and shifted \ac{ABC} tests
+for \ce{H_20}, \ce{NO^+}, \ce{CN^-}, and \ce{CH_3CONH_2} respectivelly. The
+total and  reaction field energy for each of these can be seen in appendix \ref{Datatables}.
+
+The shifted \ac{ABC} did not converge for \ce{CN^-}, so a comparison between the two sets
+of radii is not possible, we can still compare with the basis sets and see how it compared with
+the rest of the single cavity values.
+
+The \verb!daug-cc-pV5Z! Gaussian calculations for \ce{CH_3CONH_2} did not finish
+after $72$ hours of running. We will therefore present the comparison to the other
+basis sets and not include this one.
+
+\begin{table}[htbp]
+\caption{Relative difference between Gaussian and \mrchem results from \ac{ABC}  test for water}
+\begin{tabular}{|l|r|r|}
+\hline
+basis & \multicolumn{1}{l|}{Van der Waals} & \multicolumn{1}{l|}{Van der Waals + 0.2 Bohr} \\ \hline
+Cc-pVDZ & -0.150906543613475 & -0.141285964520019 \\ \hline
+Cc-pVTZ & -0.128295351717095 & -0.119975293105413 \\ \hline
+Cc-pVQZ & -0.12895264591432 & -0.120205694685673 \\ \hline
+Cc-pV5Z & -0.129254059406516 & -0.119768698510995 \\ \hline
+Aug-cc-pVDZ & -0.12913031667549 & -0.119600162056159 \\ \hline
+Aug-cc-pVTZ & -0.134287756186553 & -0.124924550255723 \\ \hline
+Aug-cc-pVQZ & -0.136838481699817 & -0.127632128628228 \\ \hline
+Aug-cc-pV5Z & -0.136314953280294 & -0.12750818602861 \\ \hline
+daug-cc-pVDZ & -0.128163492341195 & -0.119393048377284 \\ \hline
+daug-cc-pVTZ & -0.133787441562788 & -0.124631587509391 \\ \hline
+daug-cc-pVQZ & -0.136489745183213 & -0.127307230549555 \\ \hline
+daug-cc-pV5Z & -0.136235086647362 & -0.127443949643962 \\ \hline
+\end{tabular}
+\label{tab:watabcreldiff}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Relative difference between Gaussian and \mrchem results from \ac{ABC}  test for \ce{NO^+}}
+\begin{tabular}{|l|r|r|}
+\hline
+basis & \multicolumn{1}{l|}{Van der Waals} & \multicolumn{1}{l|}{Van der Waals + 0.2 Bohr} \\ \hline
+Cc-pVDZ & -3.5984E-02 & -3.4028E-02 \\ \hline
+Cc-pVTZ & -3.6922E-02 & -3.4965E-02 \\ \hline
+Cc-pVQZ & -3.7470E-02 & -3.5239E-02 \\ \hline
+Cc-pV5Z & -3.8105E-02 & -3.5695E-02 \\ \hline
+Aug-cc-pVDZ & -3.9069E-02 & -3.6582E-02 \\ \hline
+Aug-cc-pVTZ & -3.8020E-02 & -3.5793E-02 \\ \hline
+Aug-cc-pVQZ & -3.7927E-02 & -3.5622E-02 \\ \hline
+Aug-cc-pV5Z & -3.8146E-02 & -3.5744E-02 \\ \hline
+daug-cc-pVDZ & -3.8974E-02 & -3.6432E-02 \\ \hline
+daug-cc-pVTZ & -3.8111E-02 & -3.5798E-02 \\ \hline
+daug-cc-pVQZ & -3.7998E-02 & -3.5663E-02 \\ \hline
+daug-cc-pV5Z & -3.8139E-02 & -3.5740E-02 \\ \hline
+\end{tabular}
+\label{tab:nopabcreldiff}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Relative difference between Gaussian and \mrchem results from \ac{ABC}  test for \ce{CN^-}}
+\begin{tabular}{|l|r|}
+\hline
+basis & \multicolumn{1}{l|}{Van der Waals} \\ \hline
+Cc-pVDZ & 0.01805797 \\ \hline
+Cc-pVTZ & 0.00402722 \\ \hline
+Cc-pVQZ & -0.00689520 \\ \hline
+Cc-pV5Z & -0.01760704 \\ \hline
+Aug-cc-pVDZ & -0.02534307 \\ \hline
+Aug-cc-pVTZ & -0.02484616 \\ \hline
+Aug-cc-pVQZ & -0.02473155 \\ \hline
+Aug-cc-pV5Z & -0.02453156 \\ \hline
+daug-cc-pVDZ & -0.02428967 \\ \hline
+daug-cc-pVTZ & -0.02475331 \\ \hline
+daug-cc-pVQZ & -0.02472359 \\ \hline
+daug-cc-pV5Z & -0.02449823 \\ \hline
+\end{tabular}
+\label{tab:cyanabcreldiff}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Relative difference between Gaussian and \mrchem results from \ac{ABC}  test for \ce{CH_3CONH_2}}
+\begin{tabular}{|l|r|r|}
+\hline
+basis & \multicolumn{1}{l|}{vdw} & \multicolumn{1}{l|}{Vdw+0.2} \\ \hline
+Cc-pVDZ & -0.186177328600554 & -0.179892322986873 \\ \hline
+Cc-pVTZ & -0.13954657945224 & -0.131024507798636 \\ \hline
+Cc-pVQZ & -0.12431319516031 & -0.113411992173209 \\ \hline
+Cc-pV5Z & -0.12131273376434 & -0.109744750765678 \\ \hline
+Aug-cc-pVDZ & -0.113966441504817 & -0.103344765190205 \\ \hline
+Aug-cc-pVTZ & -0.120388767462925 & -0.108539852800393 \\ \hline
+Aug-cc-pVQZ & -0.122585402181545 & -0.110802064126041 \\ \hline
+Aug-cc-pV5Z & -0.122435027608944 & -0.110977017225698 \\ \hline
+daug-cc-pVDZ & -0.117198265984418 & -0.107083369948664 \\ \hline
+daug-cc-pVTZ & -0.121288328616877 & -0.109694324315186 \\ \hline
+daug-cc-pVQZ & -0.122478065257119 & -0.110807811509374 \\ \hline
+\end{tabular}
+\label{tab:acetamidabcreldiff}
+\end{table}
 
 
 
-We ran \ac{ABC} calcualtions in the same manner as above, here are the results for
-each of the substrates in tables %numerate them
-As we did above we increased the radius with $0.2$ Bohr in the hopes to see a
-better correspondence
+\subsection{Variational implementation Tests}
+Figures \ref{fig:watvarEr} and \ref{fig:lipvarEr} show the reaction field energy
+calculated with the variational implementation for water and \ce{Li^+}
+respectivelly. Figures \ref{fig:watreldiff} and \ref{fig:lipreldiff} show the
+relative difference as calculated with Equation \ref{eq:reldiff} for water and \ce{Li^+}
+respectivelly.
 
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\linewidth]{img/watvarEr.png}
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  and with different basis sets in Gaussian}
+  \label{fig:watvarEr}
+\end{figure}
 
-\subsection{Chipman Comparison}
-In this part of the tests we simply compared our calculations to Chipman \cite{Chipman2002}.
-They ran several calculations using different \ac{PCM} models, some of which were
-explained in section \ref{approchessolv}. Here we will simply present our results
-compared to theirs.
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.75\linewidth]{img/lipvarEr.png}
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  and with different basis sets in Gaussian}
+  \label{fig:lipvarEr}
+\end{figure}
 
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/watvarreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/watvaraugreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/watvardaugreldiff.png}
+  \end{subfigure}
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  and with different basis sets in Gaussian}
+  \label{fig:watreldiff}
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipvarreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipvaraugreldiff.png}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\linewidth}
+    \includegraphics[width=\linewidth]{img/lipvardaugreldiff.png}
+  \end{subfigure}
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  and with different basis sets in Gaussian}
+  \label{fig:lipreldiff}
+\end{figure}
 
 \section{Discussion}
 \section{Conclusion}
 \section{Areas of improvement/future development}
 
-\section{Data tables}\label{Datatables}
-\begin{sidewaystable}[h]
 
-  \ttabbox{
-  \resizebox{\textwidth}{!}{
-  \begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
-    \hline
-    basis & \multicolumn{1}{l|}{vacuum E} & 3.6 & 3.7 & 3.8 & 3.9 & 4 & 4.1 & 4.2 & 4.3 & 4.4 & 4.5 & 4.6 & 4.7 & 4.8 & 4.9 & 5 \\ \hline
-    Cc-pVDZ & -7.6027E+01 & -7.6039E+01 & -7.6038E+01 & -7.6036E+01 & -7.6035E+01 & -7.6035E+01 & -7.6034E+01 & -7.6033E+01 & -7.6033E+01 & -7.6032E+01 & -7.6032E+01 & -7.6031E+01 & -7.6031E+01 & -7.6031E+01 & -7.6030E+01 & -7.6030E+01 \\ \hline
-    Cc-pVTZ & -7.6057E+01 & -7.6070E+01 & -7.6069E+01 & -7.6067E+01 & -7.6066E+01 & -7.6065E+01 & -7.6064E+01 & -7.6064E+01 & -7.6063E+01 & -7.6063E+01 & -7.6062E+01 & -7.6062E+01 & -7.6061E+01 & -7.6061E+01 & -7.6061E+01 & -7.6060E+01  \\ \hline
-    Cc-pVQZ & -7.6065E+01 & -7.6078E+01 & -7.6076E+01 & -7.6075E+01 & -7.6074E+01 & -7.6073E+01 & -7.6072E+01 & -7.6071E+01 & -7.6071E+01 & -7.6070E+01 & -7.6070E+01 & -7.6069E+01 & -7.6069E+01 & -7.6069E+01 & -7.6068E+01 & -7.6068E+01  \\ \hline
-    Cc-pV5Z & -7.6067E+01 & -7.6080E+01 & -7.6079E+01 & -7.6077E+01 & -7.6076E+01 & -7.6075E+01 & -7.6074E+01 & -7.6074E+01 & -7.6073E+01 & -7.6073E+01 & -7.6072E+01 & -7.6072E+01 & -7.6071E+01 & -7.6071E+01 & -7.6071E+01 & -7.6070E+01  \\ \hline
-    Aug-cc-pVDZ & -7.6041E+01 & -7.6054E+01 & -7.6053E+01 & -7.6052E+01 & -7.6050E+01 & -7.6050E+01 & -7.6049E+01 & -7.6048E+01 & -7.6047E+01 & -7.6047E+01 & -7.6046E+01 & -7.6046E+01 & -7.6046E+01 & -7.6045E+01 & -7.6045E+01 & -7.6045E+01  \\ \hline
-    Aug-cc-pVTZ & -7.6060E+01 & -7.6074E+01 & -7.6072E+01 & -7.6071E+01 & -7.6070E+01 & -7.6069E+01 & -7.6068E+01 & -7.6067E+01 & -7.6067E+01 & -7.6066E+01 & -7.6066E+01 & -7.6065E+01 & -7.6065E+01 & -7.6064E+01 & -7.6064E+01 & -7.6064E+01  \\ \hline
-    Aug-cc-pVQZ & -7.6066E+01 & -7.6079E+01 & -7.6077E+01 & -7.6076E+01 & -7.6075E+01 & -7.6074E+01 & -7.6073E+01 & -7.6073E+01 & -7.6072E+01 & -7.6071E+01 & -7.6071E+01 & -7.6070E+01 & -7.6070E+01 & -7.6070E+01 & -7.6069E+01 & -7.6069E+01  \\ \hline
-    Aug-cc-pV5Z & -7.6067E+01 & -7.6080E+01 & -7.6079E+01 & -7.6077E+01 & -7.6076E+01 & -7.6075E+01 & -7.6075E+01 & -7.6074E+01 & -7.6073E+01 & -7.6073E+01 & -7.6072E+01 & -7.6072E+01 & -7.6071E+01 & -7.6071E+01 & -7.6071E+01 & -7.6071E+01  \\ \hline
-    daug-cc-pVDZ & -7.6042E+01 & -7.6055E+01 & -7.6053E+01 & -7.6052E+01 & -7.6051E+01 & -7.6050E+01 & -7.6049E+01 & -7.6049E+01 & -7.6048E+01 & -7.6047E+01 & -7.6047E+01 & -7.6046E+01 & -7.6046E+01 & -7.6046E+01 & -7.6045E+01 & -7.6045E+01  \\ \hline
-    daug-cc-pVTZ & -7.6061E+01 & -7.6074E+01 & -7.6072E+01 & -7.6071E+01 & -7.6070E+01 & -7.6069E+01 & -7.6068E+01 & -7.6067E+01 & -7.6067E+01 & -7.6066E+01 & -7.6066E+01 & -7.6065E+01 & -7.6065E+01 & -7.6064E+01 & -7.6064E+01 & -7.6064E+01  \\ \hline
-    daug-cc-pVQZ & -7.6066E+01 & -7.6079E+01 & -7.6077E+01 & -7.6076E+01 & -7.6075E+01 & -7.6074E+01 & -7.6073E+01 & -7.6073E+01 & -7.6072E+01 & -7.6071E+01 & -7.6071E+01 & -7.6071E+01 & -7.6070E+01 & -7.6070E+01 & -7.6069E+01 & -7.6069E+01 \\ \hline
-    daug-cc-pV5Z & -7.6067E+01 & -7.6080E+01 & -7.6079E+01 & -7.6077E+01 & -7.6076E+01 & -7.6075E+01 & -7.6075E+01 & -7.6074E+01 & -7.6073E+01 & -7.6073E+01 & -7.6072E+01 & -7.6072E+01 & -7.6071E+01 & -7.6071E+01 & -7.6071E+01 & -7.6071E+01 \\ \hline
-    mrchem & -7.6067E+01 & -7.6085E+01 & -7.6083E+01 & -7.6081E+01 & -7.6079E+01 & -7.6078E+01 & -7.6076E+01 & -7.6075E+01 & -7.6075E+01 & -7.6074E+01 & -7.6073E+01 & -7.6073E+01 & -7.6072E+01 & -7.6072E+01 & -7.6071E+01 & -7.4670E+01  \\ \hline
-    variational & -7.6067E+01 & -7.6247E+01 & -7.6160E+01 & -7.6090E+01 & -7.6034E+01 & -7.5989E+01 & -7.5955E+01 & -7.5928E+01 & -7.5908E+01 & -7.5894E+01 & -7.5884E+01 & -7.5878E+01 & -7.5875E+01 & -7.5874E+01 & -7.5875E+01 & -7.4566E+01  \\ \hline
-  \end{tabular}}}{\caption{Total Energy of \ce{H_2O}. Radius in top row in Bohr and energies in Hartree}
-  \label{tab:rawwatdata}}
-
-\ttabbox{
-
-  \resizebox{\textwidth}{!}{
-  \begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
-    \hline
-    basis & \multicolumn{1}{l|}{vac} & 3.6 & 3.7 & 3.8 & 3.9 & 4 & 4.1 & 4.2 & 4.3 & 4.4 & 4.5 & 4.6 & 4.7 & 4.8 & 4.9 & 5 \\ \hline
-    Cc-pVDZ & -1.2893E+02 & -1.2907E+02 & -1.2906E+02 & -1.2906E+02 & -1.2906E+02 & -1.2905E+02 & -1.2905E+02 & -1.2905E+02 & -1.2904E+02 & -1.2904E+02 & -1.2904E+02 & -1.2904E+02 & -1.2903E+02 & -1.2903E+02 & -1.2903E+02 & -1.2903E+02 \\ \hline
-    Cc-pVTZ & -1.2897E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2907E+02 & -1.2907E+02 & -1.2907E+02 & -1.2907E+02 & -1.2907E+02 \\ \hline
-    Cc-pVQZ & -1.2898E+02 & -1.2912E+02 & -1.2911E+02 & -1.2911E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 \\ \hline
-    Cc-pV5Z & -1.2898E+02 & -1.2912E+02 & -1.2912E+02 & -1.2911E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 \\ \hline
-    Aug-cc-pVDZ & -1.2894E+02 & -1.2908E+02 & -1.2907E+02 & -1.2907E+02 & -1.2906E+02 & -1.2906E+02 & -1.2906E+02 & -1.2905E+02 & -1.2905E+02 & -1.2905E+02 & -1.2905E+02 & -1.2904E+02 & -1.2904E+02 & -1.2904E+02 & -1.2904E+02 & -1.2903E+02 \\ \hline
-    Aug-cc-pVTZ & -1.2897E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2907E+02 & -1.2907E+02 & -1.2907E+02 & -1.2907E+02 \\ \hline
-    Aug-cc-pVQZ & -1.2898E+02 & -1.2912E+02 & -1.2911E+02 & -1.2911E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 \\ \hline
-    Aug-cc-pV5Z & -1.2898E+02 & -1.2912E+02 & -1.2912E+02 & -1.2911E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 \\ \hline
-    daug-cc-pVDZ & -1.2894E+02 & -1.2908E+02 & -1.2907E+02 & -1.2907E+02 & -1.2906E+02 & -1.2906E+02 & -1.2906E+02 & -1.2905E+02 & -1.2905E+02 & -1.2905E+02 & -1.2905E+02 & -1.2904E+02 & -1.2904E+02 & -1.2904E+02 & -1.2904E+02 & -1.2904E+02 \\ \hline
-    daug-cc-pVTZ & -1.2897E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2907E+02 & -1.2907E+02 & -1.2907E+02 & -1.2907E+02 \\ \hline
-    daug-cc-pVQZ & -1.2898E+02 & -1.2912E+02 & -1.2911E+02 & -1.2911E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 \\ \hline
-    daug-cc-pV5Z & -1.2898E+02 & -1.2912E+02 & -1.2912E+02 & -1.2911E+02 & -1.2911E+02 & -1.2910E+02 & -1.2910E+02 & -1.2910E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 & -1.2908E+02 \\ \hline
-    mrchem & -1.2898E+02 & -1.2931E+02 & -1.2924E+02 & -1.2920E+02 & -1.2917E+02 & -1.2915E+02 & -1.2566E+02 & \multicolumn{1}{l|}{N/A} & -1.2565E+02 & -1.2565E+02 & -1.2911E+02 & \multicolumn{1}{l|}{N/A} & -1.2564E+02 & -1.2909E+02 & -1.2909E+02 & -1.2909E+02 \\ \hline
-    variational & -1.2898E+02 & -1.2794E+02 & -1.2781E+02 & -1.2789E+02 & -1.2808E+02 & -1.2830E+02 & -1.2566E+02 & \multicolumn{1}{l|}{N/A} & -1.2565E+02 & -1.2565E+02 & -1.2900E+02 & -1.2905E+02 & -1.2564E+02 & -1.2909E+02 & -1.2910E+02 & -1.2910E+02 \\ \hline
-  \end{tabular}}}{\caption{Total Energy of \ce{NO^+}.  Radius in top row in Bohr and energies in Hartree}
-  \label{tab:rawnopdata}}
-
-
-\ttabbox{
-
-\resizebox{\textwidth}{!}{
-\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{vac} & 3.6 & 3.7 & 3.8 & 3.9 & 4 & 4.1 & 4.2 & 4.3 & 4.4 & 4.5 & 4.6 & 4.7 & 4.8 & 4.9 & 5 \\ \hline
-Cc-pVDZ & -7.6027E+01 & -9.2425E+01 & -9.2425E+01 & -9.2423E+01 & -9.2422E+01 & -9.2420E+01 & -9.2418E+01 & -9.2416E+01 & -9.2414E+01 & -9.2412E+01 & -9.2410E+01 & -9.2408E+01 & -9.2405E+01 & -9.2403E+01 & -9.2401E+01 & -9.2399E+01  \\ \hline
-Cc-pVTZ & -7.6057E+01 & -9.2455E+01 & -9.2455E+01 & -9.2454E+01 & -9.2453E+01 & -9.2452E+01 & -9.2451E+01 & -9.2449E+01 & -9.2447E+01 & -9.2445E+01 & -9.2443E+01 & -9.2441E+01 & -9.2439E+01 & -9.2437E+01 & -9.2435E+01 & -9.2433E+01  \\ \hline
-Cc-pVQZ & -7.6065E+01 & -9.2464E+01 & -9.2463E+01 & -9.2463E+01 & -9.2462E+01 & -9.2461E+01 & -9.2460E+01 & -9.2458E+01 & -9.2456E+01 & -9.2455E+01 & -9.2453E+01 & -9.2451E+01 & -9.2449E+01 & -9.2447E+01 & -9.2445E+01 & -9.2443E+01  \\ \hline
-Cc-pV5Z & -7.6067E+01 & -9.2465E+01 & -9.2465E+01 & -9.2465E+01 & -9.2464E+01 & -9.2463E+01 & -9.2462E+01 & -9.2460E+01 & -9.2459E+01 & -9.2457E+01 & -9.2455E+01 & -9.2454E+01 & -9.2452E+01 & -9.2450E+01 & -9.2448E+01 & -9.2446E+01  \\ \hline
-Aug-cc-pVDZ & -7.6041E+01 & -9.2441E+01 & -9.2441E+01 & -9.2440E+01 & -9.2439E+01 & -9.2438E+01 & -9.2437E+01 & -9.2436E+01 & -9.2434E+01 & -9.2433E+01 & -9.2431E+01 & -9.2429E+01 & -9.2427E+01 & -9.2426E+01 & -9.2424E+01 & -9.2422E+01  \\ \hline
-Aug-cc-pVTZ & -7.6060E+01 & -9.2459E+01 & -9.2459E+01 & -9.2459E+01 & -9.2458E+01 & -9.2457E+01 & -9.2456E+01 & -9.2454E+01 & -9.2453E+01 & -9.2451E+01 & -9.2449E+01 & -9.2448E+01 & -9.2446E+01 & -9.2444E+01 & -9.2442E+01 & -9.2441E+01  \\ \hline
-Aug-cc-pVQZ & -7.6066E+01 & -9.2465E+01 & -9.2465E+01 & -9.2464E+01 & -9.2463E+01 & -9.2462E+01 & -9.2461E+01 & -9.2460E+01 & -9.2458E+01 & -9.2456E+01 & -9.2455E+01 & -9.2453E+01 & -9.2451E+01 & -9.2449E+01 & -9.2448E+01 & -9.2446E+01  \\ \hline
-Aug-cc-pV5Z & -7.6067E+01 & -9.2466E+01 & -9.2466E+01 & -9.2465E+01 & -9.2464E+01 & -9.2463E+01 & -9.2462E+01 & -9.2461E+01 & -9.2459E+01 & -9.2457E+01 & -9.2456E+01 & -9.2454E+01 & -9.2452E+01 & -9.2450E+01 & -9.2449E+01 & -9.2447E+01  \\ \hline
-daug-cc-pVDZ & -7.6042E+01 & -9.2441E+01 & -9.2441E+01 & -9.2440E+01 & -9.2440E+01 & -9.2439E+01 & -9.2437E+01 & -9.2436E+01 & -9.2435E+01 & -9.2433E+01 & -9.2431E+01 & -9.2430E+01 & -9.2428E+01 & -9.2426E+01 & -9.2424E+01 & -9.2423E+01  \\ \hline
-daug-cc-pVTZ & -7.6061E+01 & -9.2459E+01 & -9.2459E+01 & -9.2459E+01 & -9.2458E+01 & -9.2457E+01 & -9.2456E+01 & -9.2454E+01 & -9.2453E+01 & -9.2451E+01 & -9.2449E+01 & -9.2448E+01 & -9.2446E+01 & -9.2444E+01 & -9.2443E+01 & -9.2441E+01  \\ \hline
-daug-cc-pVQZ & -7.6066E+01 & -9.2465E+01 & -9.2465E+01 & -9.2464E+01 & -9.2463E+01 & -9.2462E+01 & -9.2461E+01 & -9.2460E+01 & -9.2458E+01 & -9.2456E+01 & -9.2455E+01 & -9.2453E+01 & -9.2451E+01 & -9.2449E+01 & -9.2448E+01 & -9.2446E+01  \\ \hline
-daug-cc-pV5Z & -7.6067E+01 & -9.2466E+01 & -9.2466E+01 & -9.2465E+01 & -9.2464E+01 & -9.2463E+01 & -9.2462E+01 & -9.2461E+01 & -9.2459E+01 & -9.2457E+01 & -9.2456E+01 & -9.2454E+01 & -9.2452E+01 & -9.2450E+01 & -9.2449E+01 & -9.2447E+01  \\ \hline
-mrchem & -9.2349E+01 & -9.2472E+01 & -9.2471E+01 & -9.2470E+01 & -9.2469E+01 & -8.9965E+01 & -9.2466E+01 & \multicolumn{1}{l|}{N/A} & -9.2463E+01 & \multicolumn{1}{l|}{N/A} & -8.9954E+01 & -9.2458E+01 & \multicolumn{1}{l|}{N/A} & -9.2454E+01 & -8.9945E+01 & -9.2450E+01  \\ \hline
-variational & -9.2349E+01 & -9.7694E+01 & -9.7347E+01 & -9.6991E+01 & -9.6630E+01 & -9.6271E+01 & -9.5920E+01 & \multicolumn{1}{l|}{N/A} & -9.5263E+01 & \multicolumn{1}{l|}{N/A} & -9.4678E+01 & -9.4432E+01 & -9.4199E+01 & -9.3990E+01 & -9.3801E+01 & -9.3632E+01  \\ \hline
-\end{tabular}}} {\caption{Total Energy of \ce{CN^-}.  Radius in top row in Bohr and energies in Hartree}
-\label{tab:rawcyandata}}
-
-\ttabbox{
-
-\resizebox{\textwidth}{!}{
-
-\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{vac} & 3.6 & 3.7 & 3.8 & 3.9 & 4 & 4.1 & 4.2 & 4.3 & 4.4 & 4.5 & 4.6 & 4.7 & 4.8 & 4.9 & 5 \\ \hline
-Cc-pVDZ & -7.2361E+00 & -7.3732E+00 & -7.3695E+00 & -7.3660E+00 & -7.3627E+00 & -7.3595E+00 & -7.3565E+00 & -7.3536E+00 & -7.3509E+00 & -7.3483E+00 & -7.3458E+00 & -7.3434E+00 & -7.3411E+00 & -7.3390E+00 & -7.3369E+00 & -7.3348E+00 \\ \hline
-Cc-pVTZ & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3629E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-Cc-pVQZ & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3630E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-Cc-pV5Z & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3630E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-Aug-cc-pVDZ & -7.2361E+00 & -7.3732E+00 & -7.3695E+00 & -7.3660E+00 & -7.3627E+00 & -7.3595E+00 & -7.3565E+00 & -7.3536E+00 & -7.3509E+00 & -7.3483E+00 & -7.3458E+00 & -7.3434E+00 & -7.3411E+00 & -7.3390E+00 & -7.3369E+00 & -7.3348E+00 \\ \hline
-Aug-cc-pVTZ & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3629E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-Aug-cc-pVQZ & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3630E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-Aug-cc-pV5Z & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3630E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-daug-cc-pVDZ & -7.2361E+00 & -7.3732E+00 & -7.3695E+00 & -7.3660E+00 & -7.3627E+00 & -7.3595E+00 & -7.3565E+00 & -7.3536E+00 & -7.3509E+00 & -7.3483E+00 & -7.3458E+00 & -7.3434E+00 & -7.3411E+00 & -7.3390E+00 & -7.3369E+00 & -7.3348E+00 \\ \hline
-daug-cc-pVTZ & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3629E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-daug-cc-pVQZ & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3630E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-daug-cc-pV5Z & -7.2364E+00 & -7.3735E+00 & -7.3698E+00 & -7.3663E+00 & -7.3630E+00 & -7.3598E+00 & -7.3568E+00 & -7.3539E+00 & -7.3512E+00 & -7.3486E+00 & -7.3461E+00 & -7.3437E+00 & -7.3414E+00 & -7.3392E+00 & -7.3371E+00 & -7.3351E+00 \\ \hline
-mrchem & -7.2364E+00 & -7.3792E+00 & -7.3752E+00 & -7.3714E+00 & -7.3678E+00 & -7.3644E+00 & -7.3612E+00 & -7.3581E+00 & -7.3551E+00 & -7.3524E+00 & -7.3497E+00 & -7.3472E+00 & -7.3447E+00 & -7.3424E+00 & -7.3402E+00 & -7.3380E+00 \\ \hline
-variational & -7.2364E+00 & -7.3744E+00 & -7.3707E+00 & -7.3671E+00 & -7.3636E+00 & -7.3603E+00 & -7.3572E+00 & -7.3542E+00 & -7.3514E+00 & -7.3487E+00 & -7.3461E+00 & -7.3438E+00 & -7.3415E+00 & -7.3393E+00 & -7.3372E+00 & -7.3352E+00 \\ \hline
-\end{tabular}}}{\caption{Total energy of \ce{Li^+}. Radius on top row in Bohr and energies in Hartree}
-\label{tab:rawLipdata}}
-
-\end{sidewaystable}
-
-\begin{sidewaystable}
-  \ttabbox{
-  \resizebox{\textwidth}{!}{
-    \begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
-    \hline
-    basis & 3.6 & 3.7 & 3.8 & 3.9 & 4 & 4.1 & 4.2 & 4.3 & 4.4 & 4.5 & 4.6 & 4.7 & 4.8 & 4.9 & 5 \\ \hline
-    Cc-pVDZ & -1.2450E-02 & -1.0998E-02 & -9.7804E-03 & -8.7499E-03 & -7.8700E-03 & -7.1128E-03 & -6.4573E-03 & -5.8844E-03 & -5.3816E-03 & -4.9378E-03 & -4.5442E-03 & -4.1936E-03 & -3.8799E-03 & -3.5983E-03 & -3.3447E-03 \\ \hline
-    Cc-pVTZ & -1.3097E-02 & -1.1545E-02 & -1.0243E-02 & -9.1412E-03 & -8.2007E-03 & -7.3922E-03 & -6.6939E-03 & -6.0843E-03 & -5.5504E-03 & -5.0804E-03 & -4.6646E-03 & -4.2951E-03 & -3.9654E-03 & -3.6700E-03 & -3.4049E-03 \\ \hline
-    Cc-pVQZ & -1.3218E-02 & -1.1651E-02 & -1.0334E-02 & -9.2192E-03 & -8.2670E-03 & -7.4482E-03 & -6.7410E-03 & -6.1235E-03 & -5.5827E-03 & -5.1067E-03 & -4.6857E-03 & -4.3118E-03 & -3.9782E-03 & -3.6796E-03 & -3.4117E-03 \\ \hline
-    Cc-pV5Z & -1.3284E-02 & -1.1713E-02 & -1.0393E-02 & -9.2737E-03 & -8.3174E-03 & -7.4945E-03 & -6.7834E-03 & -6.1620E-03 & -5.6175E-03 & -5.1380E-03 & -4.7138E-03 & -4.3369E-03 & -4.0007E-03 & -3.6996E-03 & -3.4295E-03 \\ \hline
-    Aug-cc-pVDZ & -1.3190E-02 & -1.1634E-02 & -1.0328E-02 & -9.2204E-03 & -8.2741E-03 & -7.4596E-03 & -6.7553E-03 & -6.1396E-03 & -5.5997E-03 & -5.1238E-03 & -4.7025E-03 & -4.3279E-03 & -3.9935E-03 & -3.6939E-03 & -3.4249E-03 \\ \hline
-    Aug-cc-pVTZ & -1.3238E-02 & -1.1670E-02 & -1.0353E-02 & -9.2358E-03 & -8.2817E-03 & -7.4605E-03 & -6.7510E-03 & -6.1309E-03 & -5.5876E-03 & -5.1091E-03 & -4.6858E-03 & -4.3097E-03 & -3.9742E-03 & -3.6739E-03 & -3.4045E-03 \\ \hline
-    Aug-cc-pVQZ & -1.3221E-02 & -1.1655E-02 & -1.0338E-02 & -9.2227E-03 & -8.2695E-03 & -7.4493E-03 & -6.7407E-03 & -6.1214E-03 & -5.5789E-03 & -5.1011E-03 & -4.6784E-03 & -4.3029E-03 & -3.9680E-03 & -3.6681E-03 & -3.3992E-03 \\ \hline
-    Aug-cc-pV5Z & -1.3223E-02 & -1.1655E-02 & -1.0337E-02 & -9.2207E-03 & -8.2672E-03 & -7.4469E-03 & -6.7383E-03 & -6.1192E-03 & -5.5769E-03 & -5.0994E-03 & -4.6770E-03 & -4.3018E-03 & -3.9672E-03 & -3.6676E-03 & -3.3988E-03 \\ \hline
-    daug-cc-pVDZ & -1.3228E-02 & -1.1665E-02 & -1.0351E-02 & -9.2383E-03 & -8.2871E-03 & -7.4682E-03 & -6.7605E-03 & -6.1417E-03 & -5.5992E-03 & -5.1213E-03 & -4.6983E-03 & -4.3223E-03 & -3.9868E-03 & -3.6863E-03 & -3.4166E-03 \\ \hline
-    daug-cc-pVTZ & -1.3243E-02 & -1.1675E-02 & -1.0357E-02 & -9.2398E-03 & -8.2849E-03 & -7.4631E-03 & -6.7529E-03 & -6.1322E-03 & -5.5882E-03 & -5.1092E-03 & -4.6855E-03 & -4.3091E-03 & -3.9734E-03 & -3.6729E-03 & -3.4034E-03 \\ \hline
-    daug-cc-pVQZ & -1.3223E-02 & -1.1656E-02 & -1.0340E-02 & -9.2243E-03 & -8.2711E-03 & -7.4508E-03 & -6.7421E-03 & -6.1227E-03 & -5.5800E-03 & -5.1021E-03 & -4.6793E-03 & -4.3037E-03 & -3.9686E-03 & -3.6687E-03 & -3.3997E-03 \\ \hline
-    daug-cc-pV5Z & -1.3224E-02 & -1.1655E-02 & -1.0337E-02 & -9.2210E-03 & -8.2674E-03 & -7.4470E-03 & -6.7385E-03 & -6.1193E-03 & -5.5770E-03 & -5.0995E-03 & -4.6771E-03 & -4.3019E-03 & -3.9672E-03 & -3.6676E-03 & -3.3988E-03 \\ \hline
-    mrchem & -1.8036E-02 & -1.5494E-02 & -1.3437E-02 & -1.1751E-02 & -1.0354E-02 & -9.1865E-03 & -8.1992E-03 & -7.3577E-03 & -6.6339E-03 & -6.0092E-03 & -5.4647E-03 & -4.9879E-03 & -4.5682E-03 & -4.1968E-03 & 1.3975E+00 \\ \hline
-    variational & -1.7939E-01 & -9.2889E-02 & -2.2807E-02 & 3.3437E-02 & 7.7993E-02 & 1.1246E-01 & 1.3945E-01 & 1.5927E-01 & 1.7367E-01 & 1.8347E-01 & 1.8957E-01 & 1.9266E-01 & 1.9338E-01 & 1.9217E-01 & 1.5012E+00 \\ \hline
-    \end{tabular}}}{  \caption{Reaction field energy of \ce{H_2O}. Radius on top row in Bohr and energies in Hartree}\label{tab:Erdatawat}}
-
-  \ttabbox{
-  \resizebox{\textwidth}{!}{
-  \begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
-  \hline
-  basis & 3.6 & 3.7 & 3.8 & 3.9 & 4 & 4.1 & 4.2 & 4.3 & 4.4 & 4.5 & 4.6 & 4.7 & 4.8 & 4.9 & 5 & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \hline
-  Cc-pVDZ & -1.4058E-01 & -1.3613E-01 & -1.3206E-01 & -1.2830E-01 & -1.2481E-01 & -1.2155E-01 & -1.1849E-01 & -1.1561E-01 & -1.1289E-01 & -1.1031E-01 & -1.0785E-01 & -1.0551E-01 & -1.0327E-01 & -1.0114E-01 & -9.9088E-02 & -1.2929E-01 & -1.2239E-01 \\ \hline
-  Cc-pVTZ & -1.4064E-01 & -1.3621E-01 & -1.3214E-01 & -1.2839E-01 & -1.2489E-01 & -1.2162E-01 & -1.1854E-01 & -1.1565E-01 & -1.1291E-01 & -1.1032E-01 & -1.0785E-01 & -1.0550E-01 & -1.0326E-01 & -1.0112E-01 & -9.9067E-02 & -1.2916E-01 & -1.2227E-01 \\ \hline
-  Cc-pVQZ & -1.4042E-01 & -1.3604E-01 & -1.3202E-01 & -1.2829E-01 & -1.2482E-01 & -1.2157E-01 & -1.1851E-01 & -1.1563E-01 & -1.1290E-01 & -1.1031E-01 & -1.0785E-01 & -1.0550E-01 & -1.0326E-01 & -1.0112E-01 & -9.9068E-02 & -1.2909E-01 & -1.2223E-01 \\ \hline
-  Cc-pV5Z & -1.4032E-01 & -1.3595E-01 & -1.3193E-01 & -1.2821E-01 & -1.2475E-01 & -1.2151E-01 & -1.1846E-01 & -1.1559E-01 & -1.1287E-01 & -1.1028E-01 & -1.0783E-01 & -1.0549E-01 & -1.0325E-01 & -1.0111E-01 & -9.9059E-02 & -1.2900E-01 & -1.2218E-01 \\ \hline
-  Aug-cc-pVDZ & -1.4051E-01 & -1.3606E-01 & -1.3200E-01 & -1.2824E-01 & -1.2476E-01 & -1.2150E-01 & -1.1844E-01 & -1.1556E-01 & -1.1284E-01 & -1.1026E-01 & -1.0780E-01 & -1.0546E-01 & -1.0323E-01 & -1.0109E-01 & -9.9045E-02 & -1.2887E-01 & -1.2206E-01 \\ \hline
-  Aug-cc-pVTZ & -1.4048E-01 & -1.3608E-01 & -1.3203E-01 & -1.2829E-01 & -1.2481E-01 & -1.2156E-01 & -1.1849E-01 & -1.1561E-01 & -1.1288E-01 & -1.1029E-01 & -1.0783E-01 & -1.0549E-01 & -1.0325E-01 & -1.0111E-01 & -9.9056E-02 & -1.2902E-01 & -1.2216E-01 \\ \hline
-  Aug-cc-pVQZ & -1.4036E-01 & -1.3598E-01 & -1.3196E-01 & -1.2824E-01 & -1.2478E-01 & -1.2153E-01 & -1.1848E-01 & -1.1560E-01 & -1.1288E-01 & -1.1029E-01 & -1.0783E-01 & -1.0549E-01 & -1.0325E-01 & -1.0111E-01 & -9.9059E-02 & -1.2903E-01 & -1.2218E-01 \\ \hline
-  Aug-cc-pV5Z & -1.4032E-01 & -1.3594E-01 & -1.3193E-01 & -1.2821E-01 & -1.2475E-01 & -1.2151E-01 & -1.1846E-01 & -1.1558E-01 & -1.1286E-01 & -1.1028E-01 & -1.0783E-01 & -1.0548E-01 & -1.0325E-01 & -1.0111E-01 & -9.9058E-02 & -1.2900E-01 & -1.2217E-01 \\ \hline
-  daug-cc-pVDZ & -1.4043E-01 & -1.3601E-01 & -1.3196E-01 & -1.2823E-01 & -1.2475E-01 & -1.2150E-01 & -1.1845E-01 & -1.1558E-01 & -1.1286E-01 & -1.1028E-01 & -1.0783E-01 & -1.0549E-01 & -1.0325E-01 & -1.0112E-01 & -9.9068E-02 & -1.2889E-01 & -1.2208E-01 \\ \hline
-  daug-cc-pVTZ & -1.4040E-01 & -1.3601E-01 & -1.3198E-01 & -1.2825E-01 & -1.2478E-01 & -1.2153E-01 & -1.1847E-01 & -1.1560E-01 & -1.1287E-01 & -1.1029E-01 & -1.0783E-01 & -1.0549E-01 & -1.0325E-01 & -1.0111E-01 & -9.9059E-02 & -1.2900E-01 & -1.2216E-01 \\ \hline
-  daug-cc-pVQZ & -1.4034E-01 & -1.3596E-01 & -1.3194E-01 & -1.2822E-01 & -1.2476E-01 & -1.2152E-01 & -1.1846E-01 & -1.1559E-01 & -1.1287E-01 & -1.1028E-01 & -1.0783E-01 & -1.0548E-01 & -1.0325E-01 & -1.0111E-01 & -9.9058E-02 & -1.2902E-01 & -1.2218E-01 \\ \hline
-  daug-cc-pV5Z & -1.4032E-01 & -1.3594E-01 & -1.3193E-01 & -1.2821E-01 & -1.2475E-01 & -1.2151E-01 & -1.1846E-01 & -1.1558E-01 & -1.1286E-01 & -1.1028E-01 & -1.0782E-01 & -1.0548E-01 & -1.0325E-01 & -1.0111E-01 & -9.9058E-02 & -1.2900E-01 & -1.2217E-01 \\ \hline
-  mrchem & -3.2883E-01 & -2.5954E-01 & -2.1649E-01 & -1.8860E-01 & -1.6969E-01 & 3.3235E+00 & N/A & 3.3308E+00 & 3.3341E+00 & -1.2727E-01 & N/A & 3.3429E+00 & -1.1538E-01 & -1.1218E-01 & -1.0924E-01 & -1.3411E-01 & -1.2670E-01 \\ \hline
-  variational & 1.0359E+00 & 1.1729E+00 & 1.0849E+00 & 8.9494E-01 & 6.7670E-01 & 3.3235E+00 & N/A & 3.3308E+00 & 3.3341E+00 & -2.0407E-02 & -6.8498E-02 & 3.3429E+00 & -1.1235E-01 & -1.1730E-01 & -1.1578E-01 & -1.8326E-01 & -1.5337E-01 \\ \hline
-  \end{tabular}}}{\caption{Reaction field energy of \ce{NO^+}. Radius on top row in Bohr and energies in Hartree}
-  \label{tab:Erdatanop}}
-
-  \ttabbox{
-  \resizebox{\textwidth}{!}{
-\begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
-\hline
-basis & 3.6 & 3.7 & 3.8 & 3.9 & 4 & 4.1 & 4.2 & 4.3 & 4.4 & 4.5 & 4.6 & 4.7 & 4.8 & 4.9 & 5 \\ \hline
-Cc-pVDZ & -1.6399E+01 & -1.6398E+01 & -1.6397E+01 & -1.6395E+01 & -1.6394E+01 & -1.6392E+01 & -1.6390E+01 & -1.6388E+01 & -1.6385E+01 & -1.6383E+01 & -1.6381E+01 & -1.6379E+01 & -1.6377E+01 & -1.6374E+01 & -1.6372E+01 \\ \hline
-Cc-pVTZ & -1.6398E+01 & -1.6398E+01 & -1.6398E+01 & -1.6396E+01 & -1.6395E+01 & -1.6394E+01 & -1.6392E+01 & -1.6390E+01 & -1.6388E+01 & -1.6386E+01 & -1.6384E+01 & -1.6382E+01 & -1.6380E+01 & -1.6378E+01 & -1.6376E+01 \\ \hline
-Cc-pVQZ & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6397E+01 & -1.6396E+01 & -1.6395E+01 & -1.6393E+01 & -1.6392E+01 & -1.6390E+01 & -1.6388E+01 & -1.6386E+01 & -1.6384E+01 & -1.6383E+01 & -1.6381E+01 & -1.6379E+01 \\ \hline
-Cc-pV5Z & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6397E+01 & -1.6396E+01 & -1.6395E+01 & -1.6393E+01 & -1.6392E+01 & -1.6390E+01 & -1.6388E+01 & -1.6387E+01 & -1.6385E+01 & -1.6383E+01 & -1.6381E+01 & -1.6380E+01 \\ \hline
-Aug-cc-pVDZ & -1.6399E+01 & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6397E+01 & -1.6396E+01 & -1.6395E+01 & -1.6393E+01 & -1.6391E+01 & -1.6390E+01 & -1.6388E+01 & -1.6386E+01 & -1.6384E+01 & -1.6383E+01 & -1.6381E+01 \\ \hline
-Aug-cc-pVTZ & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6398E+01 & -1.6396E+01 & -1.6395E+01 & -1.6394E+01 & -1.6392E+01 & -1.6391E+01 & -1.6389E+01 & -1.6387E+01 & -1.6385E+01 & -1.6384E+01 & -1.6382E+01 & -1.6380E+01 \\ \hline
-Aug-cc-pVQZ & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6398E+01 & -1.6396E+01 & -1.6395E+01 & -1.6394E+01 & -1.6392E+01 & -1.6391E+01 & -1.6389E+01 & -1.6387E+01 & -1.6385E+01 & -1.6384E+01 & -1.6382E+01 & -1.6380E+01 \\ \hline
-Aug-cc-pV5Z & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6397E+01 & -1.6396E+01 & -1.6395E+01 & -1.6394E+01 & -1.6392E+01 & -1.6390E+01 & -1.6389E+01 & -1.6387E+01 & -1.6385E+01 & -1.6383E+01 & -1.6382E+01 & -1.6380E+01 \\ \hline
-daug-cc-pVDZ & -1.6399E+01 & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6397E+01 & -1.6396E+01 & -1.6394E+01 & -1.6393E+01 & -1.6391E+01 & -1.6390E+01 & -1.6388E+01 & -1.6386E+01 & -1.6384E+01 & -1.6383E+01 & -1.6381E+01 \\ \hline
-daug-cc-pVTZ & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6398E+01 & -1.6397E+01 & -1.6395E+01 & -1.6394E+01 & -1.6392E+01 & -1.6391E+01 & -1.6389E+01 & -1.6387E+01 & -1.6385E+01 & -1.6384E+01 & -1.6382E+01 & -1.6380E+01 \\ \hline
-daug-cc-pVQZ & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6398E+01 & -1.6396E+01 & -1.6395E+01 & -1.6394E+01 & -1.6392E+01 & -1.6391E+01 & -1.6389E+01 & -1.6387E+01 & -1.6385E+01 & -1.6384E+01 & -1.6382E+01 & -1.6380E+01 \\ \hline
-daug-cc-pV5Z & -1.6399E+01 & -1.6399E+01 & -1.6398E+01 & -1.6397E+01 & -1.6396E+01 & -1.6395E+01 & -1.6394E+01 & -1.6392E+01 & -1.6390E+01 & -1.6389E+01 & -1.6387E+01 & -1.6385E+01 & -1.6383E+01 & -1.6382E+01 & -1.6380E+01 \\ \hline
-mrchem & -1.2255E-01 & -1.2182E-01 & -1.2094E-01 & -1.1987E-01 & 2.3842E+00 & -1.1719E-01 & \#VALUE! & -1.1394E-01 & \#VALUE! & 2.3956E+00 & -1.0850E-01 & \#VALUE! & -1.0478E-01 & 2.4041E+00 & -1.0106E-01 \\ \hline
-variational & -5.3447E+00 & -4.9982E+00 & -4.6420E+00 & -4.2809E+00 & -3.9219E+00 & -3.5712E+00 & \#VALUE! & -2.9143E+00 & \#VALUE! & -2.3285E+00 & -2.0824E+00 & -1.8503E+00 & -1.6404E+00 & -1.4514E+00 & -1.2833E+00 \\ \hline
-\end{tabular}}}{\caption{Reaction field energy of \ce{CN^-}. Radius on top row in Bohr and energies in Hartree}
-\label{tab:Erdatacyan}}
-
-  \ttabbox{
-  \resizebox{\textwidth}{!}{
-    \begin{tabular}{|l|r|r|r|r|r|r|r|r|r|r|r|r|r|r|r|}
-  \hline
-  basis & 3.6 & 3.7 & 3.8 & 3.9 & 4 & 4.1 & 4.2 & 4.3 & 4.4 & 4.5 & 4.6 & 4.7 & 4.8 & 4.9 & 5 \\ \hline
-  Cc-pVDZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  Cc-pVTZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  Cc-pVQZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  Cc-pV5Z & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  Aug-cc-pVDZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  Aug-cc-pVTZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  Aug-cc-pVQZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  Aug-cc-pV5Z & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  daug-cc-pVDZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  daug-cc-pVTZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  daug-cc-pVQZ & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  daug-cc-pV5Z & -1.3712E-01 & -1.3341E-01 & -1.2990E-01 & -1.2657E-01 & -1.2340E-01 & -1.2039E-01 & -1.1753E-01 & -1.1479E-01 & -1.1219E-01 & -1.0969E-01 & -1.0731E-01 & -1.0502E-01 & -1.0284E-01 & -1.0074E-01 & -9.8723E-02 \\ \hline
-  mrchem & -1.4283E-01 & -1.3881E-01 & -1.3501E-01 & -1.3141E-01 & -1.2798E-01 & -1.2475E-01 & -1.2165E-01 & -1.1873E-01 & -1.1595E-01 & -1.1325E-01 & -1.1075E-01 & -1.0832E-01 & -1.0599E-01 & -1.0375E-01 & -1.0161E-01 \\ \hline
-  variational & -1.3797E-01 & -1.3426E-01 & -1.3067E-01 & -1.2723E-01 & -1.2393E-01 & -1.2079E-01 & -1.1780E-01 & -1.1498E-01 & -1.1231E-01 & -1.0972E-01 & -1.0735E-01 & -1.0505E-01 & -1.0287E-01 & -1.0079E-01 & -9.8805E-02 \\ \hline
-  \end{tabular}}}{\caption{Reaction field energy of \ce{Li^+}. Radius on top row in Bohr and energies in Hartree}
-  \label{tab:Erdatalip}}
-\end{sidewaystable}
-
-\begin{table}[htbp]
-\caption{Total energies for \ce{CH_3 CONH_2 } with \ac{ABC}, radii in Bohr and energies in Hartree}
-\begin{tabular}{|l|r|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{vacuum} & \multicolumn{1}{l|}{\ac{ABC}} & \multicolumn{1}{l|}{\ac{ABC} + 0.2} \\ \hline
-Cc-pVDZ & -2.0800E+02 & -2.0801E+02 & -2.0801E+02 \\ \hline
-Cc-pVTZ & -2.0806E+02 & -2.0807E+02 & -2.0807E+02 \\ \hline
-Cc-pVQZ & -2.0808E+02 & -2.0809E+02 & -2.0809E+02 \\ \hline
-Cc-pV5Z & -2.0808E+02 & -2.0809E+02 & -2.0809E+02 \\ \hline
-Aug-cc-pVDZ & -2.0801E+02 & -2.0803E+02 & -2.0803E+02 \\ \hline
-Aug-cc-pVTZ & -2.0806E+02 & -2.0808E+02 & -2.0808E+02 \\ \hline
-Aug-cc-pVQZ & -2.0808E+02 & -2.0809E+02 & -2.0809E+02 \\ \hline
-Aug-cc-pV5Z & -2.0808E+02 & -2.0810E+02 & -2.0809E+02 \\ \hline
-daug-cc-pVDZ & -2.0801E+02 & -2.0803E+02 & -2.0803E+02 \\ \hline
-daug-cc-pVTZ & -2.0806E+02 & -2.0808E+02 & -2.0808E+02 \\ \hline
-daug-cc-pVQZ & -2.0808E+02 & -2.0809E+02 & -2.0809E+02 \\ \hline
-daug-cc-pV5Z & -2.0808E+02 & \multicolumn{1}{l|}{} & \multicolumn{1}{l|}{} \\ \hline
-mrchem & -2.0808E+02 & -2.0810E+02 & -2.0809E+02 \\ \hline
-variational & -2.0808E+02 & -2.1077E+02 & -2.0984E+02 \\ \hline
-\end{tabular}
-\label{tab:acetamidrawdataabc}
-\end{table}
-
-\begin{table}[htbp]
-\caption{Total energies for \ce{H_2O } with \ac{ABC}}
-\begin{tabular}{|l|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{R = vdw*1.2} & \multicolumn{1}{l|}{R + 0.2} \\ \hline
-Cc-pVDZ & -7.6035E+01 & -7.6034E+01 \\ \hline
-Cc-pVTZ & -7.6066E+01 & -7.6064E+01 \\ \hline
-Cc-pVQZ & -7.6074E+01 & -7.6072E+01 \\ \hline
-Cc-pV5Z & -7.6076E+01 & -7.6074E+01 \\ \hline
-Aug-cc-pVDZ & -7.6050E+01 & -7.6049E+01 \\ \hline
-Aug-cc-pVTZ & -7.6069E+01 & -7.6068E+01 \\ \hline
-Aug-cc-pVQZ & -7.6075E+01 & -7.6073E+01 \\ \hline
-Aug-cc-pV5Z & -7.6076E+01 & -7.6075E+01 \\ \hline
-daug-cc-pVDZ & -7.6051E+01 & -7.6049E+01 \\ \hline
-daug-cc-pVTZ & -7.6070E+01 & -7.6068E+01 \\ \hline
-daug-cc-pVQZ & -7.6075E+01 & -7.6073E+01 \\ \hline
-daug-cc-pV5Z & -7.6076E+01 & -7.6075E+01 \\ \hline
-mrchem & -7.6078E+01 & -7.6076E+01 \\ \hline
-variational & -7.6387E+01 & -7.6205E+01 \\ \hline
-\end{tabular}
-\label{tab:watrawdataabc}
-\end{table}
-
-\begin{table}[htbp]
-\caption{Total energies for \ce{NO^+ } with \ac{ABC}}
-\begin{tabular}{|l|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{vdw} & \multicolumn{1}{l|}{R + 0.2} \\ \hline
-Cc-pVDZ & -1.2906E+02 & -1.2905E+02 \\ \hline
-Cc-pVTZ & -1.2910E+02 & -1.2909E+02 \\ \hline
-Cc-pVQZ & -1.2911E+02 & -1.2910E+02 \\ \hline
-Cc-pV5Z & -1.2911E+02 & -1.2910E+02 \\ \hline
-Aug-cc-pVDZ & -1.2906E+02 & -1.2906E+02 \\ \hline
-Aug-cc-pVTZ & -1.2910E+02 & -1.2909E+02 \\ \hline
-Aug-cc-pVQZ & -1.2911E+02 & -1.2910E+02 \\ \hline
-Aug-cc-pV5Z & -1.2911E+02 & -1.2910E+02 \\ \hline
-daug-cc-pVDZ & -1.2906E+02 & -1.2906E+02 \\ \hline
-daug-cc-pVTZ & -1.2910E+02 & -1.2909E+02 \\ \hline
-daug-cc-pVQZ & -1.2911E+02 & -1.2910E+02 \\ \hline
-daug-cc-pV5Z & -1.2911E+02 & -1.2910E+02 \\ \hline
-mrchem & -1.2911E+02 & -1.2911E+02 \\ \hline
-variational & -1.2916E+02 & -1.2913E+02 \\ \hline
-\end{tabular}
-\label{tab:noprawdataabc}
-\end{table}
-
-
-\begin{table}[htbp]
-\caption{Total energies for \ce{CN^- } with \ac{ABC}}
-\begin{tabular}{|l|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{vdw} & \multicolumn{1}{l|}{R + 0.2} \\ \hline
-Cc-pVDZ & -9.2414E+01 & -9.2410E+01 \\ \hline
-Cc-pVTZ & -9.2448E+01 & -9.2444E+01 \\ \hline
-Cc-pVQZ & -9.2457E+01 & -9.2453E+01 \\ \hline
-Cc-pV5Z & -9.2460E+01 & -9.2456E+01 \\ \hline
-Aug-cc-pVDZ & -9.2435E+01 & -9.2432E+01 \\ \hline
-Aug-cc-pVTZ & -9.2454E+01 & -9.2450E+01 \\ \hline
-Aug-cc-pVQZ & -9.2459E+01 & -9.2455E+01 \\ \hline
-Aug-cc-pV5Z & -9.2460E+01 & -9.2457E+01 \\ \hline
-daug-cc-pVDZ & -9.2435E+01 & -9.2432E+01 \\ \hline
-daug-cc-pVTZ & -9.2454E+01 & -9.2450E+01 \\ \hline
-daug-cc-pVQZ & -9.2459E+01 & -9.2455E+01 \\ \hline
-daug-cc-pV5Z & -9.2460E+01 & -9.2457E+01 \\ \hline
-mrchem & -9.2463E+01 & \multicolumn{1}{l|}{N/A} \\ \hline
-variational & -9.5400E+01 & -9.4773E+01 \\ \hline
-\end{tabular}
-\label{tab:cyanrawdataabc}
-\end{table}
-
-\begin{table}[htbp]
-\caption{Reaction field  energies for \ce{H_2O } with \ac{ABC}}
-\begin{tabular}{|l|r|r|}
-\hline
-Cc-pVDZ & -8.8187E-03 & -7.2789E-03 \\ \hline
-Cc-pVTZ & -9.0536E-03 & -7.4595E-03 \\ \hline
-Cc-pVQZ & -9.0468E-03 & -7.4576E-03 \\ \hline
-Cc-pV5Z & -9.0436E-03 & -7.4613E-03 \\ \hline
-Aug-cc-pVDZ & -9.0449E-03 & -7.4627E-03 \\ \hline
-Aug-cc-pVTZ & -8.9913E-03 & -7.4176E-03 \\ \hline
-Aug-cc-pVQZ & -8.9649E-03 & -7.3946E-03 \\ \hline
-Aug-cc-pV5Z & -8.9703E-03 & -7.3957E-03 \\ \hline
-daug-cc-pVDZ & -9.0550E-03 & -7.4645E-03 \\ \hline
-daug-cc-pVTZ & -8.9965E-03 & -7.4201E-03 \\ \hline
-daug-cc-pVQZ & -8.9685E-03 & -7.3974E-03 \\ \hline
-daug-cc-pV5Z & -8.9711E-03 & -7.3962E-03 \\ \hline
-mrchem & -1.0386E-02 & -8.4765E-03 \\ \hline
-variational & -3.1962E-01 & -1.3725E-01 \\ \hline
-\end{tabular}
-\label{tab:abcErwat}
-\end{table}
-
-
-\begin{table}[htbp]
-\caption{Reaction field  energies for \ce{NO^+ } with \ac{ABC}}
-\begin{tabular}{|l|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{vdw} & \multicolumn{1}{l|}{Vdw +0.2} \\ \hline
-Cc-pVDZ & -1.2929E-01 & -1.2239E-01 \\ \hline
-Cc-pVTZ & -1.2916E-01 & -1.2227E-01 \\ \hline
-Cc-pVQZ & -1.2909E-01 & -1.2223E-01 \\ \hline
-Cc-pV5Z & -1.2900E-01 & -1.2218E-01 \\ \hline
-Aug-cc-pVDZ & -1.2887E-01 & -1.2206E-01 \\ \hline
-Aug-cc-pVTZ & -1.2902E-01 & -1.2216E-01 \\ \hline
-Aug-cc-pVQZ & -1.2903E-01 & -1.2218E-01 \\ \hline
-Aug-cc-pV5Z & -1.2900E-01 & -1.2217E-01 \\ \hline
-daug-cc-pVDZ & -1.2889E-01 & -1.2208E-01 \\ \hline
-daug-cc-pVTZ & -1.2900E-01 & -1.2216E-01 \\ \hline
-daug-cc-pVQZ & -1.2902E-01 & -1.2218E-01 \\ \hline
-daug-cc-pV5Z & -1.2900E-01 & -1.2217E-01 \\ \hline
-mrchem & -1.3411E-01 & -1.2670E-01 \\ \hline
-variational & -1.8326E-01 & -1.5337E-01 \\ \hline
-\end{tabular}
-\label{tab:abcErnop}
-\end{table}
-
-\begin{table}[htbp]
-\caption{Reaction field  energies for \ce{CN^- } with \ac{ABC}}
-\begin{tabular}{|l|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{vdw} & \multicolumn{1}{l|}{Vdw + 0.2} \\ \hline
-Cc-pVDZ & -1.6388E+01 & -1.6383E+01 \\ \hline
-Cc-pVTZ & -1.6391E+01 & -1.6387E+01 \\ \hline
-Cc-pVQZ & -1.6393E+01 & -1.6389E+01 \\ \hline
-Cc-pV5Z & -1.6393E+01 & -1.6389E+01 \\ \hline
-Aug-cc-pVDZ & -1.6394E+01 & -1.6390E+01 \\ \hline
-Aug-cc-pVTZ & -1.6393E+01 & -1.6390E+01 \\ \hline
-Aug-cc-pVQZ & -1.6393E+01 & -1.6390E+01 \\ \hline
-Aug-cc-pV5Z & -1.6393E+01 & -1.6389E+01 \\ \hline
-daug-cc-pVDZ & -1.6394E+01 & -1.6390E+01 \\ \hline
-daug-cc-pVTZ & -1.6393E+01 & -1.6390E+01 \\ \hline
-daug-cc-pVQZ & -1.6393E+01 & -1.6390E+01 \\ \hline
-daug-cc-pV5Z & -1.6393E+01 & -1.6389E+01 \\ \hline
-mrchem & -1.1376E-01 & \multicolumn{1}{l|}{N/A} \\ \hline
-variational & -3.0512E+00 & -2.4239E+00 \\ \hline
-\end{tabular}
-\label{tab:abcErcyan}
-\end{table}
-
-\begin{table}[htbp]
-\caption{Reaction field  energies for \ce{CH_3 CONH_2 } with \ac{ABC}}
-\begin{tabular}{|l|r|r|}
-\hline
-basis & \multicolumn{1}{l|}{vdw} & \multicolumn{1}{l|}{Vdw+0.2} \\ \hline
-Cc-pVDZ & -1.4239E-02 & -1.1986E-02 \\ \hline
-Cc-pVTZ & -1.5055E-02 & -1.2700E-02 \\ \hline
-Cc-pVQZ & -1.5321E-02 & -1.2958E-02 \\ \hline
-Cc-pV5Z & -1.5374E-02 & -1.3011E-02 \\ \hline
-Aug-cc-pVDZ & -1.5502E-02 & -1.3105E-02 \\ \hline
-Aug-cc-pVTZ & -1.5390E-02 & -1.3029E-02 \\ \hline
-Aug-cc-pVQZ & -1.5352E-02 & -1.2996E-02 \\ \hline
-Aug-cc-pV5Z & -1.5354E-02 & -1.2993E-02 \\ \hline
-daug-cc-pVDZ & -1.5446E-02 & -1.3050E-02 \\ \hline
-daug-cc-pVTZ & -1.5374E-02 & -1.3012E-02 \\ \hline
-daug-cc-pVQZ & -1.5353E-02 & -1.2996E-02 \\ \hline
-daug-cc-pV5Z & \multicolumn{1}{l|}{N/A} & \multicolumn{1}{l|}{N/A} \\ \hline
-mrchem & -1.7496E-02 & -1.4615E-02 \\ \hline
-variational & -2.6924E+00 & -1.7618E+00 \\ \hline
-\end{tabular}
-\label{tab:abcEracetamid}
-\end{table}
 
 
 \input{acronyms.tex}
