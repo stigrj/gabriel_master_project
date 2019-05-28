@@ -84,7 +84,7 @@ The same type of tables were used for the rest of the systems.
       daug-cc-pVTZ & -7.6074e+01 & -7.6072e+01 & -7.6071e+01 & $\ldots$\\ \hline
       daug-cc-pVQZ & -7.6079e+01 & -7.6077e+01 & -7.6076e+01 & $\ldots$\\ \hline
       daug-cc-pV5Z & -7.6080e+01 & -7.6079e+01 & -7.6077e+01 & $\ldots$\\ \hline
-      mrchem & -7.6085E+01 & -7.6083E+01 & -7.6081E+01 & $\ldots$\\ \hline
+      \mrchem & -7.6085E+01 & -7.6083E+01 & -7.6081E+01 & $\ldots$\\ \hline
     \end{tabular}
   \end{center}
   \label{tab:rawwaterdata}
@@ -92,7 +92,7 @@ The same type of tables were used for the rest of the systems.
 
 In order to Calculate the Reaction field energy we took a gas phase calculation
 of a basis set and subtracted it from the total energy calculated with the same
-basis set. In mrchem this was done using the same relative precision. The
+basis set. In \mrchem this was done using the same relative precision. The
 following equation was used to calculate the Reaction field Energy $E_r$
 \begin{equation}\label{eq:deltaer}
   E_r = E_{tot} - E_{vac}
@@ -127,9 +127,9 @@ mrchem & -1.8036E-02 & -1.5494E-02 & -1.3437E-02 & $\ldots$\\ \hline
 We now plot the data from the total energy and reaction energy tables for
 both water and \ce{Li^+}.
 
-The water plots for the Reaction energy of water for
-both the Gaussian and  \mrchem calculations can be seen in Figure \ref{fig:watEnergyplots}.
-The same type of plots for \ce{Li^+} can be seen in Figure \ref{fig:lipEnergyplots}.
+The plots for the Reaction energy of water for
+both the Gaussian and  \mrchem calculations can be seen in Figure \ref{fig:watEnergyplotsdaug}.
+The same type of plots for \ce{Li^+} can be seen in Figure \ref{fig:lipEnergyplotsdaug}.
 In both of these figure we are comparing the energy from \mrchem to sets of four
 curves formed each of double, triple, quadruple and quintuple zeta Dunning's correlation
 consistent \cite{doi:10.1063/1.456153} basis sets as implemented in Gaussian \cite{G09}.
@@ -139,34 +139,16 @@ in the second we have augmented, and in the third of each figure we have double 
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/Erwat.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/Eraugwat.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Erdaugwat.png}
-  \end{subfigure}
-  \caption{Reaction field energy of Water in a water solution, calculated with relative precision $e-05$ in mrchem
-  and with different basis sets in Gaussian}
-  \label{fig:watEnergyplots}
+  \caption{Reaction field energy of Water in a water solution, calculated with relative precision $e-05$ in \mrchem and with double augmented basis sets in Gaussian}
+  \label{fig:watEnergyplotsdaug}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/Erlip.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/Erauglip.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Erdauglip.png}
-  \end{subfigure}
-  \caption{Reaction field energy of \ce{Li^+} in a water solution, calculated with relative precision $e-05$ in mrchem
-  and with different basis sets in Gaussian}
-  \label{fig:lipEnergyplots}
+  \caption{Reaction field energy of \ce{Li^+} in a water solution, calculated with relative precision $e-05$ in \mrchem  and with double augmented basis sets in Gaussian}
+  \label{fig:lipEnergyplotsdaug}
 \end{figure}
 
 The \mrchem energy values $E_{Mrchem}$ for each radii were compared to the
@@ -177,80 +159,48 @@ between them as
   d_r = \frac{E_{Gaussian}^{basis} - E_{Mrchem}}{E_{Mrchem}}
 \end{equation}
 The operation in Equation \ref{eq:reldiff} was applied to all the values for all the
-substrate molecules, giving the following figures \ref{fig:watreldiff} and \ref{fig:lipreldiff}.
+substrate molecules, giving the following figures \ref{fig:watreldiffdaug} and \ref{fig:lipreldiffdaug}.
 As before we separated the figures into three plots of four calculations with each
 their basis set. First standad correlation consistent, then augmented and lastly double augmented
 with double, triple, quadruple and quintuple zeta calculation for each of the plots.
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/watreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/wataugreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/watdaugreldiff.png}
-  \end{subfigure}
   \caption{Relative difference between the Reaction field energy of Water in a water solution calculated with with relative precision $e-05$ in \mrchem
-   and with different basis sets in Gaussian}
-  \label{fig:watreldiff}
+   and with double augmented basis sets in Gaussian}
+  \label{fig:watreldiffdaug}
 \end{figure}
 
 
 
-We then shifted the cavity radius of the mrchem calculations for both water and
+We then shifted the cavity radius of the \mrchem calculations for both water and
 \ce{Li^+} so they were $0.2$ Bohr bigger and compared them to Gaussian calculations
 with an unshifted Radius. The relative Difference plots for water and \ce{Li^+} can be seen
-in Figures \ref{fig:watreldiff02} and \ref{fig:lipreldiff02} respectivelly.
+in Figures \ref{fig:watreldiff02daug} and \ref{fig:lipreldiff02daug} respectivelly.
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/lipreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/lipaugreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/lipdaugreldiff.png}
-  \end{subfigure}
+  \includegraphics[width=\linewidth]{img/lipdaugreldiff.png}
   \caption{Relative difference between the Reaction field energy of\ce{Li^+} in a water solution calculated with relative precision $e-05$ in \mrchem
-  and with different basis sets in Gaussian}
-  \label{fig:lipreldiff}
+  and with double augmented basis sets in Gaussian}
+  \label{fig:lipreldiffdaug}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/watreldiff02.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/wataugreldiff02.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/watdaugreldiff02.png}
-  \end{subfigure}
   \caption{Relative difference between the Reaction field energy of Water in a water solution calculated with with relative precision $e-05$ in \mrchem
-  and with different basis sets in Gaussian}
-  \label{fig:watreldiff02}
+  and with double augmented basis sets in Gaussian}
+  \label{fig:watreldiff02daug}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/lipreldiff02.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/lipaugreldiff02.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/lipdaugreldiff02.png}
-  \end{subfigure}
   \caption{Relative difference between the Reaction field energy of \ce{Li^+} in a water solution calculated with relative precision $e-05$ in \mrchem
-  and with different basis sets in Gaussian}
-  \label{fig:lipreldiff02}
+  and with double augmented basis sets in Gaussian}
+  \label{fig:lipreldiff02daug}
 \end{figure}
 
 Lastly we computed the reaction field energies of \ce{Li^+} with four different
@@ -285,10 +235,10 @@ were tests were applied to \ce{NO^+}  and \ce{CN^-}. We did not apply this test
 on \ce{CH_3CONH_2} as the size of the melcule made the calculations in both Gaussian
 and \mrchem extremely slow.
 
-Following are figures \ref{fig:nopEnergyplots} and \ref{fig:cyanEnergyplots}
-that show the energies of the mrchem calculations plotted
+Following are figures \ref{fig:nopEnergyplotsdaug} and \ref{fig:cyanEnergyplotsdaug}
+that show the energies of the \mrchem calculations plotted
 against the energies from the Gaussian calculation for water, \ce{NO^+}, and
-\ce{CN^-} respectively. Many of the Mrchem results for \ce{CN^-} and \ce{NO^+}
+\ce{CN^-} respectively. Many of the \mrchem results for \ce{CN^-} and \ce{NO^+}
 around the interval $(4.0, 4.5)$ diverged and finished or never finished
 running due to divergence,  these results were therefore removed from the figures so as to facilitate
 the visualization of the trends across the radii. The values which deverged but still
@@ -298,70 +248,38 @@ finished running can be viewed in section \ref{Datatables}.
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/Ernop.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/Eraugnop.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Erdaugnop.png}
-  \end{subfigure}
-  \caption[Energy plots for \ce{NO^+}]{Reaction field energy of \ce{NO^+} in a water solution, calculated with mrchem
-  and with different basis sets in Gaussian}
-  \label{fig:nopEnergyplots}
-
+  \caption[Energy plots for \ce{NO^+}]{Reaction field energy of \ce{NO^+} in a water solution, calculated with \mrchem
+  and with double augmented basis sets in Gaussian}
+  \label{fig:nopEnergyplotsdaug}
 \end{figure}
+
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/Ercyan.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/Eraugcyan.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/Erdaugcyan.png}
-  \end{subfigure}
-  \caption{Reaction field energy of \ce{CN^-} in a water solution, calculated with mrchem
+  \caption{Reaction field energy of \ce{CN^-} in a water solution, calculated with \mrchem
   and with different basis sets in Gaussian}
-  \label{fig:cyanEnergyplots}
+  \label{fig:cyanEnergyplotsdaug}
 \end{figure}
 
-The Figures \ref{fig:nopreldiff} and \ref{fig:cyanreldiff} show the relative
+The Figures \ref{fig:nopreldiffdaug} and \ref{fig:cyanreldiffdaug} show the relative
 difference between the Gaussian and \mrchem results as shown in Equation \ref{eq:reldiff}
 
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/nopreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/nopaugreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/nopdaugreldiff.png}
-  \end{subfigure}
-  \caption{Relative difference between the Reaction field energy of \ce{NO^+} in a water solution calculated with MrChem
+    \caption{Relative difference between the Reaction field energy of \ce{NO^+} in a water solution calculated with \mrchem
   and with different basis sets in Gaussian}
-  \label{fig:nopreldiff}
+  \label{fig:nopreldiffdaug}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/cyanreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/cyanaugreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/cyandaugreldiff.png}
-  \end{subfigure}
-  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
-  and with different basis sets in Gaussian}
-  \label{fig:cyanreldiff}
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with \mrchem
+  and with double augmented basis sets in Gaussian}
+  \label{fig:cyanreldiffdaug}
 \end{figure}
 
 Since the \ac{ABC} tests were just two data points for each basis set and \newline\mrchem
@@ -469,14 +387,14 @@ daug-cc-pVQZ & -0.122478065257119 & -0.110807811509374 \\ \hline
 \subsection{Variational implementation Tests}
 Figures \ref{fig:watvarEr} and \ref{fig:lipvarEr} show the reaction field energy
 calculated with the variational implementation for water and \ce{Li^+}
-respectivelly. Figures \ref{fig:watreldiff} and \ref{fig:lipreldiff} show the
+respectivelly. Figures \ref{fig:watreldiffvardaug} and \ref{fig:lipreldiffvardaug} show the
 relative difference as calculated with Equation \ref{eq:reldiff} for water and \ce{Li^+}
 respectivelly.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.75\linewidth]{img/watvarEr.png}
-  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with \mrchem
   and with different basis sets in Gaussian}
   \label{fig:watvarEr}
 \end{figure}
@@ -484,41 +402,25 @@ respectivelly.
 \begin{figure}[h!]
   \centering
   \includegraphics[width=0.75\linewidth]{img/lipvarEr.png}
-  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with \mrchem
   and with different basis sets in Gaussian}
   \label{fig:lipvarEr}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/watvarreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/watvaraugreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/watvardaugreldiff.png}
-  \end{subfigure}
-  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with \mrchem
   and with different basis sets in Gaussian}
-  \label{fig:watreldiff}
+  \label{fig:watreldiffvardaug}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/lipvarreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
-    \includegraphics[width=\linewidth]{img/lipvaraugreldiff.png}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.75\linewidth}
     \includegraphics[width=\linewidth]{img/lipvardaugreldiff.png}
-  \end{subfigure}
-  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with MrChem
+  \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with \mrchem
   and with different basis sets in Gaussian}
-  \label{fig:lipreldiff}
+  \label{fig:lipreldiffvardaug}
 \end{figure}
 
 \section{Discussion}
