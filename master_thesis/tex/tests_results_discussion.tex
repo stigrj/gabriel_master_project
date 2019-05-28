@@ -39,11 +39,15 @@ We then took 4 molecules that were tested by \cite{Chipman2002} and compared the
 results from variation of radii against Gaussian results. The molecules used
 were \ce{H_2O}, \ce{NO^+}, \ce{CN^-} and \ce{CH_3CONH_2}. These tests are classified into
 single cavity tests and \ac{ABC} tests. Single cavity tests are performed in the
-same manner as the paramtrization tests where only the radius of the cavity was changed per
+same manner as the parametrization tests where only the radius of the cavity was changed per
 calculation. We did not shift the \mrchem calculation's cavity radius.
 
 The \ac{ABC} tests consist of making spherical cavities centered on
-each atom with radii equal to their center atom's Van der Waals radius. In this we tested
+each atom with radii equal to their center atom's Van der Waals radius. The Radii
+used to represent the Van der Waals radii were the Bondi radii multiplied by a factor of
+$1.2$ as outlined by \cite{Tomasi:1994wt}. These radii were later shifted in the same manner
+as in the parametrization tests in order to see the effect of bigger spheres for each
+atom.
 
 As stated before in chapters \ref{chap:Solvent_effect} and \ref{chap:implementation}
 a variational formulation of the Reaction field Problem was implemented in this thesis,
@@ -55,12 +59,12 @@ reader to evaluate the variational energies for the other molecules.
 
 
 \section{Data}
-The data tables containing all results can be found in appendix \ref{Datatables}, following
-tables will show a small sample so the reader can make better understand the tables
-in the appendixes.
 \subsection{Theoretical correctness Tests}
-\subsection{Parametrization Tests}
-Wer first variated the Radius of the cavity for water and lithium. The following
+\subsection{Parametrization Tests}\label{sec:paratests}
+The data tables containing all results can be found in appendix \ref{Datatables}, following
+tables will show a small sample so the reader can make have a understanding of
+the tables shown there.
+We first variated the Radius of the cavity for water and lithium. The following
 table \ref{tab:rawwaterdata}  presents the data for the energy
 calculations of \ce{H_2O} with the three first cavity radii as an example of the layout of the
 tables.
@@ -105,7 +109,7 @@ in Equation \ref{eq:deltaer} can be seen in table \ref{tab:Erwatdata}
 \begin{center}
 \begin{tabular}{|l|r|r|r|r|}
 \hline
-basis & 3.6 & 3.7 & 3.8 & $\ldots$\\ \hline
+Basis & 3.6 & 3.7 & 3.8 & $\ldots$\\ \hline
 Cc-pVDZ & -1.2450E-02 & -1.0998E-02 & -9.7804E-03 & $\ldots$\\ \hline
 Cc-pVTZ & -1.3097E-02 & -1.1545E-02 & -1.0243E-02 & $\ldots$\\ \hline
 Cc-pVQZ & -1.3218E-02 & -1.1651E-02 & -1.0334E-02 & $\ldots$\\ \hline
@@ -124,6 +128,7 @@ mrchem & -1.8036E-02 & -1.5494E-02 & -1.3437E-02 & $\ldots$\\ \hline
 \label{tab:Erwatdata}
 \end{table}
 
+
 We now plot the data from the total energy and reaction energy tables for
 both water and \ce{Li^+}.
 
@@ -133,20 +138,22 @@ The same type of plots for \ce{Li^+} can be seen in Figure \ref{fig:lipEnergyplo
 In both of these figure we are comparing the energy from \mrchem to sets of four
 curves formed each of double, triple, quadruple and quintuple zeta Dunning's correlation
 consistent \cite{doi:10.1063/1.456153} basis sets as implemented in Gaussian \cite{G09}.
-In the first plot we have energies calculated with standard correlation consistent ,
-in the second we have augmented, and in the third of each figure we have double augmented.
+
+While in this chapter we only look at double augmented basis, in Appendix \ref{Figures}
+the reader can see this same comparison for augmented and standard basis sets for
+both these tests and subsequent ones.
 
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=\linewidth]{img/Erdaugwat.png}
+    \includegraphics[width=0.75\linewidth]{img/Erdaugwat.png}
   \caption{Reaction field energy of Water in a water solution, calculated with relative precision $e-05$ in \mrchem and with double augmented basis sets in Gaussian}
   \label{fig:watEnergyplotsdaug}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=\linewidth]{img/Erdauglip.png}
+    \includegraphics[width=0.75\linewidth]{img/Erdauglip.png}
   \caption{Reaction field energy of \ce{Li^+} in a water solution, calculated with relative precision $e-05$ in \mrchem  and with double augmented basis sets in Gaussian}
   \label{fig:lipEnergyplotsdaug}
 \end{figure}
@@ -158,11 +165,9 @@ between them as
 \begin{equation}\label{eq:reldiff}
   d_r = \frac{E_{Gaussian}^{basis} - E_{Mrchem}}{E_{Mrchem}}
 \end{equation}
-The operation in Equation \ref{eq:reldiff} was applied to all the values for all the
+The operation in Equation \ref{eq:reldiff} was applied to both water and \ce{Li^+} for all the
 substrate molecules, giving the following figures \ref{fig:watreldiffdaug} and \ref{fig:lipreldiffdaug}.
-As before we separated the figures into three plots of four calculations with each
-their basis set. First standad correlation consistent, then augmented and lastly double augmented
-with double, triple, quadruple and quintuple zeta calculation for each of the plots.
+
 
 \begin{figure}[h!]
   \centering
@@ -172,13 +177,6 @@ with double, triple, quadruple and quintuple zeta calculation for each of the pl
   \label{fig:watreldiffdaug}
 \end{figure}
 
-
-
-We then shifted the cavity radius of the \mrchem calculations for both water and
-\ce{Li^+} so they were $0.2$ Bohr bigger and compared them to Gaussian calculations
-with an unshifted Radius. The relative Difference plots for water and \ce{Li^+} can be seen
-in Figures \ref{fig:watreldiff02daug} and \ref{fig:lipreldiff02daug} respectivelly.
-
 \begin{figure}[h!]
   \centering
   \includegraphics[width=\linewidth]{img/lipdaugreldiff.png}
@@ -186,6 +184,12 @@ in Figures \ref{fig:watreldiff02daug} and \ref{fig:lipreldiff02daug} respectivel
   and with double augmented basis sets in Gaussian}
   \label{fig:lipreldiffdaug}
 \end{figure}
+
+
+We then shifted the cavity radius of the \mrchem calculations for both water and
+\ce{Li^+} so they were $0.2$ Bohr bigger and compared them to Gaussian calculations
+with an unshifted Radius. The relative Difference plots for water and \ce{Li^+} can be seen
+in Figures \ref{fig:watreldiff02daug} and \ref{fig:lipreldiff02daug} respectively.
 
 \begin{figure}[h!]
   \centering
@@ -203,6 +207,7 @@ in Figures \ref{fig:watreldiff02daug} and \ref{fig:lipreldiff02daug} respectivel
   \label{fig:lipreldiff02daug}
 \end{figure}
 
+
 Lastly we computed the reaction field energies of \ce{Li^+} with four different
 relative precisions; $1e-3, 1e-4, 1e-5,\  \text{and}\  1e-6$. We compared these
 to the reaction field energies calculated with the most complete basis set:
@@ -213,7 +218,7 @@ to the reaction field energies calculated with the most complete basis set:
 Figure \ref{fig:lipprecreldef} shows the plots of the operation in Equation \ref{eq:difgauss} above.
 First all of the relative differences plotted together, then the second one contains
 only the results for relative precision $1e(-4), 1e(-5),\  \text{and}\  1e(-6)$ since
-the results with relative precission $1e(-3)$ are over five times larger than the other ones.
+the results with relative precision $1e(-3)$ are over five times larger than the other ones.
 
 \begin{figure}[h!]
   \centering
@@ -229,10 +234,10 @@ the results with relative precission $1e(-3)$ are over five times larger than th
 
 \subsection{Comparison Tests}
 
-These tests were divided into single cavity and \ac{ABC} tets. The single cavity
-tests are the same type of tests performed on water in the prvoius sections. These
-were tests were applied to \ce{NO^+}  and \ce{CN^-}. We did not apply this test
-on \ce{CH_3CONH_2} as the size of the melcule made the calculations in both Gaussian
+These tests were divided into single cavity and \ac{ABC} tests. The single cavity
+tests are the same type of tests performed on water in the previous sections. These
+tests were applied to \ce{NO^+}  and \ce{CN^-}. We did not apply this test
+on \ce{CH_3CONH_2} as the size of the molecule made the calculations in both Gaussian
 and \mrchem extremely slow.
 
 Following are figures \ref{fig:nopEnergyplotsdaug} and \ref{fig:cyanEnergyplotsdaug}
@@ -241,10 +246,8 @@ against the energies from the Gaussian calculation for water, \ce{NO^+}, and
 \ce{CN^-} respectively. Many of the \mrchem results for \ce{CN^-} and \ce{NO^+}
 around the interval $(4.0, 4.5)$ diverged and finished or never finished
 running due to divergence,  these results were therefore removed from the figures so as to facilitate
-the visualization of the trends across the radii. The values which deverged but still
+the visualization of the trends across the radii. The values which diverged but still
 finished running can be viewed in section \ref{Datatables}.
-
-
 
 \begin{figure}[h!]
   \centering
@@ -265,7 +268,6 @@ finished running can be viewed in section \ref{Datatables}.
 The Figures \ref{fig:nopreldiffdaug} and \ref{fig:cyanreldiffdaug} show the relative
 difference between the Gaussian and \mrchem results as shown in Equation \ref{eq:reldiff}
 
-
 \begin{figure}[h!]
   \centering
     \includegraphics[width=\linewidth]{img/nopdaugreldiff.png}
@@ -282,13 +284,14 @@ difference between the Gaussian and \mrchem results as shown in Equation \ref{eq
   \label{fig:cyanreldiffdaug}
 \end{figure}
 
+
 Since the \ac{ABC} tests were just two data points for each basis set and \newline\mrchem
 we will present them in a tabulated manner. Here we did tests for \ce{CH_3CONH_2}, \ce{H_2O}, \ce{CN^-} and \ce{NO^+}
-for both the Bondi Van der Waals radii and the same radii shifted by $0.2$ Bohr as was done preiously.
+for both the Bondi Van der Waals radii and the same radii shifted by $0.2$ Bohr as was done previously.
 
 Tables \ref{tab:watabcreldiff}, \ref{tab:nopabcreldiff}, \ref{tab:cyanabcreldiff}, \ref{tab:acetamidabcreldiff}
 each show the relative difference for the \ac{ABC} and shifted \ac{ABC} tests
-for \ce{H_20}, \ce{NO^+}, \ce{CN^-}, and \ce{CH_3CONH_2} respectivelly. The
+for \ce{H_20}, \ce{NO^+}, \ce{CN^-}, and \ce{CH_3CONH_2} respectively. The
 total and  reaction field energy for each of these can be seen in appendix \ref{Datatables}.
 
 The shifted \ac{ABC} did not converge for \ce{CN^-}, so a comparison between the two sets
@@ -303,7 +306,7 @@ basis sets and not include this one.
 \caption{Relative difference between Gaussian and \mrchem results from \ac{ABC}  test for water}
 \begin{tabular}{|l|r|r|}
 \hline
-basis & \multicolumn{1}{l|}{Van der Waals} & \multicolumn{1}{l|}{Van der Waals + 0.2 Bohr} \\ \hline
+Basis & \multicolumn{1}{l|}{Van der Waals Radii} & \multicolumn{1}{l|}{Van der Waals Radii $+ 0.2$ Bohr} \\ \hline
 Cc-pVDZ & -0.150906543613475 & -0.141285964520019 \\ \hline
 Cc-pVTZ & -0.128295351717095 & -0.119975293105413 \\ \hline
 Cc-pVQZ & -0.12895264591432 & -0.120205694685673 \\ \hline
@@ -324,7 +327,7 @@ daug-cc-pV5Z & -0.136235086647362 & -0.127443949643962 \\ \hline
 \caption{Relative difference between Gaussian and \mrchem results from \ac{ABC}  test for \ce{NO^+}}
 \begin{tabular}{|l|r|r|}
 \hline
-basis & \multicolumn{1}{l|}{Van der Waals} & \multicolumn{1}{l|}{Van der Waals + 0.2 Bohr} \\ \hline
+Basis & \multicolumn{1}{l|}{Van der Waals Radii} & \multicolumn{1}{l|}{Van der Waals Radii $+ 0.2$ Bohr} \\ \hline
 Cc-pVDZ & -3.5984E-02 & -3.4028E-02 \\ \hline
 Cc-pVTZ & -3.6922E-02 & -3.4965E-02 \\ \hline
 Cc-pVQZ & -3.7470E-02 & -3.5239E-02 \\ \hline
@@ -345,7 +348,7 @@ daug-cc-pV5Z & -3.8139E-02 & -3.5740E-02 \\ \hline
 \caption{Relative difference between Gaussian and \mrchem results from \ac{ABC}  test for \ce{CN^-}}
 \begin{tabular}{|l|r|}
 \hline
-basis & \multicolumn{1}{l|}{Van der Waals} \\ \hline
+Basis & \multicolumn{1}{l|}{Van der Waals Radii} \\ \hline
 Cc-pVDZ & 0.01805797 \\ \hline
 Cc-pVTZ & 0.00402722 \\ \hline
 Cc-pVQZ & -0.00689520 \\ \hline
@@ -366,7 +369,7 @@ daug-cc-pV5Z & -0.02449823 \\ \hline
 \caption{Relative difference between Gaussian and \mrchem results from \ac{ABC}  test for \ce{CH_3CONH_2}}
 \begin{tabular}{|l|r|r|}
 \hline
-basis & \multicolumn{1}{l|}{vdw} & \multicolumn{1}{l|}{Vdw+0.2} \\ \hline
+Basis & \multicolumn{1}{l|}{Van der Waals Radii} & \multicolumn{1}{l|}{Van der Waals Radii $+ 0.2$ Bohr} \\ \hline
 Cc-pVDZ & -0.186177328600554 & -0.179892322986873 \\ \hline
 Cc-pVTZ & -0.13954657945224 & -0.131024507798636 \\ \hline
 Cc-pVQZ & -0.12431319516031 & -0.113411992173209 \\ \hline
@@ -387,9 +390,9 @@ daug-cc-pVQZ & -0.122478065257119 & -0.110807811509374 \\ \hline
 \subsection{Variational implementation Tests}
 Figures \ref{fig:watvarEr} and \ref{fig:lipvarEr} show the reaction field energy
 calculated with the variational implementation for water and \ce{Li^+}
-respectivelly. Figures \ref{fig:watreldiffvardaug} and \ref{fig:lipreldiffvardaug} show the
+respectively. Figures \ref{fig:watreldiffvardaug} and \ref{fig:lipreldiffvardaug} show the
 relative difference as calculated with Equation \ref{eq:reldiff} for water and \ce{Li^+}
-respectivelly.
+respectively.
 
 \begin{figure}[h!]
   \centering
@@ -409,7 +412,7 @@ respectivelly.
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=\linewidth]{img/watvardaugreldiff.png}
+    \includegraphics[width=\linewidth]{img/watitervarreldiff.png}
   \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with \mrchem
   and with different basis sets in Gaussian}
   \label{fig:watreldiffvardaug}
@@ -417,16 +420,150 @@ respectivelly.
 
 \begin{figure}[h!]
   \centering
-    \includegraphics[width=\linewidth]{img/lipvardaugreldiff.png}
+    \includegraphics[width=\linewidth]{img/lipitervarreldiff.png}
   \caption{Relative difference between the Reaction field energy of \ce{CN^-} in a water solution calculated with \mrchem
   and with different basis sets in Gaussian}
   \label{fig:lipreldiffvardaug}
 \end{figure}
 
-\section{Discussion}
-\section{Conclusion}
-\section{Areas of improvement/future development}
 
+
+\section{Discussion}
+\subsection{Theoretical correctness Discussion}
+\subsection{Parametrization Discussion}
+The values for water reaction energy with a cavity radius of $5$ Bohr diverged, therefore
+we removed them in order to better visualize the trends.
+We can see in figures \ref{fig:watreldiffdaug} and \ref{fig:lipreldiffdaug}
+that the difference decays the bigger the cavity is. The method Gaussian
+uses to calculate the reaction field describes the transition from inside the
+cavity to the outside as happening at a boundary, this being the surface of the cavity.
+The problem is solved at the surface of the cavity, which is assumed to be extremely
+thin, so the transition is noncontinuous, as explained in chapter \ref{chap:Solvent_effect}.
+Our cavity is defined as an analytical transition with a parameter $\sigma$ which
+controls the width of the the cavity surface, so that we get a smooth transition
+between the inside and the outside of the cavity.
+
+Two main factors play that make this decay in relative difference that we observe
+a preferred outcome. Firstly the bigger the radius, the smaller the transition is
+relative to the size of the cavity. This means that at larger distances our cavity
+resembles more and more that of a discontinuous transition such as the ones used
+by Gaussian. This means that it is expected that our smooth cavity calculations are expected
+to converge to the results of other sharper cavities, such as Gaussian's.
+
+The second factor is the amount of the charge density that is contained within
+the cavity. The effect of this can be seen on the tests that followed.
+
+As we can see on the figures \ref{fig:watreldiff02daug} and \ref{fig:lipreldiff02daug}
+there is a significant improvement on the relative difference when we compare with
+bigger radii of \mrchem calculations to smaller radii of Gaussian calculations.
+This is caused by the smooth cavity. Since the transition is wider in our implementation
+there is more density that is situated outside the cavity than in cavities of same radius
+from Gaussian calculations. This was accounted when we increased the radii, and we still
+see the same decay in difference that we saw in the standard comparison.
+
+The graphs from Figure \ref{fig:lipprecreldef} tell us two things about our results:
+Firstly at precisions lower than $1e-03$ we get results that are at least $20\%$ different
+than the best Gaussian results we could run for small radii and diverge from the
+Gaussian results for bigger radii. Secondly we see that we don't need a relatively big
+precision to get stable results which are consistent with greater precisions and
+that also approach the Gaussian results at bigger radii.
+
+On the other hand, it is hard to decide if this is applicable to bigger systems,
+as the Lithium cation is fairly simple with a filled energy level, whereas
+other systems might not be so simple.
+
+\subsection{Comparison Discussion}
+Same as with the tests for \ce{Li^+} and water, the Figures \ref{fig:nopreldiffdaug}
+and  \ref{fig:cyanreldiffdaug} show that both relative differences for \ce{CN^-}
+and \ce{NO^+} decay at higher radii.
+
+The results for \ce{NO^+}  seem to decay faster than the other molecules, but it
+is hard to see due to the lack of data points. Assuming that it decays faster,
+one can explain this as being due to the fact that the electron density is
+closer to the atoms, making it easier for the cavity to contain most of it.
+The opposite can be seen for \ce{CN^-}. The explanation for this might go through
+the same line of thought as that for \ce{NO^+}, but now since the molecule is negatively
+charged, the density is more diffuse, making it harder to contain it in its entirety.
+
+The divergence around at interval $(4.0, 4.7)$ can be attributed to the way the
+functions are projected. The cavity function is very sharp at the transition. In order to
+project it correctly one needs to go to very low scales.
+
+Additionally, the intervals are
+powers of two, meaning that there is always the discontinuity from the wavelets at the
+$4.0$ point, which is hard to correct. This discontinuity brings forth numerical
+noise that gets amplified when the derivative of the function is calculated to solve the
+\ac{GPE}.
+
+Fosso-Tande defined the derivative of the Cavity as combinations of analytical
+derivatives \cite{FossoTande:2013ka}. This definition supposedly would help
+remove numerical noise at the transition, since one can create these analytical
+derivatives before projecting them into the \ac{MW} basis.
+
+The tables for the \ac{ABC} tests  show us that for most the molecules, the
+relative difference doesn't vary too much when going to \ac{ABC} or that it gets
+much better, as is the case for \ce{NO^+} in Table \ref{tab:nopabcreldiff}.
+It can be seen that, while its single cavity plot, Figure \ref{fig:nopreldiffdaug}, do not go
+lower than a relative difference of $10\%$, its \ac{ABC} tests have a relative difference
+of less than $4\%$. The same can be said for the results for \ce{CN^-}, in Table \ref{tab:cyanabcreldiff},
+which got to less than $3\%$ from the Gaussian results, while it never approached $10\%$
+with single cavity, Figure \ref{fig:cyanreldiffdaug}.
+
+The water results, in table \ref{tab:watabcreldiff} do not go too far from the best relative difference
+shown in Figure \ref{fig:watreldiffdaug}. They do get slightly better when increasing
+the Radius of the interlocking spheres, a decrease in the relative difference of
+around $1\%$. This small decrease is seen in the other molecules as well, where,
+for \ce{NO^+}, the decrease is around $0.1\%$.
+
+\ce{CH_3CONH_2}, in Table \ref{tab:acetamidabcreldiff} has a difference of at
+best $11.4\%$ and at worst $18.6\%$. Increasing the radii of the interlocking spheres
+has the same effect that was observed for water.  This tells us that the choice of
+radii, the Bondi radii multiplied by a factor of $1.2$, are already a good choice
+for the molecules.
+\subsection{Variational implementation discussion}
+The results for the variational implementation should ideally be the same as the results for the
+iterative implementation. From Figures \ref{fig:watreldiffvardaug} and \ref{fig:lipreldiffvardaug}
+we can see that this is not the case.
+The for this deviation from the results might be because of the same reason the ion
+molecules in the comparison tests didn't converge in certain radii. That is, that there
+is numerical noise that is being amplified by derivation. Before we had some convergence, since
+we still iterated until the potential was converged before optimizing the orbitals. Now
+we do not iterate and just calculate the potential once. This might let the numerical errors
+be carried over.
+
+A problem with the numerical error explanation is that the differences are still
+continuous, that is, it is not nonsense numbers. The reason for this might be that
+the way the effective charge distribution $\rho_{eff}$ is implemented, where $\rho_{eff}$
+is divided by a function of the cavity. If the cavity diverges and becomes much bigger
+than the distribution then $\rho_{eff}$ is essentially zero. This way one might iterate
+with only the Surface charge distribution. This can cause the results to not vary
+extremely.
+
+If one observes Figure \ref{fig:lipreldiffvardaug} one can see that the difference is not
+that big. The difference is at most $3.5\%$ which is not an extremely bad value.
+What we can take then is that, although bigger molecules give wrong energies, for smaller
+one atom systems, the variational method might be equivalent to the iterative.
+
+\section{Areas of improvement/future development}
+Given that the iterative values gave results as expected we can say that the
+implementation is correct. An improvement would be to try to change the cavity
+definition so as to take into account more of the electron density. One way that is
+possible right now is to decrease the width of the transition, another is to simply use
+bigger cavities as these are shown to give better results. Both of those are possible
+with the implementation used now, but decreasing the width of the transition might
+make the cavity harder to project.
+
+A better solution to this is to implement the derivative of the caivty as
+a combination of analytical derivatives, as Fosso-Tande did in \cite{FossoTande:2013ka}, which
+might let us get better results with the same parameters used in the tests of this chapter.
+
+Another attractive solution is to use layered cavities, in which we have a step-like
+cavity transition. Some other methods do that already \cite{Tomasi:2005ipa} although
+not with a continuous cavity function.
+
+The goal in the future is to apply these solutions and test if they better the
+results of the variational method. After that we will start seeing how molecular properties
+are affected by this.
 
 
 

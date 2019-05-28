@@ -121,7 +121,7 @@ energy between $S$ and $A$ \cite{Cramer:2004}. The new field obtained at the
 equilibrium position of this interaction is called the Reaction field $U_r$ for
 the interaction of $A$ and $S$.
 
-\section{Explicit solvation models}
+\section{Explicit Solvation models}
 
 The explicit method is necessary when the solvent molecules' geometry and states
 are important to the measurement of the interactions of the substrate
@@ -137,11 +137,11 @@ can be described as a sum of bonding and non-bonding contributions
 divided into bending, stretching and torsion of the bonds. Both the bending
 and the stretching of the bonds can be described with the Harmonic Oscillator
 (HO) and the torsion with a periodic function \cite{Mennucci:2018}. The
-non-bonding interactions can be described with Coulombs law, or other equvalent
+non-bonding interactions can be described with Coulombs law, or other equivalent
 expressions of potentials, with the atoms as point charges. More information on
 this can be read on \cite{Cramer:2004, Jensen:2017}.
 
-\section{Implicit solvation models}
+\section{Implicit Solvation models}
 Most implicit models describe the solvent $S$ as a Linear isotropic continuum
 characterized by the static dielectric constant $\epsinf$ characteristic
 of the bulk of $S$ \cite{Tomasi:1994wt, FossoTande:2013ka}. In this continuum
@@ -419,7 +419,7 @@ The Cavity for the $i$-th atom is defined as
 \begin{equation}
   C_i(\rvec) = 1 - \Theta(s_i(\rvec)) =\Theta(-s_i(\rvec))
 \end{equation}
-Where $\Theta$ is a heavyside-like function that enables to smoothly transition
+Where $\Theta$ is a heavy-side-like function that enables to smoothly transition
 from the inside of the cavity (value $1$), to the surface of the cavity (value
 $\frac{1}{2}$) and to the outside of the cavity (value $0$)
 \cite{Sorland, FossoTande:2013ka}. We use the error function $\erf(x)$ to define
@@ -499,7 +499,7 @@ more thoroughly in Chapter \ref{chap:implementation}.
 \section{Variational implementation}
 Following Lipparini \cite{Lipparini:2010bg, Lipparini:2013} I'll arrive at a functional where
 minimizing with respect to $U$ of the solvent energy contribution to
-the total energy $G_s$ will give a way to determine $U_r$ variationaly.
+the total energy $G_s$ will give a way to determine $U_r$ variationally.
 
 Starting from the \ac{GPE} defined from \cite{FossoTande:2013ka} we project it
 into a suitable space with test functions $\psi$
