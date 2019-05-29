@@ -64,7 +64,7 @@ reader to evaluate the variational energies for the other molecules.
 The data tables containing all results can be found in appendix \ref{Datatables}, following
 tables will show a small sample so the reader can make have a understanding of
 the tables shown there.
-We first variated the Radius of the cavity for water and lithium. The following
+We first varied the Radius of the cavity for water and lithium. The following
 table \ref{tab:rawwaterdata}  presents the data for the energy
 calculations of \ce{H_2O} with the three first cavity radii as an example of the layout of the
 tables.
@@ -209,7 +209,7 @@ in Figures \ref{fig:watreldiff02daug} and \ref{fig:lipreldiff02daug} respectivel
 
 
 Lastly we computed the reaction field energies of \ce{Li^+} with four different
-relative precisions; $1e-3, 1e-4, 1e-5,\  \text{and}\  1e-6$. We compared these
+relative precision; $1e-3, 1e-4, 1e-5,\  \text{and}\  1e-6$. We compared these
 to the reaction field energies calculated with the most complete basis set:
 \verb!daug-cc-pV5Z! as described in
 \begin{equation}\label{eq:difgauss}
@@ -462,10 +462,10 @@ from Gaussian calculations. This was accounted when we increased the radii, and 
 see the same decay in difference that we saw in the standard comparison.
 
 The graphs from Figure \ref{fig:lipprecreldef} tell us two things about our results:
-Firstly at precisions lower than $1e-03$ we get results that are at least $20\%$ different
+Firstly at precision lower than $1e-03$ we get results that are at least $20\%$ different
 than the best Gaussian results we could run for small radii and diverge from the
 Gaussian results for bigger radii. Secondly we see that we don't need a relatively big
-precision to get stable results which are consistent with greater precisions and
+precision to get stable results which are consistent with greater previsions and
 that also approach the Gaussian results at bigger radii.
 
 On the other hand, it is hard to decide if this is applicable to bigger systems,
@@ -495,7 +495,7 @@ $4.0$ point, which is hard to correct. This discontinuity brings forth numerical
 noise that gets amplified when the derivative of the function is calculated to solve the
 \ac{GPE}.
 
-Fosso-Tande defined the derivative of the Cavity as combinations of analytical
+Fosso--Tande defined the derivative of the Cavity as combinations of analytical
 derivatives \cite{FossoTande:2013ka}. This definition supposedly would help
 remove numerical noise at the transition, since one can create these analytical
 derivatives before projecting them into the \ac{MW} basis.
@@ -554,7 +554,7 @@ with the implementation used now, but decreasing the width of the transition mig
 make the cavity harder to project.
 
 A better solution to this is to implement the derivative of the caivty as
-a combination of analytical derivatives, as Fosso-Tande did in \cite{FossoTande:2013ka}, which
+a combination of analytical derivatives, as Fosso--Tande did in \cite{FossoTande:2013ka}, which
 might let us get better results with the same parameters used in the tests of this chapter.
 
 Another attractive solution is to use layered cavities, in which we have a step-like

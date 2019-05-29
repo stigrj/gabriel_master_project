@@ -10,32 +10,32 @@
 
 \section{Structure of thesis}
 In chapter \ref{chap:Quantum_chemistry} of this thesis we will present the quantum
-and computational Chemical formalisms and methods used Among these is the
-Born-oppenheimer approximation, Variational principle, Hartree-Fock method and
-Density Functional Theory.
+and computational Chemical formalism and methods used among these is the
+Born--Oppenheimer approximation, variational principle, \ac{HF} method and
+\ac{DFT}.
 
 basis for solving quantum systems. Some examples of Wavelet basis are shown and
-Chapter \ref{chap:MW_basis} will mention some basis sets and define multiwavelet
+Chapter \ref{chap:MW_basis} will mention some basis sets and define \ac{MW}
 the implementation of different operators is described.
 
 Chapter \ref{chap:Solvent_effect}
 describes the particular system we work with in this thesis, namely, Solvent
 effect and Reaction Potential. This chapter will also introduce a new variational
-formulation of the Generalized poisson equation used in solving the electrostatic
+formulation of the Generalized Poisson equation used in solving the electrostatic
 Reaction Field problem.
 
 Chapter \ref{chap:implementation} describes how the Reaction Field Potential was implemented
-using \mrchem. It will also describe the way the variational formulatins was implemented.
+using \mrchem. It will also describe the way the variational formulations was implemented.
 
 Chapter \ref{chap:Results} Goes through the systems that were used to test the implementation,
-along with the type of tests that were perfomed. The results will be tabulated and
+along with the type of tests that were performed. The results will be tabulated and
 some figures will be shown. Finally an analysis and discussion of the results will be
 presented along with points of improvement and future development.
 \section{Notation}
 Notation differs slightly between works in computational and Quantum Chemistry.
 Most of the equations and formulas use the same standard notation, while others
-might differ slightly in accents and other details in their notations. therefore
-in this section i will sumarize the notation used in this thesis.
+might differ slightly in accents and other details in their notations. Therefore
+in this section I will summarize the notation used in this thesis.
 
 The following Table \ref{tab:notation} shows most of the notation used for
 common objects in mathematics and quantum mechanics.
@@ -45,7 +45,7 @@ common objects in mathematics and quantum mechanics.
     \resizebox{\textwidth}{!}{
   \begin{tabular}{|l|l|c|}
     \hline
-    Object & Description of notation & Exampls\\  \hline
+    Object & Description of notation & Examples\\  \hline
     \rule{0pt}{12.5pt}vectors & lower case letter, or symbol, with an arrow above them & $\rvec, \vec{x}, \vec{\Psi}$ \\  \hline
     \rule{0pt}{12.5pt}vector elements & lower case letter, or symbol, with an arrow above them and index subscripts &  $\rvec_i, \vec{x}_1, \vec{\Psi}_x$ \\ \hline
     \rule{0pt}{12.5pt}matrices & Upper case letter or symbols with a line above them &  $\bar{A}, \bar{F}, \bar{S}$ \\ \hline
@@ -59,7 +59,7 @@ common objects in mathematics and quantum mechanics.
 Additionally we will mostly be working with atomic units. This means that many common
 constants are reduced to unit value. The constants used in this thesis are the
 elementary charge $e$ the reduced Planck constant $\hbar$, the electron mass $m_e$ and
-vacuum premitivity $4\pi\epso$ are all unit value.
+vacuum permittivity $4\pi\epso$ are all unit value.
 
 Finally, we will be working in Dirac notation. This means that we write a state
 vector of a system described by wave function $\Psi$ as $\ket{\Psi}$ and its
